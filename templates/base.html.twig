@@ -10,32 +10,33 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
         {% endblock %}
-
-        <nav>
-            <ul>
-                <li><a href="{{path('app_home')}}">ACCUEIL</a></li>
-                <li><a href="{{path('app_alentours')}}">LES ALENTOURS</a></li>
-                <li><a href="{{path('app_espace')}}">CHAMBRES ET ESPACES DE VIE</a></li>
-                <div class="logo">
-                    <li><a href="{{path('app_home')}}">Au Paradis d'Eve</a></li>
-                    <li><a href="{{path('app_home')}}">Maison d'hôte à Bitche</a></li>
-                </div>
-                <li><a href="{{path('app_reservation')}}">RESERVATION</a></li>
-                <li><a href="">CONTACT</a></li>
-                <li><a href="">AVIS</a></li>
-                <div class="user">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <li><a href="">CONNEXION</a></li>
-                </div>
-            </ul>
-        </nav>
     </head>
     <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="{{path('app_home')}}">ACCUEIL</a></li>
+                    <li><a href="{{path('app_alentours')}}">LES ALENTOURS</a></li>
+                    <li><a href="{{path('app_espace')}}">CHAMBRES ET ESPACES DE VIE</a></li>
+                    <div class="logo">
+                        <li><a href="{{path('app_home')}}">Au Paradis d'Eve</a></li>
+                        <li><a href="{{path('app_home')}}">Maison d'hôte à Bitche</a></li>
+                    </div>
+                    <li><a href="{{path('app_reservation')}}">RESERVATION</a></li>
+                    <li><a href="">CONTACT</a></li>
+                    <li><a href="">AVIS</a></li>
+                    <div class="user">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <li><a href="">CONNEXION</a></li>
+                    </div>
+                </ul>
+            </nav>
+        </header>
         <footer>
             <a href="">Mentions légales</a><p>&</p><a href="">Conditions générales</a>
         </footer>
         {% block body %}{% endblock %}
-
+        
         {% block javascripts %}
         {% endblock %}
     </body>
