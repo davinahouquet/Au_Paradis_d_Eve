@@ -3,18 +3,49 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <section class="parallax-home">
+        <h1>Au Paradis d'Eve</h1>
+        <p><strong>Maison d'hôte</strong> d'exception dans un cadre exceptionnel à 2h de <strong>Strasbourg</strong></p>
+        <p><a href="">Réservez</a> sur notre site en toute sécurité</p>
+        <p>Envorionnement <strong>calme</strong> et verdoyant</p>
+    </section>
+    <section class="apercu-chambres">
+        <img src="" alt="">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/Au_Paradis_d_Eve/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/Au_Paradis_d_Eve/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <a href="">Réservez votre séjour</a>
+
+        {% for chambre in chambres %}
+            {{chambre.nomEspace}}
+            {{chambre.prix}}€
+            <p>Disponible à partir du</p>
+            <a href="">Réserver</a>
+        {% endfor %}
+    </section>
+    <section class="pdb">
+        <h2>Le Pays de Bitche</h2>
+        <p>Bienvenue dans le magnifique <strong>Pays de Bitche</strong> et ses environs ! Niché au cœur du département de la Moselle, ce territoire enchanteur regorge de trésors historiques et naturels à découvrir. Explorez le charme médiéval de la ville de <strong>Bitche</strong>, dominée par son imposant château perché sur un éperon rocheux, offrant des panoramas à couper le souffle sur la région. Laissez-vous émerveiller par les vestiges de l'histoire, tels que les fortifications de la <strong>Ligne Maginot</strong>, témoins d'un passé tumultueux. Les amateurs de nature seront comblés par les vastes forêts environnantes, les sentiers de randonnée pittoresques et les lacs paisibles, propices à la détente et aux activités de plein air. Découvrez une terre riche en traditions, en artisanat local et en festivités typiques qui rythment la vie de ses habitants. Le Pays de Bitche et ses alentours vous réservent une expérience authentique, mêlant patrimoine, <strong>nature</strong> et convivialité.</p>
+        <img src="" alt="L'Altschlossfelsen, nom à consonance germanique signifie :Rocher du Vieux Château.  Barre rocheuse aux couleurs rougeâtres qui porte toutes les particularités géologiques des Vosges du Nord.">
+    </section>
+    <section class="mascotte">
+        <h3>Notre mascotte</h3>
+        <img src="" alt="Chat noir et blanc">
+        <p>Simba est notre "maîtresse des lieux" et elle prend son rôle très au sérieux. Elle sait parfaitement comment se faufiler dans chaque recoin de la maison pour s'assurer que tout se passe comme il se doit. Si quelque chose ne lui plaît pas, attendez-vous à recevoir un regard désapprobateur qui vous ferait fondre sur place !
+        Ne vous fiez pas à son apparence douce et innocente. Simba est un vrai petit génie de la ruse. Elle connaît tous les stratagèmes pour obtenir les caresses les plus appréciées et les friandises les plus savoureuses. Elle a même appris à ouvrir les portes de nos chambres pour s'inviter discrètement à vos côtés lors de votre séjour. Elle est sans aucun doute la chef des opérations de charme !</p>
+    </section>
+    <section class="contact">
+        <h4>Contactez-nous...</h4>
+        <div class="infos-contact">
+            <h5>Pour contacter Eve...</h5>
+            <p>0387965533</p>
+            <p>0613325702</p>
+            <p>61B Rue de la Montagne 57230 Bitche</p>
+            <p>auparadisdeve@gmail.com</p>
+        </div>
+        <div class="form-contact">
+            <form action="">
+
+            </form>
+        </div>
+    </section>
 {% endblock %}
