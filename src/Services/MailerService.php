@@ -12,7 +12,7 @@ class MailerService
     }
 
     public function sendEmail(
-        $to = 'siteadmin@hotmail.fr',
+        $to = 'admin@auparadisdeve.fr',
         $subject = 'Sujet du mail',
         $content = '',
         $text = ''
