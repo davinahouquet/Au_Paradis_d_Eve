@@ -21,6 +21,17 @@ class EspaceRepository extends ServiceEntityRepository
         parent::__construct($registry, Espace::class);
     }
 
+    public function findByCategorie($categorieId): array
+    {
+    return $this->createQueryBuilder('e')
+        ->andWhere('e.categorie = :categorieId')
+        ->setParameter('categorieId', $categorieId)
+        ->orderBy('e.id', 'ASC')
+        ->setMaxResults(10)
+        ->getQuery()
+        ->getResult()
+    ;
+    }
 //    /**
 //     * @return Espace[] Returns an array of Espace objects
 //     */
