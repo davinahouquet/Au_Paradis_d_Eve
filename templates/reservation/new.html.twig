@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire de réservation{% endblock %}
+
+{% block body %}
+    <h1>Réservation de [nom de l'espace]</h1>
+
+    <div class="reservation-form">
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.prenom) }}
+            {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    
+        <div class="form-group">
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    
+        <div class="form-group">
+            {{ form_label(form.telephone) }}
+            {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    
+        <div class="form-group">
+            {{ form_label(form.nb_personnes) }}
+            {{ form_widget(form.nb_personnes, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    
+        <div class="form-group">
+            {{ form_label(form.date_debut) }}
+            {{ form_widget(form.date_debut, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    
+        <div class="form-group">
+            {{ form_label(form.date_fin) }}
+            {{ form_widget(form.date_fin, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    
+        {# <div class="form-group">
+            {{ form_label(form.prixTotal) }}
+            {{ form_widget(form.prixTotal, {'attr': {'class': 'form-control'}}) }}
+        </div>
+     #}
+        <div class="form-group">
+            {{ form_label(form.options) }}
+            {{ form_widget(form.options, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    
+        {# <div class="form-group">
+            {{ form_label(form.note) }}
+            {{ form_widget(form.note, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    
+        <div class="form-group">
+            {{ form_label(form.avis) }}
+            {{ form_widget(form.avis, {'attr': {'class': 'form-control'}}) }}
+        </div> #}
+    
+        <div class="form-group">
+            {{ form_label(form.espace) }}
+            {{ form_widget(form.espace, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    
+        <button type="submit" class="btn btn-primary">Réserver</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
