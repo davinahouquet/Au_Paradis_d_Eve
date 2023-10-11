@@ -16,7 +16,7 @@
         <a href="">Réservez votre séjour</a>
 
         {% for chambre in chambres %}
-            {{chambre.nomEspace}}
+            <a href="{{path('show_espace', {'id' :chambre.id})}}">{{chambre.nomEspace}}</a>
             {{chambre.prix}}€
             <p>Disponible à partir du</p>
             <a href="">Réserver</a>
@@ -43,9 +43,13 @@
             <p>auparadisdeve@gmail.com</p>
         </div>
         <div class="form-contact">
-            <form action="">
+            {{ form_start(form) }}
 
-            </form>
+            {{ form_row(form.email) }}
+            {{ form_row(form.message) }}
+            {{ form_row(form.valider)}}
+
+            {{ form_end(form) }}
         </div>
     </section>
 {% endblock %}

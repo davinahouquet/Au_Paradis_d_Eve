@@ -2,17 +2,45 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Espace;
+use App\Form\ContactType;
+use App\Services\MailerService;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, MailerService $mailer): Response
     {
+       
+        $repository = $entityManager->getRepository(Espace::class);
+
+        // Va trier les espaces selon la categorie 1 (Qui correspond aux chambres dans ma BDD)
+        $chambres = $repository->findByCategorie(1);
+
+        $form = $this->createForm(ContactType::class);
+
+        $form->handleRequest($request);
+   
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $contactFormData = $form->getData();
+            $subject = 'Demande de contact sur votre site de ' . $contactFormData['email'];
+            $content = $contactFormData['message'];
+            $mailer->sendEmail(subject: $subject, content: $content);
+
+            $this->addFlash('success', 'Votre message a bien été envoyé');
+            return $this->redirectToRoute('app_home');
+        }
+
+
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'chambres' => $chambres,
+            'form' => $form->createView()
         ]);
     }
 }
