@@ -1,5 +1,7 @@
 
-
+body{
+    position: relative;
+}
 
 nav{
     position: sticky;
@@ -24,4 +26,19 @@ ul a{
 .apercu-chambres{
     width: 100%;
     min-height: 100vh;
+}
+
+.contact{
+    min-height: 100vh;
+}
+
+.reservation-form{
+    min-height: 100vh;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    display: flex;
 }
