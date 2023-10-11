@@ -2,24 +2,25 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>🤎​</text></svg>">
         {% block stylesheets %}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="{{asset('style.css')}}">
+        <link rel="stylesheet" href="{{asset('css/style.css')}}">
         {% endblock %}
 
         <nav>
             <ul>
                 <li><a href="{{path('app_home')}}">ACCUEIL</a></li>
-                <li><a href="">LES ALENTOURS</a></li>
-                <li><a href="">CHAMBRES ET ESPACES DE VIE</a></li>
+                <li><a href="{{path('app_alentours')}}">LES ALENTOURS</a></li>
+                <li><a href="{{path('app_espace')}}">CHAMBRES ET ESPACES DE VIE</a></li>
                 <div class="logo">
-                    <li><a href="">Au Paradis d'Eve</a></li>
-                    <li><a href="">Maison d'hôte à Bitche</a></li>
+                    <li><a href="{{path('app_home')}}">Au Paradis d'Eve</a></li>
+                    <li><a href="{{path('app_home')}}">Maison d'hôte à Bitche</a></li>
                 </div>
-                <li><a href="">RESERVATION</a></li>
+                <li><a href="{{path('app_reservation')}}">RESERVATION</a></li>
                 <li><a href="">CONTACT</a></li>
                 <li><a href="">AVIS</a></li>
                 <div class="user">
@@ -30,6 +31,9 @@
         </nav>
     </head>
     <body>
+        <footer>
+            <a href="">Mentions légales</a><p>&</p><a href="">Conditions générales</a>
+        </footer>
         {% block body %}{% endblock %}
 
         {% block javascripts %}
