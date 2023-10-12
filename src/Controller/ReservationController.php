@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Espace;
 use App\Form\ReservationType;
 use App\Repository\EspaceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -9,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Reservation;
 
 class ReservationController extends AbstractController
 {
@@ -23,9 +25,14 @@ class ReservationController extends AbstractController
         ]);
     }
     // rajouter un {id} dans cette route
-    #[Route('/newReservation/', name: 'new_reservation')]
-    public function newReservation(EntityManagerInterface $entityManager, Request $request)
+    #[Route('/reservation/new/{id}', name: 'new_reservation')]
+    public function newReservation(Espace $espace, EspaceRepository $espaceRepository, EntityManagerInterface $entityManager, Request $request)
     {
+
+        $chambre = $espace->getNomEspace();
+
+        $reservation = new Reservation();
+        $reservation->setEspace($espace);
 
         $form = $this->createForm(ReservationType::class);
         $form->handleRequest($request);
@@ -41,7 +48,8 @@ class ReservationController extends AbstractController
             }
     
             return $this->render('reservation/new.html.twig', [
-                'form' => $form
+                'form' => $form,
+                'chambre' => $chambre
             ]);
         }
 }
