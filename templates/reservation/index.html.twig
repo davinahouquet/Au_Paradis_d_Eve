@@ -14,7 +14,7 @@
     </div>
     {# for...sur les chambres #}
     {% for chambre in chambres %}
-    <a href="{{path('new_reservation')}}">{{chambre.nomEspace}}</a>
+    <a href="{{ path('new_reservation', {'id' :chambre.id})}}">{{chambre.nomEspace}}</a>
     {% endfor %}
 
     <div class="carte-chambre">
