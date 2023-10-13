@@ -32,9 +32,17 @@ class ReservationType extends AbstractType
             'label' => 'Nombre de personnes*',
         ])
         ->add('date_debut', DateType::class, [
+            'widget' => 'single_text',
+            'attr' => [
+                'class' => 'form-control'
+            ],
             'label' => 'Date de début*',
         ])
         ->add('date_fin', DateType::class, [
+            'widget' => 'single_text',
+            'attr' => [
+                'class' => 'form-control'
+            ],
             'label' => 'Date de fin*',
         ])
         // ->add('prixTotal', NumberType::class, [
