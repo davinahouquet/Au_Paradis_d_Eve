@@ -7,11 +7,13 @@
 
     <div class="resume-reservation">
         <h2>Résumé de la réservation</h2>
-        <p>Du [date_arrivée] au [date_fin]</p>
+        <p>Du {{reservation.dateDebutFr}} au {{reservation.dateFinFr}}</p>
         <p>Check-in à partir de 15h - Check-out à 11h</p>
         <hr>
-        <p>[nom_chambre]</p>
-        <p>[infos_chambre taille, wifi...]</p>
+        <p>{{espace.nomEspace}}</p>
+        <p>{{espace.taille}} m²</p>
+        <p>{{espace.nbPlaces}} places</p>
+        <p>{{espace.wifi}}</p>
 
     </div>
     <div class="etape-reservation-form">
@@ -25,6 +27,9 @@
             {{ form_label(form.pays) }}
         {{ form_end(form) }}
 
+        <p>Se souvenir de moi</p>
+        <p>Ces informations apparaîtront sur votre facture</p>
+        <p>Les champs marqués d'un * sont obligatoires</p>
     </div>
 
 {% endblock %}
