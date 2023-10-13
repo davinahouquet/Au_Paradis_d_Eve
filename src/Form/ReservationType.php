@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class ReservationType extends AbstractType
@@ -19,40 +20,46 @@ class ReservationType extends AbstractType
     {
         $builder
         ->add('prenom', TextType::class, [
-            'label' => 'Prénom',
+            'label' => 'Prénom*',
         ])
         ->add('nom', TextType::class, [
-            'label' => 'Nom',
+            'label' => 'Nom*',
         ])
         ->add('telephone', TextType::class, [
-            'label' => 'Téléphone',
+            'label' => 'Téléphone*',
         ])
         ->add('nb_personnes', NumberType::class, [
-            'label' => 'Nombre de personnes',
+            'label' => 'Nombre de personnes*',
         ])
         ->add('date_debut', DateType::class, [
-            'label' => 'Date de début',
+            'label' => 'Date de début*',
         ])
         ->add('date_fin', DateType::class, [
-            'label' => 'Date de fin',
+            'label' => 'Date de fin*',
         ])
         // ->add('prixTotal', NumberType::class, [
         //     'label' => 'Prix total',
         // ])
-        ->add('options', TextType::class, [
-            'label' => 'Options',
-        ])
+        // ->add('options', TextType::class, [
+        //     'label' => 'Options',
+        // ])
         // ->add('note', TextType::class, [
         //     'label' => 'Note',
         // ])
         // ->add('avis', TextType::class, [
         //     'label' => 'Avis',
         // ])
-        ->add('espace', EntityType::class, [
-            'class' => Espace::class,
-            'choice_label' => 'nomEspace', 
-            'label' => 'Chambre',
-        ]);
+        // ->add('espace', EntityType::class, [
+        //     'class' => Espace::class,
+        //     'choice_label' => 'nomEspace', 
+        //     'label' => 'Chambre',
+        // ])
+        ->add('prixTotal', MoneyType::class, [
+            'label' => 'Prix total',
+            'disabled' => true, // Rendre le champ en lecture seule
+            'currency' => 'EUR', // Devise, à adapter en fonction de votre besoin
+        ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
