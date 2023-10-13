@@ -65,15 +65,18 @@ CREATE TABLE IF NOT EXISTS `espace` (
   PRIMARY KEY (`id`),
   KEY `IDX_6AB096DBCF5E72D` (`categorie_id`),
   CONSTRAINT `FK_6AB096DBCF5E72D` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.espace : ~4 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.espace : ~7 rows (environ)
 INSERT INTO `espace` (`id`, `categorie_id`, `nom_espace`, `taille`, `wifi`, `nb_places`, `prix`) VALUES
 	(1, 1, 'Chambre des Liilas', 23, 1, 2, 40),
 	(2, 1, 'Chambre du Tournesol', 15, 1, 2, 40),
 	(3, 1, 'Chambre du Temps', 30, 1, 4, 50),
 	(4, 6, 'Salon principal', 45, 1, NULL, 0),
-	(5, 11, 'Appartement Azure', 120, 1, 6, 120);
+	(5, 11, 'Appartement Azure', 120, 1, 6, 120),
+	(6, 1, 'Chambre Maeva', 19, 1, 3, 60),
+	(7, 1, 'Chambre Magalie', 20, 1, 2, 60),
+	(8, 1, 'Chambre Davina', 10, 1, 2, 50);
 
 -- Listage de la structure de table au_paradis_d_eve. image
 CREATE TABLE IF NOT EXISTS `image` (
@@ -136,11 +139,18 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   KEY `IDX_42C84955B6885C6C` (`espace_id`),
   CONSTRAINT `FK_42C84955B6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`),
   CONSTRAINT `FK_42C84955CB7B94E6` FOREIGN KEY (`user_reservations_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.reservation : ~1 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.reservation : ~7 rows (environ)
 INSERT INTO `reservation` (`id`, `user_reservations_id`, `espace_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `options`, `note`, `avis`) VALUES
-	(1, 1, 1, 'UserPrenom', 'UserNom', 623365416, 2, '2023-10-10 13:43:15', '2023-10-10 13:43:17', 50, NULL, NULL, NULL);
+	(1, 1, 1, 'UserPrenom', 'UserNom', 623365416, 2, '2023-10-10 13:43:15', '2023-10-10 13:43:17', 50, NULL, NULL, NULL),
+	(2, NULL, 3, '"trg', '"t(', 618208514, 2, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 18250, NULL, NULL, NULL),
+	(3, NULL, 3, '"trg', '"t(', 618208514, 2, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 18250, NULL, NULL, NULL),
+	(4, NULL, 3, '"trg', '"t(', 618208514, 2, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 18250, NULL, NULL, NULL),
+	(5, NULL, 3, '"trg', '"t(', 618208514, 2, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 18250, NULL, NULL, NULL),
+	(6, NULL, 3, 'Davina', 'Houquet', 618208514, 2, '2021-01-01 00:00:00', '2022-01-04 00:00:00', 18400, NULL, NULL, NULL),
+	(7, NULL, 1, 'User', 'User', 61332502, 3, '2018-01-03 00:00:00', '2018-01-05 00:00:00', 80, NULL, NULL, NULL),
+	(8, NULL, 1, 'testuser', 'testuser', 613325702, 3, '2018-01-01 00:00:00', '2018-01-04 00:00:00', 120, NULL, NULL, NULL);
 
 -- Listage de la structure de table au_paradis_d_eve. user
 CREATE TABLE IF NOT EXISTS `user` (
