@@ -3,13 +3,20 @@
 {% block title %}Détails d'un espace!{% endblock %}
 
 {% block body %}
-   {{espace.nomEspace}}
-   {{espace.taille}} m²
-   {{espace.wifi}}
-   {{espace.nbPlaces}} personnes
-   {{espace.prix}}€
-   
-   {% for image in espace.images %}
-        <img src="../img/{{image.lienImage}}" width="300">
-   {% endfor %}
+
+ <div class="details-espace">
+    {{espace.nomEspace}}
+    {{espace.taille}} m²
+    {{espace.wifi}}
+    {{espace.nbPlaces}} personnes
+    {{espace.prix}}€
+    
+    {% for image in espace.images %}
+         <img src="../img/{{image.lienImage}}" width="300">
+    {% endfor %}
+
+    {# {% if espace.categorie == '1' %} #}
+      <a href="{{ path('new_reservation', {'id' :espace.id})}}">Réserver</a>
+    {# {% endif %} #}
+ </div>
 {% endblock %}
