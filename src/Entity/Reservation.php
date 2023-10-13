@@ -56,6 +56,18 @@ class Reservation
         return $this->id;
     }
 
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): static
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
     public function getNom(): ?string
     {
         return $this->nom;
@@ -115,11 +127,39 @@ class Reservation
 
         return $this;
     }
+// Pour obtenir la durée du séjour (en nb de jours)
+    public function getDuree(): ?int
+    {
+        $difference = $this->date_debut->diff($this->date_fin);
+        return $difference->days;
+    
+    }
 
+    // Retourne le résultat du calcul
     public function getPrixTotal(): ?float
     {
-        return $this->prixTotal;
+        $prixTotal = $this->calculerPrixTotal();
+
+    return $prixTotal;
     }
+
+    // Calcule le prix total en fonctiond e la durée du séjour
+    public function calculerPrixTotal(): ?float
+{
+    if ($this->espace && $this->date_debut && $this->date_fin) {
+        $difference = $this->date_debut->diff($this->date_fin);
+        $duree = $difference->days;
+
+        // Vérifiez que l'objet Espace est défini
+        if ($this->espace) {
+            $prixChambre = $this->espace->getPrix();
+            $prixTotal = $prixChambre * $duree;
+            return $prixTotal;
+        }
+    }
+
+    return null;
+}
 
     public function setPrixTotal(float $prixTotal): static
     {
