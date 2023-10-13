@@ -26,7 +26,7 @@ class ReservationController extends AbstractController
     }
     // rajouter un {id} dans cette route
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
-    public function newReservation(Espace $espace, EspaceRepository $espaceRepository, EntityManagerInterface $entityManager, Request $request)
+    public function newReservation(Espace $espace, EntityManagerInterface $entityManager, Request $request)
     {
 
         $chambre = $espace->getNomEspace();
@@ -34,18 +34,24 @@ class ReservationController extends AbstractController
         $reservation = new Reservation();
         $reservation->setEspace($espace);
 
-        $form = $this->createForm(ReservationType::class);
+        $form = $this->createForm(ReservationType::class, $reservation);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-    
+            
             $reservation = $form->getData();
-                
+
+            // Calcul du prix total
+            $prixTotal = $reservation->calculerPrixTotal();
+            $reservation->setPrixTotal($prixTotal);
+            
             $entityManager->persist($reservation);
             $entityManager->flush();
     
             $this->addFlash('message', 'La réservation a bien été prise en compte');
-            return $this->redirectToRoute('app__reservation');
-            }
+            return $this->redirectToRoute('app_reservation');
+            // Redirigera vers le récap de la réservation (si paiement sur la page de paiement)
+        }
     
             return $this->render('reservation/new.html.twig', [
                 'form' => $form,
