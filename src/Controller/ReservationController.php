@@ -92,7 +92,7 @@ class ReservationController extends AbstractController
             return $this->redirectToRoute('app_home');
             // Redirigera vers le récap de la réservation (si paiement sur la page de paiement)
 
-            return $this->render('reservation/etapeReservation.html.twig', [
+            return $this->render('reservation/coordonnees.html.twig', [
                 'form' => $form,
                 'chambre' => $chambre
             ]);
