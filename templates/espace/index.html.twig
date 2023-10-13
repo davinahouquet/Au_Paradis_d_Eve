@@ -3,7 +3,9 @@
 {% block title %}Chambres et espaces de vie{% endblock %}
 
 {% block body %}
-    {% for espace in espaces %}
-        <a href="{{path('show_espace', {'id' :espace.id})}}"> {{espace.nomEspace}}</a>
-    {% endfor %}
+    <div class="espaces">
+        {% for espace in espaces %}
+            <a href="{{path('show_espace', {'id' :espace.id})}}"> {{espace.nomEspace}}</a>
+        {% endfor %}
+    </div>
 {% endblock %}
