@@ -51,6 +51,15 @@ class Reservation
     #[ORM\JoinColumn(nullable: false)]
     private ?Espace $espace = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $adresseFacturation = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $facture = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -224,6 +233,42 @@ class Reservation
     public function setEspace(?Espace $espace): static
     {
         $this->espace = $espace;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getAdresseFacturation(): ?string
+    {
+        return $this->adresseFacturation;
+    }
+
+    public function setAdresseFacturation(string $adresseFacturation): static
+    {
+        $this->adresseFacturation = $adresseFacturation;
+
+        return $this;
+    }
+
+    public function getFacture(): ?string
+    {
+        return $this->facture;
+    }
+
+    public function setFacture(string $facture): static
+    {
+        $this->facture = $facture;
 
         return $this;
     }
