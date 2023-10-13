@@ -18,21 +18,8 @@ ul a{
     text-decoration: none;
 }
 
-.parallax-home{
+.parallax-home, .espaces, .details-espace, .apercu-chambres, .contact, .reservation-form, .selection-sejour{
     width: 100%;
-    min-height: 100vh;
-}
-
-.apercu-chambres{
-    width: 100%;
-    min-height: 100vh;
-}
-
-.contact{
-    min-height: 100vh;
-}
-
-.reservation-form{
     min-height: 100vh;
 }
 
