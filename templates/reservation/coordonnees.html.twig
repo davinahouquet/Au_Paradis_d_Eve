@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etape 2 réservation{% endblock %}
+
+{% block body %}
+    <h1>Réservation</h1>
+
+    <div class="resume-reservation">
+        <h2>Résumé de la réservation</h2>
+        <p>Du [date_arrivée] au [date_fin]</p>
+        <p>Check-in à partir de 15h - Check-out à 11h</p>
+        <hr>
+        <p>[nom_chambre]</p>
+        <p>[infos_chambre taille, wifi...]</p>
+
+    </div>
+    <div class="etape-reservation-form">
+        <h3>Vos coordonnées</h3>
+
+        {{ form_start(form) }}
+            {{ form_label(form.email) }}
+            {{ form_label(form.adresse) }}
+            {{ form_label(form.cp) }}
+            {{ form_label(form.ville) }}
+            {{ form_label(form.pays) }}
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}
