@@ -75,26 +75,51 @@ class ReservationController extends AbstractController
 
         // Ajouter les coordonnées dans la deuxième étape de la réservation
         #[Route('/reservation/coordonnees/{reservation}', name: 'new_coordonnees')]
-        public function coordonnees(Reservation $reservation, Espace $espace = null, EntityManagerInterface $entityManager, Request $request)
+        public function coordonnees(Reservation $reservation, Espace $espace = null, User $user = null, EntityManagerInterface $entityManager, Request $request)
         {
 
             $espace = $reservation->getEspace();
             // Afficher toutes les infos de la réservation
-            $chambre = $espace->getNomEspace();
+            
+            // $chambre = $espace->getNomEspace();
 
             // Formulaire des coordonnées
-            $form = $this->createForm(CoordonneesType::class);
+            $form = $this->createForm(CoordonneesType::class, $user);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                
+                $coordonnees = $form->getData();
+    
+                // dd($user);
+                if($user != null){
+                    $user->setRole();
+                }
+
+                if(!$user){
+                    
+                }   
+
+                //update user
+                // $user->setAdresse($adresse);
+                // $user->setCp($cp);
+                // $user->setVille($ville);
+                // $user->setPays($pays);
+    
+                $entityManager->persist($coordonnees);
+                $entityManager->flush();
+        
+                $this->addFlash('message', 'La réservation a bien été prise en compte');
+                return $this->redirectToRoute('app_home');
+            }
 
 
 
-
-            $this->addFlash('message', 'La réservation a bien été prise en compte');
-            return $this->redirectToRoute('app_home');
             // Redirigera vers le récap de la réservation (si paiement sur la page de paiement)
 
             return $this->render('reservation/coordonnees.html.twig', [
                 'form' => $form,
-                'chambre' => $chambre
+                'espace' => $espace,
+                'reservation' => $reservation
             ]);
         }
 
