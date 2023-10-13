@@ -44,17 +44,16 @@ class Reservation
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $avis = null;
 
-    #[ORM\ManyToOne(inversedBy: 'reservations')]
-    private ?User $user_reservations = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Espace $espace = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 100)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $adresseFacturation = null;
 
     #[ORM\Column(length: 255)]
@@ -118,6 +117,10 @@ class Reservation
         return $this->date_debut;
     }
 
+    public function getDateDebutFr(): ?string{
+        return $this->date_debut->format("d-m-Y");
+    }
+
     public function setDateDebut(\DateTimeInterface $date_debut): static
     {
         $this->date_debut = $date_debut;
@@ -129,6 +132,10 @@ class Reservation
     {
         return $this->date_fin;
     }
+
+    public function getDateFinFr(): ?string{
+            return $this->date_fin->format("d-m-Y");
+        }
 
     public function setDateFin(\DateTimeInterface $date_fin): static
     {
@@ -254,7 +261,7 @@ class Reservation
         return $this->adresseFacturation;
     }
 
-    public function setAdresseFacturation(string $adresseFacturation): static
+    public function setAdresseFacturation(?string $adresseFacturation): static
     {
         $this->adresseFacturation = $adresseFacturation;
 
