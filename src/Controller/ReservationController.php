@@ -82,22 +82,23 @@ class ReservationController extends AbstractController
             // Afficher toutes les infos de la réservation
             
             // $chambre = $espace->getNomEspace();
-
+            
             // Formulaire des coordonnées
             $form = $this->createForm(CoordonneesType::class, $user);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 
                 $coordonnees = $form->getData();
-    
+                
                 // dd($user);
                 if($user != null){
-                    $user->setRole();
+                    $user->setRoles([]);
+                    // $user->setPassword();
                 }
 
-                if(!$user){
+                // if(!$user){
                     
-                }   
+                // }   
 
                 //update user
                 // $user->setAdresse($adresse);
@@ -111,8 +112,6 @@ class ReservationController extends AbstractController
                 $this->addFlash('message', 'La réservation a bien été prise en compte');
                 return $this->redirectToRoute('app_home');
             }
-
-
 
             // Redirigera vers le récap de la réservation (si paiement sur la page de paiement)
 
