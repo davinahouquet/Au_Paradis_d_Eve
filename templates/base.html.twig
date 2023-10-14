@@ -28,8 +28,14 @@
                     <li><a href="">AVIS</a></li>
                     <div class="user">
                         <i class="fa-solid fa-circle-user"></i>
-                        <li><a href="{{path('app_login')}}">CONNEXION</a></li>
-                        <li><a href="{{path('app_register')}}">INSCRIPTION</a></li>
+                        {{app.user.pseudo}}
+
+                        {% if app.user %}
+                            <li><a href="{{path('app_logout')}}">DECONNEXION</a></li>
+                        {% else %}
+                            <li><a href="{{path('app_login')}}">CONNEXION</a></li>
+                            <li><a href="{{path('app_register')}}">INSCRIPTION</a></li>
+                        {% endif %}
                     </div>
                 </ul>
             </nav>
