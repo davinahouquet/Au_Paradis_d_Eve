@@ -27,7 +27,7 @@ class ReservationController extends AbstractController
         ]);
     }
     
-    // rajouter un {id} dans cette route
+    // Ajouter une réservation OU modifier
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
     public function newReservation(Reservation $reservation, Espace $espace, EntityManagerInterface $entityManager, Request $request)
     {
@@ -74,53 +74,53 @@ class ReservationController extends AbstractController
         }
 
         // Ajouter les coordonnées dans la deuxième étape de la réservation
-        #[Route('/reservation/coordonnees/{reservation}', name: 'new_coordonnees')]
-        public function coordonnees(Reservation $reservation, Espace $espace = null, User $user = null, EntityManagerInterface $entityManager, Request $request)
-        {
+        // #[Route('/reservation/coordonnees/{reservation}', name: 'new_coordonnees')]
+        // public function coordonnees(Reservation $reservation, Espace $espace = null, User $user = null, EntityManagerInterface $entityManager, Request $request)
+        // {
 
-            $espace = $reservation->getEspace();
-            // Afficher toutes les infos de la réservation
+        //     $espace = $reservation->getEspace();
+        //     // Afficher toutes les infos de la réservation
             
-            // $chambre = $espace->getNomEspace();
+        //     // $chambre = $espace->getNomEspace();
             
-            // Formulaire des coordonnées
-            $form = $this->createForm(CoordonneesType::class, $user);
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
+        //     // Formulaire des coordonnées
+        //     $form = $this->createForm(CoordonneesType::class, $user);
+        //     $form->handleRequest($request);
+        //     if ($form->isSubmitted() && $form->isValid()) {
                 
-                $coordonnees = $form->getData();
+        //         $coordonnees = $form->getData();
                 
-                // dd($user);
-                if($user != null){
-                    $user->setRoles([]);
-                    // $user->setPassword();
-                }
+        //         // dd($user);
+        //         if($user != null){
+        //             $user->setRoles([]);
+        //             // $user->setPassword();
+        //         }
 
-                // if(!$user){
+        //         // if(!$user){
                     
-                // }   
+        //         // }   
 
-                //update user
-                // $user->setAdresse($adresse);
-                // $user->setCp($cp);
-                // $user->setVille($ville);
-                // $user->setPays($pays);
+        //         //update user
+        //         // $user->setAdresse($adresse);
+        //         // $user->setCp($cp);
+        //         // $user->setVille($ville);
+        //         // $user->setPays($pays);
     
-                $entityManager->persist($coordonnees);
-                $entityManager->flush();
+        //         $entityManager->persist($coordonnees);
+        //         $entityManager->flush();
         
-                $this->addFlash('message', 'La réservation a bien été prise en compte');
-                return $this->redirectToRoute('app_home');
-            }
+        //         $this->addFlash('message', 'La réservation a bien été prise en compte');
+        //         return $this->redirectToRoute('app_home');
+        //     }
 
-            // Redirigera vers le récap de la réservation (si paiement sur la page de paiement)
+        //     // Redirigera vers le récap de la réservation (si paiement sur la page de paiement)
 
-            return $this->render('reservation/coordonnees.html.twig', [
-                'form' => $form,
-                'espace' => $espace,
-                'reservation' => $reservation
-            ]);
-        }
+        //     return $this->render('reservation/coordonnees.html.twig', [
+        //         'form' => $form,
+        //         'espace' => $espace,
+        //         'reservation' => $reservation
+        //     ]);
+        // }
 
         // #[Route('/reservation/choix')]
         // public function choix()
