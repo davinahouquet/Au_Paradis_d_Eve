@@ -5,8 +5,8 @@
 {% block body %}
     <h1>Poursuivre...</h1>
     <p>En tant qu'invité</p>
-    <a href="">POURSUIVRE</a>
+    <a href="{{ path('new_coordonnees', {'reservation' : reservation.id }) }}">POURSUIVRE</a>
     <hr>
     <p>En me connectant</p>
-    <a href="">CONNEXION</a>
+    <a href="{{ path('app_login')}}">CONNEXION</a>
 {% endblock %}
