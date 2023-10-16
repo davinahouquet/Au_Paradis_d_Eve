@@ -8,6 +8,7 @@
     <div class="resume-reservation">
         <h2>Résumé de la réservation</h2>
         <p>Du {{reservation.dateDebutFr}} au {{reservation.dateFinFr}}</p>
+        <p>Pour {{reservation.nbPersonnes}} personnes (enfants non inclus)</p>
         <p>Check-in à partir de 15h - Check-out à 11h</p>
         <hr>
         <p>{{espace.nomEspace}}</p>
@@ -27,7 +28,6 @@
             {{ form_label(form.pays) }}
         {{ form_end(form) }}
 
-        <p>Se souvenir de moi</p>
         <p>Ces informations apparaîtront sur votre facture</p>
         <p>Les champs marqués d'un * sont obligatoires</p>
     </div>
