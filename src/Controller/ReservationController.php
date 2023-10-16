@@ -29,54 +29,64 @@ class ReservationController extends AbstractController
     
     // Ajouter une réservation OU modifier
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
-    public function newReservation(Reservation $reservation, Espace $espace, User $user, EntityManagerInterface $entityManager, Request $request)
+    public function newReservation( Espace $espace, Reservation $reservation = null, User $user, EntityManagerInterface $entityManager, Request $request)
     {
+        $reservation = new Reservation();
+        
         $email = $user->getEmail();
-        $adresseFacturation = $user->getAdresse(); // on enchainera adresse/ville/cp du user ici
+
+        if(!$user->getAdresse()){
+            $adresseFacturation = "Null";
+        } else {
+            $adresseFacturation = $user->getAdresse()." ".$user->getCp()." ".$user->getVille()." ".$user->getPays();
+        }
         $facture ='lien.pdf'; //lien vers le pdf
 
         $chambre = $espace->getNomEspace();
-
 
         $form = $this->createForm(ReservationType::class, $reservation);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-          
-            //Minimum et maxiumum de jours pour une réservation
+
+            $reservation = $form->getData();
+            $reservation->setEspace($espace);
+            // Calcul du prix total
+            $prixTotal = $reservation->calculerPrixTotal();
+
             if($reservation->getDuree() < 2 ){
-                $this->addFlash('error', 'La réservation doit être de deux nuits minimum');
+                //Minimum de jours pour une réservation
+                $this->addFlash('message', 'La réservation doit être de deux nuits minimum');
                 return $this->redirectToRoute('app_espace');
+
             } elseif($reservation->getDuree() > 28 ) {
-                $this->addFlash('error', 'La réservation ne doit pas excéder 28 jours');
+                //Maximum de jours pour une réservation
+                $this->addFlash('message', 'La réservation ne doit pas excéder 28 jours');
                 return $this->redirectToRoute('app_espace');
+
             } elseif($reservation->getNbPersonnes() > $espace->getNbPlaces()) {
                 //Vérifier que le nb de personnes dans la réservation == nbPlaces de la chambre
-                $this->addFlash('error', 'Nombre de personnes trop élevé. Merci de réserver une autre chambre pour les personnes supplémentaires. (Hors enfants)');
+                $this->addFlash('message', 'Nombre de personnes trop élevé. Merci de réserver une autre chambre pour les personnes supplémentaires. (Hors enfants)');
                 return $this->redirectToRoute('app_espace');
+                
             } else {
-                $reservation = $form->getData();
-    
-                // Calcul du prix total
-                $prixTotal = $reservation->calculerPrixTotal();
                 $reservation->setPrixTotal($prixTotal);
                 
                 // setEmail (il faut set les champs non nullables)
                 $reservation->setEmail($email);
-                $reservation->setEspace($espace);
                 $reservation->setAdresseFacturation($adresseFacturation);
                 $reservation->setFacture($facture);
-    
+                
                 $entityManager->persist($reservation);
                 $entityManager->flush();
-         
+                
                 //Si non connecté redirection page de CHOIX (réserver en tant qu'invité, ou se connecter)
                 // if(!$user){
                     // return $this->redirectToRoute('app_choix');
-                // } else {
-                    $this->addFlash('message', 'Les informations ont bien été prises en compte, vous allez passer à l\'étape suivante...');
-                    return $this->redirectToRoute('new_coordonnees', ['reservation' => $reservation->getId()]);
-                // }
+                    // } else {
+                        $this->addFlash('message', 'Les informations ont bien été prises en compte, vous allez passer à l\'étape suivante...');
+                        return $this->redirectToRoute('new_coordonnees', ['reservation' => $reservation->getId()]);
+                        // }
             }
         }  
             return $this->render('reservation/new.html.twig', [
