@@ -17,6 +17,9 @@ class ContactType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Votre Email',
                 'required' => true,
+                'attr' => [
+                    'autocomplete' => 'off'
+                ]
             ])
             ->add('message', TextareaType::class, [
                 'label' => 'Message',
