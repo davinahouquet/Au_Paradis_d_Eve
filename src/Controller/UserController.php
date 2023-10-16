@@ -41,11 +41,18 @@ class UserController extends AbstractController
                 $cp = $formData['cp'];
                 $ville = $formData['ville'];
                 $pays = $formData['pays'];
+                $souvenir = $formData['souvenir'];
 
 
                 $adresseFacturation = $adresse.' '.$cp." ".$ville.' '.$pays;
                 $reservation->setAdresseFacturation($adresseFacturation);
                 $reservation->setEmail($email);
+
+                //si checkbox cochée : $entityManager->persist($user), $entityManager->flush();
+                if($user && $souvenir == true){
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                }
 
                 $entityManager->persist($reservation);
                 $entityManager->flush();
