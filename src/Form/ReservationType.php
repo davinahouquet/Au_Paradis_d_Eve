@@ -21,18 +21,23 @@ class ReservationType extends AbstractType
         $builder
         ->add('prenom', TextType::class, [
             'label' => 'Prénom*',
+            'required' => true
         ])
         ->add('nom', TextType::class, [
             'label' => 'Nom*',
+            'required' => true
         ])
         ->add('telephone', TextType::class, [
             'label' => 'Téléphone*',
+            'required' => true
         ])
         ->add('nb_personnes', NumberType::class, [
             'label' => 'Nombre de personnes*',
+            'required' => true
         ])
         ->add('date_debut', DateType::class, [
             'widget' => 'single_text',
+            'required' => true,
             'attr' => [
                 'class' => 'form-control'
             ],
@@ -40,32 +45,16 @@ class ReservationType extends AbstractType
         ])
         ->add('date_fin', DateType::class, [
             'widget' => 'single_text',
+            'required' => true,
             'attr' => [
                 'class' => 'form-control'
             ],
             'label' => 'Date de fin*',
         ])
-        // ->add('prixTotal', NumberType::class, [
-        //     'label' => 'Prix total',
-        // ])
-        // ->add('options', TextType::class, [
-        //     'label' => 'Options',
-        // ])
-        // ->add('note', TextType::class, [
-        //     'label' => 'Note',
-        // ])
-        // ->add('avis', TextType::class, [
-        //     'label' => 'Avis',
-        // ])
-        // ->add('espace', EntityType::class, [
-        //     'class' => Espace::class,
-        //     'choice_label' => 'nomEspace', 
-        //     'label' => 'Chambre',
-        // ])
         ->add('prixTotal', MoneyType::class, [
             'label' => 'Prix total',
-            'disabled' => true, // Rendre le champ en lecture seule
-            'currency' => 'EUR', // Devise, à adapter en fonction de votre besoin
+            'disabled' => true, // lecture seule
+            'currency' => 'EUR', // Devise
         ])
         ;
     }
