@@ -10,13 +10,24 @@
     {{espace.wifi}}
     {{espace.nbPlaces}} personnes
     {{espace.prix}}€
+    {{espace.categorie.nomCategorie}}
     
     {% for image in espace.images %}
          <img src="../img/{{image.lienImage}}" width="300">
     {% endfor %}
 
-    {# {% if espace.categorie == '1' %} #}
+    {% if espace.categorie.Id == 1 %}
       <a href="{{ path('new_reservation', {'id' :espace.id})}}">Réserver</a>
-    {# {% endif %} #}
+    {% endif %}
+
+    {% if espace.categorie.Id == 11 %}
+      <a href="{{ path('new_reservation', {'id' :espace.id})}}">Réserver</a>
+    {% endif %}
+
+{# 
+    {% if espace.categorie == '1' %}
+      <a href="{{ path('new_reservation', {'id' :espace.id})}}">Réserver</a>
+    {% endif %} #}
+
  </div>
 {% endblock %}
