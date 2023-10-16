@@ -29,10 +29,12 @@ class ReservationController extends AbstractController
     
     // Ajouter une réservation OU modifier
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
-    public function newReservation(Reservation $reservation, Espace $espace, EntityManagerInterface $entityManager, Request $request)
+    public function newReservation(Reservation $reservation, Espace $espace, User $user, EntityManagerInterface $entityManager, Request $request)
     {
-        $email = 'test@test';
+        // $email = 'test@test';
+        $email = $user->getEmail();
         $adresseFacturation = 'test'; // on enchainera adresse/ville/cp du user ici
+        // $adresseFacturation = $user->getAdresse( + )
         $facture ='test'; //lien vers le pdf
 
         $chambre = $espace->getNomEspace();
