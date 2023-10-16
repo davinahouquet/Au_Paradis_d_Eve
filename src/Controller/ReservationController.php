@@ -31,11 +31,9 @@ class ReservationController extends AbstractController
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
     public function newReservation(Reservation $reservation, Espace $espace, User $user, EntityManagerInterface $entityManager, Request $request)
     {
-        // $email = 'test@test';
         $email = $user->getEmail();
-        $adresseFacturation = 'test'; // on enchainera adresse/ville/cp du user ici
-        // $adresseFacturation = $user->getAdresse( + )
-        $facture ='test'; //lien vers le pdf
+        $adresseFacturation = $user->getAdresse(); // on enchainera adresse/ville/cp du user ici
+        $facture ='lien.pdf'; //lien vers le pdf
 
         $chambre = $espace->getNomEspace();
 
@@ -44,89 +42,52 @@ class ReservationController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $reservation = $form->getData();
-
-            // Calcul du prix total
-            $prixTotal = $reservation->calculerPrixTotal();
-            $reservation->setPrixTotal($prixTotal);
-            
-            // setEmail (il faut set les champs non nullables)
-            $reservation->setEmail($email);
-            $reservation->setEspace($espace);
-            $reservation->setAdresseFacturation($adresseFacturation);
-            $reservation->setFacture($facture);
-
-            // Si connecté on set le user
-
-            // Sinon, on redirgie sur une page de CHOIX (réserver en tant qu'invité, ou se connecter)
-            // return $this->redirectToRoute('app_choix');
-
-            $entityManager->persist($reservation);
-            $entityManager->flush();
+          
+            //Minimum et maxiumum de jours pour une réservation
+            if($reservation->getDuree() < 2 ){
+                $this->addFlash('error', 'La réservation doit être de deux nuits minimum');
+                return $this->redirectToRoute('app_espace');
+            } elseif($reservation->getDuree() > 28 ) {
+                $this->addFlash('error', 'La réservation ne doit pas excéder 28 jours');
+                return $this->redirectToRoute('app_espace');
+            } elseif($reservation->getNbPersonnes() > $espace->getNbPlaces()) {
+                //Vérifier que le nb de personnes dans la réservation == nbPlaces de la chambre
+                $this->addFlash('error', 'Nombre de personnes trop élevé. Merci de réserver une autre chambre pour les personnes supplémentaires. (Hors enfants)');
+                return $this->redirectToRoute('app_espace');
+            } else {
+                $reservation = $form->getData();
     
-            $this->addFlash('message', 'Les informations ont bien été prises en compte, vous allez passer à l\'étape suivante...');
-            return $this->redirectToRoute('new_coordonnees', ['reservation' => $reservation->getId()]);
-        }
+                // Calcul du prix total
+                $prixTotal = $reservation->calculerPrixTotal();
+                $reservation->setPrixTotal($prixTotal);
+                
+                // setEmail (il faut set les champs non nullables)
+                $reservation->setEmail($email);
+                $reservation->setEspace($espace);
+                $reservation->setAdresseFacturation($adresseFacturation);
+                $reservation->setFacture($facture);
     
+                $entityManager->persist($reservation);
+                $entityManager->flush();
+         
+                //Si non connecté redirection page de CHOIX (réserver en tant qu'invité, ou se connecter)
+                // if(!$user){
+                    // return $this->redirectToRoute('app_choix');
+                // } else {
+                    $this->addFlash('message', 'Les informations ont bien été prises en compte, vous allez passer à l\'étape suivante...');
+                    return $this->redirectToRoute('new_coordonnees', ['reservation' => $reservation->getId()]);
+                // }
+            }
+        }  
             return $this->render('reservation/new.html.twig', [
                 'form' => $form,
                 'chambre' => $chambre
             ]);
         }
 
-        // Ajouter les coordonnées dans la deuxième étape de la réservation
-        // #[Route('/reservation/coordonnees/{reservation}', name: 'new_coordonnees')]
-        // public function coordonnees(Reservation $reservation, Espace $espace = null, User $user = null, EntityManagerInterface $entityManager, Request $request)
-        // {
-
-        //     $espace = $reservation->getEspace();
-        //     // Afficher toutes les infos de la réservation
-            
-        //     // $chambre = $espace->getNomEspace();
-            
-        //     // Formulaire des coordonnées
-        //     $form = $this->createForm(CoordonneesType::class, $user);
-        //     $form->handleRequest($request);
-        //     if ($form->isSubmitted() && $form->isValid()) {
-                
-        //         $coordonnees = $form->getData();
-                
-        //         // dd($user);
-        //         if($user != null){
-        //             $user->setRoles([]);
-        //             // $user->setPassword();
-        //         }
-
-        //         // if(!$user){
-                    
-        //         // }   
-
-        //         //update user
-        //         // $user->setAdresse($adresse);
-        //         // $user->setCp($cp);
-        //         // $user->setVille($ville);
-        //         // $user->setPays($pays);
-    
-        //         $entityManager->persist($coordonnees);
-        //         $entityManager->flush();
-        
-        //         $this->addFlash('message', 'La réservation a bien été prise en compte');
-        //         return $this->redirectToRoute('app_home');
-        //     }
-
-        //     // Redirigera vers le récap de la réservation (si paiement sur la page de paiement)
-
-        //     return $this->render('reservation/coordonnees.html.twig', [
-        //         'form' => $form,
-        //         'espace' => $espace,
-        //         'reservation' => $reservation
-        //     ]);
-        // }
-
-        // #[Route('/reservation/choix')]
+        // #[Route('/reservation/choix', name:'app_choix') ]
         // public function choix()
         // {
-
+        //     return $this->render('reservation/choix.html.twig');
         // }
 }
