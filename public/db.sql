@@ -43,7 +43,7 @@ INSERT INTO `categorie` (`id`, `nom_categorie`) VALUES
 
 -- Listage de la structure de table au_paradis_d_eve. doctrine_migration_versions
 CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
-  `version` varchar(191) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `version` varchar(191) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `executed_at` datetime DEFAULT NULL,
   `execution_time` int DEFAULT NULL,
   PRIMARY KEY (`version`)
@@ -141,25 +141,15 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   CONSTRAINT `FK_42C84955B6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.reservation : ~17 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.reservation : ~7 rows (environ)
 INSERT INTO `reservation` (`id`, `espace_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `options`, `note`, `avis`, `email`, `adresse_facturation`, `facture`) VALUES
-	(1, 1, 'UserPrenom', 'UserNom', 623365416, 2, '2023-10-10 00:00:00', '2023-12-10 00:00:00', 2440, NULL, NULL, NULL, 'test@test', 'test', 'test'),
-	(2, 2, 'Test', 'Test', 613325715, 2, '2023-10-13 00:00:00', '2023-11-16 00:00:00', 1360, NULL, NULL, NULL, 'test@test', 'test', 'test'),
-	(3, 3, '"trg', '"t(', 618208514, 2, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 18250, NULL, NULL, NULL, 'test@test', 'test', 'test'),
+	(1, 1, 'Rick', 'Sanchez', 613325413, 2, '2024-04-01 00:00:00', '2024-04-06 00:00:00', 200, NULL, NULL, NULL, 'user@user.fr', 'srty srty srty srty', 'lien.pdf'),
+	(2, 2, 'Test', 'Test', 613325715, 1, '2023-10-13 00:00:00', '2023-10-16 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', '       ', 'lien.pdf'),
+	(3, 3, 'uuuuu', 'uuuuuuuuuu', 111111111, 2, '2018-01-01 00:00:00', '2018-01-15 00:00:00', 700, NULL, NULL, NULL, 'indiana@jones', NULL, 'lien.pdf'),
 	(4, 4, 'Test 1', 'test 1', 365980102, 5, '2024-02-02 00:00:00', '2024-03-02 00:00:00', 0, NULL, NULL, NULL, 'test@test', 'test', 'test'),
-	(5, 3, '"trg', '"t(', 618208514, 2, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 18250, NULL, NULL, NULL, '', NULL, ''),
+	(5, 5, 'Eleanore', 'Roosevelt', 613325714, 2, '2018-01-01 00:00:00', '2018-01-07 00:00:00', 720, NULL, NULL, NULL, 'qzt@wdfgsrty', '       ', 'lien.pdf'),
 	(7, 1, 'User', 'User', 61332502, 3, '2018-01-03 00:00:00', '2018-01-05 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
-	(8, 8, 'testuser', 'testuser', 613325702, 3, '2018-01-01 00:00:00', '2018-01-04 00:00:00', 120, NULL, NULL, NULL, 'test@test', 'test', 'test'),
-	(9, 2, 'Test', 'Test', 613325715, 2, '2018-01-01 00:00:00', '2018-01-03 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
-	(10, 2, 'Test', 'Test', 613325715, 2, '2018-01-01 00:00:00', '2018-01-03 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
-	(11, 2, 'Test', 'Test', 613325715, 2, '2018-01-01 00:00:00', '2018-01-03 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
-	(12, 2, 'Test', 'Test', 613325715, 2, '2018-01-01 00:00:00', '2018-01-03 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
-	(13, 2, 'Test', 'Test', 613325715, 2, '2018-01-01 00:00:00', '2018-01-03 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
-	(14, 2, 'Test', 'Test', 613325715, 2, '2018-01-01 00:00:00', '2018-01-03 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
-	(15, 2, 'Test', 'Test', 613325715, 2, '2018-01-01 00:00:00', '2018-01-03 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
-	(16, 2, 'Test', 'Test', 613325715, 2, '2018-01-01 00:00:00', '2018-01-02 00:00:00', 40, NULL, NULL, NULL, '', NULL, ''),
-	(17, 2, 'Test', 'Test', 613325715, 2, '2018-01-01 00:00:00', '2018-01-02 00:00:00', 40, NULL, NULL, NULL, '', NULL, ''),
-	(18, 2, 'Test', 'Test', 613325715, 2, '2024-01-01 00:00:00', '2024-01-03 00:00:00', 80, NULL, NULL, NULL, 'test@test', NULL, '');
+	(8, 8, 'testuser', 'testuser', 613325702, 3, '2018-01-01 00:00:00', '2018-01-04 00:00:00', 120, NULL, NULL, NULL, 'test@test', 'test', 'test');
 
 -- Listage de la structure de table au_paradis_d_eve. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -175,12 +165,21 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.user : ~2 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.user : ~11 rows (environ)
 INSERT INTO `user` (`id`, `email`, `pseudo`, `roles`, `password`, `adresse`, `cp`, `ville`, `pays`, `is_verified`) VALUES
 	(1, 'user@user.fr', 'user', '[]', '$2y$13$2CQb7SxND7L8jdFnk0QwN.X/RVmQtghHr91GnWJgXaoWBzajl8ZXS', NULL, NULL, NULL, NULL, 1),
-	(2, 'stephane@hotmail.fr', 'Stéphane', '[]', '$2y$13$i.aQNTF/34ulqVQRHFVnhOeqHLlP1fbZQ/No/xmk3NTFtiJasHquS', 'nkln', 'bhk', 'kj', 'kdfv', 1);
+	(2, 'stephane@hotmail.fr', 'Stéphane', '[]', '$2y$13$i.aQNTF/34ulqVQRHFVnhOeqHLlP1fbZQ/No/xmk3NTFtiJasHquS', 'nkln', 'bhk', 'kj', 'kdfv', 1),
+	(3, 'indiana@jones', 'indianajones', '[]', '$2y$13$zNvGO4axnyUoRrZdJmqw4ukQe52dTSK4qg3Adivg0EsXMRxXQnBG.', NULL, NULL, NULL, NULL, 0),
+	(4, 'qzt@wdfg', 'qzert', '[]', '$2y$13$TOAU9rafsXL/vowkkDss.OAx6ntTV9uWagbE/KdHYEzM5P8ZLdAYe', NULL, NULL, NULL, NULL, 0),
+	(5, 'qzt@wdfgsrty', 'srtysrty', '[]', '$2y$13$5SzYACko9QpWfcwBr0PGDu/KKVX0wlyaiafRC53VVzfsWed6MALMu', NULL, NULL, NULL, NULL, 0),
+	(6, 'salomon123@sal', 'Salomon', '[]', '$2y$13$GyelMaue4eNYEJy.sQNyjetvh7RMnbJ6iOokzlZcA6/HiKvu2a0kq', NULL, NULL, NULL, NULL, 1),
+	(7, 'rick@morty', 'ricksanchez', '[]', '$2y$13$sTZz1lmTwTTARIkVMnDjfeNa3Mv2WH0DM0NxdM7UjpJwOQb57XzVO', '1 evegreen', '64512', 'LA', 'US', 1),
+	(8, 'userTest@user', 'userTest', '[]', '$2y$13$oz7TdzYgCI1CwXL6dff3t.9ooW21xHipM.GaweJseUkfabuFAAW6y', NULL, NULL, NULL, NULL, 0),
+	(9, 'str@hqsrt', 'tghtr', '[]', '$2y$13$4uJZfWcEtAdfmqy0DGeL9ubAQTXhxfQD5l7jX6KgmQ0LI/CzSLyZO', '', '', '', '', 0),
+	(10, 'st@qe', 'srty', '[]', '$2y$13$42TIGE0n6jay5k17grVnROYmijK9rdg7LAQ9X7hJYOT15YnwDDYmG', '(yu', 'z(u', 'z(', 'z', 1),
+	(11, 'test1@test', 'test1', '[]', '$2y$13$KscKVAMv/.tNVelAizX.guqYEugG/4irx2BU74detQCbTm/xKOvoa', NULL, NULL, NULL, NULL, 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
