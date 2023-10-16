@@ -39,9 +39,11 @@ class ReservationType extends AbstractType
             'widget' => 'single_text',
             'required' => true,
             'attr' => [
-                'class' => 'form-control'
+                'class' => 'form-control',
+                // 'min' => ( new \DateTime() )->format('Y-m-d H:i:s')
             ],
             'label' => 'Date de début*',
+            'data' => new \DateTime()
         ])
         ->add('date_fin', DateType::class, [
             'widget' => 'single_text',
@@ -49,7 +51,7 @@ class ReservationType extends AbstractType
             'attr' => [
                 'class' => 'form-control'
             ],
-            'label' => 'Date de fin*',
+            'label' => 'Date de fin*'
         ])
         ->add('prixTotal', MoneyType::class, [
             'label' => 'Prix total',
