@@ -133,23 +133,23 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `options` json DEFAULT NULL,
   `note` double DEFAULT NULL,
   `avis` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `adresse_facturation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `facture` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adresse_facturation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_42C84955B6885C6C` (`espace_id`),
   CONSTRAINT `FK_42C84955B6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.reservation : ~8 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.reservation : ~17 rows (environ)
 INSERT INTO `reservation` (`id`, `espace_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `options`, `note`, `avis`, `email`, `adresse_facturation`, `facture`) VALUES
 	(1, 1, 'UserPrenom', 'UserNom', 623365416, 2, '2023-10-10 00:00:00', '2023-12-10 00:00:00', 2440, NULL, NULL, NULL, 'test@test', 'test', 'test'),
-	(2, 2, 'Test', 'Test', 613325715, 2, '2023-10-13 00:00:00', '2023-10-16 00:00:00', 120, NULL, NULL, NULL, 'test@test', 'test', 'test'),
-	(3, 3, '"trg', '"t(', 618208514, 2, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 18250, NULL, NULL, NULL, '', NULL, ''),
-	(4, 3, '"trg', '"t(', 618208514, 2, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 18250, NULL, NULL, NULL, '', NULL, ''),
+	(2, 2, 'Test', 'Test', 613325715, 2, '2023-10-13 00:00:00', '2023-11-16 00:00:00', 1360, NULL, NULL, NULL, 'test@test', 'test', 'test'),
+	(3, 3, '"trg', '"t(', 618208514, 2, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 18250, NULL, NULL, NULL, 'test@test', 'test', 'test'),
+	(4, 4, 'Test 1', 'test 1', 365980102, 5, '2024-02-02 00:00:00', '2024-03-02 00:00:00', 0, NULL, NULL, NULL, 'test@test', 'test', 'test'),
 	(5, 3, '"trg', '"t(', 618208514, 2, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 18250, NULL, NULL, NULL, '', NULL, ''),
 	(7, 1, 'User', 'User', 61332502, 3, '2018-01-03 00:00:00', '2018-01-05 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
-	(8, 1, 'testuser', 'testuser', 613325702, 3, '2018-01-01 00:00:00', '2018-01-04 00:00:00', 120, NULL, NULL, NULL, '', NULL, ''),
+	(8, 8, 'testuser', 'testuser', 613325702, 3, '2018-01-01 00:00:00', '2018-01-04 00:00:00', 120, NULL, NULL, NULL, 'test@test', 'test', 'test'),
 	(9, 2, 'Test', 'Test', 613325715, 2, '2018-01-01 00:00:00', '2018-01-03 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
 	(10, 2, 'Test', 'Test', 613325715, 2, '2018-01-01 00:00:00', '2018-01-03 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
 	(11, 2, 'Test', 'Test', 613325715, 2, '2018-01-01 00:00:00', '2018-01-03 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
@@ -164,19 +164,23 @@ INSERT INTO `reservation` (`id`, `espace_id`, `prenom`, `nom`, `telephone`, `nb_
 -- Listage de la structure de table au_paradis_d_eve. user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pseudo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pseudo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `adresse` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cp` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ville` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `pays` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adresse` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cp` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ville` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pays` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.user : ~0 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.user : ~2 rows (environ)
+INSERT INTO `user` (`id`, `email`, `pseudo`, `roles`, `password`, `adresse`, `cp`, `ville`, `pays`, `is_verified`) VALUES
+	(1, 'user@user.fr', 'user', '[]', '$2y$13$2CQb7SxND7L8jdFnk0QwN.X/RVmQtghHr91GnWJgXaoWBzajl8ZXS', NULL, NULL, NULL, NULL, 1),
+	(2, 'stephane@hotmail.fr', 'Stéphane', '[]', '$2y$13$i.aQNTF/34ulqVQRHFVnhOeqHLlP1fbZQ/No/xmk3NTFtiJasHquS', 'nkln', 'bhk', 'kj', 'kdfv', 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
