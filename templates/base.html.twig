@@ -42,6 +42,9 @@
                 </ul>
             </nav>
         </header>
+        {% for message in app.flashes('notice') %}
+            {{ message }}
+        {% endfor %}
         <footer>
             <a href="">Mentions légales</a><p>&</p><a href="">Conditions générales</a>
         </footer>
