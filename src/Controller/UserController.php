@@ -26,47 +26,34 @@ class UserController extends AbstractController
     #[Route ('/user/coordonnees/{reservation}', name:'new_coordonnees')]
     public function new_coordonnees(Reservation $reservation,  User $user = null, Espace $espace = null, EntityManagerInterface $entityManager, Request $request): Response
     {
-        // $isNew = !$user;
-
-        // if ($isNew) {
-        //     $this->redirectToRoute('app_register');
-        // }
-        $user = $this->getUser();
-        
-        $adresse = $user->getAdresse();
-        $cp = $user->getCp();
-        $ville = $user->getVille();
-        $pays = $user->getPays();
-        
-        // Afficher toutes les infos de la chambre qu'on réserve
-        $espace = $reservation->getEspace();
+            // Afficher toutes les infos de la chambre qu'on réserve
+            $espace = $reservation->getEspace();
+                
+            $form = $this->createForm(CoordonneesType::class);
+            $form->handleRequest($request);
             
-        $form = $this->createForm(CoordonneesType::class);
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
+            // On ne manipule plus d'objet mais bien un tableau associatif
+                $formData = $form->getData();
 
-            $form->getData();
-            
-            $reservation->setAdresseFacturation( $user->setAdresse($adresse) ." ". $user->setCp($cp)." ".$user->setVille($ville)." ".$user->setPays($pays));
-           
-            $password = $user->getPassword();
-            $user->setPassword($password);
-            //Si la checkbox a été cochée, enregistrer dans la BDD
-            if($user){
-                // $user->setAdresse($adresse);
-                // $user->setCp($cp);
-                // $user->setVille($ville);
-                // $user->setPays($pays);
+                $email = $formData['email'];
+                $adresse = $formData['adresse'];
+                $cp = $formData['cp'];
+                $ville = $formData['ville'];
+                $pays = $formData['pays'];
+
+
+                $adresseFacturation = $adresse.' '.$cp." ".$ville.' '.$pays;
+                $reservation->setAdresseFacturation($adresseFacturation);
+                $reservation->setEmail($email);
+
+                $entityManager->persist($reservation);
+                $entityManager->flush();
+
+                $this->addFlash('message', 'La réservation a bien été prise en compte');
+                return $this->redirectToRoute('app_home');
             }
-
-    
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $this->addFlash('message', 'La réservation a bien été prise en compte');
-            return $this->redirectToRoute('app_home');
-        }
+        
         return $this->render('reservation/coordonnees.html.twig', [
             'form' => $form,
             'espace' => $espace,
