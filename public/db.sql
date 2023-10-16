@@ -50,8 +50,6 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- Listage des données de la table au_paradis_d_eve.doctrine_migration_versions : ~0 rows (environ)
-INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-	('DoctrineMigrations\\Version20231013141710', '2023-10-13 14:17:27', 67);
 
 -- Listage de la structure de table au_paradis_d_eve. espace
 CREATE TABLE IF NOT EXISTS `espace` (
@@ -139,17 +137,37 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   PRIMARY KEY (`id`),
   KEY `IDX_42C84955B6885C6C` (`espace_id`),
   CONSTRAINT `FK_42C84955B6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.reservation : ~7 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.reservation : ~27 rows (environ)
 INSERT INTO `reservation` (`id`, `espace_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `options`, `note`, `avis`, `email`, `adresse_facturation`, `facture`) VALUES
 	(1, 1, 'Rick', 'Sanchez', 613325413, 2, '2024-04-01 00:00:00', '2024-04-06 00:00:00', 200, NULL, NULL, NULL, 'user@user.fr', 'srty srty srty srty', 'lien.pdf'),
-	(2, 2, 'Test', 'Test', 613325715, 1, '2023-10-13 00:00:00', '2023-10-16 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', '       ', 'lien.pdf'),
-	(3, 3, 'uuuuu', 'uuuuuuuuuu', 111111111, 2, '2018-01-01 00:00:00', '2018-01-15 00:00:00', 700, NULL, NULL, NULL, 'indiana@jones', NULL, 'lien.pdf'),
+	(2, 2, 'uuuuu', 'duyj', 61824465, 2, '2025-06-05 00:00:00', '2025-06-10 00:00:00', 200, NULL, NULL, NULL, 'stephane@hotmail.fr', '       ', 'lien.pdf'),
+	(3, 3, 'uuuuu', 'uuuuuuuuuu', 111111111, 2, '2018-01-01 00:00:00', '2018-01-15 00:00:00', 700, NULL, NULL, NULL, 'indiana@jones', '', 'lien.pdf'),
 	(4, 4, 'Test 1', 'test 1', 365980102, 5, '2024-02-02 00:00:00', '2024-03-02 00:00:00', 0, NULL, NULL, NULL, 'test@test', 'test', 'test'),
 	(5, 5, 'Eleanore', 'Roosevelt', 613325714, 2, '2018-01-01 00:00:00', '2018-01-07 00:00:00', 720, NULL, NULL, NULL, 'qzt@wdfgsrty', '       ', 'lien.pdf'),
-	(7, 1, 'User', 'User', 61332502, 3, '2018-01-03 00:00:00', '2018-01-05 00:00:00', 80, NULL, NULL, NULL, '', NULL, ''),
-	(8, 8, 'testuser', 'testuser', 613325702, 3, '2018-01-01 00:00:00', '2018-01-04 00:00:00', 120, NULL, NULL, NULL, 'test@test', 'test', 'test');
+	(7, 1, 'User', 'User', 61332502, 3, '2018-01-03 00:00:00', '2018-01-05 00:00:00', 80, NULL, NULL, NULL, '', '', ''),
+	(8, 8, 'testuser', 'testuser', 613325702, 3, '2018-01-01 00:00:00', '2018-01-04 00:00:00', 120, NULL, NULL, NULL, 'test@test', 'test', 'test'),
+	(19, 1, 'Christina', 'Cordula', 613325984, 1, '2023-10-17 00:00:00', '2023-10-19 00:00:00', 80, NULL, NULL, NULL, 'user@user.fr', NULL, 'lien.pdf'),
+	(20, 1, 'Christina', 'Cordula', 613325984, 1, '2023-10-17 00:00:00', '2023-10-19 00:00:00', 80, NULL, NULL, NULL, 'user@user.fr', 'Null', 'lien.pdf'),
+	(21, 2, 'Indiana', 'Jones', 455632578, 2, '2025-05-05 00:00:00', '2025-05-10 00:00:00', 200, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf'),
+	(22, 2, 'Test', 'test', 123, 1, '2005-05-01 00:00:00', '2005-05-03 00:00:00', 80, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf'),
+	(23, 3, 'wdfv', 'wfd', 4545, 1, '2023-02-04 00:00:00', '2023-02-06 00:00:00', 100, NULL, NULL, NULL, 'indiana@jones', 'Null', 'lien.pdf'),
+	(24, 2, 'Christina', 'Cordula', 56565, 1, '2023-06-26 00:00:00', '2023-06-28 00:00:00', 80, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf'),
+	(25, 8, 'ddd', 'dd', 61824465, 1, '2023-10-20 00:00:00', '2023-10-25 00:00:00', 250, NULL, NULL, NULL, 'userTest@user', 'Null', 'lien.pdf'),
+	(26, 8, 'dc', 'dscd', 613325714, 1, '2023-10-16 00:00:00', '2023-10-19 00:00:00', 150, NULL, NULL, NULL, 'userTest@user', 'Null', 'lien.pdf'),
+	(27, 2, 'Christina', 'Cordula', 61824465, 1, '2005-09-08 00:00:00', '2005-09-10 00:00:00', 80, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf'),
+	(28, 2, 'test', 'tst', 613325984, 2, '2026-05-05 00:00:00', '2026-05-08 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf'),
+	(29, 3, 'aa', 'aa', 231, 1, '2023-10-16 00:00:00', '2023-10-18 00:00:00', 100, NULL, NULL, NULL, 'indiana@jones', 'Null', 'lien.pdf'),
+	(30, 2, 'cc', 'cc', 22, 1, '2024-04-04 00:00:00', '2024-04-06 00:00:00', 80, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf'),
+	(31, 2, 'dd', 'dd', 613325984, 1, '2023-10-05 00:00:00', '2023-10-11 00:00:00', 240, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf'),
+	(32, 3, 'ee', 'ee', 613325714, 1, '2023-10-23 00:00:00', '2023-10-26 00:00:00', 150, NULL, NULL, NULL, 'indiana@jones', 'ee ee eeville ee', 'lien.pdf'),
+	(33, 1, 'ff', 'ff', 235, 1, '2023-10-23 00:00:00', '2023-10-27 00:00:00', 160, NULL, NULL, NULL, 'user@user.fr', 'ff 45ff ff ffpays', 'lien.pdf'),
+	(34, 3, 'gg', 'gg', 456, 2, '2023-02-01 00:00:00', '2023-02-06 00:00:00', 250, NULL, NULL, NULL, 'indiana@jones', 'gg gg gg gg', 'lien.pdf'),
+	(35, 2, 'uuuuu', 'duyj', 61824465, 1, '2023-10-17 00:00:00', '2023-10-21 00:00:00', 160, NULL, NULL, NULL, 'test@marcheSTP', 'hh hh hh hh', 'lien.pdf'),
+	(36, 2, 'jtyf', 'tj', 61824465, 1, '2023-10-16 00:00:00', '2023-10-20 00:00:00', 160, NULL, NULL, NULL, 'jt@giu', 'et etu eu de', 'lien.pdf'),
+	(37, 2, 'syh', 'dyt', 613325714, 1, '2023-10-16 00:00:00', '2023-10-19 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf'),
+	(38, 2, 'testdecisif', 'testdecisif', 64559684, 1, '2023-10-16 00:00:00', '2023-10-22 00:00:00', 240, NULL, NULL, NULL, 'testdecisif@test', 'rr rr rr rr', 'lien.pdf');
 
 -- Listage de la structure de table au_paradis_d_eve. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -165,9 +183,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.user : ~11 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.user : ~14 rows (environ)
 INSERT INTO `user` (`id`, `email`, `pseudo`, `roles`, `password`, `adresse`, `cp`, `ville`, `pays`, `is_verified`) VALUES
 	(1, 'user@user.fr', 'user', '[]', '$2y$13$2CQb7SxND7L8jdFnk0QwN.X/RVmQtghHr91GnWJgXaoWBzajl8ZXS', NULL, NULL, NULL, NULL, 1),
 	(2, 'stephane@hotmail.fr', 'Stéphane', '[]', '$2y$13$i.aQNTF/34ulqVQRHFVnhOeqHLlP1fbZQ/No/xmk3NTFtiJasHquS', 'nkln', 'bhk', 'kj', 'kdfv', 1),
@@ -179,7 +197,10 @@ INSERT INTO `user` (`id`, `email`, `pseudo`, `roles`, `password`, `adresse`, `cp
 	(8, 'userTest@user', 'userTest', '[]', '$2y$13$oz7TdzYgCI1CwXL6dff3t.9ooW21xHipM.GaweJseUkfabuFAAW6y', NULL, NULL, NULL, NULL, 0),
 	(9, 'str@hqsrt', 'tghtr', '[]', '$2y$13$4uJZfWcEtAdfmqy0DGeL9ubAQTXhxfQD5l7jX6KgmQ0LI/CzSLyZO', '', '', '', '', 0),
 	(10, 'st@qe', 'srty', '[]', '$2y$13$42TIGE0n6jay5k17grVnROYmijK9rdg7LAQ9X7hJYOT15YnwDDYmG', '(yu', 'z(u', 'z(', 'z', 1),
-	(11, 'test1@test', 'test1', '[]', '$2y$13$KscKVAMv/.tNVelAizX.guqYEugG/4irx2BU74detQCbTm/xKOvoa', NULL, NULL, NULL, NULL, 0);
+	(11, 'test1@test', 'test1', '[]', '$2y$13$KscKVAMv/.tNVelAizX.guqYEugG/4irx2BU74detQCbTm/xKOvoa', NULL, NULL, NULL, NULL, 0),
+	(12, 'indiana@jones1', 'indianajones', '[]', '$2y$13$c5X02CoiRBq9JK.9G0qBrefieMB4sOGqME1IRjuzgXy1RpHuPeS7e', NULL, NULL, NULL, NULL, 0),
+	(13, 'christina@cordula', 'Christina', '[]', '$2y$13$uGAxDERTGE/DsjKNjdpEl.vAa5eTsj2rE827ITWtMjTLUsK0XqwoW', NULL, NULL, NULL, NULL, 0),
+	(14, 'testdecisif@test', 'testdecisif', '[]', '$2y$13$QrQde5yqxyXn2BZoprTM6uL.YhU6KT7nXRJWQDpT0XFiwjEUfWq82', NULL, NULL, NULL, NULL, 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
