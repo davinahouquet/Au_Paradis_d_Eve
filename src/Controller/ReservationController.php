@@ -62,27 +62,30 @@ class ReservationController extends AbstractController
 
         // //la date de réservation
         // $reservationDate = $reservation->getDateReservation();
-
+        
         // //l'interval entre les deux
         // $interval = $currentDate->diff($reservationDate);
         // $daysDifference = $interval->format('d-m-Y');
-
+        
         $form = $this->createForm(ReservationType::class, $reservation);
-
+        
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
             $reservation = $form->getData();
             $reservation->setEspace($espace);
             // Calcul du prix total
             $prixTotal = $reservation->calculerPrixTotal();
-
+            
             //rajouter, si la reservation est faite au maximum 1j AVANT la date de la reservation
             // if($daysDifference <= 1){
-            //     $this->addFlash('message', 'Merci de réserver 1 jour avant le début du séjour, au maximum');
-            //     return $this->redirectToRoute('app_home');
-
-            if($reservation->getDuree() < 2 ){
+                //     $this->addFlash('message', 'Merci de réserver 1 jour avant le début du séjour, au maximum');
+                //     return $this->redirectToRoute('app_home');
+                
+            if($reservation->getDateDebut() <= $currentDate){
+                $this->addFlash('message', 'Merci de réserver au moins un jour avant le début du séjour');
+                return $this->redirectToRoute('app_home');
+            } elseif($reservation->getDuree() < 2 ){
                 //Minimum de jours pour une réservation
                 $this->addFlash('message', 'La réservation doit être de deux nuits minimum');
                 return $this->redirectToRoute('app_espace');
