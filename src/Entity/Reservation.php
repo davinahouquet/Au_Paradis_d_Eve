@@ -59,9 +59,29 @@ class Reservation
     #[ORM\Column(length: 255)]
     private ?string $facture = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ["default" => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeInterface $dateReservation = null;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getDateReservation(): ?\DateTimeInterface
+    {
+        return $this->dateReservation;
+    }
+
+    public function getDateReservationFr(): ?string
+    {
+        return $this->dateReservation->format("d-m-Y");
+    }
+
+    public function setDateReservation(\DateTimeInterface $dateReservation): static
+    {
+        $this->dateReservation = $dateReservation;
+
+        return $this;
     }
 
     public function getPrenom(): ?string
@@ -279,6 +299,5 @@ class Reservation
 
         return $this;
     }
-
 
 }
