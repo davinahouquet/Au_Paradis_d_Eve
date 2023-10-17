@@ -55,17 +55,16 @@ class ReservationController extends AbstractController
         $facture ='lien.pdf'; //lien vers le pdf
 
         $chambre = $espace->getNomEspace();
-        // $dateReservation = $reservation->getDateReservationFr();
+
+        // Les dates de réservations pour un espace ne doivent pas se chevaucher ! 
+        // Depuis l'Espace, on peut récupérer les réservations (Collection getReservations)
+        // comparer la date de fin de chaque réservation pour 1 espace avec la date de début de la réservation qu'un user et en train d'essayer de faire (pas celles qui sont déjà passées, sinon trop lourd)
+        // ex. $reservations = $this->getReservations; $datesFin = $reservations->getDateFin; if($datesFin < datesDebutNlleReservation){ error } + booléen qui passe à true si une correspondance de dates est détectée !
+
         // //la date du jour
         date_default_timezone_set('Europe/Paris');
         $currentDate = new \Datetime();
-
-        // //la date de réservation
-        // $reservationDate = $reservation->getDateReservation();
-        
-        // //l'interval entre les deux
-        // $interval = $currentDate->diff($reservationDate);
-        // $daysDifference = $interval->format('d-m-Y');
+        // dd($currentDate);
         
         $form = $this->createForm(ReservationType::class, $reservation);
         
@@ -76,12 +75,7 @@ class ReservationController extends AbstractController
             $reservation->setEspace($espace);
             // Calcul du prix total
             $prixTotal = $reservation->calculerPrixTotal();
-            
-            //rajouter, si la reservation est faite au maximum 1j AVANT la date de la reservation
-            // if($daysDifference <= 1){
-                //     $this->addFlash('message', 'Merci de réserver 1 jour avant le début du séjour, au maximum');
-                //     return $this->redirectToRoute('app_home');
-                
+
             if($reservation->getDateDebut() <= $currentDate){
                 $this->addFlash('message', 'Merci de réserver au moins un jour avant le début du séjour');
                 return $this->redirectToRoute('app_home');
@@ -89,7 +83,6 @@ class ReservationController extends AbstractController
                 //Minimum de jours pour une réservation
                 $this->addFlash('message', 'La réservation doit être de deux nuits minimum');
                 return $this->redirectToRoute('app_espace');
-
             } elseif($reservation->getDuree() > 28 ) {
                 //Maximum de jours pour une réservation
                 $this->addFlash('message', 'La réservation ne doit pas excéder 28 jours');
@@ -125,7 +118,6 @@ class ReservationController extends AbstractController
         #[Route('/reservation/choix/{id}', name:'app_choix') ]
         public function choix(Espace $espace, EspaceRepository $espaceRepository, EntityManagerInterface $entityManager, Request $request)
         {
-                       
             return $this->render('reservation/choix.html.twig', [
                 'espace' => $espace
             ]);
