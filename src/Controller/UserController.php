@@ -17,7 +17,6 @@ class UserController extends AbstractController
     #[Route('/user', name: 'app_user')]
     public function index(): Response
     {
-        
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
         ]);
@@ -29,13 +28,15 @@ class UserController extends AbstractController
             // Afficher toutes les infos de la chambre qu'on réserve
             $espace = $reservation->getEspace();
                 
+            //Création du formulaire de coordonnées
             $form = $this->createForm(CoordonneesType::class);
             $form->handleRequest($request);
             
             if ($form->isSubmitted() && $form->isValid()) {
-            // On ne manipule plus d'objet mais bien un tableau associatif
-                $formData = $form->getData();
 
+                $formData = $form->getData();
+                
+                // On ne manipule plus d'objet mais bien un tableau associatif
                 $email = $formData['email'];
                 $adresse = $formData['adresse'];
                 $cp = $formData['cp'];
@@ -43,24 +44,34 @@ class UserController extends AbstractController
                 $pays = $formData['pays'];
                 $souvenir = $formData['souvenir'];
 
-
+                //Définir l'adresse de facturation grâce aux données récupérées dans le formulaire
                 $adresseFacturation = $adresse.' '.$cp." ".$ville.' '.$pays;
                 $reservation->setAdresseFacturation($adresseFacturation);
                 $reservation->setEmail($email);
+                
+                //Définir l'user en session
+                $user = $this->getUser();
 
-                //si checkbox cochée : $entityManager->persist($user), $entityManager->flush();
-                if($user && $souvenir == true){
-                    $entityManager->persist($user);
-                    $entityManager->flush();
+                //si il y a bien un user connecté, et que la checkbox a été cochée
+                if($user){
+                    if($souvenir == true){
+                        //Alors on set les informations du formulaire dans la table user
+                        $user->setAdresse($adresse);
+                        $user->setCp($cp);
+                        $user->setVille($ville);
+                        $user->setPays($pays);
+    
+                        $entityManager->persist($user);
+                        $entityManager->flush();
+                    }
                 }
-
+                //Et également dans la table réservation (via l'adresse de facturation)
                 $entityManager->persist($reservation);
                 $entityManager->flush();
 
                 $this->addFlash('message', 'La réservation a bien été prise en compte');
                 return $this->redirectToRoute('app_home');
             }
-        
         return $this->render('reservation/coordonnees.html.twig', [
             'form' => $form,
             'espace' => $espace,
