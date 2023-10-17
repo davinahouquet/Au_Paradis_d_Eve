@@ -110,6 +110,7 @@ INSERT INTO `messenger_messages` (`id`, `body`, `headers`, `queue_name`, `create
 -- Listage de la structure de table au_paradis_d_eve. reservation
 CREATE TABLE IF NOT EXISTS `reservation` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
   `espace_id` int NOT NULL,
   `prenom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -127,64 +128,17 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `date_reservation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `IDX_42C84955B6885C6C` (`espace_id`),
+  KEY `IDX_42C84955A76ED395` (`user_id`),
+  CONSTRAINT `FK_42C84955A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_42C84955B6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.reservation : ~53 rows (environ)
-INSERT INTO `reservation` (`id`, `espace_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `options`, `note`, `avis`, `email`, `adresse_facturation`, `facture`, `date_reservation`) VALUES
-	(1, 1, 'Rick', 'Sanchez', 613325413, 2, '2024-04-01 00:00:00', '2024-04-06 00:00:00', 200, NULL, NULL, NULL, 'user@user.fr', 'srty srty srty srty', 'lien.pdf', '2023-10-17 09:08:58'),
-	(2, 2, 'uuuuu', 'duyj', 61824465, 2, '2025-06-05 00:00:00', '2025-06-10 00:00:00', 200, NULL, NULL, NULL, 'stephane@hotmail.fr', '       ', 'lien.pdf', '2023-10-17 09:08:58'),
-	(3, 3, 'uuuuu', 'uuuuuuuuuu', 111111111, 2, '2018-01-01 00:00:00', '2018-01-15 00:00:00', 700, NULL, NULL, NULL, 'indiana@jones', '', 'lien.pdf', '2023-10-17 09:08:58'),
-	(4, 4, 'Test 1', 'test 1', 365980102, 5, '2024-02-02 00:00:00', '2024-03-02 00:00:00', 0, NULL, NULL, NULL, 'test@test', 'test', 'test', '2023-10-17 09:08:58'),
-	(5, 5, 'Eleanore', 'Roosevelt', 613325714, 2, '2018-01-01 00:00:00', '2018-01-07 00:00:00', 720, NULL, NULL, NULL, 'qzt@wdfgsrty', '       ', 'lien.pdf', '2023-10-17 09:08:58'),
-	(7, 1, 'User', 'User', 61332502, 3, '2018-01-03 00:00:00', '2018-01-05 00:00:00', 80, NULL, NULL, NULL, '', '', '', '2023-10-17 09:08:58'),
-	(8, 8, 'testuser', 'testuser', 613325702, 3, '2018-01-01 00:00:00', '2018-01-04 00:00:00', 120, NULL, NULL, NULL, 'test@test', 'test', 'test', '2023-10-17 09:08:58'),
-	(19, 1, 'Christina', 'Cordula', 613325984, 1, '2023-10-17 00:00:00', '2023-10-19 00:00:00', 80, NULL, NULL, NULL, 'user@user.fr', NULL, 'lien.pdf', '2023-10-17 09:08:58'),
-	(20, 1, 'Christina', 'Cordula', 613325984, 1, '2023-10-17 00:00:00', '2023-10-19 00:00:00', 80, NULL, NULL, NULL, 'user@user.fr', 'Null', 'lien.pdf', '2023-10-17 09:08:58'),
-	(21, 2, 'Indiana', 'Jones', 455632578, 2, '2025-05-05 00:00:00', '2025-05-10 00:00:00', 200, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 09:08:58'),
-	(22, 2, 'Test', 'test', 123, 1, '2005-05-01 00:00:00', '2005-05-03 00:00:00', 80, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 09:08:58'),
-	(23, 3, 'wdfv', 'wfd', 4545, 1, '2023-02-04 00:00:00', '2023-02-06 00:00:00', 100, NULL, NULL, NULL, 'indiana@jones', 'Null', 'lien.pdf', '2023-10-17 09:08:58'),
-	(24, 2, 'Christina', 'Cordula', 56565, 1, '2023-06-26 00:00:00', '2023-06-28 00:00:00', 80, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 09:08:58'),
-	(25, 8, 'ddd', 'dd', 61824465, 1, '2023-10-20 00:00:00', '2023-10-25 00:00:00', 250, NULL, NULL, NULL, 'userTest@user', 'Null', 'lien.pdf', '2023-10-17 09:08:58'),
-	(26, 8, 'dc', 'dscd', 613325714, 1, '2023-10-16 00:00:00', '2023-10-19 00:00:00', 150, NULL, NULL, NULL, 'userTest@user', 'Null', 'lien.pdf', '2023-10-17 09:08:58'),
-	(27, 2, 'Christina', 'Cordula', 61824465, 1, '2005-09-08 00:00:00', '2005-09-10 00:00:00', 80, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 09:08:58'),
-	(28, 2, 'test', 'tst', 613325984, 2, '2026-05-05 00:00:00', '2026-05-08 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 09:08:58'),
-	(29, 3, 'aa', 'aa', 231, 1, '2023-10-16 00:00:00', '2023-10-18 00:00:00', 100, NULL, NULL, NULL, 'indiana@jones', 'Null', 'lien.pdf', '2023-10-17 09:08:58'),
-	(30, 2, 'cc', 'cc', 22, 1, '2024-04-04 00:00:00', '2024-04-06 00:00:00', 80, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 09:08:58'),
-	(31, 2, 'dd', 'dd', 613325984, 1, '2023-10-05 00:00:00', '2023-10-11 00:00:00', 240, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 09:08:58'),
-	(32, 3, 'ee', 'ee', 613325714, 1, '2023-10-23 00:00:00', '2023-10-26 00:00:00', 150, NULL, NULL, NULL, 'indiana@jones', 'ee ee eeville ee', 'lien.pdf', '2023-10-17 09:08:58'),
-	(33, 1, 'ff', 'ff', 235, 1, '2023-10-23 00:00:00', '2023-10-27 00:00:00', 160, NULL, NULL, NULL, 'user@user.fr', 'ff 45ff ff ffpays', 'lien.pdf', '2023-10-17 09:08:58'),
-	(34, 3, 'gg', 'gg', 456, 2, '2023-02-01 00:00:00', '2023-02-06 00:00:00', 250, NULL, NULL, NULL, 'indiana@jones', 'gg gg gg gg', 'lien.pdf', '2023-10-17 09:08:58'),
-	(35, 2, 'uuuuu', 'duyj', 61824465, 1, '2023-10-17 00:00:00', '2023-10-21 00:00:00', 160, NULL, NULL, NULL, 'test@marcheSTP', 'hh hh hh hh', 'lien.pdf', '2023-10-17 09:08:58'),
-	(36, 2, 'jtyf', 'tj', 61824465, 1, '2023-10-16 00:00:00', '2023-10-20 00:00:00', 160, NULL, NULL, NULL, 'jt@giu', 'et etu eu de', 'lien.pdf', '2023-10-17 09:08:58'),
-	(37, 2, 'syh', 'dyt', 613325714, 1, '2023-10-16 00:00:00', '2023-10-19 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 09:08:58'),
-	(38, 2, 'testdecisif', 'testdecisif', 64559684, 1, '2023-10-16 00:00:00', '2023-10-22 00:00:00', 240, NULL, NULL, NULL, 'testdecisif@test', 'rr rr rr rr', 'lien.pdf', '2023-10-17 09:08:58'),
-	(39, 2, 'uuuuu', 'duyj', 613325984, 2, '2023-10-20 00:00:00', '2023-10-23 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 07:48:34'),
-	(40, 8, 'Christina', 'Cordula', 61824465, 1, '2023-10-20 00:00:00', '2023-10-23 00:00:00', 150, NULL, NULL, NULL, 'userTest@user', 'Null', 'lien.pdf', '2023-10-17 09:51:32'),
-	(41, 2, 'Test', 'test', 613325984, 1, '2023-10-20 00:00:00', '2023-10-27 00:00:00', 280, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 09:57:57'),
-	(42, 2, 'Christina', 'test', 613325984, 1, '2023-10-25 00:00:00', '2023-10-28 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 10:05:09'),
-	(43, 2, 'Christina', 'test', 613325984, 1, '2023-10-25 00:00:00', '2023-10-28 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 10:06:00'),
-	(44, 2, 'Christina', 'testdecisif', 613325984, 1, '2023-10-25 00:00:00', '2023-10-28 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 10:07:38'),
-	(45, 2, 'Christina', 'testdecisif', 613325984, 1, '2023-10-25 00:00:00', '2023-10-28 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 10:08:51'),
-	(46, 2, 'Christina', 'Sanchez', 613325714, 2, '2023-10-22 00:00:00', '2023-10-30 00:00:00', 320, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 10:09:20'),
-	(47, 2, 'Christina', 'Sanchez', 613325714, 2, '2023-10-22 00:00:00', '2023-10-30 00:00:00', 320, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 10:10:53'),
-	(48, 2, 'Christina', 'Sanchez', 613325714, 2, '2023-10-22 00:00:00', '2023-10-30 00:00:00', 320, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 10:11:00'),
-	(49, 3, 'Test', 'test', 613325984, 2, '2023-10-19 00:00:00', '2023-10-31 00:00:00', 600, NULL, NULL, NULL, 'indiana@jones', 'Null', 'lien.pdf', '2023-10-17 10:44:09'),
-	(50, 3, 'dtujyu', 'test', 613325714, 2, '2023-10-21 00:00:00', '2023-10-28 00:00:00', 350, NULL, NULL, NULL, 'indiana@jones', 'Null', 'lien.pdf', '2023-10-17 10:44:49'),
-	(51, 3, 'dtujyu', 'test', 613325714, 2, '2023-10-21 00:00:00', '2023-10-28 00:00:00', 350, NULL, NULL, NULL, 'indiana@jones', 'Null', 'lien.pdf', '2023-10-17 10:46:32'),
-	(52, 2, 'Rick', 'test', 613325984, 1, '2023-10-17 00:00:00', '2023-10-26 00:00:00', 360, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 10:46:57'),
-	(53, 2, 'Test', 'test', 613325714, 2, '2023-10-17 00:00:00', '2023-10-21 00:00:00', 160, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 10:47:52'),
-	(54, 2, 'Test', 'test', 613325714, 2, '2023-10-17 00:00:00', '2023-10-21 00:00:00', 160, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 11:05:37'),
-	(55, 2, 'Test', 'test', 613325714, 1, '2023-10-28 00:00:00', '2023-10-31 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 11:08:15'),
-	(56, 2, 'Test', 'test', 613325714, 1, '2023-10-28 00:00:00', '2023-10-31 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 11:08:56'),
-	(57, 2, 'Test', 'test', 613325714, 1, '2023-10-28 00:00:00', '2023-10-31 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 11:11:08'),
-	(58, 2, 'Test', 'test', 613325714, 1, '2023-10-28 00:00:00', '2023-10-31 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 11:13:51'),
-	(59, 2, 'Test', 'test', 613325714, 1, '2023-10-28 00:00:00', '2023-10-31 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 11:14:03'),
-	(60, 2, 'Test', 'test', 613325714, 1, '2023-10-28 00:00:00', '2023-10-31 00:00:00', 120, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 11:14:41'),
-	(61, 2, 'Christina', 'test', 613325984, 2, '2023-10-24 00:00:00', '2023-10-28 00:00:00', 160, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 11:47:45'),
-	(62, 2, 'Christina', 'test', 613325984, 2, '2023-10-24 00:00:00', '2023-10-28 00:00:00', 160, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 11:47:48'),
-	(63, 2, 'Christina', 'test', 613325984, 2, '2023-10-24 00:00:00', '2023-10-28 00:00:00', 160, NULL, NULL, NULL, 'stephane@hotmail.fr', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 11:47:50'),
-	(64, 2, 'Christina', 'test', 613325984, 2, '2023-10-24 00:00:00', '2023-10-28 00:00:00', 160, NULL, NULL, NULL, 'qth@sth', 'th ty ty yt', 'lien.pdf', '2023-10-17 11:48:29');
+-- Listage des données de la table au_paradis_d_eve.reservation : ~26 rows (environ)
+INSERT INTO `reservation` (`id`, `user_id`, `espace_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `options`, `note`, `avis`, `email`, `adresse_facturation`, `facture`, `date_reservation`) VALUES
+	(83, NULL, 2, 'Avril', 'Lavigne', 541, 1, '2023-10-18 00:00:00', '2023-10-25 00:00:00', 280, NULL, NULL, NULL, 'avril@lavigne', 'nkln bhk kj kdfv', 'lien.pdf', '2023-10-17 15:17:21'),
+	(87, NULL, 3, 'Kirby', 'Star', 566, 1, '2023-10-19 00:00:00', '2023-10-25 00:00:00', 300, NULL, NULL, NULL, 'kirby@star', '1 Space Av 077 MoonTown Jupiter', 'lien.pdf', '2023-10-17 16:08:26'),
+	(88, NULL, 6, 'Roger', 'Smith', 899, 2, '2023-12-18 00:00:00', '2023-11-24 00:00:00', 1440, NULL, NULL, NULL, 'roger@smith', '56 Evergreen Ter 665 JK US', 'lien.pdf', '2023-10-17 16:10:25'),
+	(89, NULL, 1, 'Bart', 'Simpson', 613325413, 1, '2024-01-23 00:00:00', '2024-01-31 00:00:00', 320, NULL, NULL, NULL, 'bart@simpson', '789 Simps Av 563 Springfield US', 'lien.pdf', '2023-10-17 16:11:42');
 
 -- Listage de la structure de table au_paradis_d_eve. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -200,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table au_paradis_d_eve.user : ~14 rows (environ)
 INSERT INTO `user` (`id`, `email`, `pseudo`, `roles`, `password`, `adresse`, `cp`, `ville`, `pays`, `is_verified`) VALUES
@@ -217,7 +171,8 @@ INSERT INTO `user` (`id`, `email`, `pseudo`, `roles`, `password`, `adresse`, `cp
 	(11, 'test1@test', 'test1', '[]', '$2y$13$KscKVAMv/.tNVelAizX.guqYEugG/4irx2BU74detQCbTm/xKOvoa', NULL, NULL, NULL, NULL, 0),
 	(12, 'indiana@jones1', 'indianajones', '[]', '$2y$13$c5X02CoiRBq9JK.9G0qBrefieMB4sOGqME1IRjuzgXy1RpHuPeS7e', NULL, NULL, NULL, NULL, 0),
 	(13, 'christina@cordula', 'Christina', '[]', '$2y$13$uGAxDERTGE/DsjKNjdpEl.vAa5eTsj2rE827ITWtMjTLUsK0XqwoW', NULL, NULL, NULL, NULL, 0),
-	(14, 'testdecisif@test', 'testdecisif', '[]', '$2y$13$QrQde5yqxyXn2BZoprTM6uL.YhU6KT7nXRJWQDpT0XFiwjEUfWq82', NULL, NULL, NULL, NULL, 0);
+	(14, 'testdecisif@test', 'testdecisif', '[]', '$2y$13$QrQde5yqxyXn2BZoprTM6uL.YhU6KT7nXRJWQDpT0XFiwjEUfWq82', NULL, NULL, NULL, NULL, 0),
+	(15, 'kirby@star', 'Kirby', '[]', '$2y$13$30RZ.o9UL3I0pSHWTw/IA.nYQigcqhb0WhR94U.cMbQh4nMm4FijO', 'aaa', '67100', 'STRASBOURG', 'FRANCE', 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
