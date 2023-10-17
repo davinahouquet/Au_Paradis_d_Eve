@@ -17,11 +17,11 @@
     {% endfor %}
 
     {% if espace.categorie.Id == 1 %}
-      <a href="{{ path('new_reservation', {'id' :espace.id})}}">Réserver</a>
+      <a href="{{ path('app_direction', {'id' :espace.id})}}">Réserver</a>
     {% endif %}
 
     {% if espace.categorie.Id == 11 %}
-      <a href="{{ path('new_reservation', {'id' :espace.id})}}">Réserver</a>
+      <a href="{{ path('app_direction', {'id' :espace.id})}}">Réserver</a>
     {% endif %}
 
 {# 
