@@ -59,7 +59,7 @@ class ReservationController extends AbstractController
         // Les dates de réservations pour un espace ne doivent pas se chevaucher ! 
         // Depuis l'Espace, on peut récupérer les réservations (Collection getReservations)
         // comparer la date de fin de chaque réservation pour 1 espace avec la date de début de la réservation qu'un user et en train d'essayer de faire (pas celles qui sont déjà passées, sinon trop lourd)
-        // ex. $reservations = $this->getReservations; $datesFin = $reservations->getDateFin; if($datesFin < datesDebutNlleReservation){ error } + booléen qui passe à true si une correspondance de dates est détectée !
+        // ex. $reservations = $this->getReservations; $datesFin = $reservations->getDateFin; if($datesFin < datesDebutNlleReservation){ error } + booléen qui passe à true si une correspondance de dates est détectée ! Pour les dates futures, on regarde les dates de fin de reservation pour éviter chevauchement
 
         // //la date du jour
         date_default_timezone_set('Europe/Paris');
