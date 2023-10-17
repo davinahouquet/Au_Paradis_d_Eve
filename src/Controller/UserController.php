@@ -32,8 +32,15 @@ class UserController extends AbstractController
             $form = $this->createForm(CoordonneesType::class);
             $form->handleRequest($request);
             
-            if ($form->isSubmitted() && $form->isValid()) {
+            //On pointe (get) les champs qu'on veut préremplir et on y insère (set) les valeurs souhaitées
+            $form->get('email')->setData($this->getUser()->getEmail());
+            $form->get('adresse')->setData($this->getUser()->getAdresse());
+            $form->get('cp')->setData($this->getUser()->getCp());
+            $form->get('ville')->setData($this->getUser()->getVille());
+            $form->get('pays')->setData($this->getUser()->getPays());
 
+            if ($form->isSubmitted() && $form->isValid()) {
+                
                 $formData = $form->getData();
                 
                 // On ne manipule plus d'objet mais bien un tableau associatif
@@ -44,6 +51,7 @@ class UserController extends AbstractController
                 $pays = $formData['pays'];
                 $souvenir = $formData['souvenir'];
 
+                
                 //Définir l'adresse de facturation grâce aux données récupérées dans le formulaire
                 $adresseFacturation = $adresse.' '.$cp." ".$ville.' '.$pays;
                 $reservation->setAdresseFacturation($adresseFacturation);

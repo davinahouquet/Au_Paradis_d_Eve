@@ -26,19 +26,31 @@ class CoordonneesType extends AbstractType
             ])
             ->add('adresse', TextType::class, [
                 'label' => 'Adresse*',
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'autocomplete' => 'off'
+                ]
             ])
             ->add('cp', TextType::class, [
                 'label' => 'Code postal*',
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'autocomplete' => 'off'
+                ]
             ])
             ->add('ville', TextType::class, [
                 'label' => 'Ville*',
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'autocomplete' => 'off'
+                ]
             ])
             ->add('pays', TextType::class, [
                 'label' => 'Pays*',
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'autocomplete' => 'off'
+                ]
             ])
             ->add('souvenir', CheckboxType::class, [
                 'label'    => 'Se souvenir de mon adresse pour de futures réservations',
