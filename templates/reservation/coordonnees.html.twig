@@ -26,6 +26,9 @@
             {{ form_label(form.cp) }}
             {{ form_label(form.ville) }}
             {{ form_label(form.pays) }}
+            {% if app.user %}
+                {{ form_label(form.souvenir) }}
+            {% endif %}
         {{ form_end(form) }}
 
         <p>Ces informations apparaîtront sur votre facture</p>
