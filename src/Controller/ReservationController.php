@@ -31,9 +31,10 @@ class ReservationController extends AbstractController
     #[Route('/direction/{id}', name: 'app_direction')]
     public function direction(Espace $espace, EntityManagerInterface $entityManager): Response
     {
-
         if(!$this->getUser()){
             return $this->redirectToRoute('app_choix', ['id' => $espace->getId()]);
+        } else {
+            return $this->redirectToRoute('new_reservation', ['id' => $espace->getId()]);
         }
     }
 
