@@ -32,12 +32,14 @@ class UserController extends AbstractController
             $form = $this->createForm(CoordonneesType::class);
             $form->handleRequest($request);
             
-            //On pointe (get) les champs qu'on veut préremplir et on y insère (set) les valeurs souhaitées
-            $form->get('email')->setData($this->getUser()->getEmail());
-            $form->get('adresse')->setData($this->getUser()->getAdresse());
-            $form->get('cp')->setData($this->getUser()->getCp());
-            $form->get('ville')->setData($this->getUser()->getVille());
-            $form->get('pays')->setData($this->getUser()->getPays());
+            if($this->getUser()){
+                //On pointe (get) les champs qu'on veut préremplir et on y insère (set) les valeurs souhaitées
+                $form->get('email')->setData($this->getUser()->getEmail());
+                $form->get('adresse')->setData($this->getUser()->getAdresse());
+                $form->get('cp')->setData($this->getUser()->getCp());
+                $form->get('ville')->setData($this->getUser()->getVille());
+                $form->get('pays')->setData($this->getUser()->getPays());
+            }
 
             if ($form->isSubmitted() && $form->isValid()) {
                 
