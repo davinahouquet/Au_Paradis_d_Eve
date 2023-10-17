@@ -62,6 +62,9 @@ class Reservation
     #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ["default" => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $dateReservation = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -296,6 +299,18 @@ class Reservation
     public function setFacture(string $facture): static
     {
         $this->facture = $facture;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
