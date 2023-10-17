@@ -21,6 +21,14 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+//     public function findLatestReservation(): ?Reservation
+// {
+//     return $this->createQueryBuilder('r')
+//         ->orderBy('r.date_reservation', 'DESC')
+//         ->setMaxResults(1)
+//         ->getQuery()
+//         ->getOneOrNullResult();
+// }
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */
