@@ -13,6 +13,7 @@ use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ReservationController extends AbstractController
@@ -41,7 +42,7 @@ class ReservationController extends AbstractController
 
     // Ajouter une réservation OU modifier
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
-    public function newReservation( Espace $espace, Reservation $reservation = null, User $user, EntityManagerInterface $entityManager, Request $request)
+    public function newReservation( Espace $espace, Reservation $reservation = null, User $user, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
     {
         $reservation = new Reservation();
         
@@ -55,28 +56,60 @@ class ReservationController extends AbstractController
         $facture ='lien.pdf'; //lien vers le pdf
 
         $chambre = $espace->getNomEspace();
-
-        // Les dates de réservations pour un espace ne doivent pas se chevaucher ! 
-        // Depuis l'Espace, on peut récupérer les réservations (Collection getReservations)
-        // comparer la date de fin de chaque réservation pour 1 espace avec la date de début de la réservation qu'un user et en train d'essayer de faire (pas celles qui sont déjà passées, sinon trop lourd)
-        // ex. $reservations = $this->getReservations; $datesFin = $reservations->getDateFin; if($datesFin < datesDebutNlleReservation){ error } + booléen qui passe à true si une correspondance de dates est détectée ! Pour les dates futures, on regarde les dates de fin de reservation pour éviter chevauchement
-
+        
         // //la date du jour
         date_default_timezone_set('Europe/Paris');
         $currentDate = new \Datetime();
         // dd($currentDate);
-        
+
         $form = $this->createForm(ReservationType::class, $reservation);
-        
+            
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($form->isSubmitted() && $form->isValid()) {
             
             $reservation = $form->getData();
+
+            // // dd( $dateFinNlleReservation); -> Nouvelle date prise en compte
+            // // dd($dateDebutNlleReservation); -> Nouvelle date prise en compte
+            
+            // //Je créé un tableau pour les reservations futures
+            // $reservationsFutures = new ArrayCollection();
+            
+            // $chevauchement = false; //booléen qui permettra de dire si correspondance entre les dates (si faux, on continue la réservation)
+            // //J'y insère uniquement les réservations FUTURES
+            // $reservations = $espace->getReservations();
+            // foreach($reservations as $resa){
+            //     if ($resa->getDateDebut() > $currentDate) {
+                //         // La réservation est future, on l'zjoute à la collection de réservations futures
+                //         $reservationsFutures->add($reservation);
+                //     }
+                //     if($resa->getDateFin() > $dateDebutNlleReservation && $resa->getDateDebut() <= $dateFinNlleReservation()) {
+                    //         // dd($resa->getDateDebut());
+                    //         // Les dates se chevauchent, définir le booléen sur true
+                    //         $chevauchement = true;
+                    //         break; // Sortir de la boucle dès qu'une correspondance est trouvée
+                    //     }
+                    // } 
+                    // //Si chevauchement = message d'erreur puis redirection
+                    // if($chevauchement) {
+                        //     $this->addFlash('message', 'La réservation se chevauche avec une réservation existante. Veuillez choisir d\'autres dates.');
+                        //     return $this->redirectToRoute('app_home');
+            // }
+            
+            
             $reservation->setEspace($espace);
             // Calcul du prix total
             $prixTotal = $reservation->calculerPrixTotal();
+            $dateDebutNlleReservation = $reservation->getDateDebut();
+            $dateFinNlleReservation = $reservation->getDateFin();
 
-            if($reservation->getDateDebut() <= $currentDate){
+            $estDisponible = $reservationRepository->findEspacesReserves($espace, $dateDebutNlleReservation, $dateFinNlleReservation);
+
+            if(!$estDisponible){
+                $this->addFlash('message', 'La réservation se chevauche avec une réservation existante. Veuillez choisir d\'autres dates.');
+                return $this->redirectToRoute('app_home');
+            } elseif($reservation->getDateDebut() <= $currentDate){
                 $this->addFlash('message', 'Merci de réserver au moins un jour avant le début du séjour');
                 return $this->redirectToRoute('app_home');
             } elseif($reservation->getDuree() < 2 ){
@@ -121,5 +154,14 @@ class ReservationController extends AbstractController
             return $this->render('reservation/choix.html.twig', [
                 'espace' => $espace
             ]);
+        }
+
+        public function disponibiliteEspace(Espace $espace, \DateTime $dateDebut, \DateTime $dateFin, EntityManagerInterface $entityManager)
+        {
+            $reservationRepository = $entityManager->getRepository(Reservation::class);
+            // Query the database to check if there are any bookings that overlap
+            // with the provided dates for the given room.
+            $reservationsExistantes = $reservationRepository->findEspacesReserves($espace, $dateDebut, $dateFin);
+            return count($reservationsExistantes) === 0;
         }
 }
