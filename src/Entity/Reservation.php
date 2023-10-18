@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Repository\ReservationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
@@ -26,9 +29,22 @@ class Reservation
     #[ORM\Column]
     private ?int $nb_personnes = null;
 
+    /**
+     * @ORM\Column(type="datetime")
+     * @Assert\NotBlank()
+     * @Assert\GreaterThan("today", message="La date de début doit être postérieure à aujourd'hui")
+     */
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_debut = null;
 
+    /**
+     * @ORM\Column(type="datetime")
+     * @Assert\NotBlank()
+    * @Assert\GreaterThan(
+    *     propertyPath="date_debut",
+    *     message="La date de fin doit être postérieure à la date de début"
+    * )
+     */
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_fin = null;
 
