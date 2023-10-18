@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Espace;
 use App\Entity\Reservation;
 use App\Form\CoordonneesType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -86,6 +87,17 @@ class UserController extends AbstractController
             'form' => $form,
             'espace' => $espace,
             'reservation' => $reservation
+        ]);
+    }
+
+    #[Route('/user/{id}', name: 'app_user')]
+    public function profil(User $user, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    {
+
+        $user = $userRepository->findOneBy([]);
+
+        return $this->render('user/index.html.twig', [
+            'user' => $user,
         ]);
     }
 }
