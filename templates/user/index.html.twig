@@ -1,20 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Mon profil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Profil utilisateur</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/Au_Paradis_d_Eve/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/Au_Paradis_d_Eve/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <p>Liste des réservations</p>
+    <p>Paramètres</p>
+    <p>Vos informations :</p>
+    <p>Pseudo / Modifier pseudo</p> <!--https://github.com/davinahouquet/Sessions/commit/4b51a8dcf9c40c5d0936bd6865269240a373fe70-->
+    <p>Email / Modifier l'email</p> <!--https://github.com/davinahouquet/Sessions/commit/8e53ed4675b1f1a7648ab7589f91c9c458244d41-->
+    <p>Mot de passe / Modifier mot de passe</p> <!--https://github.com/davinahouquet/Sessions/commit/d3bf4b739a1f467a335b6f707b4dbdda41df4e56-->
+    <p>Supprimer mon compte</p>
 {% endblock %}
