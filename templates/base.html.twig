@@ -29,7 +29,7 @@
                     <div class="user">
                         <i class="fa-solid fa-circle-user"></i>
                         {% if app.user %}
-                            {{app.user.pseudo}}
+                            <a href="{{ path('app_user',{'id' : app.user.id})}}">{{app.user.pseudo}}</a>
                         {% endif %}
 
                         {% if app.user %}
