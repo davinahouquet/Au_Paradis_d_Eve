@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Espace;
 use App\Entity\Reservation;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Reservation>
@@ -21,6 +22,20 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+    public function findEspacesReserves(Espace $espace, \DateTime $dateDebut, \DateTime $dateFin)
+    {
+    return $this->createQueryBuilder('r')
+
+        ->where('r.espace = :espace')
+        ->andWhere('r.date_debut < :date_fin')
+        ->andWhere('r.date_fin > :date_debut')
+        ->setParameter('espace', $espace)
+        ->setParameter('date_debut', $dateDebut)
+        ->setParameter('date_fin', $dateFin)
+        ->getQuery()
+        ->getResult();
+
+    }
 //     public function findLatestReservation(): ?Reservation
 // {
 //     return $this->createQueryBuilder('r')
