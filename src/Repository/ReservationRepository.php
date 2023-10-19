@@ -27,9 +27,9 @@ class ReservationRepository extends ServiceEntityRepository
     return $this->createQueryBuilder('r')
 
         ->where('r.espace = :espace')
-        ->andWhere('r.date_debut < :date_fin')
-        ->andWhere('r.date_fin > :date_debut')
-        // ->andWhere('r.adresseFacturation IS NOT NULL') // Pour remplacer un booléen (ne fonctionne pas)
+        ->andWhere('r.date_debut <= :date_fin')
+        ->andWhere('r.date_fin >= :date_debut')
+        ->andWhere('r.adresseFacturation IS NOT NULL') // Pour remplacer un booléen (ne fonctionne pas)
         ->setParameter('espace', $espace)
         ->setParameter('date_debut', $dateDebut)
         ->setParameter('date_fin', $dateFin)
