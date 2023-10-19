@@ -69,66 +69,43 @@ class ReservationController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
             
             $reservation = $form->getData();
-
-            // // dd( $dateFinNlleReservation); -> Nouvelle date prise en compte
-            // // dd($dateDebutNlleReservation); -> Nouvelle date prise en compte
-            
-            // //Je créé un tableau pour les reservations futures
-            // $reservationsFutures = new ArrayCollection();
-            
-            // $chevauchement = false; //booléen qui permettra de dire si correspondance entre les dates (si faux, on continue la réservation)
-            // //J'y insère uniquement les réservations FUTURES
-            // $reservations = $espace->getReservations();
-            // foreach($reservations as $resa){
-            //     if ($resa->getDateDebut() > $currentDate) {
-                //         // La réservation est future, on l'zjoute à la collection de réservations futures
-                //         $reservationsFutures->add($reservation);
-                //     }
-                //     if($resa->getDateFin() > $dateDebutNlleReservation && $resa->getDateDebut() <= $dateFinNlleReservation()) {
-                    //         // dd($resa->getDateDebut());
-                    //         // Les dates se chevauchent, définir le booléen sur true
-                    //         $chevauchement = true;
-                    //         break; // Sortir de la boucle dès qu'une correspondance est trouvée
-                    //     }
-                    // } 
-                    // //Si chevauchement = message d'erreur puis redirection
-                    // if($chevauchement) {
-                        //     $this->addFlash('message', 'La réservation se chevauche avec une réservation existante. Veuillez choisir d\'autres dates.');
-                        //     return $this->redirectToRoute('app_home');
-            // }
-            
-            
             $reservation->setEspace($espace);
+
             // Calcul du prix total
             $prixTotal = $reservation->calculerPrixTotal();
+
+            //Trouver les dates de début et de fin de la réservation en cours
             $dateDebutNlleReservation = $reservation->getDateDebut();
             $dateFinNlleReservation = $reservation->getDateFin();
 
+            //Trouver les espaces réservées aux dates sélectionnées grâce à la requête DQL créée dans ReservationRepository
             $indisponible = $reservationRepository->findEspacesReserves($espace, $dateDebutNlleReservation, $dateFinNlleReservation);
 
-            if($indisponible){
+                        //rajouter condition pas de réservation à l'envers
+                        //genre dateDebutNlleReservation < dateFinNlleReserv
+                        //Toutes les conditions nécessaires pour poursuivre la réservation :
+                        
+                        
+            if($dateDebutNlleReservation > $dateFinNlleReservation){
+                $this->addFlash('message', 'La date de fin de votre séjour doit être supérieure à sa date de début.');
+                return $this->redirectToRoute('app_espace');
+            } elseif($indisponible){ //Pas de chevauchement de réservation
                 $this->addFlash('message', 'La réservation se chevauche avec une réservation existante. Veuillez choisir d\'autres dates.');
                 return $this->redirectToRoute('app_home');
-            } elseif($reservation->getDateDebut() <= $currentDate){
+            } elseif($reservation->getDateDebut() <= $currentDate){ //Pas de réservation dans le passé, ni au jour même
                 $this->addFlash('message', 'Merci de réserver au moins un jour avant le début du séjour');
                 return $this->redirectToRoute('app_home');
-            } elseif($reservation->getDuree() < 2 ){
-                //Minimum de jours pour une réservation
+            } elseif($reservation->getDuree() < 2 ){  //Minimum 2 jours pour une réservation
                 $this->addFlash('message', 'La réservation doit être de deux nuits minimum');
                 return $this->redirectToRoute('app_espace');
-            } elseif($reservation->getDuree() > 28 ) {
-                //Maximum de jours pour une réservation
+            } elseif($reservation->getDuree() > 28 ) { //Maximum 28 jours pour une réservation
                 $this->addFlash('message', 'La réservation ne doit pas excéder 28 jours');
                 return $this->redirectToRoute('app_espace');
-
-            } elseif($reservation->getNbPersonnes() > $espace->getNbPlaces()) {
-                //Vérifier que le nb de personnes dans la réservation == nbPlaces de la chambre
+            } elseif($reservation->getNbPersonnes() > $espace->getNbPlaces()) { //Le nombre de personnes dans la réservation ne doit pas excéder le nombre de places dans la chambre (hors enfants)
                 $this->addFlash('message', 'Nombre de personnes trop élevé. Merci de réserver une autre chambre pour les personnes supplémentaires. (Hors enfants)');
                 return $this->redirectToRoute('app_espace');
-            } else {
-                $reservation->setPrixTotal($prixTotal);
-                
-                // Il faut set les champs non nullables
+            } else { //Si toutes les conditions sont réunies, alors on peut poursuivre la réservation et insérer les champs en base de données
+                $reservation->setPrixTotal($prixTotal); //Il faut set les champs non nullables. Calculé grâce à la fonction calculerPrixTotal dans l'entité Reservation, en fonction de la durée du séjour
                 $reservation->setEmail($email);
                 $reservation->setAdresseFacturation($adresseFacturation);
                 $reservation->setFacture($facture);
@@ -137,7 +114,7 @@ class ReservationController extends AbstractController
                 $entityManager->persist($reservation);
                 $entityManager->flush();
                 
-                //Si non connecté redirection page de CHOIX (réserver en tant qu'invité, ou se connecter)       
+                //Redirection vers la deuxième partie de la réservation : formulaire de coordonnées     
                 $this->addFlash('message', 'Les informations ont bien été prises en compte, vous allez passer à l\'étape suivante...');
                 return $this->redirectToRoute('new_coordonnees', ['reservation' => $reservation->getId()]);
             }
