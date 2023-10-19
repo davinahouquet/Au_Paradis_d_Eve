@@ -11,7 +11,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class ReservationType extends AbstractType
@@ -64,11 +63,6 @@ class ReservationType extends AbstractType
                 'class' => 'form-control'
             ],
             'label' => 'Date de fin*'
-        ])
-        ->add('prixTotal', MoneyType::class, [
-            'label' => 'Prix total',
-            'disabled' => true, // lecture seule
-            'currency' => 'EUR', // Devise
         ])
         ;
     }
