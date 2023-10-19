@@ -104,9 +104,9 @@ class ReservationController extends AbstractController
             $dateDebutNlleReservation = $reservation->getDateDebut();
             $dateFinNlleReservation = $reservation->getDateFin();
 
-            $estDisponible = $reservationRepository->findEspacesReserves($espace, $dateDebutNlleReservation, $dateFinNlleReservation);
+            $indisponible = $reservationRepository->findEspacesReserves($espace, $dateDebutNlleReservation, $dateFinNlleReservation);
 
-            if(!$estDisponible){
+            if($indisponible){
                 $this->addFlash('message', 'La réservation se chevauche avec une réservation existante. Veuillez choisir d\'autres dates.');
                 return $this->redirectToRoute('app_home');
             } elseif($reservation->getDateDebut() <= $currentDate){
