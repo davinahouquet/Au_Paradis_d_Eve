@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -56,6 +57,11 @@ class CoordonneesType extends AbstractType
                     'autocomplete' => 'off',
                     'value' => 'Rhode Island'
                 ]
+            ])
+            ->add('prixTotal', MoneyType::class, [
+                'label' => 'Prix total',
+                'disabled' => true, // lecture seule
+                'currency' => 'EUR', // Devise
             ])
             ->add('souvenir', CheckboxType::class, [
                 'label'    => 'Se souvenir de mon adresse pour de futures réservations',
