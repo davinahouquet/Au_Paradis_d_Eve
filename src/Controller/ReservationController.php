@@ -42,17 +42,22 @@ class ReservationController extends AbstractController
 
     // Ajouter une réservation OU modifier
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
-    public function newReservation( Espace $espace, Reservation $reservation = null, User $user, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
+    public function newReservation( Espace $espace, Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
     {
+
+        $user = $this->getUser();
+
         $reservation = new Reservation();
         
-        $email = $user->getEmail();
 
-        if(!$user->getAdresse()){
-            $adresseFacturation = "Null";
-        } else {
-            $adresseFacturation = $user->getAdresse()." ".$user->getCp()." ".$user->getVille()." ".$user->getPays();
+        if ($user){
+            $email = $user->getEmail();
         }
+        
+        
+        // if($user && $user->getAdresse()){
+        //     $adresseFacturation = $user->getAdresse()." ".$user->getCp()." ".$user->getVille()." ".$user->getPays();
+        // } 
         $facture ='lien.pdf'; //lien vers le pdf
 
         $chambre = $espace->getNomEspace();
@@ -81,34 +86,30 @@ class ReservationController extends AbstractController
             //Trouver les espaces réservées aux dates sélectionnées grâce à la requête DQL créée dans ReservationRepository
             $indisponible = $reservationRepository->findEspacesReserves($espace, $dateDebutNlleReservation, $dateFinNlleReservation);
 
-                        //rajouter condition pas de réservation à l'envers
-                        //genre dateDebutNlleReservation < dateFinNlleReserv
-                        //Toutes les conditions nécessaires pour poursuivre la réservation :
-                        
-                        
-            if($dateDebutNlleReservation > $dateFinNlleReservation){
+            //Toutes les conditions nécessaires pour poursuivre la réservation                             
+            if($dateDebutNlleReservation > $dateFinNlleReservation){ //La date de début du séjour doit être supérieure à sa date de fin
                 $this->addFlash('message', 'La date de fin de votre séjour doit être supérieure à sa date de début.');
-                return $this->redirectToRoute('app_espace');
+                return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
             } elseif($indisponible){ //Pas de chevauchement de réservation
                 $this->addFlash('message', 'La réservation se chevauche avec une réservation existante. Veuillez choisir d\'autres dates.');
-                return $this->redirectToRoute('app_home');
+                return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
             } elseif($reservation->getDateDebut() <= $currentDate){ //Pas de réservation dans le passé, ni au jour même
                 $this->addFlash('message', 'Merci de réserver au moins un jour avant le début du séjour');
-                return $this->redirectToRoute('app_home');
+                return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
             } elseif($reservation->getDuree() < 2 ){  //Minimum 2 jours pour une réservation
                 $this->addFlash('message', 'La réservation doit être de deux nuits minimum');
-                return $this->redirectToRoute('app_espace');
+                return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
             } elseif($reservation->getDuree() > 28 ) { //Maximum 28 jours pour une réservation
                 $this->addFlash('message', 'La réservation ne doit pas excéder 28 jours');
-                return $this->redirectToRoute('app_espace');
+                return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
             } elseif($reservation->getNbPersonnes() > $espace->getNbPlaces()) { //Le nombre de personnes dans la réservation ne doit pas excéder le nombre de places dans la chambre (hors enfants)
                 $this->addFlash('message', 'Nombre de personnes trop élevé. Merci de réserver une autre chambre pour les personnes supplémentaires. (Hors enfants)');
-                return $this->redirectToRoute('app_espace');
+                return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
             } else { //Si toutes les conditions sont réunies, alors on peut poursuivre la réservation et insérer les champs en base de données
-                $reservation->setPrixTotal($prixTotal); //Il faut set les champs non nullables. Calculé grâce à la fonction calculerPrixTotal dans l'entité Reservation, en fonction de la durée du séjour
-                $reservation->setEmail($email);
-                $reservation->setAdresseFacturation($adresseFacturation);
-                $reservation->setFacture($facture);
+                // $reservation->setPrixTotal($prixTotal); //Il faut set les champs non nullables. Calculé grâce à la fonction calculerPrixTotal dans l'entité Reservation, en fonction de la durée du séjour
+                // $reservation->setEmail($email);
+                // $reservation->setAdresseFacturation($adresseFacturation);
+                // $reservation->setFacture($facture);
                 $reservation->setDateReservation($currentDate);
                 
                 $entityManager->persist($reservation);
