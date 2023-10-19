@@ -21,35 +21,40 @@ class CoordonneesType extends AbstractType
                 'label' => 'Email*',
                 'required' => true,
                 'attr' => [
-                    'autocomplete' => 'off'
+                    'autocomplete' => 'off',
+                    'value' => 'stewie@griffin'
                 ]
             ])
             ->add('adresse', TextType::class, [
                 'label' => 'Adresse*',
                 'required' => true,
                 'attr' => [
-                    'autocomplete' => 'off'
+                    'autocomplete' => 'off',
+                    'value' => '31 Spooner Street'
                 ]
             ])
             ->add('cp', TextType::class, [
                 'label' => 'Code postal*',
                 'required' => true,
                 'attr' => [
-                    'autocomplete' => 'off'
+                    'autocomplete' => 'off',
+                    'value' => '00093'
                 ]
             ])
             ->add('ville', TextType::class, [
                 'label' => 'Ville*',
                 'required' => true,
                 'attr' => [
-                    'autocomplete' => 'off'
+                    'autocomplete' => 'off',
+                    'value' => 'Quahog'
                 ]
             ])
             ->add('pays', TextType::class, [
                 'label' => 'Pays*',
                 'required' => true,
                 'attr' => [
-                    'autocomplete' => 'off'
+                    'autocomplete' => 'off',
+                    'value' => 'Rhode Island'
                 ]
             ])
             ->add('souvenir', CheckboxType::class, [
