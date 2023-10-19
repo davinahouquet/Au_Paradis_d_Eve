@@ -44,21 +44,13 @@ class ReservationController extends AbstractController
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
     public function newReservation( Espace $espace, Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
     {
-
         $user = $this->getUser();
 
         $reservation = new Reservation();
         
-
         if ($user){
             $email = $user->getEmail();
         }
-        
-        
-        // if($user && $user->getAdresse()){
-        //     $adresseFacturation = $user->getAdresse()." ".$user->getCp()." ".$user->getVille()." ".$user->getPays();
-        // } 
-        $facture ='lien.pdf'; //lien vers le pdf
 
         $chambre = $espace->getNomEspace();
         
@@ -75,9 +67,6 @@ class ReservationController extends AbstractController
             
             $reservation = $form->getData();
             $reservation->setEspace($espace);
-
-            // Calcul du prix total
-            $prixTotal = $reservation->calculerPrixTotal();
 
             //Trouver les dates de début et de fin de la réservation en cours
             $dateDebutNlleReservation = $reservation->getDateDebut();
@@ -106,12 +95,7 @@ class ReservationController extends AbstractController
                 $this->addFlash('message', 'Nombre de personnes trop élevé. Merci de réserver une autre chambre pour les personnes supplémentaires. (Hors enfants)');
                 return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
             } else { //Si toutes les conditions sont réunies, alors on peut poursuivre la réservation et insérer les champs en base de données
-                // $reservation->setPrixTotal($prixTotal); //Il faut set les champs non nullables. Calculé grâce à la fonction calculerPrixTotal dans l'entité Reservation, en fonction de la durée du séjour
-                // $reservation->setEmail($email);
-                // $reservation->setAdresseFacturation($adresseFacturation);
-                // $reservation->setFacture($facture);
-                $reservation->setDateReservation($currentDate);
-                
+
                 $entityManager->persist($reservation);
                 $entityManager->flush();
                 
@@ -137,8 +121,7 @@ class ReservationController extends AbstractController
         public function disponibiliteEspace(Espace $espace, \DateTime $dateDebut, \DateTime $dateFin, EntityManagerInterface $entityManager)
         {
             $reservationRepository = $entityManager->getRepository(Reservation::class);
-            // Query the database to check if there are any bookings that overlap
-            // with the provided dates for the given room.
+            // Requête en BDD pour vérifier si il y a des réservations qui se chevauchent aux dates données
             $reservationsExistantes = $reservationRepository->findEspacesReserves($espace, $dateDebut, $dateFin);
             return count($reservationsExistantes) === 0;
         }
