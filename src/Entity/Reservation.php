@@ -75,7 +75,7 @@ class Reservation
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $facture = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ["default" => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ["default" => 'CURRENT_TIMESTAMP'], nullable: true)]
     private ?\DateTimeInterface $dateReservation = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
