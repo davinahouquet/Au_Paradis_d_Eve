@@ -21,19 +21,31 @@ class ReservationType extends AbstractType
         $builder
         ->add('prenom', TextType::class, [
             'label' => 'Prénom*',
-            'required' => true
+            'required' => true,
+            'attr' => [
+                'value' => 'Stewie'
+            ]
         ])
         ->add('nom', TextType::class, [
             'label' => 'Nom*',
-            'required' => true
+            'required' => true,
+            'attr' => [
+                'value' => 'Griffin'
+            ]
         ])
         ->add('telephone', TextType::class, [
             'label' => 'Téléphone*',
-            'required' => true
+            'required' => true,
+            'attr' => [
+                'value' => '444719'
+            ]
         ])
         ->add('nb_personnes', NumberType::class, [
             'label' => 'Nombre de personnes*',
-            'required' => true
+            'required' => true,
+            'attr' => [
+                'value' => 1
+            ]
         ])
         ->add('date_debut', DateType::class, [
             'widget' => 'single_text',
