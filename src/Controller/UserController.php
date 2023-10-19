@@ -8,6 +8,7 @@ use App\Entity\Reservation;
 use App\Form\CoordonneesType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,8 +25,33 @@ class UserController extends AbstractController
     }
     
     #[Route ('/user/coordonnees/{reservation}', name:'new_coordonnees')]
-    public function new_coordonnees(Reservation $reservation,  User $user = null, Espace $espace = null, EntityManagerInterface $entityManager, Request $request): Response
+    public function new_coordonnees(Reservation $reservation,  User $user = null, Espace $espace = null, EntityManagerInterface $entityManager, Request $request, ReservationRepository $reservationRepository): Response
     {
+            // Afficher toutes les infos de la chambre qu'on réserve
+            $espace = $reservation->getEspace();
+            // dd($espace);
+            dump($reservation);
+            //Insérer les heures de check-in et check-out
+            $checkIn = 15;
+            $checkOut= 11;
+            //Trouver les dates de début et de fin de la réservation en question
+            $reservation->setDateDebut((new \DateTime($reservation->getDateDebut()->format("d-m-Y")))->setTime($checkIn, 0, 0)); //ok
+            $reservation->setDateFin((new \DateTime($reservation->getDateFin()->format("d-m-Y")))->setTime($checkOut, 0, 0)); //ok
+            $entityManager->persist($reservation);
+            $entityManager->flush();
+
+            dd($reservation);
+
+            $dateDebut = $reservation->getDateDebut();
+            $dateFin = $reservation->getDateFin();
+            // On REvérifie ici si réservation (pas que qqun ait réservé entre temps)
+            $indisponible = $reservationRepository->findEspacesReserves($espace, $dateDebut, $dateFin);
+            
+            if($indisponible){
+                $this->addFlash('message', 'La réservation n\'est plus disponible aux dates séléctionnées');
+                return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
+                exit;
+            }
              // //la date du jour
             date_default_timezone_set('Europe/Paris');
             $currentDate = new \Datetime();
@@ -35,9 +61,6 @@ class UserController extends AbstractController
 
              // Calcul du prix total
              $prixTotal = $reservation->calculerPrixTotal();
-
-            // Afficher toutes les infos de la chambre qu'on réserve
-            $espace = $reservation->getEspace();
                 
             //Création du formulaire de coordonnées
             $form = $this->createForm(CoordonneesType::class);
@@ -74,7 +97,6 @@ class UserController extends AbstractController
                 $reservation->setPrixTotal($prixTotal);
                 $reservation->setFacture($facture);
 
-                
                 //Définir l'user en session
                 $user = $this->getUser();
 
@@ -91,10 +113,12 @@ class UserController extends AbstractController
                         $entityManager->flush();
                     }
                 }
+
+
                 //Et également dans la table réservation (via l'adresse de facturation)
                 $entityManager->persist($reservation);
                 $entityManager->flush();
-
+                dd($reservation);
                 $this->addFlash('message', 'La réservation a bien été prise en compte');
                 return $this->redirectToRoute('app_home');
             }
@@ -108,11 +132,18 @@ class UserController extends AbstractController
     #[Route('/user/{id}', name: 'app_user')]
     public function profil(User $user, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
-
         $user = $userRepository->findOneBy([]);
-
         return $this->render('user/index.html.twig', [
             'user' => $user,
         ]);
+    }
+
+    //TEST
+    public function disponibiliteEspace(Espace $espace, \DateTime $dateDebut, \DateTime $dateFin, EntityManagerInterface $entityManager)
+    {
+        $reservationRepository = $entityManager->getRepository(Reservation::class);
+        // Requête en BDD pour vérifier si il y a des réservations qui se chevauchent aux dates données
+        $reservationsExistantes = $reservationRepository->findEspacesReserves($espace, $dateDebut, $dateFin);
+        return count($reservationsExistantes) === 0;
     }
 }
