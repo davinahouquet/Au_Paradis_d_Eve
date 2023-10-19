@@ -48,7 +48,7 @@ class Reservation
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_fin = null;
 
-    #[ORM\Column]
+    #[ORM\Column (nullable: true)]
     private ?float $prixTotal = null;
 
     #[ORM\Column(nullable: true)]
@@ -66,13 +66,13 @@ class Reservation
     #[ORM\JoinColumn(nullable: false)]
     private ?Espace $espace = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $adresseFacturation = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $facture = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ["default" => 'CURRENT_TIMESTAMP'])]
