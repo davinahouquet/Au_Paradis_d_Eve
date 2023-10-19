@@ -26,6 +26,16 @@ class UserController extends AbstractController
     #[Route ('/user/coordonnees/{reservation}', name:'new_coordonnees')]
     public function new_coordonnees(Reservation $reservation,  User $user = null, Espace $espace = null, EntityManagerInterface $entityManager, Request $request): Response
     {
+             // //la date du jour
+            date_default_timezone_set('Europe/Paris');
+            $currentDate = new \Datetime();
+            // dd($currentDate);
+
+            $facture ='lien.pdf'; //lien vers le pdf
+
+             // Calcul du prix total
+             $prixTotal = $reservation->calculerPrixTotal();
+
             // Afficher toutes les infos de la chambre qu'on réserve
             $espace = $reservation->getEspace();
                 
@@ -33,14 +43,14 @@ class UserController extends AbstractController
             $form = $this->createForm(CoordonneesType::class);
             $form->handleRequest($request);
             
-            if($this->getUser()){
-                //On pointe (get) les champs qu'on veut préremplir et on y insère (set) les valeurs souhaitées
-                $form->get('email')->setData($this->getUser()->getEmail());
-                $form->get('adresse')->setData($this->getUser()->getAdresse());
-                $form->get('cp')->setData($this->getUser()->getCp());
-                $form->get('ville')->setData($this->getUser()->getVille());
-                $form->get('pays')->setData($this->getUser()->getPays());
-            }
+            // if($this->getUser()){
+            //     //On pointe (get) les champs qu'on veut préremplir et on y insère (set) les valeurs souhaitées
+            //     $form->get('email')->setData($this->getUser()->getEmail());
+            //     $form->get('adresse')->setData($this->getUser()->getAdresse());
+            //     $form->get('cp')->setData($this->getUser()->getCp());
+            //     $form->get('ville')->setData($this->getUser()->getVille());
+            //     $form->get('pays')->setData($this->getUser()->getPays());
+            // }
 
             if ($form->isSubmitted() && $form->isValid()) {
                 
@@ -58,7 +68,12 @@ class UserController extends AbstractController
                 //Définir l'adresse de facturation grâce aux données récupérées dans le formulaire
                 $adresseFacturation = $adresse.' '.$cp." ".$ville.' '.$pays;
                 $reservation->setAdresseFacturation($adresseFacturation);
+
                 $reservation->setEmail($email);
+                $reservation->setDateReservation($currentDate);
+                $reservation->setPrixTotal($prixTotal);
+                $reservation->setFacture($facture);
+
                 
                 //Définir l'user en session
                 $user = $this->getUser();
@@ -71,7 +86,7 @@ class UserController extends AbstractController
                         $user->setCp($cp);
                         $user->setVille($ville);
                         $user->setPays($pays);
-    
+
                         $entityManager->persist($user);
                         $entityManager->flush();
                     }
