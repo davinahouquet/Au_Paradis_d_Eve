@@ -6,14 +6,23 @@
     <h1>Bienvenue sur votre profil, {{app.user.pseudo}}</h1>
 
     <h2>Liste des réservations confirmées</h2>
-    {% if reservations is defined %}
+    {# {% if user.reservations is defined %}
         <p>Liste des réservations</p>
-    {% for reservation in reservations %}
-        {{reservation.prenom}}
+    {% for reservations in user.reservations %}
+        {{reservations.dateDebut}}
     {% endfor %}
     {% else %}
         <p>Aucune réservation trouvée.</p>
-    {% endif %}
+    {% endif %} #}
+
+    {% for reservation in app.user.reservations %}
+        {{reservation.prenom}}
+        {{reservation.nom}}
+        <p>Du {{reservation.dateDebutFr}} au {{reservation.dateFinFr}} dans {{reservation.espace}}</p>
+        <p>Durée totale : {{reservation.duree}} nuits</p>
+        <p>Prix total : {{reservation.prixTotal}} €</p>
+        <p><a href="">Détails</a>(adresseFacturation, lien pdf)</p>
+    {% endfor %}
 
     <h3>Vos réservations non confirmées</h3>
         <p>Liste - Poursuivre</p>
@@ -22,8 +31,8 @@
     <p>Liste - (Si pas encore d'avis) Laisser un avis</p>
 
     <h5>Paramètres</h5>
-    <p>Pseudo : {{app.user.pseudo}} <a href="{{ path('edit_user', {'id' : app.user.id})}}">Modifier pseudo</a></p> <!--https://github.com/davinahouquet/Sessions/commit/4b51a8dcf9c40c5d0936bd6865269240a373fe70-->
-    <p>Email : {{app.user.email}}/ Modifier l'email</p> <!--https://github.com/davinahouquet/Sessions/commit/8e53ed4675b1f1a7648ab7589f91c9c458244d41-->
-    <p>Mot de passe : {{app.user.password}}/ Modifier mot de passe</p> <!--https://github.com/davinahouquet/Sessions/commit/d3bf4b739a1f467a335b6f707b4dbdda41df4e56-->
+    <p>Pseudo : {{app.user.pseudo}} <a href="{{ path('edit_user', {'id' : app.user.id})}}">Modifier pseudo</a></p>
+    <p>Email : {{app.user.email}}<a href="{{ path('edit_user_email', {'id' : app.user.id})}} "> Modifier l'email</a></p>
+    <p>Mot de passe : ************* <a href="{{ path('upgrade_password',{'id' : app.user.id})}}">Modifier mot de passe</a></p>
     <p><a href="{{ path('delete_user', {'id': app.user.id}) }}">Supprimer mon compte</a></p>
 {% endblock %}
