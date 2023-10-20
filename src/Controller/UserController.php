@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Espace;
+use App\Form\UserType;
 use App\Entity\Reservation;
+use App\Form\EmailFormType;
 use App\Form\CoordonneesType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,14 +18,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
-    #[Route('/user', name: 'app_user')]
-    public function index(): Response
+    #[Route('/user/{id}', name: 'app_user')]
+    public function index(User $user, Reservation $reservation = null, EntityManagerInterface $entityManager, UserRepository $userRepository, ReservationRepository $reservationRepository): Response
     {
+        // $user = $userRepository->findOneBy([]);
+        // $reservations = $user->getReservations();
+            
+        $reservations = $reservationRepository->findAll();
+
         return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+            'user' => $user,
+            'reservations' => $reservations
         ]);
     }
-    
+
     #[Route ('/user/coordonnees/{reservation}', name:'new_coordonnees')]
     public function new_coordonnees(Reservation $reservation,  User $user = null, Espace $espace = null, EntityManagerInterface $entityManager, Request $request, ReservationRepository $reservationRepository): Response
     {
@@ -34,7 +42,7 @@ class UserController extends AbstractController
             //Insérer les heures de check-in et check-out
             $checkIn = 15;
             $checkOut= 11;
-            //Trouver les dates de début et de fin de la réservation en question
+            //Trouver les dates de début et de fin de la réservation en question -> Trouver une meilleure façon si possible
             $reservation->setDateDebut((new \DateTime($reservation->getDateDebut()->format("d-m-Y")))->setTime($checkIn, 0, 0)); //ok
             $reservation->setDateFin((new \DateTime($reservation->getDateFin()->format("d-m-Y")))->setTime($checkOut, 0, 0)); //ok
             $entityManager->persist($reservation);
@@ -141,6 +149,83 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/user/delete/{id}', name: 'delete_user')]
+    public function delete(User $user, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Supprime l'utilisateur de la base de données
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'L\'utilisateur a été supprimé avec succès'
+        );
+
+        return $this->redirectToRoute('app_register');
+    }
+
+    #[Route('/user/edit/pseudo/{id}', name: 'edit_user')]
+    public function edit(User $user, Request $request, EntityManagerInterface $entityManager) : Response
+    {
+        
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+    
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $user = $form->getData();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Les informations de votre compte ont bien été modifiées'
+            ); 
+            return $this->redirectToRoute('app_user', ['id' => $user->getId()]);
+        }
+
+
+        return $this->render('user/edit.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/user/editUserEmail/{id}', name: 'edit_user_email')]
+    public function editEmail(User $user, Request $request, EntityManagerInterface $entityManager) : Response
+    {
+        // Si l'user n'existe pas redirection à home
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
+        $email = $this->getUser()->getEmail();
+
+        $form = $this->createForm(EmailFormType::class, $user);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $user = $form->getData();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Les informations de votre compte ont bien été modifiées'
+            ); 
+            return $this->redirectToRoute('app_user', ['id' => $user->getId()]);
+        }
+        return $this->render('user/edit.html.twig', [
+            'form' => $form
+        ]);
+    }
+    
     //TEST
     public function disponibiliteEspace(Espace $espace, \DateTime $dateDebut, \DateTime $dateFin, EntityManagerInterface $entityManager)
     {
