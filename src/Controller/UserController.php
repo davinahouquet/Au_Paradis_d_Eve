@@ -30,7 +30,7 @@ class UserController extends AbstractController
             // Afficher toutes les infos de la chambre qu'on réserve
             $espace = $reservation->getEspace();
             // dd($espace);
-            dump($reservation);
+            // dump($reservation);
             //Insérer les heures de check-in et check-out
             $checkIn = 15;
             $checkOut= 11;
@@ -40,7 +40,7 @@ class UserController extends AbstractController
             $entityManager->persist($reservation);
             $entityManager->flush();
 
-            dd($reservation);
+            // dd($reservation);
 
             $dateDebut = $reservation->getDateDebut();
             $dateFin = $reservation->getDateFin();
@@ -99,7 +99,8 @@ class UserController extends AbstractController
 
                 //Définir l'user en session
                 $user = $this->getUser();
-
+                // $id = $user->getId();
+                // dd($id);
                 //si il y a bien un user connecté, et que la checkbox a été cochée
                 if($user){
                     if($souvenir == true){
@@ -108,6 +109,8 @@ class UserController extends AbstractController
                         $user->setCp($cp);
                         $user->setVille($ville);
                         $user->setPays($pays);
+
+                        $reservation->setUser($user);
 
                         $entityManager->persist($user);
                         $entityManager->flush();
@@ -118,7 +121,7 @@ class UserController extends AbstractController
                 //Et également dans la table réservation (via l'adresse de facturation)
                 $entityManager->persist($reservation);
                 $entityManager->flush();
-                dd($reservation);
+                // dd($reservation);
                 $this->addFlash('message', 'La réservation a bien été prise en compte');
                 return $this->redirectToRoute('app_home');
             }
