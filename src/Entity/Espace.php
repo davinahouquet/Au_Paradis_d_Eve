@@ -182,4 +182,8 @@ class Espace
 
         return $this;
     }
+
+    public function __toString(){
+        return $this->nom_espace." ".$this->taille." ".$this->wifi." ".$this->nb_places." ".$this->prix;
+    }
 }
