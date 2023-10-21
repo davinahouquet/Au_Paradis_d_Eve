@@ -8,7 +8,6 @@ use App\Form\UserType;
 use App\Entity\Reservation;
 use App\Form\EmailFormType;
 use App\Form\CoordonneesType;
-use App\Repository\UserRepository;
 use App\Form\ChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
@@ -16,22 +15,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
-    #[Route('/user/{id}', name: 'app_user')]
-    public function index(User $user, Reservation $reservation = null, EntityManagerInterface $entityManager, UserRepository $userRepository, ReservationRepository $reservationRepository): Response
+    #[Route('/user', name: 'app_user')]
+    public function index(): Response
     {
-        // $user = $userRepository->findOneBy([]);
-      
-        // $reservations = $user->getReservations();
-        //     // dd($reservations);
-        // $reservations = $reservationRepository->findAll();
-
-        return $this->render('user/index.html.twig', [
-            'user' => $user,
-            // 'reservations' => $reservations
-        ]);
+        return $this->render('user/index.html.twig', []);
     }
 
     #[Route ('/user/coordonnees/{reservation}', name:'new_coordonnees')]
@@ -219,34 +210,43 @@ class UserController extends AbstractController
         ]);
     }
     
-    #[Route('/user/upgradePassword/{id}', name: 'upgrade_password')]
-    public function upgradePassword(User $user, Request $request, EntityManagerInterface $entityManager) : Response
+    #[Route('/user/upgradePassword', name: 'upgrade_password')]
+    public function upgradePassword(UserPasswordHasherInterface $userPasswordHasher, Request $request, EntityManagerInterface $entityManager) : Response
     {
-        // Si l'user n'existe pas redirection à home
+        // Si l'user n'existe pas redirection à la page de connexion
         if(!$this->getUser()){
             return $this->redirectToRoute('app_login');
         }
-
         $password = $this->getUser()->getPassword();
+        //condition si l'ancien mdp correspond
 
-        $form = $this->createForm(ChangePasswordFormType::class, $user);
+        $form = $this->createForm(ChangePasswordFormType::class);
 
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $user = $form->getData();
+        
+            if($form->isSubmitted() && $form->isValid()){
+                $user =  $this->getUser();
+                $plainPassword = $userPasswordHasher->hashPassword($user, $form->getData());
+
+                $user->setPassword($plainPassword);
+                $entityManager->persist($user);
+                $entityManager->flush();
+
             $entityManager->persist($user);
+
             $entityManager->flush();
 
             $this->addFlash(
                 'success',
                 'Les informations de votre compte ont bien été modifiées'
             ); 
-            return $this->redirectToRoute('app_user', ['id' => $user->getId()]);
+            return $this->redirectToRoute('app_user');
         }
         return $this->render('user/edit.html.twig', [
             'form' => $form
         ]);
     }
+
     //TEST
     public function disponibiliteEspace(Espace $espace, \DateTime $dateDebut, \DateTime $dateFin, EntityManagerInterface $entityManager)
     {

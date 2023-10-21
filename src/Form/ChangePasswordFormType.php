@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
@@ -16,46 +17,46 @@ class ChangePasswordFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'options' => [
-                    'attr' => [
-                        'autocomplete' => 'new-password',
-                        'class' => 'form-control'
-                    ],
-                ],
-                'first_options' => [
-                    'constraints' => [
-                        new NotBlank([
-                            'message' => 'Please enter a password',
-                        ]),
-                        new Length([
-                            'min' => 6,
-                            'minMessage' => 'Your password should be at least {{ limit }} characters',
-                            // max length allowed by Symfony for security reasons
-                            'max' => 4096,
-                        ]),
-                    ],
-                    'label' => 'Nouveau mot de passe',
-                ],
-                'second_options' => [
-                    'label' => 'Confirmer le nouveau mot de passe',
-                ],
-                'invalid_message' => 'The password fields must match.',
-                // Instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-            ])
-            ->add('valider', SubmitType::class, [
+        ->add('plainPassword', RepeatedType::class, [
+            'type' => PasswordType::class,
+            'options' => [
                 'attr' => [
-                'class' => 'btn btn-success'
-                ]
-            ]); 
-        ;
+                    'autocomplete' => 'new-password',
+                    'class' => 'form-control'
+                ],
+            ],
+            'first_options' => [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a password',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Votre mot de passe doit avoir 6 caractères au minimum',
+                        //Longueur maximum autorisée par Symfony pour des raisons de sécurité
+                        'max' => 4096,
+                    ]),
+                ],
+                'label' => 'Nouveau mot de passe',
+            ],
+            'second_options' => [
+                'label' => 'Confirmer le nouveau mot de passe',
+            ],
+            'invalid_message' => 'Les mots de passes doivent être similaires',
+            'mapped' => false,
+        ])
+        ->add('valider', SubmitType::class, [
+            'attr' => [
+            'class' => 'btn btn-success'
+            ]
+        ]); 
+    ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults([
+            'data_class' => User::class,
+        ]);
     }
 }

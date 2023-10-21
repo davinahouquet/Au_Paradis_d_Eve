@@ -33,6 +33,6 @@
     <h5>Paramètres</h5>
     <p>Pseudo : {{app.user.pseudo}} <a href="{{ path('edit_user', {'id' : app.user.id})}}">Modifier pseudo</a></p>
     <p>Email : {{app.user.email}}<a href="{{ path('edit_user_email', {'id' : app.user.id})}} "> Modifier l'email</a></p>
-    <p>Mot de passe : ************* <a href="{{ path('upgrade_password',{'id' : app.user.id})}}">Modifier mot de passe</a></p>
+    <p>Mot de passe : ************* <a href="{{ path('upgrade_password')}}">Modifier mot de passe</a></p>
     <p><a href="{{ path('delete_user', {'id': app.user.id}) }}">Supprimer mon compte</a></p>
 {% endblock %}
