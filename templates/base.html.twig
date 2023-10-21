@@ -29,7 +29,7 @@
                     <div class="user">
                         <i class="fa-solid fa-circle-user"></i>
                         {% if app.user %}
-                            <a href="{{ path('app_user',{'id' : app.user.id})}}">{{app.user.pseudo}}</a>
+                            <a href="{{ path('app_user')}}">{{app.user.pseudo}}</a>
                         {% endif %}
 
                         {% if app.user %}
@@ -42,9 +42,9 @@
                 </ul>
             </nav>
         </header>
-        {% for message in app.flashes('notice') %}
+        {# {% for message in app.flashes('notice') %}
             {{ message }}
-        {% endfor %}
+        {% endfor %} #}
         <footer>
             <a href="">Mentions légales</a><p>&</p><a href="">Conditions générales</a>
         </footer>
