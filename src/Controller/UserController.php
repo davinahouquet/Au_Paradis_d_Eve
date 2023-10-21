@@ -11,6 +11,7 @@ use App\Form\CoordonneesType;
 use App\Form\ChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,9 +21,19 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserController extends AbstractController
 {
     #[Route('/user', name: 'app_user')]
-    public function index(): Response
+    public function index(ReservationRepository $reservationRepository): Response
     {
-        return $this->render('user/index.html.twig', []);
+        $reservationEnCours = $reservationRepository->findReservationEnCours();
+        $reservationsPassees = $reservationRepository->findReservationsPassees();
+        $reservationsAVenir = $reservationRepository->findReservationsAVenir();
+        $reservationsNonConfirmees = $reservationRepository->findReservationsNonConfirmees();
+
+        return $this->render('user/index.html.twig', [
+            'reservationEnCours' => $reservationEnCours,
+            'reservationsPassees' => $reservationsPassees,
+            'reservationsAVenir' => $reservationsAVenir,
+            'reservationsNonConfirmees' => $reservationsNonConfirmees
+        ]);
     }
 
     #[Route ('/user/coordonnees/{reservation}', name:'new_coordonnees')]
@@ -231,10 +242,6 @@ class UserController extends AbstractController
                 $user->setPassword($plainPassword);
                 $entityManager->persist($user);
                 $entityManager->flush();
-
-            $entityManager->persist($user);
-
-            $entityManager->flush();
 
             $this->addFlash(
                 'success',

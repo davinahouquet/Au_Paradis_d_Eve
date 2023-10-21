@@ -5,32 +5,45 @@
 {% block body %}
     <h1>Bienvenue sur votre profil, {{app.user.pseudo}}</h1>
 
-    <h2>Liste des réservations confirmées</h2>
-    {# {% if user.reservations is defined %}
-        <p>Liste des réservations</p>
-    {% for reservations in user.reservations %}
-        {{reservations.dateDebut}}
-    {% endfor %}
-    {% else %}
-        <p>Aucune réservation trouvée.</p>
-    {% endif %} #}
-
-    {% for reservation in app.user.reservations %}
-        {{reservation.prenom}}
-        {{reservation.nom}}
-        <p>Du {{reservation.dateDebutFr}} au {{reservation.dateFinFr}} dans {{reservation.espace}}</p>
-        <p>Durée totale : {{reservation.duree}} nuits</p>
-        <p>Prix total : {{reservation.prixTotal}} €</p>
+    <!--Si réservation en cours-->
+    <h2>Votre réservation en cours</h2>
+    
+    {% for reservationEnCours in reservationEnCours %}
+        {{reservationEnCours.prenom}}
+        {{reservationEnCours.nom}}
+        <p>Du {{reservationEnCours.dateDebutFr}} au {{reservationEnCours.dateFinFr}} dans {{reservationEnCours.espace}}</p>
+        <p>Durée totale : {{reservationEnCours.duree}} nuits</p>
+        <p>Prix total : {{reservationEnCours.prixTotal}} €</p>
         <p><a href="">Détails</a>(adresseFacturation, lien pdf)</p>
     {% endfor %}
 
     <h3>Vos réservations non confirmées</h3>
         <p>Liste - Poursuivre</p>
+        {% for reservationNonConfirmee in reservationsNonConfirmees %}
+            <p><a href="">Reprendre votre réservation</a> du  {{reservationNonConfirmee.dateDebutFr}} au {{reservationNonConfirmee.dateFinFr}} dans la {{reservationNonConfirmee.espace}}</p>
+        {% endfor %}
 
     <h4>Vos réservations passées</h4>
-    <p>Liste - (Si pas encore d'avis) Laisser un avis</p>
+    <p>Liste</p>
+    {% for reservationPassee in reservationsPassees %}
+            <p>Votre séjour du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}} dans {{reservationPassee.espace}}, au nom de  {{reservationPassee.prenom}}{{reservationPassee.nom}}</p>
+            <p>Durée totale : {{reservationPassee.duree}} nuits</p>
+            <p>Prix total : {{reservationPassee.prixTotal}} €</p>
+            <p>(Si pas encore d'avis) Laisser un avis</p>
+    {% endfor %}
 
-    <h5>Paramètres</h5>
+    <h5>Vos réservations à venir</h5>
+    <p>Préparez votre séjour</p>
+    {% for reservationAVenir in reservationsAVenir %}
+            <p>Votre séjour du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}, au nom de  {{reservationAVenir.prenom}}{{reservationAVenir.nom}}</p>
+            <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
+            <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
+    {% endfor %}
+
+    <p>Mes avis</p>
+    <p>Liste des avis</p>
+
+    <h6>Paramètres</h6>
     <p>Pseudo : {{app.user.pseudo}} <a href="{{ path('edit_user', {'id' : app.user.id})}}">Modifier pseudo</a></p>
     <p>Email : {{app.user.email}}<a href="{{ path('edit_user_email', {'id' : app.user.id})}} "> Modifier l'email</a></p>
     <p>Mot de passe : ************* <a href="{{ path('upgrade_password')}}">Modifier mot de passe</a></p>

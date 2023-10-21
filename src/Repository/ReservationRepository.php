@@ -29,7 +29,7 @@ class ReservationRepository extends ServiceEntityRepository
         ->where('r.espace = :espace')
         ->andWhere('r.date_debut <= :date_fin')
         ->andWhere('r.date_fin >= :date_debut')
-        ->andWhere('r.adresseFacturation IS NOT NULL') // Pour remplacer un booléen (ne fonctionne pas)
+        ->andWhere('r.adresseFacturation IS NOT NULL')
         ->setParameter('espace', $espace)
         ->setParameter('date_debut', $dateDebut)
         ->setParameter('date_fin', $dateFin)
@@ -37,6 +37,52 @@ class ReservationRepository extends ServiceEntityRepository
         ->getResult();
 
     }
+
+    public function findReservationEnCours(): array
+    {
+        $now = new \DateTime();
+        return $this->createQueryBuilder('r')
+           ->andWhere('r.date_debut < :now')
+           ->andWhere('r.date_fin > :now')
+           ->setParameter('now', $now)
+           ->orderBy('r.date_debut', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+    }
+
+    public function findReservationsPassees(): array
+    {
+        $now = new \DateTime();
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.date_fin < :now')
+            ->setParameter('now', $now)
+            ->orderBy('r.date_debut', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findReservationsAVenir(): array
+    {
+        return $this->createQueryBuilder('r')
+           ->andWhere('r.adresseFacturation IS NOT NULL')
+           ->orderBy('r.date_debut', 'ASC')
+           ->getQuery()
+           ->getResult()
+           ;
+    }
+
+    public function findReservationsNonConfirmees(): array
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.adresseFacturation IS NULL')
+            ->orderBy('r.date_debut', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 //     public function findLatestReservation(): ?Reservation
 // {
 //     return $this->createQueryBuilder('r')
