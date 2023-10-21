@@ -20,7 +20,7 @@
     <h3>Vos réservations non confirmées</h3>
         <p>Liste - Poursuivre</p>
         {% for reservationNonConfirmee in reservationsNonConfirmees %}
-            <p><a href="">Reprendre votre réservation</a> du  {{reservationNonConfirmee.dateDebutFr}} au {{reservationNonConfirmee.dateFinFr}} dans la {{reservationNonConfirmee.espace}}</p>
+            <p><a href="{{ path('new_coordonnees', {'reservation' : reservationNonConfirmee.id}) }}">Reprendre votre réservation</a> du  {{reservationNonConfirmee.dateDebutFr}} au {{reservationNonConfirmee.dateFinFr}} dans la {{reservationNonConfirmee.espace}}</p>
         {% endfor %}
 
     <h4>Vos réservations passées</h4>
