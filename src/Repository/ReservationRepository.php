@@ -27,56 +27,67 @@ class ReservationRepository extends ServiceEntityRepository
     return $this->createQueryBuilder('r')
 
         ->where('r.espace = :espace')
+        ->andWhere('r.user = :user')
         ->andWhere('r.date_debut <= :date_fin')
         ->andWhere('r.date_fin >= :date_debut')
         ->andWhere('r.adresseFacturation IS NOT NULL')
         ->setParameter('espace', $espace)
         ->setParameter('date_debut', $dateDebut)
         ->setParameter('date_fin', $dateFin)
+        ->setParameter('user', $user)
         ->getQuery()
         ->getResult();
 
     }
 
-    public function findReservationEnCours(): array
+    public function findReservationEnCours($user): array
     {
         $now = new \DateTime();
+        
         return $this->createQueryBuilder('r')
+           ->andWhere('r.user = :user')
            ->andWhere('r.date_debut < :now')
            ->andWhere('r.date_fin > :now')
            ->setParameter('now', $now)
+           ->setParameter('user', $user)
            ->orderBy('r.date_debut', 'ASC')
            ->getQuery()
            ->getResult()
        ;
     }
 
-    public function findReservationsPassees(): array
+    public function findReservationsPassees($user): array
     {
         $now = new \DateTime();
         return $this->createQueryBuilder('r')
+            ->andWhere('r.user = :user')
             ->andWhere('r.date_fin < :now')
             ->setParameter('now', $now)
+            ->setParameter('user', $user)
             ->orderBy('r.date_debut', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function findReservationsAVenir(): array
+    public function findReservationsAVenir($user): array
     {
         return $this->createQueryBuilder('r')
+            ->andWhere('r.user = :user')
            ->andWhere('r.adresseFacturation IS NOT NULL')
+           ->setParameter('user', $user)
            ->orderBy('r.date_debut', 'ASC')
            ->getQuery()
            ->getResult()
            ;
     }
 
-    public function findReservationsNonConfirmees(): array
+    public function findReservationsNonConfirmees($user): array
     {
         return $this->createQueryBuilder('r')
+            ->andWhere('r.user = :user')
             ->andWhere('r.adresseFacturation IS NULL')
+            ->setParameter('user', $user)
             ->orderBy('r.date_debut', 'ASC')
             ->getQuery()
             ->getResult()

@@ -23,10 +23,18 @@ class UserController extends AbstractController
     #[Route('/user', name: 'app_user')]
     public function index(ReservationRepository $reservationRepository): Response
     {
-        $reservationEnCours = $reservationRepository->findReservationEnCours();
-        $reservationsPassees = $reservationRepository->findReservationsPassees();
-        $reservationsAVenir = $reservationRepository->findReservationsAVenir();
-        $reservationsNonConfirmees = $reservationRepository->findReservationsNonConfirmees();
+        $user = $this->getUser();
+
+        $reservationEnCours = $reservationRepository->findReservationEnCours($user);
+        $reservationsPassees = $reservationRepository->findReservationsPassees($user);
+        $reservationsAVenir = $reservationRepository->findReservationsAVenir($user);
+
+        $reservationsNonConfirmees = $reservationRepository->findReservationsNonConfirmees($user);
+        // $currentDate = new \Datetime();
+
+        // if($reservationsNonConfirmees->getDateFin() < $currentDate){
+        //     $user->removeReservation($reservationsNonConfirmees);
+        // }
 
         return $this->render('user/index.html.twig', [
             'reservationEnCours' => $reservationEnCours,
