@@ -124,20 +124,28 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `options` json DEFAULT NULL,
   `note` double DEFAULT NULL,
   `avis` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `adresse_facturation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `facture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_reservation` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `IDX_42C84955B6885C6C` (`espace_id`),
   KEY `IDX_42C84955A76ED395` (`user_id`),
   CONSTRAINT `FK_42C84955A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_42C84955B6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.reservation : ~1 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.reservation : ~9 rows (environ)
 INSERT INTO `reservation` (`id`, `user_id`, `espace_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `options`, `note`, `avis`, `email`, `adresse_facturation`, `facture`, `date_reservation`) VALUES
-	(147, NULL, 1, 'Stewie', 'Griffin', 444719, 1, '2023-10-20 15:00:00', '2023-10-19 11:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+	(1, 19, 8, 'Beth', 'Smith', 456, 1, '2023-10-22 00:36:12', '2023-05-22 00:36:23', 50, NULL, NULL, NULL, 'space@beth', '69 Jessica\'s Avenue 00093 Washington USA', 'lien.pdf', '2023-10-22 00:36:50'),
+	(2, 19, 2, 'Beth', 'Smith', 123, 2, '2023-02-22 00:44:43', '2023-09-22 00:44:58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-10-22 00:45:08'),
+	(3, 19, 3, 'tsh', 'qth', 64, 2, '2023-10-20 15:00:00', '2023-10-24 11:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-10-22 01:11:12'),
+	(4, 21, 5, 'Ted', 'Bundy', 666, 2, '2023-10-17 10:40:52', '2023-10-20 11:41:01', 200, NULL, NULL, NULL, 'ted@bundy', 'Burlington', 'lien.pdf', '2023-10-22 11:52:39'),
+	(5, 21, 8, 'Ted', 'Bundy', 80, 2, '2023-10-21 11:53:03', '2023-10-25 11:53:08', 80, NULL, NULL, NULL, 'ted@bundy', 'Burlington', 'lien.pdf', '2023-10-22 11:53:30'),
+	(6, 21, 10, 'Ted', 'Bundy', 180, 1, '2023-10-30 15:00:00', '2023-11-05 11:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-10-22 11:54:15'),
+	(148, NULL, 10, 'Beth', 'Smith', 533654, 5, '2023-11-22 15:00:00', '2023-11-25 11:00:00', 20, NULL, NULL, NULL, 'space@beth', '69 Jessica\'s Avenue 00093 Washington USA', 'lien.pdf', '2023-10-20 09:02:12'),
+	(149, 19, 5, 'Beth', 'Smith', 56644, 5, '2023-12-31 15:00:00', '2024-01-05 11:00:00', 480, NULL, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2023-10-20 09:07:53'),
+	(150, NULL, 10, 'Stewie', 'Griffin', 444719, 1, '2023-10-25 15:00:00', '2023-10-30 11:00:00', 40, NULL, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2023-10-20 17:26:24');
 
 -- Listage de la structure de table au_paradis_d_eve. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -153,27 +161,23 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.user : ~15 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.user : ~13 rows (environ)
 INSERT INTO `user` (`id`, `email`, `pseudo`, `roles`, `password`, `adresse`, `cp`, `ville`, `pays`, `is_verified`) VALUES
 	(1, 'user@user.fr', 'user', '[]', '$2y$13$2CQb7SxND7L8jdFnk0QwN.X/RVmQtghHr91GnWJgXaoWBzajl8ZXS', NULL, NULL, NULL, NULL, 1),
 	(2, 'stephane@hotmail.fr', 'Stéphane', '[]', '$2y$13$i.aQNTF/34ulqVQRHFVnhOeqHLlP1fbZQ/No/xmk3NTFtiJasHquS', 'nkln', 'bhk', 'kj', 'kdfv', 1),
 	(3, 'indiana@jones', 'indianajones', '[]', '$2y$13$zNvGO4axnyUoRrZdJmqw4ukQe52dTSK4qg3Adivg0EsXMRxXQnBG.', NULL, NULL, NULL, NULL, 0),
-	(4, 'qzt@wdfg', 'qzert', '[]', '$2y$13$TOAU9rafsXL/vowkkDss.OAx6ntTV9uWagbE/KdHYEzM5P8ZLdAYe', NULL, NULL, NULL, NULL, 0),
-	(5, 'qzt@wdfgsrty', 'srtysrty', '[]', '$2y$13$5SzYACko9QpWfcwBr0PGDu/KKVX0wlyaiafRC53VVzfsWed6MALMu', NULL, NULL, NULL, NULL, 0),
 	(6, 'salomon123@sal', 'Salomon', '[]', '$2y$13$GyelMaue4eNYEJy.sQNyjetvh7RMnbJ6iOokzlZcA6/HiKvu2a0kq', NULL, NULL, NULL, NULL, 1),
 	(7, 'rick@morty', 'ricksanchez', '[]', '$2y$13$sTZz1lmTwTTARIkVMnDjfeNa3Mv2WH0DM0NxdM7UjpJwOQb57XzVO', '1 evegreen', '64512', 'LA', 'US', 1),
-	(8, 'userTest@user', 'userTest', '[]', '$2y$13$oz7TdzYgCI1CwXL6dff3t.9ooW21xHipM.GaweJseUkfabuFAAW6y', NULL, NULL, NULL, NULL, 0),
-	(9, 'str@hqsrt', 'tghtr', '[]', '$2y$13$4uJZfWcEtAdfmqy0DGeL9ubAQTXhxfQD5l7jX6KgmQ0LI/CzSLyZO', '', '', '', '', 0),
-	(10, 'st@qe', 'srty', '[]', '$2y$13$42TIGE0n6jay5k17grVnROYmijK9rdg7LAQ9X7hJYOT15YnwDDYmG', '(yu', 'z(u', 'z(', 'z', 1),
-	(11, 'test1@test', 'test1', '[]', '$2y$13$KscKVAMv/.tNVelAizX.guqYEugG/4irx2BU74detQCbTm/xKOvoa', NULL, NULL, NULL, NULL, 0),
 	(12, 'indiana@jones1', 'indianajones', '[]', '$2y$13$c5X02CoiRBq9JK.9G0qBrefieMB4sOGqME1IRjuzgXy1RpHuPeS7e', NULL, NULL, NULL, NULL, 0),
 	(13, 'christina@cordula', 'Christina', '[]', '$2y$13$uGAxDERTGE/DsjKNjdpEl.vAa5eTsj2rE827ITWtMjTLUsK0XqwoW', NULL, NULL, NULL, NULL, 0),
-	(14, 'testdecisif@test', 'testdecisif', '[]', '$2y$13$QrQde5yqxyXn2BZoprTM6uL.YhU6KT7nXRJWQDpT0XFiwjEUfWq82', NULL, NULL, NULL, NULL, 0),
 	(15, 'kirby@star', 'Kirby', '[]', '$2y$13$30RZ.o9UL3I0pSHWTw/IA.nYQigcqhb0WhR94U.cMbQh4nMm4FijO', 'aaa', '67100', 'STRASBOURG', 'FRANCE', 0),
 	(16, 'hailey@smith', 'HaileyGreen', '[]', '$2y$13$t9QjfD6B/qKkc2Jfzu6yz..XTWH/Y0yK5kyM3mef/0RLOY/qa69FK', NULL, NULL, NULL, NULL, 0),
-	(17, 'peter@griffin', 'Griff', '[]', '$2y$13$Z6xvqUnoHXf55EdqMaP3.OIpLQ1kjAGk7OZdcjUJsM7j.xZgAgARq', NULL, NULL, NULL, NULL, 0);
+	(17, 'peter@griffin', 'Griff', '[]', '$2y$13$Z6xvqUnoHXf55EdqMaP3.OIpLQ1kjAGk7OZdcjUJsM7j.xZgAgARq', NULL, NULL, NULL, NULL, 0),
+	(18, 'rick@pickle', 'pickleRick', '[]', '$2y$13$5RXEMHOfBx3H5/e0nu7Ip.R8XE0nzdT0HHWFWbSzhaYqNkjnb/1VO', NULL, NULL, NULL, NULL, 0),
+	(19, 'beth@smith', 'SpaceBeth', '[]', 'azerty', '31 Spooner Street', '00093', 'Quahog', 'Rhode Island', 1),
+	(21, 'ted@bundy', 'tedbundy', '[]', '$2y$13$Bdd1dpFJODMIaCFj4cotVO8LSDqtc0fqJrSjfi6SlFwYuQSlgRwbW', NULL, NULL, NULL, NULL, 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
