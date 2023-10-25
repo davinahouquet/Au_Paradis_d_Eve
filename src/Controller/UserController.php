@@ -143,7 +143,7 @@ class UserController extends AbstractController
                 $entityManager->flush();
                 // dd($reservation);
                 $this->addFlash('message', 'La réservation a bien été prise en compte');
-                return $this->redirectToRoute('app_home');
+                return $this->redirectToRoute('app_user');
             }
         return $this->render('reservation/coordonnees.html.twig', [
             'form' => $form,
