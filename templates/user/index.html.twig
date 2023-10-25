@@ -30,6 +30,10 @@
             <p>Durée totale : {{reservationPassee.duree}} nuits</p>
             <p>Prix total : {{reservationPassee.prixTotal}} €</p>
             <p>(Si pas encore d'avis) Laisser un avis</p>
+            {% if reservationPassee.avis %}
+                {{reservationPassee.avis}}
+                {{reservationPassee.note}}
+            {% endif %}
     {% endfor %}
 
     <h5>Vos réservations à venir</h5>
@@ -42,6 +46,12 @@
 
     <p>Mes avis</p>
     <p>Liste des avis</p>
+    {% for reservationPassee in reservationsPassees %}
+        {{reservationPassee.espace}}
+        Du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}}
+        {{reservationPassee.avis}}
+        {{reservationPassee.note}}
+    {% endfor %}
 
     <h6>Paramètres</h6>
     <p>Pseudo : {{app.user.pseudo}} <a href="{{ path('edit_user', {'id' : app.user.id})}}">Modifier pseudo</a></p>
