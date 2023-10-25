@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Espace;
 use App\Entity\Reservation;
 use Doctrine\Persistence\ManagerRegistry;
@@ -27,20 +28,20 @@ class ReservationRepository extends ServiceEntityRepository
     return $this->createQueryBuilder('r')
 
         ->where('r.espace = :espace')
-        ->andWhere('r.user = :user')
+        // ->andWhere('r.user = :user')
         ->andWhere('r.date_debut <= :date_fin')
         ->andWhere('r.date_fin >= :date_debut')
         ->andWhere('r.adresseFacturation IS NOT NULL')
         ->setParameter('espace', $espace)
         ->setParameter('date_debut', $dateDebut)
         ->setParameter('date_fin', $dateFin)
-        ->setParameter('user', $user)
+        // ->setParameter('user', $user)
         ->getQuery()
         ->getResult();
 
     }
 
-    public function findReservationEnCours($user): array
+    public function findReservationEnCours(User $user): array
     {
         $now = new \DateTime();
         
@@ -56,7 +57,7 @@ class ReservationRepository extends ServiceEntityRepository
        ;
     }
 
-    public function findReservationsPassees($user): array
+    public function findReservationsPassees(User $user): array
     {
         $now = new \DateTime();
         return $this->createQueryBuilder('r')
@@ -70,7 +71,7 @@ class ReservationRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findReservationsAVenir($user): array
+    public function findReservationsAVenir(User $user): array
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.user = :user')
@@ -82,7 +83,7 @@ class ReservationRepository extends ServiceEntityRepository
            ;
     }
 
-    public function findReservationsNonConfirmees($user): array
+    public function findReservationsNonConfirmees(User $user): array
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.user = :user')

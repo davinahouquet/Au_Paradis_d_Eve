@@ -123,6 +123,7 @@ class UserController extends AbstractController
                 // dd($id);
                 //si il y a bien un user connecté, et que la checkbox a été cochée
                 if($user){
+                    $reservation->setUser($user);
                     if($souvenir == true){
                         //Alors on set les informations du formulaire dans la table user
                         $user->setAdresse($adresse);
@@ -130,7 +131,6 @@ class UserController extends AbstractController
                         $user->setVille($ville);
                         $user->setPays($pays);
 
-                        $reservation->setUser($user);
 
                         $entityManager->persist($user);
                         $entityManager->flush();
