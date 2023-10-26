@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Espace{% endblock %}
+
+{% block body %}
+    <h1>Create Espace</h1>
+    {{ form_start(form) }}
+    
+    {{ form_row(form.nom_espace) }}
+    {{ form_row(form.taille) }}
+    {{ form_row(form.wifi) }}
+    {{ form_row(form.nb_places) }}
+    {{ form_row(form.prix) }}
+    
+    {# Render the "categorie" field as a select input with options #}
+    <div>
+        {{ form_label(form.categorie) }}
+        {{ form_widget(form.categorie) }}
+        {{ form_errors(form.categorie) }}
+    </div>
+    
+    {{ form_end(form) }}
+{% endblock %}
