@@ -34,7 +34,8 @@ class EspaceController extends AbstractController
     }
 
     #[Route('/espace/new', name: 'new_espace')]
-    public function newEspace(Espace $espace, CategorieRepository $categorieRepository, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/espace/edit/{id}', name: 'edit_espace')] 
+    public function new_edit_espace(Espace $espace = null, CategorieRepository $categorieRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         if(!$espace){
             $espace = new Espace();
