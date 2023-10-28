@@ -24,17 +24,14 @@ class EspaceController extends AbstractController
         ]);
     }
 
-    // #[Route('/espace/{id}', name: 'show_espace')]
-    // public function show_espace(Espace $espace, EspaceRepository $espaceRepository, EntityManagerInterface $entityManager): Response
-    // {
-    //     $repository = $entityManager->getRepository(Espace::class);
-    //     $chambre = $repository->findByCategorie(1);
+    #[Route('/espace/remove/{id}', name: 'remove_espace')]
+    public function remove_espace(Espace $espace, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($espace);
+        $entityManager->flush();
 
-    //     return $this->render('espace/show.html.twig', [
-    //         'espace' => $espace,
-    //         'chambre' => $chambre
-    //     ]);
-    // }
+        return $this->redirectToRoute('app_espace');
+    }
 
     #[Route('/espace/new', name: 'new_espace')]
     public function newEspace(Espace $espace, CategorieRepository $categorieRepository, Request $request, EntityManagerInterface $entityManager): Response
@@ -43,7 +40,7 @@ class EspaceController extends AbstractController
             $espace = new Espace();
         }
         $categories = $categorieRepository->findAll();
-        
+
         $form = $this->createForm(EspaceType::class, $espace);
 
         $form->handleRequest($request);
