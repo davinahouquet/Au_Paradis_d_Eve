@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Espace;
 use App\Form\EspaceType;
 use App\Repository\EspaceRepository;
+use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,25 +24,26 @@ class EspaceController extends AbstractController
         ]);
     }
 
-    #[Route('/espace/{id}', name: 'show_espace')]
-    public function show_espace(Espace $espace, EspaceRepository $espaceRepository, EntityManagerInterface $entityManager): Response
-    {
-        $repository = $entityManager->getRepository(Espace::class);
-        $chambre = $repository->findByCategorie(1);
+    // #[Route('/espace/{id}', name: 'show_espace')]
+    // public function show_espace(Espace $espace, EspaceRepository $espaceRepository, EntityManagerInterface $entityManager): Response
+    // {
+    //     $repository = $entityManager->getRepository(Espace::class);
+    //     $chambre = $repository->findByCategorie(1);
 
-        return $this->render('espace/show.html.twig', [
-            'espace' => $espace,
-            'chambre' => $chambre
-        ]);
-    }
+    //     return $this->render('espace/show.html.twig', [
+    //         'espace' => $espace,
+    //         'chambre' => $chambre
+    //     ]);
+    // }
 
     #[Route('/espace/new', name: 'new_espace')]
-    public function newEspace(Espace $espace, Request $request, EntityManagerInterface $entityManager): Response
+    public function newEspace(Espace $espace, CategorieRepository $categorieRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         if(!$espace){
             $espace = new Espace();
         }
-
+        $categories = $categorieRepository->findAll();
+        
         $form = $this->createForm(EspaceType::class, $espace);
 
         $form->handleRequest($request);
@@ -49,7 +51,7 @@ class EspaceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $espace = $form->getData();
-            dd($espace);
+            // dd($espace);
             $entityManager->persist($espace);
             $entityManager->flush();
 
@@ -60,6 +62,19 @@ class EspaceController extends AbstractController
 
         return $this->render('espace/new.html.twig', [
             'form' => $form,
+            'categories' => $categories,
+        ]);
+    }
+    
+    #[Route('/espace/{id}', name: 'show_espace')]
+    public function show_espace(Espace $espace, EspaceRepository $espaceRepository, EntityManagerInterface $entityManager): Response
+    {
+        $repository = $entityManager->getRepository(Espace::class);
+        $chambre = $repository->findByCategorie(1);
+
+        return $this->render('espace/show.html.twig', [
+            'espace' => $espace,
+            'chambre' => $chambre
         ]);
     }
 }
