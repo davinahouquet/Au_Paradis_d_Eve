@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Espace;
 use App\Entity\Reservation;
+use App\Form\EvaluationType;
 use App\Form\CoordonneesType;
 use App\Form\ReservationType;
 use App\Repository\EspaceRepository;
@@ -115,6 +116,29 @@ class ReservationController extends AbstractController
         {
             return $this->render('reservation/choix.html.twig', [
                 'espace' => $espace
+            ]);
+        }
+
+        #[Route('/reservation/evaluation/{reservation}', name:'new_evaluation') ]
+        public function evaluation(Reservation $reservation = null, EntityManagerInterface $entityManager, Request $request)
+        {
+
+            $form = $this->createForm(EvaluationType::class, $reservation);
+            
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+            
+                $evaluation = $form->getData();
+
+                $entityManager->persist($evaluation);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_user');
+            }
+
+            return $this->render('reservation/evaluation.html.twig', [
+                'form' => $form
             ]);
         }
 

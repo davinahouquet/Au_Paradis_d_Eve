@@ -29,7 +29,7 @@
             <p>Votre séjour du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}} dans {{reservationPassee.espace}}, au nom de  {{reservationPassee.prenom}}{{reservationPassee.nom}}</p>
             <p>Durée totale : {{reservationPassee.duree}} nuits</p>
             <p>Prix total : {{reservationPassee.prixTotal}} €</p>
-            <p>(Si pas encore d'avis) Laisser un avis</p>
+            <p>(Si pas encore d'avis) <a href="{{ path('new_evaluation', {'reservation' : reservationPassee.id})}}">Laisser un avis</a></p>
             {% if reservationPassee.avis %}
                 {{reservationPassee.avis}}
                 {{reservationPassee.note}}

@@ -1,0 +1,19 @@
+{# templates/evaluation.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Évaluation de la réservation{% endblock %}
+
+{% block body %}
+    <h1>Évaluation de la réservation</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.note, {'label': 'Note :'}) }}
+
+    {{ form_row(form.avis, {'label': 'Avis :'}) }}
+
+    {{ form_row(form.valider) }}
+
+    {{ form_end(form) }}
+{% endblock %}
