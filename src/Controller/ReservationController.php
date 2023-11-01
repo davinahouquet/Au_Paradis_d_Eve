@@ -22,11 +22,24 @@ class ReservationController extends AbstractController
     #[Route('/reservation', name: 'app_reservation')]
     public function index(EspaceRepository $espaceRepository): Response
     {
-
         $chambres = $espaceRepository->findByCategorie(1);
 
         return $this->render('reservation/index.html.twig', [
             'chambres' => $chambres,
+        ]);
+    }
+
+    #[Route('/reservation/chambres', name: 'reservation_chambre')]
+    public function afficherChambres(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $repository = $entityManager->getRepository(Espace::class);
+        // Va trier les espaces selon la categorie 1 (Qui correspond aux chambres dans ma BDD)
+        $chambres = $repository->findByCategorie(1);
+        $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+   
+        return $this->render('home/index.html.twig', [
+            'chambres' => $chambres
         ]);
     }
     
