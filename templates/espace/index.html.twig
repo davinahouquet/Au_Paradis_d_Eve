@@ -7,8 +7,12 @@
     <div class="espaces">
         {% for espace in espaces %}
             <a href="{{path('show_espace', {'id' :espace.id})}}"> {{espace.nomEspace}}</a>
-            <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Modifier</a>
-            <a href="{{ path('remove_espace', {'id' :espace.id}) }}">Supprimer</a><br>
+
+            {% if is_granted("ROLE_ADMIN") %}
+                <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Modifier</a>
+                <a href="{{ path('remove_espace', {'id' :espace.id}) }}">Supprimer</a>
+            {% endif %}
+            <br>
         {% endfor %}
     </div>
 {% endblock %}
