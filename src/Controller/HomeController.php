@@ -10,13 +10,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
     public function index(EntityManagerInterface $entityManager, Request $request, MailerService $mailer): Response
     {
-       
+        // Récupère le contenu du fichier JSON
+        $jsonData = file_get_contents('../public/json/home_text.json');
+        
+        // Convertir JSON en tableau associatif
+        $data = json_decode($jsonData, true);
+
         $repository = $entityManager->getRepository(Espace::class);
 
         // Va trier les espaces selon la categorie 1 (Qui correspond aux chambres dans ma BDD)
@@ -40,7 +46,8 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'chambres' => $chambres,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'data' => $data
         ]);
     }
 }
