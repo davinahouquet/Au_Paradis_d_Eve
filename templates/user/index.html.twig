@@ -3,8 +3,17 @@
 {% block title %}Mon profil{% endblock %}
 
 {% block body %}
-    <h1>Bienvenue sur votre profil, {{app.user.pseudo}}</h1>
 
+
+<h1>Bienvenue sur votre profil, {{app.user.pseudo}}</h1>
+
+{% if is_granted("ROLE_ADMIN") %}
+    <p>Administrateur</p>
+    <p>Actions</p>
+    <a href="{{ path('app_home') }}">Modifier le texte de la page d'accueil</a>
+    <a href="{{ path('app_espace') }}">Modifier ou supprimer un espace</a>
+    <a href="{{ path('app_alentours') }}">Modifier ou supprimer un alentours</a>
+{% else %}
     <!--Si réservation en cours-->
     <h2>Votre réservation en cours</h2>
     
@@ -52,10 +61,12 @@
         {{reservationPassee.avis}}
         {{reservationPassee.note}}
     {% endfor %}
+    {% endif %}
 
     <h6>Paramètres</h6>
     <p>Pseudo : {{app.user.pseudo}} <a href="{{ path('edit_user', {'id' : app.user.id})}}">Modifier pseudo</a></p>
     <p>Email : {{app.user.email}}<a href="{{ path('edit_user_email', {'id' : app.user.id})}} "> Modifier l'email</a></p>
     <p>Mot de passe : ************* <a href="{{ path('upgrade_password')}}">Modifier mot de passe</a></p>
     <p><a href="{{ path('delete_user', {'id': app.user.id}) }}">Supprimer mon compte</a></p>
+    
 {% endblock %}
