@@ -6,23 +6,17 @@
 
     <h1>SELECTIONNEZ VOTRE SEJOUR</h1>
 
-    {# Zone de recherche de séjour aux dates entrées (n'afficher que les chambres dispos pour le nb de personnes si possible) #}
-    <div class="selection-sejour">
-        <form action="">
-
-        </form>
-    </div>
-    {# for...sur les chambres #}
-    {% for chambre in chambres %}
-    <a href="{{ path('new_reservation', {'id' :chambre.id})}}">{{chambre.nomEspace}}</a>
-    {% endfor %}
-
     <div class="carte-chambre">
         <img src="" alt="">
         <div class="info-chambre">
-            {# nom #}
-            {# infos(wifi...) #}
-            {# tableau descript, €/jour, total #}
+            {% for chambre in chambres %}
+            <a href="{{path('show_espace', {'id' :chambre.id})}}">{{chambre}}</a><a href="{{ path('new_reservation', {'id' :chambre.id})}}">Réserver</a><br>
+            {% endfor %}
         </div>
     </div>
+    {# Formulaire - Zone de recherche de séjour aux dates entrées (n'afficher que les chambres dispos pour le nb de personnes si possible) #}
+    <div class="selection-sejour">
+        <form action=""></form>
+    </div>
+
 {% endblock %}
