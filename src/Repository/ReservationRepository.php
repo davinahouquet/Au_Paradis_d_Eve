@@ -73,13 +73,16 @@ class ReservationRepository extends ServiceEntityRepository
 
     public function findReservationsAVenir(User $user): array
     {
+        $now = new \DateTime();
         return $this->createQueryBuilder('r')
             ->andWhere('r.user = :user')
-           ->andWhere('r.adresseFacturation IS NOT NULL')
-           ->setParameter('user', $user)
-           ->orderBy('r.date_debut', 'ASC')
-           ->getQuery()
-           ->getResult()
+            ->andWhere('r.adresseFacturation IS NOT NULL')
+            ->andWhere('r.date_debut > :now')
+            ->setParameter('now', $now)
+            ->setParameter('user', $user)
+            ->orderBy('r.date_debut', 'ASC')
+            ->getQuery()
+            ->getResult()
            ;
     }
 
