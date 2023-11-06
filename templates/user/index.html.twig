@@ -13,6 +13,17 @@
     <a href="{{ path('app_home') }}">Modifier le texte de la page d'accueil</a>
     <a href="{{ path('app_espace') }}">Modifier ou supprimer un espace</a>
     <a href="{{ path('app_alentours') }}">Modifier ou supprimer un alentours</a>
+    <p>Liste des réservations à venir des gens avec la possibilité de les annuler/reporter</p>
+    {% for reservationAVenir in toutesReservationsAVenir %}
+        {{reservationAVenir.prenom}}
+        {{reservationAVenir.nom}}
+        <p>Du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}</p>
+        <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
+        <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
+        <p>Annuler</p>
+        <p>Contacter le client</p>
+    {% endfor %}
+    
 {% else %}
     <!--Si réservation en cours-->
     <h2>Votre réservation en cours</h2>
@@ -32,26 +43,28 @@
             <p><a href="{{ path('new_coordonnees', {'reservation' : reservationNonConfirmee.id}) }}">Reprendre votre réservation</a> du  {{reservationNonConfirmee.dateDebutFr}} au {{reservationNonConfirmee.dateFinFr}} dans la {{reservationNonConfirmee.espace}}</p>
         {% endfor %}
 
-    <h4>Vos réservations passées</h4>
-    <p>Liste</p>
-    {% for reservationPassee in reservationsPassees %}
-            <p>Votre séjour du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}} dans {{reservationPassee.espace}}, au nom de  {{reservationPassee.prenom}}{{reservationPassee.nom}}</p>
-            <p>Durée totale : {{reservationPassee.duree}} nuits</p>
-            <p>Prix total : {{reservationPassee.prixTotal}} €</p>
-            <p>(Si pas encore d'avis) <a href="{{ path('new_evaluation', {'reservation' : reservationPassee.id})}}">Laisser un avis</a></p>
-            {% if reservationPassee.avis %}
-                {{reservationPassee.avis}}
-                {{reservationPassee.note}}
-            {% endif %}
-    {% endfor %}
-
-    <h5>Vos réservations à venir</h5>
-    <p>Préparez votre séjour</p>
-    {% for reservationAVenir in reservationsAVenir %}
-            <p>Votre séjour du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}, au nom de  {{reservationAVenir.prenom}}{{reservationAVenir.nom}}</p>
-            <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
-            <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
-    {% endfor %}
+        
+        <h5>Vos réservations à venir</h5>
+        <p>Préparez votre séjour</p>
+        {% for reservationAVenir in reservationsAVenir %}
+        <p>Votre séjour du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}, au nom de  {{reservationAVenir.prenom}}{{reservationAVenir.nom}}</p>
+        <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
+        <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
+        <a href="">Annuler ma réservation</a>
+        {% endfor %}
+        
+        <h4>Vos réservations passées</h4>
+        <p>Liste</p>
+        {% for reservationPassee in reservationsPassees %}
+                <p>Votre séjour du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}} dans {{reservationPassee.espace}}, au nom de  {{reservationPassee.prenom}}{{reservationPassee.nom}}</p>
+                <p>Durée totale : {{reservationPassee.duree}} nuits</p>
+                <p>Prix total : {{reservationPassee.prixTotal}} €</p>
+                <p>(Si pas encore d'avis) <a href="{{ path('new_evaluation', {'reservation' : reservationPassee.id})}}">Laisser un avis</a></p>
+                {% if reservationPassee.avis %}
+                    {{reservationPassee.avis}}
+                    {{reservationPassee.note}}
+                {% endif %}
+        {% endfor %}
 
     <p>Mes avis</p>
     <p>Liste des avis</p>

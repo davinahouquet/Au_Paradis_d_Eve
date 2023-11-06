@@ -28,6 +28,7 @@ class UserController extends AbstractController
         $reservationEnCours = $reservationRepository->findReservationEnCours($user);
         $reservationsPassees = $reservationRepository->findReservationsPassees($user);
         $reservationsAVenir = $reservationRepository->findReservationsAVenir($user);
+        $toutesReservationsAVenir = $reservationRepository->findToutesReservationsAVenir();
 
         $reservationsNonConfirmees = $reservationRepository->findReservationsNonConfirmees($user);
         // $currentDate = new \Datetime();
@@ -40,7 +41,8 @@ class UserController extends AbstractController
             'reservationEnCours' => $reservationEnCours,
             'reservationsPassees' => $reservationsPassees,
             'reservationsAVenir' => $reservationsAVenir,
-            'reservationsNonConfirmees' => $reservationsNonConfirmees
+            'reservationsNonConfirmees' => $reservationsNonConfirmees,
+            'toutesReservationsAVenir'=> $toutesReservationsAVenir
         ]);
     }
 

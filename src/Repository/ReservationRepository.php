@@ -44,7 +44,6 @@ class ReservationRepository extends ServiceEntityRepository
     public function findReservationEnCours(User $user): array
     {
         $now = new \DateTime();
-        
         return $this->createQueryBuilder('r')
            ->andWhere('r.user = :user')
            ->andWhere('r.date_debut < :now')
@@ -86,11 +85,27 @@ class ReservationRepository extends ServiceEntityRepository
            ;
     }
 
+    public function findToutesReservationsAVenir(): array
+    {
+        $now = new \DateTime();
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.adresseFacturation IS NOT NULL')
+            ->andWhere('r.date_debut > :now')
+            ->setParameter('now', $now)
+            ->orderBy('r.date_debut', 'ASC')
+            ->getQuery()
+            ->getResult()
+           ;
+    }
+
     public function findReservationsNonConfirmees(User $user): array
     {
+        $now = new \DateTime();
         return $this->createQueryBuilder('r')
             ->andWhere('r.user = :user')
+            ->andWhere('r.date_fin < :now ')
             ->andWhere('r.adresseFacturation IS NULL')
+            ->setParameter('now', $now)
             ->setParameter('user', $user)
             ->orderBy('r.date_debut', 'ASC')
             ->getQuery()
