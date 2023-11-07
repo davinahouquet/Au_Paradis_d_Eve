@@ -134,24 +134,32 @@ class ReservationController extends AbstractController
 
         #[Route('/reservation/evaluation/{reservation}', name:'new_evaluation') ]
         public function evaluation(Reservation $reservation = null, EntityManagerInterface $entityManager, Request $request)
-        {
+        {            
+            $eval = $reservation->getNote();
 
-            $form = $this->createForm(EvaluationType::class, $reservation);
-            
-            $form->handleRequest($request);
-    
-            if ($form->isSubmitted() && $form->isValid()) {
-            
-                $evaluation = $form->getData();
-
-                $entityManager->persist($evaluation);
-                $entityManager->flush();
-
+            if ($eval) {
+                // Si un avis est déjà laissé, redirection vers une page d'erreur
                 return $this->redirectToRoute('app_user');
+            } else {
+                $form = $this->createForm(EvaluationType::class, $reservation);
+                
+                $form->handleRequest($request);
+        
+                if ($form->isSubmitted() && $form->isValid()) {
+                
+                    $evaluation = $form->getData();
+    
+                    $entityManager->persist($evaluation);
+                    $entityManager->flush();
+    
+                    return $this->redirectToRoute('app_user');
+                }
             }
+            
 
             return $this->render('reservation/evaluation.html.twig', [
-                'form' => $form
+                'form' => $form,
+                'eval' => $eval
             ]);
         }
 
