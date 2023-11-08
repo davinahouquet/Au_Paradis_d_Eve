@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Édition des textes de la page d'accueil</h1>
+    
+    {{ form_start(form) }}
+    <div>
+        {{ form_row(form.maison_dhote) }}
+    </div>
+    <div>
+        {{ form_row(form.reservation) }}
+    </div>
+    <div>
+        {{ form_row(form.environnement) }}
+    </div>
+    <div>
+        {{ form_row(form.pays_de_bitche) }}
+    </div>
+    <div>
+        {{ form_row(form.description_pays_de_bitche) }}
+    </div>
+    <div>
+        {{ form_row(form.mascotte) }}
+    </div>
+    <div>
+        {{ form_row(form.description_mascotte) }}
+    </div>
+    <div>
+        {{ form_row(form.telephone_fixe) }}
+    </div>
+    <div>
+        {{ form_row(form.telephone) }}
+    </div>
+    <div>
+        {{ form_row(form.email) }}
+    </div>
+    <div>
+        {{ form_row(form.adresse) }}
+    </div>
+    <div>
+        {{ form_row(form.cp) }}
+    </div>
+    <div>
+        {{ form_row(form.ville) }}
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

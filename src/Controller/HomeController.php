@@ -19,21 +19,17 @@ class HomeController extends AbstractController
     {
         // Récupère le contenu du fichier JSON
         $jsonData = file_get_contents('../public/json/home_text.json');
-        
         // Convertir JSON en tableau associatif
         $data = json_decode($jsonData, true);
-
         $repository = $entityManager->getRepository(Espace::class);
-
         // Va trier les espaces selon la categorie 1 (Qui correspond aux chambres dans ma BDD)
         $chambres = $repository->findByCategorie(1);
 
+        //Formulaire de contact
         $form = $this->createForm(ContactType::class);
-
         $form->handleRequest($request);
-   
-        if ($form->isSubmitted() && $form->isValid()) {
 
+        if ($form->isSubmitted() && $form->isValid()) {
             $contactFormData = $form->getData();
             $subject = 'Demande de contact sur votre site de ' . $contactFormData['email'];
             $content = $contactFormData['message'];
@@ -42,8 +38,6 @@ class HomeController extends AbstractController
             $this->addFlash('success', 'Votre message a bien été envoyé');
             return $this->redirectToRoute('app_home');
         }
-
-
         return $this->render('home/index.html.twig', [
             'chambres' => $chambres,
             'form' => $form->createView(),

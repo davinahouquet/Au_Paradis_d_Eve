@@ -6,6 +6,11 @@
 
     <section class="parallax-home">
         <h1>Au Paradis d'Eve</h1>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('admin_edit_home_text') }}">Modifier la page d'accueil</a>
+        {% endif %}
+
         <p><strong>{{ data.maison_dhote }}</p>
         <p><a href="{{ path('app_reservation') }}">Réservez</a> sur notre site en toute sécurité</p>
         <p>{{ data.environnement }}</p>
