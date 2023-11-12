@@ -17,6 +17,9 @@ class EvaluationType extends AbstractType
         $builder
         ->add('note', NumberType::class, [
             'html5' => true,
+            'attr' => [
+                'max' => 5
+            ]
         ])
         ->add('avis', TextareaType::class, [
             'attr' => ['rows' => 5], // Pour un champ longtext

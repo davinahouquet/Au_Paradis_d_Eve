@@ -24,10 +24,25 @@
       <a href="{{ path('app_direction', {'id' :espace.id})}}">Réserver</a>
     {% endif %}
 
-{# 
-    {% if espace.categorie == '1' %}
-      <a href="{{ path('new_reservation', {'id' :espace.id})}}">Réserver</a>
-    {% endif %} #}
+    <div class="evaluations">
+      {% if reservations|length > 0 %}
+          {% for reservation in reservations %}
+              {% if reservation.getNote() is not null %}
+                  {{ reservation.getNote() }}
+                  {% if reservation.getAvis() is not null %}
+                  {{ reservation.getAvis() }}
+                  {% endif %}
+                  {{ reservation.prenom|slice(0, 1) }}.
+              {% endif %}
+              {% if is_granted('ROLE_ADMIN') %}
+                <a href="">Supprimer l'évaluation</a>
+                <a href="">Répondre à l'utilisateur</a>
+              {% endif %}
+          {% endfor %}
+      {% else %}
+          <p>Aucun avis pour le moment</p>
+      {% endif %}
+    </div>
 
  </div>
 {% endblock %}
