@@ -12,6 +12,11 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
+    public function __construct()
+    {
+        $this->options = [];
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -51,7 +56,7 @@ class Reservation
     #[ORM\Column (nullable: true)]
     private ?float $prixTotal = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: Types::JSON, nullable: true)]
     private ?array $options = null;
 
     #[ORM\Column(nullable: true)]
@@ -59,8 +64,6 @@ class Reservation
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $avis = null;
-
-
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
@@ -211,6 +214,9 @@ class Reservation
             $prixTotal = $prixChambre * $duree;
             return $prixTotal;
         }
+
+        // Ajouter prix options si options selectionnees
+        
     }
 
     return null;

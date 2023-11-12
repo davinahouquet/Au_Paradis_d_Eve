@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -65,6 +66,13 @@ class ReservationType extends AbstractType
             ],
             'label' => 'Date de fin*'
         ])
+        ->add('options', ChoiceType::class, [
+            'label' => 'Options',
+            'choices' => $options['options'],
+            'expanded' => true,
+            'multiple' => true,
+            'required' => false,
+        ])
         ->add('valider', SubmitType::class, [
             'attr' => [
             'class' => 'btn btn-success'
@@ -77,6 +85,7 @@ class ReservationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Reservation::class,
+            'options' => []
         ]);
     }
 }

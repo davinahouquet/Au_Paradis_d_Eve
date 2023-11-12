@@ -71,9 +71,16 @@ class ReservationController extends AbstractController
         // //la date du jour
         date_default_timezone_set('Europe/Paris');
         $currentDate = new \Datetime();
-        // dd($currentDate);
-
-        $form = $this->createForm(ReservationType::class, $reservation);
+        // Les options
+        $optionsFile = file_get_contents('../public/json/options.json');
+        $optionsData = json_decode($optionsFile, true);
+        $options = [];
+        foreach ($optionsData['options_chambres_hotes'] as $optionData) {
+            $options[$optionData['nom_option']] = $optionData['id_option'];
+        }
+    
+        $form = $this->createForm(ReservationType::class, $reservation, ['options' => $options]);
+        // $form = $this->createForm(ReservationType::class, $reservation);
             
         $form->handleRequest($request);
 
@@ -109,7 +116,11 @@ class ReservationController extends AbstractController
                 $this->addFlash('message', 'Nombre de personnes trop élevé. Merci de réserver une autre chambre pour les personnes supplémentaires. (Hors enfants)');
                 return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
             } else { //Si toutes les conditions sont réunies, alors on peut poursuivre la réservation et insérer les champs en base de données
-
+            // Set options dans reservation
+            $selectedOptions = $form->get('options')->getData();
+            if (is_array($selectedOptions)) {
+                $reservation->setOptions($selectedOptions);
+            }
                 $entityManager->persist($reservation);
                 $entityManager->flush();
                 
@@ -120,7 +131,9 @@ class ReservationController extends AbstractController
         }  
             return $this->render('reservation/new.html.twig', [
                 'form' => $form,
-                'chambre' => $chambre
+                'chambre' => $chambre,
+                'options' => $options,
+                'optionsData' => $optionsData
             ]);
         }
 

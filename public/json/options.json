@@ -1,0 +1,40 @@
+{
+    "options_chambres_hotes": [
+      {
+        "id_option": 1,
+        "nom_option": "Petit-déjeuner",
+        "description_option": "Commencez la journée avec un délicieux petit-déjeuner continental. A partir de 8h, jusqu'à 10h.",
+        "tarif_option": 10.00,
+        "image_option": "http://exemple.com/images/petit-dejeuner.jpg"
+      },
+      {
+        "id_option": 2,
+        "nom_option": "Brunch",
+        "description_option": "Commencez la journée avec un délicieux brunch composé de produits locaux. A partir de 9h, jusqu'à 12h.",
+        "tarif_option": 15.00,
+        "image_option": "http://exemple.com/images/piscine.jpg"
+      },
+      {
+        "id_option": 3,
+        "nom_option": "Service de ménage quotidien",
+        "description_option": "Votre chambre sera nettoyée tous les jours pour un séjour sans soucis.",
+        "tarif_option": 5.00,
+        "image_option": "http://exemple.com/images/menage.jpg"
+      },
+      {
+        "id_option": 4,
+        "nom_option": "Lit enfant",
+        "description_option": "Ajout d'un lit taille enfant dans votre chambre",
+        "tarif_option": 0.00,
+        "image_option": "http://exemple.com/images/menage.jpg"
+      },
+      {
+        "id_option": 5,
+        "nom_option": "Berceau",
+        "description_option": "Ajout d'un berceau dans votre chambre",
+        "tarif_option": 0.00,
+        "image_option": "http://exemple.com/images/menage.jpg"
+      }
+    ]
+  }
+  
