@@ -53,9 +53,9 @@ CREATE TABLE IF NOT EXISTS `espace` (
   PRIMARY KEY (`id`),
   KEY `IDX_6AB096DBCF5E72D` (`categorie_id`),
   CONSTRAINT `FK_6AB096DBCF5E72D` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.espace : ~10 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.espace : ~11 rows (environ)
 INSERT INTO `espace` (`id`, `categorie_id`, `nom_espace`, `taille`, `wifi`, `nb_places`, `prix`) VALUES
 	(1, 1, 'Chambre des Liilas', 23, 1, 2, 40),
 	(2, 1, 'Chambre du Tournesol', 15, 1, 2, 40),
@@ -66,7 +66,8 @@ INSERT INTO `espace` (`id`, `categorie_id`, `nom_espace`, `taille`, `wifi`, `nb_
 	(7, 1, 'Chambre Magalie', 20, 1, 2, 60),
 	(8, 1, 'Chambre Davina', 10, 1, 2, 50),
 	(9, 1, 'Chambre du Soleil', 55, 1, 5, 40),
-	(10, 1, 'Chambre de ta voisine', 1200, 1, 150, 10);
+	(10, 1, 'Chambre de ta voisine', 1200, 1, 150, 10),
+	(13, 3, 'Test', 45, 1, 5, 15);
 
 -- Listage de la structure de table au_paradis_d_eve. image
 CREATE TABLE IF NOT EXISTS `image` (
@@ -133,19 +134,11 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   KEY `IDX_42C84955A76ED395` (`user_id`),
   CONSTRAINT `FK_42C84955A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_42C84955B6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.reservation : ~9 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.reservation : ~1 rows (environ)
 INSERT INTO `reservation` (`id`, `user_id`, `espace_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `options`, `note`, `avis`, `email`, `adresse_facturation`, `facture`, `date_reservation`) VALUES
-	(1, 19, 8, 'Beth', 'Smith', 456, 1, '2023-10-22 00:36:12', '2023-05-22 00:36:23', 50, NULL, NULL, NULL, 'space@beth', '69 Jessica\'s Avenue 00093 Washington USA', 'lien.pdf', '2023-10-22 00:36:50'),
-	(2, 19, 2, 'Beth', 'Smith', 123, 2, '2023-02-22 00:44:43', '2023-09-22 00:44:58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-10-22 00:45:08'),
-	(3, 19, 3, 'tsh', 'qth', 64, 2, '2023-10-20 15:00:00', '2023-10-24 11:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-10-22 01:11:12'),
-	(4, 21, 5, 'Ted', 'Bundy', 666, 2, '2023-10-17 10:40:52', '2023-10-20 11:41:01', 200, NULL, NULL, NULL, 'ted@bundy', 'Burlington', 'lien.pdf', '2023-10-22 11:52:39'),
-	(5, 21, 8, 'Ted', 'Bundy', 80, 2, '2023-10-21 11:53:03', '2023-10-25 11:53:08', 80, NULL, NULL, NULL, 'ted@bundy', 'Burlington', 'lien.pdf', '2023-10-22 11:53:30'),
-	(6, 21, 10, 'Ted', 'Bundy', 180, 1, '2023-10-30 15:00:00', '2023-11-05 11:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-10-22 11:54:15'),
-	(148, NULL, 10, 'Beth', 'Smith', 533654, 5, '2023-11-22 15:00:00', '2023-11-25 11:00:00', 20, NULL, NULL, NULL, 'space@beth', '69 Jessica\'s Avenue 00093 Washington USA', 'lien.pdf', '2023-10-20 09:02:12'),
-	(149, 19, 5, 'Beth', 'Smith', 56644, 5, '2023-12-31 15:00:00', '2024-01-05 11:00:00', 480, NULL, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2023-10-20 09:07:53'),
-	(150, NULL, 10, 'Stewie', 'Griffin', 444719, 1, '2023-10-25 15:00:00', '2023-10-30 11:00:00', 40, NULL, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2023-10-20 17:26:24');
+	(168, 21, 1, 'Ted', 'Bundy', 533495, 2, '2023-11-16 15:00:00', '2023-11-20 11:00:00', 120, '[3, 4]', NULL, NULL, 'ted@bundy.us', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2023-11-12 13:06:49');
 
 -- Listage de la structure de table au_paradis_d_eve. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -161,9 +154,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve.user : ~13 rows (environ)
+-- Listage des données de la table au_paradis_d_eve.user : ~12 rows (environ)
 INSERT INTO `user` (`id`, `email`, `pseudo`, `roles`, `password`, `adresse`, `cp`, `ville`, `pays`, `is_verified`) VALUES
 	(1, 'user@user.fr', 'user', '[]', '$2y$13$2CQb7SxND7L8jdFnk0QwN.X/RVmQtghHr91GnWJgXaoWBzajl8ZXS', NULL, NULL, NULL, NULL, 1),
 	(2, 'stephane@hotmail.fr', 'Stéphane', '[]', '$2y$13$i.aQNTF/34ulqVQRHFVnhOeqHLlP1fbZQ/No/xmk3NTFtiJasHquS', 'nkln', 'bhk', 'kj', 'kdfv', 1),
@@ -177,7 +170,10 @@ INSERT INTO `user` (`id`, `email`, `pseudo`, `roles`, `password`, `adresse`, `cp
 	(17, 'peter@griffin', 'Griff', '[]', '$2y$13$Z6xvqUnoHXf55EdqMaP3.OIpLQ1kjAGk7OZdcjUJsM7j.xZgAgARq', NULL, NULL, NULL, NULL, 0),
 	(18, 'rick@pickle', 'pickleRick', '[]', '$2y$13$5RXEMHOfBx3H5/e0nu7Ip.R8XE0nzdT0HHWFWbSzhaYqNkjnb/1VO', NULL, NULL, NULL, NULL, 0),
 	(19, 'beth@smith', 'SpaceBeth', '[]', 'azerty', '31 Spooner Street', '00093', 'Quahog', 'Rhode Island', 1),
-	(21, 'ted@bundy', 'tedbundy', '[]', '$2y$13$Bdd1dpFJODMIaCFj4cotVO8LSDqtc0fqJrSjfi6SlFwYuQSlgRwbW', NULL, NULL, NULL, NULL, 0);
+	(21, 'ted@bundy', 'tedbundy', '[]', '$2y$13$Bdd1dpFJODMIaCFj4cotVO8LSDqtc0fqJrSjfi6SlFwYuQSlgRwbW', '31 Spoffggg', '00093', 'Quffghog', 'Rfghue Isyyyd', 0),
+	(22, 'admin@admin.fr', 'admin', '["ROLE_ADMIN"]', '$2y$13$A2LsweG1NSWBbRCw01IKqu.PWS0PPpvDvd/zdV4Gmh2vwvwr8Xkua', NULL, NULL, NULL, NULL, 0),
+	(23, 'testuser@testuser.fr', 'testuser', '[]', '$2y$13$xASJDhYlnZzgvSgqDe47g.gLID25d9bWPUw6WnJ98sDFZu5XRNeaK', 'test', 'test', 'test', 'test', 0),
+	(24, 'juenv@ferf.fr', ',kfak', '[]', '$2y$13$KrNQtOylkBAtrxDmLEkZieJUrd3zNoa3V.N.7tf2WA27v304Em0l2', NULL, NULL, NULL, NULL, 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
