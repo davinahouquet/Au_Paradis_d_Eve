@@ -95,7 +95,7 @@ class ReservationRepository extends ServiceEntityRepository
             ->orderBy('r.date_debut', 'ASC')
             ->getQuery()
             ->getResult()
-           ;
+        ;
     }
 
     public function findReservationsNonConfirmees(User $user): array
@@ -110,7 +110,7 @@ class ReservationRepository extends ServiceEntityRepository
             ->orderBy('r.date_debut', 'ASC')
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
 //     public function findLatestReservation(): ?Reservation
