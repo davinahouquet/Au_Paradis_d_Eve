@@ -12,6 +12,7 @@ use App\Form\ChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
 use App\Repository\UserRepository;
+use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,12 +25,11 @@ class UserController extends AbstractController
     public function index(ReservationRepository $reservationRepository): Response
     {
         $user = $this->getUser();
-
+        $currentDate = new \DateTime();
         $reservationEnCours = $reservationRepository->findReservationEnCours($user);
         $reservationsPassees = $reservationRepository->findReservationsPassees($user);
         $reservationsAVenir = $reservationRepository->findReservationsAVenir($user);
         $toutesReservationsAVenir = $reservationRepository->findToutesReservationsAVenir();
-
         $reservationsNonConfirmees = $reservationRepository->findReservationsNonConfirmees($user);
         // $currentDate = new \Datetime();
 
@@ -42,7 +42,8 @@ class UserController extends AbstractController
             'reservationsPassees' => $reservationsPassees,
             'reservationsAVenir' => $reservationsAVenir,
             'reservationsNonConfirmees' => $reservationsNonConfirmees,
-            'toutesReservationsAVenir'=> $toutesReservationsAVenir
+            'toutesReservationsAVenir'=> $toutesReservationsAVenir,
+            'currentDate' => $currentDate
         ]);
     }
 
