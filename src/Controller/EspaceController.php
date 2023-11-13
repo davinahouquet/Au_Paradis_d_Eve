@@ -69,10 +69,18 @@ class EspaceController extends AbstractController
     {
         $repository = $entityManager->getRepository(Espace::class);
         $chambre = $repository->findByCategorie(1);
+        // $notes = $espaceRepository->getReservations()->getNote();
+        // $avis = $espaceRepository->getReservations()->getAvis();
+        $reservations = $espace->getReservations();
+        // $notes = $reservations->getNote();
+        // $evaluations = $notes + $avis;
 
         return $this->render('espace/show.html.twig', [
             'espace' => $espace,
-            'chambre' => $chambre
+            'chambre' => $chambre,
+            // 'notes' => $notes,
+            'reservations' => $reservations
+            // 'evaluations' => $evaluations
         ]);
     }
 }
