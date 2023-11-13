@@ -3,14 +3,16 @@
 {% block title %}Alentours{% endblock %}
 
 {% block body %}
-    <h1>Sorties à proximité</h1>
-
+    <h1>Nos 5 propositions de sorties</h1>
     <ul>
         {% for sortie in data.sorties %}
             <li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="">Modifier</a>
+                {% endif %}
                 <h2>{{ sortie.nom_sortie }}</h2>
                 <p>{{ sortie.description_sortie }}</p>
-                <p>Tarif : {{ sortie.tarif_sortie }} €</p>
+                <p>Tarif approximatif: {{ sortie.tarif_sortie }} €</p>
                 <img src="{{ sortie.image_sortie }}" alt="{{ sortie.nom_sortie }}" width="200" height="150">
             </li>
         {% endfor %}
