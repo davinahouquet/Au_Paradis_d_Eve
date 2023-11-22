@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\SortieType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AlentoursController extends AbstractController
 {
@@ -14,7 +17,6 @@ class AlentoursController extends AbstractController
     {
         $jsonData = file_get_contents('../public/json/alentours.json');
         $data = json_decode($jsonData, true);
-
         return $this->render('alentours/index.html.twig', [
             'data' => $data
         ]);

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\SortieType;
 use App\Form\HomeTextType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,8 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends AbstractController
 {
@@ -53,13 +54,50 @@ class AdminController extends AbstractController
             $updatedJson = json_encode($updatedData, JSON_PRETTY_PRINT);
 
             file_put_contents($jsonFilePath, $updatedJson);
-
             $this->addFlash('success', 'Les informations ont été mises à jour avec succès.');
             return $this->redirectToRoute('app_home');
         }
-
         return $this->render('admin/edit_home_text.html.twig', [
             'form' => $form,
         ]);
     }
+
+        
+    #[Route('/admin/edit/sortie/{id}', name: 'edit_alentours')]
+    public function editSortie(Request $request, EntityManagerInterface $entityManager, $id): Response
+    {
+        $jsonFilePath = '../public/json/alentours.json';
+        $jsonData = file_get_contents($jsonFilePath);
+        $data = json_decode($jsonData, true);
+    
+        $sortieToEdit = null;
+        foreach ($data['sorties'] as $sortie) {
+            if ($sortie['id_sortie'] == $id) {
+                $sortieToEdit = $sortie;
+                break;
+            }
+        }
+        $form = $this->createForm(SortieType::class, $sortieToEdit);
+    
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $updatedData = $form->getData();
+    
+            foreach ($data['sorties'] as &$sortie) {
+                if ($sortie['id_sortie'] == $id) {
+                    $sortie = $updatedData;
+                    break;
+                }
+            }
+            $updatedJson = json_encode($data, JSON_PRETTY_PRINT);
+            file_put_contents($jsonFilePath, $updatedJson);
+    
+            $this->addFlash('success', 'Les informations ont été mises à jour avec succès.');
+            return $this->redirectToRoute('app_alentours');
+        }
+        return $this->render('admin/edit_sorties.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }    
 }

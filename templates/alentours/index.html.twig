@@ -8,7 +8,7 @@
         {% for sortie in data.sorties %}
             <li>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="">Modifier</a>
+                    <a href="{{ path('edit_alentours', {'id': sortie.id_sortie}) }}">Modifier</a>
                 {% endif %}
                 <h2>{{ sortie.nom_sortie }}</h2>
                 <p>{{ sortie.description_sortie }}</p>
