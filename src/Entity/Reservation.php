@@ -203,7 +203,7 @@ class Reservation
 
     // Calcule le prix total en fonctiond e la durée du séjour
     public function calculerPrixTotal(): ?float
-{
+    {
     if ($this->espace && $this->date_debut && $this->date_fin) {
         $difference = $this->date_debut->diff($this->date_fin);
         $duree = $difference->days;
@@ -212,11 +212,18 @@ class Reservation
         if ($this->espace) {
             $prixChambre = $this->espace->getPrix();
             $prixTotal = $prixChambre * $duree;
+
+            if($this->options !== null){
+                foreach ($this->options as $idOption) {
+                    // Vérifiez si l'option existe dans les tarifs
+                    if (isset($optionsTarifs[$idOption])) {
+                        // Ajoutez le tarif de l'option au prix total
+                        $prixTotal += $optionsTarifs[$idOption];
+                    }
+                }
+            }
             return $prixTotal;
         }
-
-        // Ajouter prix options si options selectionnees
-        
     }
 
     return null;
@@ -227,6 +234,17 @@ class Reservation
         $this->prixTotal = $prixTotal;
 
         return $this;
+    }
+
+    public function calculerPrixOptions(): ?float
+    {
+        // Les options
+        $optionsFile = file_get_contents('../public/json/options.json');
+        $optionsData = json_decode($optionsFile, true);
+        $options = [];
+        foreach ($optionsData['options_chambres_hotes'] as $optionData) {
+            $options[$optionData['tarif_option']] = $optionData['id_option'];
+        }
     }
 
     public function getOptions(): ?array

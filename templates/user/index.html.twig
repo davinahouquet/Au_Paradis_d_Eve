@@ -12,6 +12,12 @@
         <a href="{{ path('app_home') }}">Modifier le texte de la page d'accueil</a>
         <a href="{{ path('app_espace') }}">Modifier ou supprimer un espace</a>
         <a href="{{ path('app_alentours') }}">Modifier ou supprimer un alentours</a>
+        <p>Liste des options (ajouter, modifier ou supprimer)</p>
+        {# {% for option in listeOptions %}
+            {{option.nom_option}}
+        {% endfor %} #}
+        {# <a href="">Liste des options (ajouter, modifier ou supprimer)</a> #}
+
     {% for reservationAVenir in toutesReservationsAVenir %}
         {% if reservationAVenir %}
             {{reservationAVenir.prenom}}
@@ -19,6 +25,14 @@
             <p>Du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}</p>
             <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
             <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
+            {% if reservationAVenir.options %}
+            <p>Options :</p>
+            <ul>
+                {% for option in reservationAVenir.options %}
+                    <li>{{ option }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
             <p>Annuler</p>
             <p>Contacter le client</p>
         {% endif %}
@@ -31,6 +45,14 @@
             {{reservationEnCours.nom}}
             <p>Du {{reservationEnCours.dateDebutFr}} au {{reservationEnCours.dateFinFr}} dans {{reservationEnCours.espace}}</p>
             <p>Durée totale : {{reservationEnCours.duree}} nuits</p>
+            {% if reservationEnCours.options %}
+            <p>Options :</p>
+            <ul>
+                {% for option in reservationEnCours.options %}
+                    <li>{{ option }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
             <p>Prix total : {{reservationEnCours.prixTotal}} €</p>
             <p><a href="">Détails</a>(adresseFacturation, lien pdf)</p>
         {% endfor %}
@@ -50,6 +72,14 @@
             <p>Votre séjour du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}, au nom de  {{reservationAVenir.prenom}}{{reservationAVenir.nom}}</p>
             <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
             <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
+            {% if reservationAVenir.options %}
+            <p>Options :</p>
+            <ul>
+                {% for option in reservationAVenir.options %}
+                    <li>{{ option }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
             <a href="">Annuler ma réservation</a>
         {% endfor %}
     {% endif %}       
@@ -59,6 +89,14 @@
         {% for reservationPassee in reservationsPassees %}
             <p>Votre séjour du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}} dans {{reservationPassee.espace}}, au nom de  {{reservationPassee.prenom}}{{reservationPassee.nom}}</p>
             <p>Durée totale : {{reservationPassee.duree}} nuits</p>
+            {% if reservationPassee.options %}
+            <p>Options :</p>
+            <ul>
+                {% for option in reservationPassee.options %}
+                    <li>{{ option }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
             <p>Prix total : {{reservationPassee.prixTotal}} €</p>
             {% if reservationPassee.avis %}
                 <p>Merci d'avoir partagé votre avis</p>
@@ -74,6 +112,14 @@
             <p>Mes avis</p>
             {{reservationPassee.espace}}
             Du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}}
+            {% if reservationPassee.options %}
+            <p>Options :</p>
+            <ul>
+                {% for option in reservationPassee.options %}
+                    <li>{{ option }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
             {{reservationPassee.avis}}
             {{reservationPassee.note}}
         {% endif %}

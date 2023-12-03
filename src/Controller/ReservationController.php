@@ -53,7 +53,25 @@ class ReservationController extends AbstractController
         }
     }
 
-
+    private function calculerPrixOptions($selectedOptions)
+    {
+        $optionsFile = file_get_contents('../public/json/options.json');
+        $optionsData = json_decode($optionsFile, true);
+    
+        $prixTotalOptions = 0;
+    
+        foreach ($selectedOptions as $selectedOption) {
+            foreach ($optionsData['options_chambres_hotes'] as $optionData) {
+                if ($optionData['id_option'] == $selectedOption) {
+                    $prixTotalOptions += $optionData['tarif_option'];
+                    break;
+                }
+            }
+        }
+    
+        return $prixTotalOptions;
+    }
+    
     // Ajouter une réservation OU modifier
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
     public function newReservation( Espace $espace, Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
@@ -120,6 +138,10 @@ class ReservationController extends AbstractController
             $selectedOptions = $form->get('options')->getData();
             if (is_array($selectedOptions)) {
                 $reservation->setOptions($selectedOptions);
+
+                // Calculer le prix total des options et l'assigner à l'entité Reservation
+                // $prixTotalOptions = $this->calculerPrixOptions($selectedOptions);
+                // $reservation->setPrixOptions($prixTotalOptions);
             }
                 $entityManager->persist($reservation);
                 $entityManager->flush();

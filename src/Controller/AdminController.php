@@ -22,6 +22,24 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
         ]);
     }
+    public function listeOptions(): Response
+    {
+        $jsonFilePath = '../public/json/options.json';
+        $jsonData = file_get_contents($jsonFilePath);
+        $listeOptions = json_decode($jsonData, true);
+
+        // Les options
+        $optionsFile = file_get_contents('../public/json/options.json');
+        $optionsData = json_decode($optionsFile, true);
+        $listeOptions = [];
+        foreach ($optionsData['options_chambres_hotes'] as $optionData) {
+            $options[$optionData['nom_option']] = $optionData['id_option'];
+        }
+
+        return $this->render('user/index.html.twig', [
+            'listeOptions' => $listeOptions,
+        ]);
+    }
 
     #[Route('/admin/edit_home_text', name: 'admin_edit_home_text')]
     public function editHomeText(Request $request, EntityManagerInterface $entityManager): Response
