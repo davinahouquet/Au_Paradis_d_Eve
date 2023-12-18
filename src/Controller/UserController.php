@@ -2,17 +2,18 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\User;
 use App\Entity\Espace;
 use App\Form\UserType;
 use App\Entity\Reservation;
 use App\Form\EmailFormType;
 use App\Form\CoordonneesType;
+use App\Repository\UserRepository;
 use App\Form\ChangePasswordFormType;
+use App\Services\ReservationService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
-use App\Repository\UserRepository;
-use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,6 +22,13 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
+    private $reservationService;
+
+    public function __construct(ReservationService $reservationService)
+    {
+        $this->reservationService = $reservationService;
+    }
+    
     #[Route('/user', name: 'app_user')]
     public function index(ReservationRepository $reservationRepository): Response
     {
@@ -30,20 +38,18 @@ class UserController extends AbstractController
         $reservationsPassees = $reservationRepository->findReservationsPassees($user);
         $reservationsAVenir = $reservationRepository->findReservationsAVenir($user);
         $toutesReservationsAVenir = $reservationRepository->findToutesReservationsAVenir();
+
+    
         $reservationsNonConfirmees = $reservationRepository->findReservationsNonConfirmees($user);
         // $currentDate = new \Datetime();
-
-        // if($reservationsNonConfirmees->getDateFin() < $currentDate){
-        //     $user->removeReservation($reservationsNonConfirmees);
-        // }
-
         return $this->render('user/index.html.twig', [
             'reservationEnCours' => $reservationEnCours,
             'reservationsPassees' => $reservationsPassees,
             'reservationsAVenir' => $reservationsAVenir,
             'reservationsNonConfirmees' => $reservationsNonConfirmees,
             'toutesReservationsAVenir'=> $toutesReservationsAVenir,
-            'currentDate' => $currentDate
+            'currentDate' => $currentDate,
+            'reservationsOptions' => $this->reservationService->getAllOptionsFromJson()
         ]);
     }
 
@@ -83,7 +89,7 @@ class UserController extends AbstractController
             $facture ='lien.pdf'; //lien vers le pdf
 
              // Calcul du prix total
-             $prixTotal = $reservation->calculerPrixTotal();
+             $prixTotal = $this->reservationService->calculerPrixTotal($reservation);
                 
             //Création du formulaire de coordonnées
             $form = $this->createForm(CoordonneesType::class);
@@ -109,12 +115,10 @@ class UserController extends AbstractController
                 $ville = $formData['ville'];
                 $pays = $formData['pays'];
                 $souvenir = $formData['souvenir'];
-
                 
                 //Définir l'adresse de facturation grâce aux données récupérées dans le formulaire
                 $adresseFacturation = $adresse.' '.$cp." ".$ville.' '.$pays;
                 $reservation->setAdresseFacturation($adresseFacturation);
-
                 $reservation->setEmail($email);
                 $reservation->setDateReservation($currentDate);
                 $reservation->setPrixTotal($prixTotal);
