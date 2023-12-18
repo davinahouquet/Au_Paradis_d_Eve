@@ -1,0 +1,68 @@
+<img src="{{asset('public/img/pdf/JardinPano.jpg')}}">
+
+{% block title %}Votre commande{% endblock %}
+
+{% block body %}
+
+<p>Date de la réservation</p> {{currentDate}}
+
+<h1>Au Paradis d'Eve</h1>
+<h2>Votre facture</h2>
+<p>Voici le résumé de votre commande : </p>
+<div style="margin: 0 auto;display: block;width: 500px;">
+    <table width="100%" border="1">
+        <tr>
+            <td colspan="2">
+                Résumé de votre réservation
+            </td>
+        </tr>
+        <tr>
+            <td>Nom:</td>
+            <td>{{reservation.nom}} {{reservation.prenom}}</td>
+        </tr>
+        <tr>
+            <td>Adresse:</td>
+            <td> {{reservation.adresseFacturation}}</td>
+        </tr>
+        <tr>
+            <td>Numéro de téléphone:</td>
+            <td>{{reservation.telephone}}</td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>{{reservation.email}}</td>
+        </tr>
+        <tr>
+            <td>Espace réservé:</td>
+            <td>{{reservation.espace}}</td>
+        </tr>
+        <tr>
+            <td>Date de début:</td>
+            <td>{{reservation.dateDebutFr}}</td>
+        </tr>
+        <tr>
+            <td>Date de fin:</td>
+            <td>{{reservation.dateFinFr}}</td>
+        </tr>
+        {# si options sélectionnées, boucle sur les options sélectionnées #}
+        <tr>
+            <td colspan="2">
+                Vos options:
+            </td>
+        </tr>
+        <tr>
+            <td>Noms de l'option</td>
+            <td>Prix €</td>
+        </tr>
+        <tr>
+            <td><b>Prix total:</b></td>
+            <td><b>{{reservation.prixTotal}}€</b></td>
+        </tr>
+         {# <td>{{reservation.options}}</td> #}
+    </table>
+
+    <p>Les infos pratiques : <br>Horaire d'arrivée : <b>15h</b><br>Horaire de départ : <b>9h</b><br> Des places de stationnements sont disponibles devant la maison, les vélos et motos peuvent être accueillis dans un garage</p>
+    <p>Pour toute information supplémentaire, vous pouvez me contacter via le service de contact, à l'adresse mail auparadisdeve@hotmail.com ou au 0613325980.</p>
+    <p>Cordialement, <br> Au Paradis d'Eve</p>
+</div>
+{% endblock %}
