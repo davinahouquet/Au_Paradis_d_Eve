@@ -1,11 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Licorice&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee&family=Licorice&display=swap');
+
+:root {
+    --dark-brown: #372412;
+    --font-color: #1E1E1E;
+    --box-shadow: rgb(78, 77, 77);
+    --white: rgb(255, 255, 255);
+    --hover:#FFA800;
+}
+
+*{
+    margin:0;
+    font-family: "ABeeZee";
+}
 
 body{
     position: relative;
 }
 
+.languages{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--dark-brown);
+}
+
 nav{
+    width: 100%;
     position: sticky;
     top: 10px;
+
 }
 
 ul{
@@ -28,4 +55,92 @@ footer{
     bottom: 0;
     height: 50px;
     display: flex;
+}
+
+.burger-icon {
+    display: none;
+    cursor: pointer;
+}
+
+@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+
+    .home-page{
+        position: relative;
+    }
+
+    .landingPage-img-container{
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .landingPage-img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 27%;
+    }
+    
+    .home-page .description{
+        z-index: 1;
+        position: absolute;
+        text-align: center;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        top: 20%;
+        color: var(--white);
+        width: 100%;
+    }
+
+    nav {
+        background-color: rgb(255, 255, 255);
+        width: 100%;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    }
+
+    .burger-icon {
+        display: block;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: #333;
+        padding: 15px;
+        box-sizing: border-box;
+        display: none;
+    }
+
+    ul.active {
+        display: flex;
+    }
+
+    ul li {
+        margin-bottom: 10px;
+    }
+
+    ul a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+    }
+    
+    .burger-icon span.material-symbols-outlined {
+        display: inline-block;
+        font-size: 24px; /* Ajustez la taille selon vos besoins */
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .burger-icon.active span.material-symbols-outlined {
+        transform: rotate(45deg);
+    }
+    
 }
