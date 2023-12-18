@@ -2,12 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\User;
-use App\Entity\Espace;
 use App\Entity\Reservation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -68,7 +65,7 @@ class ReservationType extends AbstractType
         ])
         ->add('options', ChoiceType::class, [
             'label' => 'Options',
-            'choices' => $options['options'],
+            'choices' => $this->getChoices($options['options']),
             'expanded' => true,
             'multiple' => true,
             'required' => false,
@@ -79,6 +76,7 @@ class ReservationType extends AbstractType
             ]
         ]); 
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -87,5 +85,16 @@ class ReservationType extends AbstractType
             'data_class' => Reservation::class,
             'options' => []
         ]);
+    }
+
+
+    private function getChoices($options)
+    {
+        $choices = [];
+        foreach ($options as $key => $data) {
+            $choices[$data['nom'] . ' '. $data['tarif'] . '€'] = $key;
+        }
+
+        return $choices;
     }
 }

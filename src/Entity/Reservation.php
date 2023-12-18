@@ -190,44 +190,43 @@ class Reservation
     {
         $difference = $this->date_debut->diff($this->date_fin);
         return $difference->days;
-    
     }
 
     // Retourne le résultat du calcul
-    public function getPrixTotal(): ?float
-    {
-        $prixTotal = $this->calculerPrixTotal();
+    // public function getPrixTotal(): ?float
+    // {
+    //     $prixTotal = $this->calculerPrixTotal();
 
-    return $prixTotal;
-    }
+    // return $prixTotal;
+    // }
 
     // Calcule le prix total en fonctiond e la durée du séjour
-    public function calculerPrixTotal(): ?float
-    {
-    if ($this->espace && $this->date_debut && $this->date_fin) {
-        $difference = $this->date_debut->diff($this->date_fin);
-        $duree = $difference->days;
+    // public function calculerPrixTotal(): ?float
+    // {
+    // if ($this->espace && $this->date_debut && $this->date_fin) {
+    //     $difference = $this->date_debut->diff($this->date_fin);
+    //     $duree = $difference->days;
 
-        // Vérifiez que l'objet Espace est défini
-        if ($this->espace) {
-            $prixChambre = $this->espace->getPrix();
-            $prixTotal = $prixChambre * $duree;
+    //     // Vérifiez que l'objet Espace est défini
+    //     if ($this->espace) {
+    //         $prixChambre = $this->espace->getPrix();
+    //         $prixTotal = $prixChambre * $duree;
 
-            if($this->options !== null){
-                foreach ($this->options as $idOption) {
-                    // Vérifiez si l'option existe dans les tarifs
-                    if (isset($optionsTarifs[$idOption])) {
-                        // Ajoutez le tarif de l'option au prix total
-                        $prixTotal += $optionsTarifs[$idOption];
-                    }
-                }
-            }
-            return $prixTotal;
-        }
-    }
+    //         if($this->options !== null){
+    //             foreach ($this->options as $idOption) {
+    //                 // Vérifiez si l'option existe dans les tarifs
+    //                 if (isset($optionsTarifs[$idOption])) {
+    //                     // Ajoutez le tarif de l'option au prix total
+    //                     $prixTotal += $optionsTarifs[$idOption];
+    //                 }
+    //             }
+    //         }
+    //         return $prixTotal;
+    //     }
+    // }
 
-    return null;
-}
+//     return null;
+// }
 
     public function setPrixTotal(float $prixTotal): static
     {
@@ -236,16 +235,21 @@ class Reservation
         return $this;
     }
 
-    public function calculerPrixOptions(): ?float
+    public function getPrixTotal(): int
     {
-        // Les options
-        $optionsFile = file_get_contents('../public/json/options.json');
-        $optionsData = json_decode($optionsFile, true);
-        $options = [];
-        foreach ($optionsData['options_chambres_hotes'] as $optionData) {
-            $options[$optionData['tarif_option']] = $optionData['id_option'];
-        }
+        return $this->prixTotal;
     }
+
+    // public function calculerPrixOptions(): ?float
+    // {
+    //     // Les options
+    //     $optionsFile = file_get_contents('../public/json/options.json');
+    //     $optionsData = json_decode($optionsFile, true);
+    //     $options = [];
+    //     foreach ($optionsData['options_chambres_hotes'] as $optionData) {
+    //         $options[$optionData['tarif_option']] = $optionData['id_option'];
+    //     }
+    // }
 
     public function getOptions(): ?array
     {
@@ -355,4 +359,8 @@ class Reservation
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->prenom." ".$this->nom." ".$this->espace;
+    }
 }
