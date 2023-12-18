@@ -2,23 +2,30 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Espace;
+use App\Form\ContactType;
 use App\Entity\Reservation;
 use App\Form\EvaluationType;
-use App\Form\CoordonneesType;
 use App\Form\ReservationType;
 use App\Repository\EspaceRepository;
+use App\Services\ReservationService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ReservationController extends AbstractController
 {
+
+    private $reservationService;
+
+    public function __construct(ReservationService $reservationService)
+    {
+        $this->reservationService = $reservationService;
+    }
+
     #[Route('/reservation', name: 'app_reservation')]
     public function index(EspaceRepository $espaceRepository): Response
     {
@@ -86,16 +93,7 @@ class ReservationController extends AbstractController
 
         $chambre = $espace->getNomEspace();
         
-        // //la date du jour
-        date_default_timezone_set('Europe/Paris');
-        $currentDate = new \Datetime();
-        // Les options
-        $optionsFile = file_get_contents('../public/json/options.json');
-        $optionsData = json_decode($optionsFile, true);
-        $options = [];
-        foreach ($optionsData['options_chambres_hotes'] as $optionData) {
-            $options[$optionData['nom_option']] = $optionData['id_option'];
-        }
+        $options = $this->reservationService->getAllOptionsFromJson();
     
         $form = $this->createForm(ReservationType::class, $reservation, ['options' => $options]);
         // $form = $this->createForm(ReservationType::class, $reservation);
@@ -114,7 +112,10 @@ class ReservationController extends AbstractController
             //Trouver les espaces réservées aux dates sélectionnées grâce à la requête DQL créée dans ReservationRepository
             $indisponible = $reservationRepository->findEspacesReserves($espace, $dateDebutNlleReservation, $dateFinNlleReservation);
 
-            //Toutes les conditions nécessaires pour poursuivre la réservation                             
+            //Toutes les conditions nécessaires pour poursuivre la réservation      
+                    // //la date du jour
+            date_default_timezone_set('Europe/Paris');                       
+            $currentDate = new \Datetime();
             if($dateDebutNlleReservation > $dateFinNlleReservation){ //La date de début du séjour doit être supérieure à sa date de fin
                 $this->addFlash('message', 'La date de fin de votre séjour doit être supérieure à sa date de début.');
                 return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
@@ -154,8 +155,7 @@ class ReservationController extends AbstractController
             return $this->render('reservation/new.html.twig', [
                 'form' => $form,
                 'chambre' => $chambre,
-                'options' => $options,
-                'optionsData' => $optionsData
+                'options' => $options
             ]);
         }
 
