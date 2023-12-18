@@ -5,7 +5,6 @@
 {% block body %}
 
 <h1>Bienvenue sur votre profil, {{app.user.pseudo}}</h1>
-
 {% if is_granted("ROLE_ADMIN") %}
     <p>Administrateur</p>
     <p>Actions</p>
@@ -14,9 +13,9 @@
         <a href="{{ path('app_alentours') }}">Modifier ou supprimer un alentours</a>
         <p>Liste des options (ajouter, modifier ou supprimer)</p>
         {# {% for option in listeOptions %}
-            {{option.nom_option}}
+            {{option.nom}}
         {% endfor %} #}
-        {# <a href="">Liste des options (ajouter, modifier ou supprimer)</a> #}
+        <a href="">Liste des options (ajouter, modifier ou supprimer)</a>
 
     {% for reservationAVenir in toutesReservationsAVenir %}
         {% if reservationAVenir %}
@@ -24,18 +23,24 @@
             {{reservationAVenir.nom}}
             <p>Du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}</p>
             <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
-            <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
+            <p>Prix total : {{ reservationAVenir.prixTotal }} €</p>
             {% if reservationAVenir.options %}
             <p>Options :</p>
             <ul>
-                {% for option in reservationAVenir.options %}
-                    <li>{{ option }}</li>
+                {% for key,option in reservationAVenir.options %}
+                    {% if reservationsOptions[option] is defined %}    
+                        <li>{{ reservationsOptions[option]['nom'] }}</li>
+                        <li>{{ reservationsOptions[option]['tarif'] }} €</li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         {% endif %}
             <p>Annuler</p>
             <p>Contacter le client</p>
         {% endif %}
+
+            <a href="{{path('app_pdf_generator', {'id' : reservationAVenir.id})}}" target="_blank">PDF</a>
+        
     {% endfor %}
 {% else %}
     {% if reservationEnCours %}
