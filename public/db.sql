@@ -134,11 +134,12 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   KEY `IDX_42C84955A76ED395` (`user_id`),
   CONSTRAINT `FK_42C84955A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_42C84955B6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table au_paradis_d_eve.reservation : ~1 rows (environ)
 INSERT INTO `reservation` (`id`, `user_id`, `espace_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `options`, `note`, `avis`, `email`, `adresse_facturation`, `facture`, `date_reservation`) VALUES
-	(168, 21, 1, 'Ted', 'Bundy', 533495, 2, '2023-11-16 15:00:00', '2023-11-20 11:00:00', 120, '[3, 4]', NULL, NULL, 'ted@bundy.us', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2023-11-12 13:06:49');
+	(179, 22, 9, 'Stewie', 'Griffin', 444719, 1, '2024-12-13 15:00:00', '2024-12-15 11:00:00', 40, '[3, 4, 5]', NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2023-12-12 13:52:23'),
+	(180, NULL, 10, 'Stewie', 'Griffin', 444719, 1, '2023-12-19 15:00:00', '2023-12-21 11:00:00', 15, '[3]', NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2023-12-16 15:55:41');
 
 -- Listage de la structure de table au_paradis_d_eve. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -171,7 +172,7 @@ INSERT INTO `user` (`id`, `email`, `pseudo`, `roles`, `password`, `adresse`, `cp
 	(18, 'rick@pickle', 'pickleRick', '[]', '$2y$13$5RXEMHOfBx3H5/e0nu7Ip.R8XE0nzdT0HHWFWbSzhaYqNkjnb/1VO', NULL, NULL, NULL, NULL, 0),
 	(19, 'beth@smith', 'SpaceBeth', '[]', 'azerty', '31 Spooner Street', '00093', 'Quahog', 'Rhode Island', 1),
 	(21, 'ted@bundy', 'tedbundy', '[]', '$2y$13$Bdd1dpFJODMIaCFj4cotVO8LSDqtc0fqJrSjfi6SlFwYuQSlgRwbW', '31 Spoffggg', '00093', 'Quffghog', 'Rfghue Isyyyd', 0),
-	(22, 'admin@admin.fr', 'admin', '["ROLE_ADMIN"]', '$2y$13$A2LsweG1NSWBbRCw01IKqu.PWS0PPpvDvd/zdV4Gmh2vwvwr8Xkua', NULL, NULL, NULL, NULL, 0),
+	(22, 'admin@admin.fr', 'admin', '["ROLE_ADMIN"]', '$2y$13$A2LsweG1NSWBbRCw01IKqu.PWS0PPpvDvd/zdV4Gmh2vwvwr8Xkua', '31 Spooner Street', '00093', 'Quahog', 'Rhode Island', 0),
 	(23, 'testuser@testuser.fr', 'testuser', '[]', '$2y$13$xASJDhYlnZzgvSgqDe47g.gLID25d9bWPUw6WnJ98sDFZu5XRNeaK', 'test', 'test', 'test', 'test', 0),
 	(24, 'juenv@ferf.fr', ',kfak', '[]', '$2y$13$KrNQtOylkBAtrxDmLEkZieJUrd3zNoa3V.N.7tf2WA27v304Em0l2', NULL, NULL, NULL, NULL, 0);
 
