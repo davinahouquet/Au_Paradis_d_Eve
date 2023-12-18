@@ -4,7 +4,13 @@
 
 {% block body %}
 
-    <section class="parallax-home">
+    <section class="home-page">
+
+    <div class="landingPage-img-container">
+        <img src="{{asset('img/Terasse3.jpg')}}" class="landingPage-img">
+    </div>
+
+    <div class="description">
         <h1>Au Paradis d'Eve</h1>
 
         {% if is_granted('ROLE_ADMIN') %}
@@ -19,6 +25,7 @@
         <img src="" alt="">
 
         <a href="">Réservez votre séjour</a>
+    </div>
 
         {% for chambre in chambres %}
             <a href="{{path('show_espace', {'id' :chambre.id})}}">{{chambre.nomEspace}}</a>
@@ -56,5 +63,6 @@
 
             {{ form_end(form) }}
         </div>
+        <button id="scrollToTopBtn" onclick="scrollToTop()">Retour en haut</button>
     </section>
 {% endblock %}
