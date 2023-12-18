@@ -15,6 +15,11 @@
     </head>
     <body>
         <header>
+            <div class="languages">
+                <img src="{{asset('icons/french.png')}}" width="16"><!-- <a href="https://www.flaticon.com/fr/icones-gratuites/drapeau" title="drapeau icônes">Drapeau icônes créées par Freepik - Flaticon</a> -->
+                <img src="{{asset('icons/uk.png')}}" width="20"><!-- <a href="https://www.flaticon.com/free-icons/uk-flag" title="uk flag icons">Uk flag icons created by Freepik - Flaticon</a> -->
+                <img src="{{asset('icons/german.png')}}" width="20"><!-- <a href="https://www.flaticon.com/free-icons/german" title="german icons">German icons created by Mzipi - Flaticon</a> -->
+            </div>
             <nav>
                 <ul>
                     <li><a href="{{path('app_home')}}">ACCUEIL</a></li>
@@ -43,17 +48,23 @@
                         {% endif %}
                     </div>
                 </ul>
+                <div class="burger-icon" onclick="toggleBurgerMenu()">
+                    <span class="material-symbols-outlined">
+                        menu
+                        </span>
+                </div>
             </nav>
         </header>
         {# {% for message in app.flashes('notice') %}
             {{ message }}
         {% endfor %} #}
-        <footer>
+        {# <footer>
             <a href="">Mentions légales</a><p>&</p><a href="">Conditions générales</a>
-        </footer>
+        </footer> #}
         {% block body %}{% endblock %}
         
         {% block javascripts %}
+            <script src="js/script.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         {% endblock %}
     </body>
