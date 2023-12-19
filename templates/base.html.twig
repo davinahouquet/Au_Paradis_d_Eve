@@ -15,7 +15,7 @@
     </head>
     <body>
         <header>
-            <div class="languages">
+            <div class="langages">
                 <img src="{{asset('icons/french.png')}}" width="16"><!-- <a href="https://www.flaticon.com/fr/icones-gratuites/drapeau" title="drapeau icônes">Drapeau icônes créées par Freepik - Flaticon</a> -->
                 <img src="{{asset('icons/uk.png')}}" width="20"><!-- <a href="https://www.flaticon.com/free-icons/uk-flag" title="uk flag icons">Uk flag icons created by Freepik - Flaticon</a> -->
                 <img src="{{asset('icons/german.png')}}" width="20"><!-- <a href="https://www.flaticon.com/free-icons/german" title="german icons">German icons created by Mzipi - Flaticon</a> -->
@@ -32,26 +32,45 @@
                     <li><a href="{{path('app_reservation')}}">RESERVATION</a></li>
                     <li><a href="/home#contact">CONTACT</a></li>
                     <li><a href="">AVIS</a></li>
-                    <div class="user">
-                        <i class="fa-solid fa-circle-user"></i>
-                        {% if app.user %}
-                            <a href="{{ path('app_user')}}">{{app.user.pseudo}}</a>
-                        {% endif %}
-
-                        {% if app.user %}
-                            <li><a href="{{path('app_logout')}}"><span class="material-symbols-outlined">
-                                logout
-                                </span></a></li>
-                        {% else %}
-                            <li><a href="{{path('app_login')}}">CONNEXION</a></li>
-                            <li><a href="{{path('app_register')}}">INSCRIPTION</a></li>
-                        {% endif %}
-                    </div>
                 </ul>
                 <div class="burger-icon" onclick="toggleBurgerMenu()">
                     <span class="material-symbols-outlined">
                         menu
                         </span>
+                </div>
+                <div class="logo-burger">
+                    <li><a href="{{path('app_home')}}">Au Paradis d'Eve</a></li>
+                    <li>Maison d'hôte à Bitche</li>
+                </div>
+                <div class="user">
+                    <i class="fa-solid fa-circle-user" id="user-menu"  onclick="toggleUserMenu()" ></i>
+                    {% if app.user %}
+                        <a href="{{ path('app_user')}}">{{app.user.pseudo}}</a>
+                    {% endif %}
+
+                    {% if app.user %}
+                        <li><a href="{{path('app_logout')}}"><span class="material-symbols-outlined">
+                            logout
+                            </span></a></li>
+                    {% else %}
+                        <li><a href="{{path('app_login')}}">CONNEXION</a></li>
+                        <li><a href="{{path('app_register')}}">INSCRIPTION</a></li>
+                    {% endif %}
+                </div>
+                <div class="user-menu">
+
+                    {% if app.user %}
+                    <a href="{{ path('app_user')}}">{{app.user.pseudo}}</a>
+                {% endif %}
+
+                {% if app.user %}
+                    <li><a href="{{path('app_logout')}}"><span class="material-symbols-outlined">
+                        logout
+                        </span></a></li>
+                {% else %}
+                    <li><a href="{{path('app_login')}}">CONNEXION</a></li>
+                    <li><a href="{{path('app_register')}}">INSCRIPTION</a></li>
+                {% endif %}
                 </div>
             </nav>
         </header>

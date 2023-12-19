@@ -6,11 +6,20 @@ function toggleBurgerMenu() {
     menu.classList.toggle('active');
 
     // Change l'icône en fonction de l'état du menu
-    if (menu.classList.contains('active')) {
-        icon.innerHTML = '<span class="material-symbols-outlined">close</span>';
-    } else {
-        icon.innerHTML = '<span class="material-symbols-outlined">menu</span>';
-    }
+    // if (menu.classList.contains('active')) {
+    //     icon.innerHTML = '<span class="material-symbols-outlined">close</span>';
+    // } else {
+    //     icon.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+    // }
+}
+
+// Menu user
+function toggleUserMenu() 
+{
+    var menu = document.querySelector('user-menu');
+    var icon = document.getElementById('user-menu');
+
+    menu.classList.toggle('active');
 }
 
 // Fonction pour faire défiler vers le haut
