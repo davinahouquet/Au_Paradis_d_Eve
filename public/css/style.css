@@ -19,6 +19,11 @@ body{
     position: relative;
 }
 
+.licorice-title{
+    font-family: 'Licorice';
+    font-size: 40pxlo;
+}
+
 .langages{
     width: 100%;
     display: flex;
@@ -26,13 +31,14 @@ body{
     align-items: center;
     gap: 10px;
     background-color: var(--dark-brown);
+    z-index: 2;
 }
 
 nav{
     width: 100%;
     position: sticky;
     top: 10px;
-
+    
 }
 
 ul{
@@ -71,6 +77,27 @@ footer{
 }
 
 @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+    
+    nav {
+        position: fixed;
+        background-color: rgb(255, 255, 255);
+        width: 100%;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+        z-index: 2;
+    }
+
+    .icon-name{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 10px;
+    }
+    .icon-name i{
+        font-size: 20px;
+    }
 
     .home-page{
         position: relative;
@@ -79,7 +106,7 @@ footer{
 
     .langages{
         position: fixed;
-        z-index: 1;
+        z-index: 2;
     }
 
     .landingPage-img-container{
@@ -116,16 +143,6 @@ footer{
         font-size: 55px;
     }
 
-    nav {
-        position: fixed;
-        background-color: rgb(255, 255, 255);
-        width: 100%;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-        z-index: 2;
-    }
 
     .burger-icon {
         display: block;
@@ -198,23 +215,138 @@ footer{
         padding-right: 20px;
         font-size: 25px;
     }
+    .user i{
+        position: fixed;
+    }
 
+    .user p{
+        font-size: 10px;
+        background-color: blue;
+    }
+    
     .user a{
         display: none;
     }
     
-    .user li{
+    .user li, .user-menu li{
         list-style-type: none;
     }
 
-    .user-menu{
-        display: block;
-        height: 250px;
+    /* .user-menu {
+        display: none;
+        position: fixed;
+        top: 60px;
+        right: 0;
         width: 200px;
         background-color: green;
-        position: absolute;
-        right: 0;
-        top: 60px;
+        text-align: center;
+    }
+
+    .user-menu a{
+        text-decoration: none;
+        color: var(--font-color);
+    }
+    .user-menu:active {
+        display: block;
+    } */
+    .user-menu {
+        display: none;
+        position: fixed;
+        top: 70px;
+        right: 0; /* Ensure the user menu is positioned on the right side */
+        width: 100%;
+        background-color: var(--white);
+        text-align: center;
+        z-index: 3; /* Adjust the z-index to be higher than other elements */
     }
     
+    .user-menu.active {
+        display: block;
+    }
+
+    .user-menu.active a{
+        text-decoration: none;
+        color: var(--font-color);
+    }
+
 }
+
+.admin{
+    background-color: red;
+}
+/* Interface administrateur */
+/* .admin{
+    display: flex;
+    height: 250px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    width: 80%;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    background: rgb(157,130,80);
+    background: linear-gradient(156deg, rgba(157,130,80,0.7371323529411764) 23%, rgba(137,93,61,0.9556197478991597) 82%, rgba(137,93,61,0.958420868347339) 89%, rgba(133,85,57,0.9023984593837535) 100%);
+}
+
+.button {
+    color: var(--white);
+	background-color: var(--dark-brown);
+	border: 5px solid transparent;
+	transition: .2s ease;
+	border-radius: 3px;
+    padding: 5px;
+    transition: 0.3s;
+}
+
+.button:hover {
+    color: var(--dark-brown);
+	background-color: var(--hover) ;
+	transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.action{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+} */
+
+
+/* APERCU DES CHAMBRES SUR LA PAGE D'ACCUEIL VERSION MOBILE */
+
+.apercu-chambres{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center */
+}
+
+.carte-chambre{
+    background-color: rgb(223, 108, 108);
+    width: 80%;
+    height: 250px;
+    border-radius: 5px;
+} 
+
+/* SECTION PDB */
+/* .pdb{
+    position: relative;
+} */
+
+.pdb img{
+    /* position: relative; */
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+.pdb h2{
+    text-align: center;
+    color : var(--white);
+    /* position: absolute; */
+}
+
