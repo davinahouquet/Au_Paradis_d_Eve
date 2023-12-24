@@ -14,11 +14,8 @@ function toggleBurgerMenu() {
 }
 
 // Menu user
-function toggleUserMenu() 
-{
-    var menu = document.querySelector('user-menu');
-    var icon = document.getElementById('user-menu');
-
+function toggleUserMenu() {
+    var menu = document.querySelector('.user-menu');
     menu.classList.toggle('active');
 }
 
