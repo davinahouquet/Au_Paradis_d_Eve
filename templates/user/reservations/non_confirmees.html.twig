@@ -1,0 +1,8 @@
+{% if reservationsNonConfirmees %}
+    {% for reservationNonConfirmee in reservationsNonConfirmees %}
+            <h3>Vos réservations non confirmées</h3>
+                {% if reservationNonConfirmee.dateFin > currentDate %}
+                    <p><a href="{{ path('new_coordonnees', {'reservation' : reservationNonConfirmee.id}) }}">Reprendre votre réservation</a> du  {{reservationNonConfirmee.dateDebutFr}} au {{reservationNonConfirmee.dateFinFr}} dans la {{reservationNonConfirmee.espace}}</p>   
+                {% endif %}
+            {% endfor %}  
+{% endif %}

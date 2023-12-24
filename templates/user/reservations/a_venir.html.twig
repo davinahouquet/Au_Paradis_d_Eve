@@ -1,0 +1,10 @@
+{% if reservationsAVenir %}
+    <h5>Vos réservations à venir</h5>
+    <p>Préparez votre séjour</p>
+    {% for reservationAVenir in reservationsAVenir %}
+        <p>Votre séjour du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}, au nom de  {{reservationAVenir.prenom}}{{reservationAVenir.nom}}</p>
+        <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
+        <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
+        <a href="">Annuler ma réservation</a>
+    {% endfor %}
+{% endif %}

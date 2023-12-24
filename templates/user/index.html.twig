@@ -1,139 +1,25 @@
 {% extends 'base.html.twig' %}
+{# {% block css %}{% endblock %} #}
 
 {% block title %}Mon profil{% endblock %}
 
 {% block body %}
 
 <h1>Bienvenue sur votre profil, {{app.user.pseudo}}</h1>
-{% if is_granted("ROLE_ADMIN") %}
-    <p>Administrateur</p>
-    <p>Actions</p>
-        <a href="{{ path('app_home') }}">Modifier le texte de la page d'accueil</a>
-        <a href="{{ path('app_espace') }}">Modifier ou supprimer un espace</a>
-        <a href="{{ path('app_alentours') }}">Modifier ou supprimer un alentours</a>
-        <p>Liste des options (ajouter, modifier ou supprimer)</p>
-        {# {% for option in listeOptions %}
-            {{option.nom}}
-        {% endfor %} #}
-        <a href="">Liste des options (ajouter, modifier ou supprimer)</a>
 
-    {% for reservationAVenir in toutesReservationsAVenir %}
-        {% if reservationAVenir %}
-            {{reservationAVenir.prenom}}
-            {{reservationAVenir.nom}}
-            <p>Du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}</p>
-            <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
-            <p>Prix total : {{ reservationAVenir.prixTotal }} €</p>
-            {% if reservationAVenir.options %}
-            <p>Options :</p>
-            <ul>
-                {% for key,option in reservationAVenir.options %}
-                    {% if reservationsOptions[option] is defined %}    
-                        <li>{{ reservationsOptions[option]['nom'] }}</li>
-                        <li>{{ reservationsOptions[option]['tarif'] }} €</li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        {% endif %}
-            <p>Annuler</p>
-            <p>Contacter le client</p>
-        {% endif %}
+    {% if is_granted("ROLE_ADMIN") %}
+        {% include 'user/reservations/admin.html.twig' %}
+    {% else %}
+        {% include 'user/reservations/en_cours.html.twig' %}
+        {% include 'user/reservations/non_confirmees.html.twig' %}
+        {% include 'user/reservations/a_venir.html.twig' %}
+        {% include 'user/reservations/passees.html.twig' %}
+    {% endif %}
 
-            <a href="{{path('app_pdf_generator', {'id' : reservationAVenir.id})}}" target="_blank">PDF</a>
-        
-    {% endfor %}
-{% else %}
-    {% if reservationEnCours %}
-    {% for reservationEnCours in reservationEnCours %}
-        <h2>Votre réservation en cours</h2>
-            {{reservationEnCours.prenom}}
-            {{reservationEnCours.nom}}
-            <p>Du {{reservationEnCours.dateDebutFr}} au {{reservationEnCours.dateFinFr}} dans {{reservationEnCours.espace}}</p>
-            <p>Durée totale : {{reservationEnCours.duree}} nuits</p>
-            {% if reservationEnCours.options %}
-            <p>Options :</p>
-            <ul>
-                {% for option in reservationEnCours.options %}
-                    <li>{{ option }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-            <p>Prix total : {{reservationEnCours.prixTotal}} €</p>
-            <p><a href="">Détails</a>(adresseFacturation, lien pdf)</p>
-        {% endfor %}
-    {% endif %}
-    {% if reservationsNonConfirmees %}
-        {% for reservationNonConfirmee in reservationsNonConfirmees %}
-        <h3>Vos réservations non confirmées</h3>
-            {% if reservationNonConfirmee.dateFin > currentDate %}
-                <p><a href="{{ path('new_coordonnees', {'reservation' : reservationNonConfirmee.id}) }}">Reprendre votre réservation</a> du  {{reservationNonConfirmee.dateDebutFr}} au {{reservationNonConfirmee.dateFinFr}} dans la {{reservationNonConfirmee.espace}}</p>   
-            {% endif %}
-        {% endfor %}  
-    {% endif %}
-    {% if reservationsAVenir %}
-        <h5>Vos réservations à venir</h5>
-        <p>Préparez votre séjour</p>
-        {% for reservationAVenir in reservationsAVenir %}
-            <p>Votre séjour du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}, au nom de  {{reservationAVenir.prenom}}{{reservationAVenir.nom}}</p>
-            <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
-            <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
-            {% if reservationAVenir.options %}
-            <p>Options :</p>
-            <ul>
-                {% for option in reservationAVenir.options %}
-                    <li>{{ option }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-            <a href="">Annuler ma réservation</a>
-        {% endfor %}
-    {% endif %}       
-    {% if reservationsPassees %}
-        <h4>Vos réservations passées</h4>
-        <p>Liste</p>
-        {% for reservationPassee in reservationsPassees %}
-            <p>Votre séjour du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}} dans {{reservationPassee.espace}}, au nom de  {{reservationPassee.prenom}}{{reservationPassee.nom}}</p>
-            <p>Durée totale : {{reservationPassee.duree}} nuits</p>
-            {% if reservationPassee.options %}
-            <p>Options :</p>
-            <ul>
-                {% for option in reservationPassee.options %}
-                    <li>{{ option }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-            <p>Prix total : {{reservationPassee.prixTotal}} €</p>
-            {% if reservationPassee.avis %}
-                <p>Merci d'avoir partagé votre avis</p>
-                {{reservationPassee.avis}}
-                {{reservationPassee.note}}
-            {% else %}
-                <a href="{{ path('new_evaluation', {'reservation' : reservationPassee.id})}}">Laisser un avis</a>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    {% for reservationPassee in reservationsPassees %}
-        {% if reservationPassee.note %}
-            <p>Mes avis</p>
-            {{reservationPassee.espace}}
-            Du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}}
-            {% if reservationPassee.options %}
-            <p>Options :</p>
-            <ul>
-                {% for option in reservationPassee.options %}
-                    <li>{{ option }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-            {{reservationPassee.avis}}
-            {{reservationPassee.note}}
-        {% endif %}
-    {% endfor %}
-{% endif %}
-    <h6>Paramètres</h6>
-    <p>Pseudo : {{app.user.pseudo}} <a href="{{ path('edit_user', {'id' : app.user.id})}}">Modifier pseudo</a></p>
-    <p>Email : {{app.user.email}}<a href="{{ path('edit_user_email', {'id' : app.user.id})}} "> Modifier l'email</a></p>
-    <p>Mot de passe : ************* <a href="{{ path('upgrade_password')}}">Modifier mot de passe</a></p>
-    <p><a href="{{ path('delete_user', {'id': app.user.id}) }}">Supprimer mon compte</a></p>
+        <h6>Paramètres</h6>
+        <p>Pseudo : {{app.user.pseudo}} <a href="{{ path('edit_user', {'id' : app.user.id})}}">Modifier pseudo</a></p>
+        <p>Email : {{app.user.email}}<a href="{{ path('edit_user_email', {'id' : app.user.id})}} "> Modifier l'email</a></p>
+        <p>Mot de passe : ************* <a href="{{ path('upgrade_password')}}">Modifier mot de passe</a></p>
+        <p><a href="{{ path('delete_user', {'id': app.user.id}) }}">Supprimer mon compte</a></p>
     
 {% endblock %}

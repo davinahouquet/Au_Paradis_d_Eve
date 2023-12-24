@@ -1,0 +1,24 @@
+{% if reservationEnCours %}
+    {% for reservationEnCours in reservationEnCours %}
+                <h2>Votre réservation en cours</h2>
+                    {{reservationEnCours.prenom}}
+                    {{reservationEnCours.nom}}
+                    <p>Du {{reservationEnCours.dateDebutFr}} au {{reservationEnCours.dateFinFr}} dans {{reservationEnCours.espace}}</p>
+                    <p>Durée totale : {{reservationEnCours.duree}} nuits</p>
+                    {% if reservationEnCours.options %}
+                        <p>Options :</p>
+                            {% if reservationAVenir.options is not empty %}
+                                <ul>
+                                    {% for option in reservationAVenir.options %}
+                                        <li>{{ option.nom }}</li>
+                                        <li>{{ option.tarif }} €</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>Pas d'option</p>
+                            {% endif %}
+                    {% endif %}
+                    <p>Prix total : {{reservationEnCours.prixTotal}} €</p>
+                    <p><a href="">Détails</a>(adresseFacturation, lien pdf)</p>
+                {% endfor %}
+{%% endif }

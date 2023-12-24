@@ -1,0 +1,51 @@
+<h2>Administrateur</h2>
+    <div class="admin">
+            <div class="action">
+                <p>Modifier les textes de la page d'accueil</p>
+                <a href="{{ path('app_home') }}" class="button">Modifier</a>
+            </div>
+            <div class="action">
+                <p>Ajouter un espace de vie</p>
+                <a href="{{ path('new_espace')}}" class="button">Ajouter</a>
+            </div>
+            <div class="action">
+                <p>Modifier ou supprimer un espace de vie</p>
+                <a href="{{ path('app_espace') }}" class="button">Modifier</a>
+            </div>
+            <div class="action">
+                <p>Modifier les textes des alentours</p>
+                <a href="{{ path('app_alentours') }}" class="button">Modifier</a>
+            </div>
+            <div class="action">
+                <p>Liste des options (ajouter, modifier ou supprimer)</p>
+                <a href="" class="button">Modifier</a>
+                {# {% for option in listeOptions %}
+                    {{option.nom}}
+                {% endfor %} #}
+            </div>
+    </div>
+
+{% if toutesReservationsAVenir %}
+    {% for reservationAVenir in toutesReservationsAVenir %}
+        {{reservationAVenir.prenom}}
+        {{reservationAVenir.nom}}
+        <p>Du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}</p>
+        <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
+        <p>Prix total : {{ reservationAVenir.prixTotal }} €</p>
+        <p>Options :</p>
+            {% if reservationAVenir.options is not empty %}
+                <ul>
+                    {% for option in reservationAVenir.options %}
+                        <li>{{ option.nom }}</li>
+                        <li>{{ option.tarif }} €</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Pas d'option</p>
+            {% endif %}
+        <p>Annuler</p>
+        <p>Contacter le client</p>
+
+        <a href="{{path('app_pdf_generator', {'id' : reservationAVenir.id})}}" target="_blank">PDF</a>
+    {% endfor %}
+{% endif %}
