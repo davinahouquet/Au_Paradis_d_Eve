@@ -2,15 +2,15 @@
 
 namespace App\Form;
 
+use App\Entity\Option;
 use App\Entity\Reservation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ReservationType extends AbstractType
 {
@@ -63,38 +63,19 @@ class ReservationType extends AbstractType
             ],
             'label' => 'Date de fin*'
         ])
-        ->add('options', ChoiceType::class, [
-            'label' => 'Options',
-            'choices' => $this->getChoices($options['options']),
-            'expanded' => true,
-            'multiple' => true,
-            'required' => false,
-        ])
-        ->add('valider', SubmitType::class, [
-            'attr' => [
-            'class' => 'btn btn-success'
-            ]
-        ]); 
+            ->add('options', EntityType::class, [
+                'class' => Option::class,
+                'choice_label' => 'nom',
+                'multiple' => true,
+                'expanded' => true
+            ])
         ;
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Reservation::class,
-            'options' => []
         ]);
-    }
-
-
-    private function getChoices($options)
-    {
-        $choices = [];
-        foreach ($options as $key => $data) {
-            $choices[$data['nom'] . ' '. $data['tarif'] . '€'] = $key;
-        }
-
-        return $choices;
     }
 }
