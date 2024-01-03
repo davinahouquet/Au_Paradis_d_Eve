@@ -63,21 +63,20 @@ class EspaceController extends AbstractController
                 $images = $form->get('images')->getData();
 
                 foreach ($images as $imageFile) {
-                    // Create a new Image entity
+                    // Créer une nouvelle image de l'entité Image
                     $image = new Image();
 
-                    // Generate a unique filename and set it as the link
+                    // Nom de fichier unique comme un lien
                     $fileName = md5(uniqid()) . '.' . $imageFile->guessExtension();
                     $imageFile->move(
-                        $this->getParameter('../public/img/espaces/'), // Set your images directory parameter
+                        $this->getParameter('../public/img/espaces/'),
                         $fileName
                     );
 
-                    // Set the link and alt attributes
                     $image->setLienImage($fileName);
-                    $image->setAltImage('Alt description'); // You can customize this as needed
+                    $image->setAltImage('Texte de Remplacement');
 
-                    // Associate the image with the Espace entity
+                    // Mise en lien de l'image et de l'espace
                     $image->setEspace($espace);
                 
                 // dd($form->getData());
@@ -97,7 +96,6 @@ class EspaceController extends AbstractController
 
         return $this->render('espace/new.html.twig', [
             'form' => $form,
-            // 'formImage' => $formImage,
             'categories' => $categories,
         ]);
     }
