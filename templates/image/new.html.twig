@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Espace{% endblock %}
+
+{% block body %}
+    <h1>Ajouter des images</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.lien_image) }}
+    {{ form_row(form.alt_image) }}
+    {{ form_end(form) }}
+{% endblock %}
