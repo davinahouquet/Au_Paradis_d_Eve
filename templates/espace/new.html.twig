@@ -1,23 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create Espace{% endblock %}
+{% block title %}
+    {% if edit %}
+        <h1>Editer un Espace</h1>
+    {% else %}
+        <h1>Créer un Espace</h1>
+    {% endif %}
+{% endblock %}
 
 {% block body %}
-    <h1>Create Espace</h1>
+
+    {% if edit %}
+        <h1>Editer un Espace</h1>
+    {% else %}
+        <h1>Créer un Espace</h1>
+    {% endif %}
+    
+<p>Faire une condition pour afficher l'un ou l'autre stp merci :)</p>
     {{ form_start(form) }}
     
-    {{ form_row(form.nom_espace) }}
-    {{ form_row(form.taille) }}
-    {{ form_row(form.wifi) }}
-    {{ form_row(form.nb_places) }}
-    {{ form_row(form.prix) }}
-    {{ form_row(form.categorie) }}
+        {{ form_row(form.nom_espace) }}
+        {{ form_row(form.taille) }}
+        {{ form_row(form.wifi) }}
+        {{ form_row(form.nb_places) }}
+        {{ form_row(form.prix) }}
+        {{ form_row(form.categorie) }}
+
+    {# {{ form_row(form.image) }} #}
     {# Select avec diff categories #}
     {# <div>
         {{ form_label(form.categorie) }}
         {{ form_widget(form.categorie) }}
         {{ form_errors(form.categorie) }}
     </div> #}
-    
+    {# {{ form_row(form.image) }} #}
+
     {{ form_end(form) }}
 {% endblock %}
