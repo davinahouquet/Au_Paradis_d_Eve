@@ -38,8 +38,6 @@ class UserController extends AbstractController
         $reservationsPassees = $reservationRepository->findReservationsPassees($user);
         $reservationsAVenir = $reservationRepository->findReservationsAVenir($user);
         $toutesReservationsAVenir = $reservationRepository->findToutesReservationsAVenir();
-
-    
         $reservationsNonConfirmees = $reservationRepository->findReservationsNonConfirmees($user);
         // $currentDate = new \Datetime();
         return $this->render('user/index.html.twig', [
@@ -49,7 +47,7 @@ class UserController extends AbstractController
             'reservationsNonConfirmees' => $reservationsNonConfirmees,
             'toutesReservationsAVenir'=> $toutesReservationsAVenir,
             'currentDate' => $currentDate,
-            'reservationsOptions' => $this->reservationService->getAllOptionsFromJson()
+            // 'reservationsOptions' => $this->reservationService->getAllOptionsFromJson()
         ]);
     }
 
@@ -58,8 +56,6 @@ class UserController extends AbstractController
     {
             // Afficher toutes les infos de la chambre qu'on réserve
             $espace = $reservation->getEspace();
-            // dd($espace);
-            // dump($reservation);
             //Insérer les heures de check-in et check-out
             $checkIn = 15;
             $checkOut= 11;
@@ -69,11 +65,9 @@ class UserController extends AbstractController
             $entityManager->persist($reservation);
             $entityManager->flush();
 
-            // dd($reservation);
-
             $dateDebut = $reservation->getDateDebut();
             $dateFin = $reservation->getDateFin();
-            // On REvérifie ici si réservation (pas que qqun ait réservé entre temps)
+            // On Revérifie ici si réservation (pas que qqun ait réservé entre temps)
             $indisponible = $reservationRepository->findEspacesReserves($espace, $dateDebut, $dateFin);
             
             if($indisponible){
