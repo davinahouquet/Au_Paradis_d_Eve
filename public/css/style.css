@@ -173,7 +173,7 @@ footer{
     }
 
     ul {
-        display: flex;
+        /* display: flex; */
         flex-direction: column;
         position: absolute;
         top: 60px;
@@ -269,11 +269,11 @@ footer{
         color: var(--font-color);
     }
 
-}
+/* } */
 
-.admin{
+/* .admin{
     background-color: red;
-}
+} */
 /* Interface administrateur */
 /* .admin{
     display: flex;
@@ -446,4 +446,69 @@ footer{
     width: 5px;
     height: 5px;
     margin-right: 10px;
+}
+
+/* LOGIN/REGISTRATION*/
+.login, .registration{
+    width: 100%;
+    min-height: 80vh;
+    padding: 50px;
+    position: absolute;
+    top: 50px;
+}
+
+.submit-button{
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.login a, .registration a{
+    color: var(--hover);
+}
+
+/* ALENTOURS */
+.alentours{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    padding: 50px;
+}
+
+.alentours h1{
+    width: 100%;
+    /* background-color: yellow; */
+}
+
+.alentours ul{
+    /* background-color: red; */
+    display: block;
+    padding: 50px;
+    margin-top: 30px;
+    position: absolute;
+    top: 80px;
+}
+
+.alentours li{
+    text-align: justify;
+}
+
+.alentours .image-sortie{
+    width: 330px;
+    margin-bottom: 10px;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+.credit{
+    font-size: 10px;
+    color: grey;
+}
+
+.alentours a{
+    color: var(--hover);
+    text-decoration: underline;
+}
+
 }
