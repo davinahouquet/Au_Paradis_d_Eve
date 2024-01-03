@@ -7,11 +7,11 @@
     <section class="home-page">
 
     <div class="landingPage-img-container">
-        <img src="{{asset('img/Terasse3.jpg')}}" class="landingPage-img">
+        {# <img src="{{asset('img/Terasse3.jpg')}}" class="landingPage-img"> #}
     </div>
 
     <div class="description">
-        <h1>Au Paradis d'Eve</h1>
+        <h1 class="licorice-title">Au Paradis d'Eve</h1>
 
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('admin_edit_home_text') }}">Modifier la page d'accueil</a>
@@ -21,23 +21,30 @@
         <p><a href="{{ path('app_reservation') }}">Réservez</a> sur notre site en toute sécurité</p>
         <p>{{ data.environnement }}</p>
     </section>
-    <section class="apercu-chambres">
-        <img src="" alt="">
 
+    <section class="apercu-chambres">
         <a href="">Réservez votre séjour</a>
-    </div>
 
         {% for chambre in chambres %}
+            <div class="carte-chambre">
+                {# <img src="{{chambre.image}}" alt=""> #}
+                <a href="{{path('show_espace', {'id' :chambre.id})}}">{{chambre.nomEspace}}</a>
+                <a href="">Réserver</a>
+            </div>
+        {% endfor %}
+    </div>
+
+        {# {% for chambre in chambres %}
             <a href="{{path('show_espace', {'id' :chambre.id})}}">{{chambre.nomEspace}}</a>
             {{chambre.prix}}€
             <p>Disponible à partir du</p>
             <a href="">Réserver</a>
-        {% endfor %}
+        {% endfor %} #}
     </section>
     <section class="pdb">
-        <h2>{{ data.pays_de_bitche }}</h2>
+        {# <img src="{{ asset('img/altschlossfelsen.jpg') }}" alt="L'Altschlossfelsen, nom à consonance germanique signifie :Rocher du Vieux Château.  Barre rocheuse aux couleurs rougeâtres qui porte toutes les particularités géologiques des Vosges du Nord."> #}
+        <h2 class="licorice-title">{{ data.pays_de_bitche }}</h2>
         <p>{{ data.description_pays_de_bitche | raw }}</p>
-        <img src="" alt="L'Altschlossfelsen, nom à consonance germanique signifie :Rocher du Vieux Château.  Barre rocheuse aux couleurs rougeâtres qui porte toutes les particularités géologiques des Vosges du Nord.">
     </section>
     <section class="mascotte">
         <h3>{{ data.mascotte }}</h3>
