@@ -13,7 +13,8 @@
             <div class="espace">
                 <a href="{{path('show_espace', {'id' :espace.id})}}" class="nom-espace"> {{espace.nomEspace}}</a>
                 {# <div class="cover-image-espace"></div> #}
-                <img src="{{ asset('../img/chambreLilas.jpg') }}" alt="">
+                {# {{ dump((espace.images | first)) }} #}
+                <img src="{{ asset('../img/') }}" alt="">
                     {# <a href="{{ path('app_direction', {'id' :espace.id})}}">Réserver</a> #}
                     {% if is_granted("ROLE_ADMIN") %}
                         <a href="{{ path('edit_espace', {'id' :espace.id}) }}" class="action-espace">Modifier</a>

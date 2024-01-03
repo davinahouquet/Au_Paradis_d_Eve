@@ -4,6 +4,12 @@
 
 {% block body %}
 
+{% if is_granted ('ROLE_ADMIN') %}
+  {# <a href="{{ path('new_image', {'id' :espace.id}) }}">Ajouter des images</a> #}
+  <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Modifier l'espace</a>
+  <a href="{{ path('remove_espace', {'id' :espace.id}) }}">Supprimer l'espace</a>
+{% endif %}
+
  <div class="details-espace">
     {{espace.nomEspace}}
     {{espace.taille}} m²
@@ -13,7 +19,7 @@
     {{espace.categorie.nomCategorie}}
     
     {% for image in espace.images %}
-         <img src="../img/{{image.lienImage}}" width="300">
+        <img src="{{ asset(image.lienImage) }}" width="300">
     {% endfor %}
 
     {% if espace.categorie.Id == 1 %}

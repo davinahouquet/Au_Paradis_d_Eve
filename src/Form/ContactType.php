@@ -26,7 +26,6 @@ class ContactType extends AbstractType
                 'required' => true,
             ])
             ->add('valider', SubmitType::class, [
-        
                 ]);
             ;
     }
