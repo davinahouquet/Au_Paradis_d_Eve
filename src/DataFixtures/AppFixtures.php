@@ -56,10 +56,10 @@ class AppFixtures extends Fixture
         // Liste des Catégories
         $categoriesList = [];
         $categoriesNames = [
-            'Chambre', 'Jardin', 'Terrasse'
+            'Chambre', 'Jardin', 'Terrasse', 'Piscine', 'Salle de bain', 'Salon', 'Aire de jeu', 'Cuisine', 'Garage', 'Parking', 'Logement entier', 'Salle à manger'
         ];
 
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 12; $i++) {
             $categorie = new Categorie();
             $categorie->setNomCategorie($categoriesNames[$i]);
             $categoriesList[] = $categorie;
