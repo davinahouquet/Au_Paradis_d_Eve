@@ -3,16 +3,26 @@
 {% block title %}Chambres et espaces de vie{% endblock %}
 
 {% block body %}
-<a href="{{ path('new_espace')}}">Ajouter un espace</a>
-    <div class="espaces">
-        {% for espace in espaces %}
-            <a href="{{path('show_espace', {'id' :espace.id})}}"> {{espace.nomEspace}}</a>
 
-            {% if is_granted("ROLE_ADMIN") %}
-                <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Modifier</a>
-                <a href="{{ path('remove_espace', {'id' :espace.id}) }}">Supprimer</a>
-            {% endif %}
-            <br>
-        {% endfor %}
+<section class="espaces-section">
+    <img src="{{ asset('../img/bibliothèque.jpg') }}" alt="bibliothèque murale avec statue" class="espace-illustration">
+    <h1>Les espaces de vie</h1>
+    <div class="espaces-liste">
+        <a href="{{ path('new_espace')}}" class="action-espace">Ajouter un espace</a>
+        {% for espace in espaces %}
+            <div class="espace">
+                <a href="{{path('show_espace', {'id' :espace.id})}}" class="nom-espace"> {{espace.nomEspace}}</a>
+                {# <div class="cover-image-espace"></div> #}
+                <img src="{{ asset('../img/chambreLilas.jpg') }}" alt="">
+                    {# <a href="{{ path('app_direction', {'id' :espace.id})}}">Réserver</a> #}
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <a href="{{ path('edit_espace', {'id' :espace.id}) }}" class="action-espace">Modifier</a>
+                        <a href="{{ path('remove_espace', {'id' :espace.id}) }}" class="action-espace">Supprimer</a>
+                    {% endif %}
+                    <br>
+                </div>
+            {% endfor %}
     </div>
+</section>
+
 {% endblock %}
