@@ -7,7 +7,7 @@
     <section class="home-page">
 
     <div class="landingPage-img-container">
-        {# <img src="{{asset('img/Terasse3.jpg')}}" class="landingPage-img"> #}
+        <img src="{{asset('img/Terasse3.jpg')}}" class="landingPage-img">
     </div>
 
     <div class="description">
@@ -28,8 +28,11 @@
         {% for chambre in chambres %}
             <div class="carte-chambre">
                 {# <img src="{{chambre.image}}" alt=""> #}
-                <a href="{{path('show_espace', {'id' :chambre.id})}}">{{chambre.nomEspace}}</a>
-                <a href="">Réserver</a>
+                <img src="{{asset('img/chambreLilas.jpg')}}" alt="exemple de chambre" class="image-chambre">
+                <p class="prix-chambre-par-nuit">{{ chambre.prix }}€/nuit</p>
+                {# <a href="{{path('show_espace', {'id' :chambre.id})}}">{{chambre.nomEspace}}</a> #}
+                {# <p>Disponible à partir du [prochaine dispo]</p> #}
+                {# <a href="">Réserver</a> #}
             </div>
         {% endfor %}
     </div>
@@ -42,24 +45,23 @@
         {% endfor %} #}
     </section>
     <section class="pdb">
-        {# <img src="{{ asset('img/altschlossfelsen.jpg') }}" alt="L'Altschlossfelsen, nom à consonance germanique signifie :Rocher du Vieux Château.  Barre rocheuse aux couleurs rougeâtres qui porte toutes les particularités géologiques des Vosges du Nord."> #}
+        <img src="{{ asset('img/altschlossfelsen.jpg') }}" alt="L'Altschlossfelsen, nom à consonance germanique signifie :Rocher du Vieux Château.  Barre rocheuse aux couleurs rougeâtres qui porte toutes les particularités géologiques des Vosges du Nord.">
         <h2 class="licorice-title">{{ data.pays_de_bitche }}</h2>
         <p>{{ data.description_pays_de_bitche | raw }}</p>
     </section>
     <section class="mascotte">
         <h3>{{ data.mascotte }}</h3>
-        <img src="" alt="Chat noir et blanc">
+        <img src="{{ asset('img/Mascotte.jpg')}}" alt="Chat noir et blanc">
         <p>{{ data.description_mascotte | raw }}</p>
     </section>
     <section class="contact" id="contact">
-        <h4>Contactez-nous...</h4>
         <div class="infos-contact">
             <h5>Pour contacter Eve...</h5>
-            <p>{{ data.telephone_fixe }}</p>
-            <p>{{ data.telephone }}</p>
-            <p>{{ data.adresse }}</p>
+            <p><span class="material-symbols-outlined">call</span> {{ data.telephone_fixe }}</p>
+            <p><span class="material-symbols-outlined">sms</span> {{ data.telephone }}</p>
+            <p><span class="material-symbols-outlined">home</span> {{ data.adresse }}</p>
             <p>{{ data.cp }}{{ data.ville }}</p>
-            <p>{{ data.email }}</p>
+            <p><span class="material-symbols-outlined">mail</span> {{ data.email }}</p>
         </div>
         <div class="form-contact">
             {{ form_start(form) }}
@@ -70,6 +72,8 @@
 
             {{ form_end(form) }}
         </div>
-        <button id="scrollToTopBtn" onclick="scrollToTop()">Retour en haut</button>
+        <button id="scrollToTopBtn" onclick="scrollToTop()"><span class="material-symbols-outlined">
+            arrow_upward
+            </span></button>
     </section>
 {% endblock %}
