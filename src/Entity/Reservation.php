@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReservationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,10 +14,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
-    public function __construct()
-    {
-        $this->options = [];
-    }
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -56,9 +54,6 @@ class Reservation
     #[ORM\Column (nullable: true)]
     private ?float $prixTotal = null;
 
-    #[ORM\Column(type: Types::JSON, nullable: true)]
-    private ?array $options = null;
-
     #[ORM\Column(nullable: true)]
     private ?float $note = null;
 
@@ -83,6 +78,14 @@ class Reservation
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     private ?User $user = null;
+
+    #[ORM\ManyToMany(targetEntity: Option::class, inversedBy: 'reservations')]
+    private Collection $Options;
+
+    public function __construct()
+    {
+        $this->Options = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -251,18 +254,6 @@ class Reservation
     //     }
     // }
 
-    public function getOptions(): ?array
-    {
-        return $this->options;
-    }
-
-    public function setOptions(?array $options): static
-    {
-        $this->options = $options;
-
-        return $this;
-    }
-
     public function getNote(): ?float
     {
         return $this->note;
@@ -362,5 +353,29 @@ class Reservation
     public function __toString()
     {
         return $this->prenom." ".$this->nom." ".$this->espace;
+    }
+
+    /**
+     * @return Collection<int, Option>
+     */
+    public function getOptions(): Collection
+    {
+        return $this->Options;
+    }
+
+    public function addOption(Option $option): static
+    {
+        if (!$this->Options->contains($option)) {
+            $this->Options->add($option);
+        }
+
+        return $this;
+    }
+
+    public function removeOption(Option $option): static
+    {
+        $this->Options->removeElement($option);
+
+        return $this;
     }
 }
