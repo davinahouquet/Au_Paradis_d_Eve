@@ -31,7 +31,8 @@ class EspaceType extends AbstractType
             ])
             ->add('wifi', CheckboxType::class, [
                 'label' => 'WiFi',
-                'attr' => ['class' => 'form-check-input']
+                'attr' => ['class' => 'form-input'],
+                'required' => false
             ])
             ->add('nb_places', IntegerType::class, [
                 'label' => 'Nombre de places',
@@ -43,14 +44,14 @@ class EspaceType extends AbstractType
             ])
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom_categorie',
                 'attr' => ['class' => 'form-control']
             ])
-            ->add('images', FileType::class, [
-                'label' => 'Télécharger une image',
-                'mapped' => false,
+            ->add('imageFiles', FileType::class, [
+                'label' => 'Télécharger vos images',
                 'multiple' => true,
-                'attr' => ['class' => 'form-control-file']
+                'mapped' => false,
+                'required' => false
             ])
             ->add('valider', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-success']
