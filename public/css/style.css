@@ -591,4 +591,10 @@ footer{
 /* Détail espace */
 
 
+
+/* Formulaire espace */
+.formulaire-espace{
+    height: 100vh;
+    padding: 80px;
+}
 } /* fermeture media query tél mobile */
