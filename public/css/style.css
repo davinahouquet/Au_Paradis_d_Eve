@@ -589,7 +589,11 @@ footer{
 }
 
 /* Détail espace */
-
+.detail-espace{
+    width: 100%;
+    min-height: 100vh;
+    padding: 100px 50px 50px 50px;
+}
 
 
 /* Formulaire espace */
