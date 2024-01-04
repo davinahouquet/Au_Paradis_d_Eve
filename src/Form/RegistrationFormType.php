@@ -20,36 +20,46 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('pseudo', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'Vous devriez accepter ces conditions.',
-                    ]),
-                ],
-            ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez entrer un mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit contenir {{ limit }} caractères minimum',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
-            ->add('valider', SubmitType::class, [
-        
-            ]);
+        ->add('pseudo', TextType::class, [
+            'label' => 'Pseudo',
+            'attr' => ['class' => 'form-control']
+        ])
+        ->add('email', EmailType::class, [
+            'label' => 'Adresse email',
+            'attr' => ['class' => 'form-control']
+        ])
+        ->add('agreeTerms', CheckboxType::class, [
+            'mapped' => false,
+            'label' => 'J\'accepte les conditions',
+            'constraints' => [
+                new IsTrue([
+                    'message' => 'Vous devriez accepter ces conditions.',
+                ]),
+            ],
+            'attr' => ['class' => 'form-check-input']
+        ])
+        ->add('plainPassword', PasswordType::class, [
+            'mapped' => false,
+            'label' => 'Mot de passe',
+            'attr' => [
+                'class' => 'form-control',
+                'autocomplete' => 'new-password'
+            ],
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Veuillez entrer un mot de passe',
+                ]),
+                new Length([
+                    'min' => 6,
+                    'minMessage' => 'Votre mot de passe doit contenir {{ limit }} caractères minimum',
+                    'max' => 4096,
+                ]),
+            ],
+        ])
+        ->add('valider', SubmitType::class, [
+            'label' => 'S\'inscrire',
+            'attr' => ['class' => 'btn btn-primary']
+        ]);
         ;
     }
 
