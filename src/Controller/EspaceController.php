@@ -8,6 +8,7 @@ use App\Form\ImageType;
 use App\Form\EspaceType;
 use App\Repository\EspaceRepository;
 use App\Repository\CategorieRepository;
+use App\Services\ImageUploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +16,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 class EspaceController extends AbstractController
 {
+    private ImageUploadService $imageUploadService;
+
+    public function __construct(ImageUploadService $imageUploadService){
+        $this->imageUploadService = $imageUploadService;
+    }
+
     #[Route('/espace', name: 'app_espace')]
     public function index(EspaceRepository $espaceRepository): Response
     {
@@ -38,7 +46,7 @@ class EspaceController extends AbstractController
 
     #[Route('/espace/new', name: 'new_espace')]
     #[Route('/espace/edit/{id}', name: 'edit_espace')] 
-    public function new_edit_espace(Espace $espace = null, Image $image = null, CategorieRepository $categorieRepository, Request $request, EntityManagerInterface $entityManager): Response
+    public function new_edit_espace(Espace $espace = null, Image $image = null, CategorieRepository $categorieRepository, Request $request, EntityManagerInterface $entityManager, ImageUploadService $imageUploadService): Response
     {
         // dd($espace->getImages());
         if(!$espace){
@@ -60,36 +68,39 @@ class EspaceController extends AbstractController
                 // dd($images);
                 $espace = $form->getData();
 
-                $images = $form->get('images')->getData();
+                // $images = $form->get('images')->getData();
 
-                foreach ($images as $imageFile) {
-                    // Créer une nouvelle image de l'entité Image
-                    $image = new Image();
+                // foreach ($images as $imageFile) {
+                //     // Créer une nouvelle image de l'entité Image
+                //     $image = new Image();
 
-                    // Nom de fichier unique comme un lien
-                    $fileName = md5(uniqid()) . '.' . $imageFile->guessExtension();
-                    $imageFile->move(
-                        $this->getParameter('../public/img/espaces/'),
-                        $fileName
-                    );
+                //     // Nom de fichier unique comme un lien
+                //     $fileName = md5(uniqid()) . '.' . $imageFile->guessExtension();
+                //     $imageFile->move(
+                //         $this->getParameter('../public/img/espaces/'),
+                //         $fileName
+                //     );
 
-                    $image->setLienImage($fileName);
-                    $image->setAltImage('Texte de Remplacement');
+                    // $image->setLienImage($fileName);
+                    // $image->setAltImage('Texte de Remplacement');
 
                     // Mise en lien de l'image et de l'espace
-                    $image->setEspace($espace);
-                
-                // dd($form->getData());
-                // dd($espace);
-                // $espace->addImage();
-
+                    // $image->setEspace($espace);
+                    
+                    // dd($form->getData());
+                    // dd($espace);
+                    // $espace->addImage();
+                    
+                    $images = $form['imageFiles']->getData();
+                    $this->imageUploadService->uploadImages($images, $espace);
+                    
                 $entityManager->persist($espace);
                 $entityManager->flush();
     
                 $this->addFlash('success', 'Espace ajouté');
     
                 return $this->redirectToRoute('app_espace');
-                }
+                // }
             // }
             // dump();
         }
