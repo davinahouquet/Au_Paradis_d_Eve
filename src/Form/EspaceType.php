@@ -48,7 +48,7 @@ class EspaceType extends AbstractType
                 'attr' => ['class' => 'form-control']
             ])
             ->add('imageFiles', FileType::class, [
-                'label' => 'Télécharger vos images',
+                'label' => 'Image',
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false
