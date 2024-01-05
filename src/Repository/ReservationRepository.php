@@ -45,14 +45,14 @@ class ReservationRepository extends ServiceEntityRepository
     {
         $now = new \DateTime();
         return $this->createQueryBuilder('r')
-           ->andWhere('r.user = :user')
-           ->andWhere('r.date_debut < :now')
-           ->andWhere('r.date_fin > :now')
-           ->setParameter('now', $now)
-           ->setParameter('user', $user)
-           ->orderBy('r.date_debut', 'ASC')
-           ->getQuery()
-           ->getResult()
+            ->andWhere('r.user = :user')
+            ->andWhere('r.date_debut < :now')
+            ->andWhere('r.date_fin > :now')
+            ->setParameter('now', $now)
+            ->setParameter('user', $user)
+            ->orderBy('r.date_debut', 'ASC')
+            ->getQuery()
+            ->getResult()
        ;
     }
 
@@ -82,7 +82,7 @@ class ReservationRepository extends ServiceEntityRepository
             ->orderBy('r.date_debut', 'ASC')
             ->getQuery()
             ->getResult()
-           ;
+        ;
     }
 
     public function findToutesReservationsAVenir(): array
@@ -108,6 +108,18 @@ class ReservationRepository extends ServiceEntityRepository
             ->setParameter('now', $now)
             ->setParameter('user', $user)
             ->orderBy('r.date_debut', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findToutesReservationsPassees(): array
+    {
+        $now = new \DateTime();
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.date_fin < :now')
+            ->setParameter('now', $now)
+            ->orderBy('r.date_fin', 'DESC')
             ->getQuery()
             ->getResult()
         ;
