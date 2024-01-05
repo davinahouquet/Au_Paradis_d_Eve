@@ -175,4 +175,32 @@ class ReservationController extends AbstractController
             $reservationsExistantes = $reservationRepository->findEspacesReserves($espace, $dateDebut, $dateFin);
             return count($reservationsExistantes) === 0;
         }
+
+
+        // #[Route('/reservation/avis', name:'avis') ]
+        // public function afficherAvis(Reservation $reservation){
+
+        //     if($reservation->getAvis() !== null && $reservation->getNote() !== null){
+        //         $note = $reservation->getNote();
+        //         $avis = $reservation->getAvis();
+        //     }
+
+        //     $evaluations = $reservations->findTousAvisConfondus();
+        //     // faire requete dql qui recup tous les avis confondus trier par date desc
+        
+
+        //     return $this->render('reservation/avis.html.twig', [
+        //         'note' => $note,
+        //         'avis' => $avis,
+        //         'evaluations' => $evaluations
+        //     ]);
+        // }
+        #[Route('/reservation/avis', name:'avis') ]
+        public function toutesReservationsPassees(ReservationRepository $reservationRepository){
+            $toutesRervationsPassees = $reservationRepository->findToutesReservationsPassees();
+
+            return $this->render('reservation/avis.html.twig', [
+                'toutesRervationsPassees' => $toutesRervationsPassees
+            ]);
+        }
 }

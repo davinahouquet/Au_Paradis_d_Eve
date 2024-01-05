@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/avis.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
+
+{% block title %}Vos avis{% endblock %}
+
+{% block body %}
+
+    <section class="section-avis">
+
+        <h1>Vos avis...</h1>
+
+        {% for reservation in toutesRervationsPassees %}
+            <div class="evaluation">
+                    {% if reservation.getNote() is not null %}
+                        {{ reservation.getNote() }}
+                        {% if reservation.getAvis() is not null %}
+                        {{ reservation.getAvis() }}
+                        {% endif %}
+                        {{ reservation.prenom|slice(0, 1) }}.
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="">Supprimer l'évaluation</a>
+                        <a href="">Répondre à l'utilisateur</a>
+                    {% endif %}
+                </div>
+        {% endfor %}
+
+    </section>
+{% endblock %}
