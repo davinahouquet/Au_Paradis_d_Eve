@@ -51,13 +51,21 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* justify-content: center */
     }
     
-    .apercu-chambres a{
+    .titre-apercu-chambres{
         color: var(--dark-font);
         text-decoration: none;
         padding: 30px;
+    }
+
+    .details-apercu-chambre{
+        display: flex;
+    }
+
+    .details-apercu-chambre a{
+        text-decoration: none;
+        color: var(--dark-font);
     }
 
     .carte-chambre{
@@ -76,15 +84,7 @@
     .carte-chambre img{
         width: 100%;
         padding: 5px;
-    }    
-
-    /* .image-chambre{
-        width: 100%;
-        max-height: 80%;
-        margin: 5px;
-        object-fit: cover;
-        border-radius: 5px;
-    } */
+    }
     
     .prix-chambre-par-nuit{
         width: 100%;
@@ -94,7 +94,7 @@
     /* SECTION PDB */
     .pdb{
         position: relative;
-        min-height: 100vh;
+        min-height: 80vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -213,4 +213,9 @@
         color: var(--hover);
     }
 
+    #scrollToTopBtn{
+        border-radius: 100%;
+        padding: 10px 15px 10px 15px;
+        background-color: var(--white);
+    }
 }
