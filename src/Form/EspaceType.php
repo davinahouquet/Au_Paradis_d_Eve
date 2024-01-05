@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -22,24 +23,29 @@ class EspaceType extends AbstractType
     {
         $builder
  ->add('nom_espace', TextType::class, [
-                'label' => 'Nom de l\'espace',
+                'label' => 'Nom de l\'espace*',
                 'attr' => ['class' => 'form-control']
             ])
-            ->add('taille', TextType::class, [
-                'label' => 'Taille',
+            ->add('taille', NumberType::class, [
+                'label' => 'Taille*',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('wifi', CheckboxType::class, [
-                'label' => 'WiFi',
+                'label' => 'WiFi*',
                 'attr' => ['class' => 'form-input'],
                 'required' => false
             ])
             ->add('nb_places', IntegerType::class, [
                 'label' => 'Nombre de places',
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
+                'required' => false
             ])
             ->add('prix', MoneyType::class, [
-                'label' => 'Prix',
+                'label' => 'Prix*',
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'Description de l\'espace (facultative)',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('categorie', EntityType::class, [
