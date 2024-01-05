@@ -1,0 +1,84 @@
+/* CHAMBRES ET ESPACES DE VIE */
+@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+    .espaces-section{
+        width: 100%;
+        min-height: 100vh;
+        position: absolute;
+        top: 60px;
+    }
+    
+    .action-espace{
+        color: var(--hover);
+        margin: 20px;
+    }
+    
+    .espaces-section h1{
+        position: absolute;
+        font-family: 'Licorice';
+        font-size: 70px;
+        top: 50px;
+        left: 50px;
+        color: var(--white);
+    }
+    
+    .espaces-liste{
+        position: absolute;
+        top: 150px;
+    }
+    
+    .espace-illustration{
+        width: 100%;
+        max-height: 150px;
+        object-fit: cover;
+        position: absolute;
+    }
+    
+    .espace{
+        width: 90%;
+        height: 250px;
+        /* padding: 30px; */
+        margin-top: 30px;
+        margin-left: 25px;
+        margin-bottom: 30px;
+        /* border-radius: 5px; */
+        /* background-color: red; */
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+        overflow: hidden;
+    }
+    
+    .espace img{
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+        object-fit: cover;
+        /* filter: grayscale(0.5); */
+    }
+    
+    .nom-espace{
+        width: 90%;
+        height: 250px;
+        color: var(--white);
+        /* border-radius: 5px; */
+        background-color: rgba(22, 22, 22, 0.4);
+        position: absolute;
+        font-size: 30px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 600;
+        /* text-transform: uppercase; */
+        padding-top: 80px;
+    }
+    
+    /* Détail espace */
+    .detail-espace{
+        width: 100%;
+        min-height: 100vh;
+        padding: 100px 50px 50px 50px;
+    }
+    
+    /* Formulaire espace */
+    .formulaire-espace{
+        height: 100vh;
+        padding: 80px;
+    }
+}

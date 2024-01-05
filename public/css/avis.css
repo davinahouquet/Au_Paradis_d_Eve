@@ -1,0 +1,15 @@
+/* SECTION AVIS */
+@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+    .section-avis{
+        min-height: 100vh;
+        width: 100%;
+        padding: 130px 50px 50px 50px;
+    }
+
+    .evaluation{
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px;
+        background-color: red;
+    }
+}

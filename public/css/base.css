@@ -99,50 +99,10 @@ footer{
         font-size: 20px;
     }
 
-    .home-page{
-        position: relative;
-        height: 100vh;
-    }
-
     .langages{
         position: fixed;
         z-index: 2;
     }
-
-    .landingPage-img-container{
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-    }
-
-    .landingPage-img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: 27%;
-    }
-    
-    .home-page .description{
-        z-index: 1;
-        position: absolute;
-        text-align: center;
-        margin: 0 auto;
-        left: 0;
-        right: 0;
-        top: 20%;
-        color: var(--white);
-        width: 100%;
-    }
-
-    .home-page .description a{
-        color: var(--hover);
-    }
-
-    .home-page .description h1{
-        font-family: "Licorice";
-        font-size: 55px;
-    }
-
 
     .burger-icon {
         display: block;
@@ -189,6 +149,7 @@ footer{
 
     ul.active {
         display: flex;
+        z-index: 3;
     }
 
     ul li {
@@ -270,14 +231,18 @@ footer{
     }
 
     footer{
-        width: 100%;
-        height: 30px;
-        text-align: center;
         position: static;
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        font-size: 15px;
+        color: var(--white);
         background-color: var(--dark-brown);
     }
 
-    footer a, footer{
+    footer a, footer p{
+        padding-left: 30px;
+        text-align: center;
         color: var(--white);
     }
 }
