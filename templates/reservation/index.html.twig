@@ -1,9 +1,14 @@
 {% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
 
-{% block title %}Hello ReservationController!{% endblock %}
+{% block title %}Reservation{% endblock %}
 
 {% block body %}
 
+<section class="reservation">
     <h1>SELECTIONNEZ VOTRE SEJOUR</h1>
 
     <div class="carte-chambre">
@@ -18,5 +23,6 @@
     <div class="selection-sejour">
         <form action=""></form>
     </div>
+</section>
 
 {% endblock %}

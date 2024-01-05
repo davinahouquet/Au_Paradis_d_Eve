@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/espaces.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
 {% block title %}Chambres et espaces de vie{% endblock %}
 
 {% block body %}
@@ -12,8 +15,7 @@
         {% for espace in espaces %}
             <div class="espace">
                 <a href="{{path('show_espace', {'id' :espace.id})}}" class="nom-espace"> {{espace.nomEspace}}</a>
-                {# <div class="cover-image-espace"></div> #}
-                {# {{ dump((espace.images | first)) }} #}
+
                 {% for image in espace.images %}
                     {% if image.lienImage is null %}
                         <img src="{{ asset('img/chambreLilas.jpg')}}" width="300">
@@ -21,6 +23,7 @@
                         <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" width="300">
                     {% endif %}
                 {% endfor %}
+                
                     {# <a href="{{ path('app_direction', {'id' :espace.id})}}">Réserver</a> #}
                     {% if is_granted("ROLE_ADMIN") %}
                         <a href="{{ path('edit_espace', {'id' :espace.id}) }}" class="action-espace">Modifier</a>

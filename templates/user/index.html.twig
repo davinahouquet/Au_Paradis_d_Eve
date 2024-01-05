@@ -1,25 +1,30 @@
 {% extends 'base.html.twig' %}
-{# {% block css %}{% endblock %} #}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+{% endblock %}
 
 {% block title %}Mon profil{% endblock %}
 
 {% block body %}
 
-<h1>Bienvenue sur votre profil, {{app.user.pseudo}}</h1>
-
-    {% if is_granted("ROLE_ADMIN") %}
-        {% include 'user/reservations/admin.html.twig' %}
-    {% else %}
-        {% include 'user/reservations/en_cours.html.twig' %}
-        {% include 'user/reservations/non_confirmees.html.twig' %}
-        {% include 'user/reservations/a_venir.html.twig' %}
-        {% include 'user/reservations/passees.html.twig' %}
-    {% endif %}
-
-        <h6>Paramètres</h6>
-        <p>Pseudo : {{app.user.pseudo}} <a href="{{ path('edit_user', {'id' : app.user.id})}}">Modifier pseudo</a></p>
-        <p>Email : {{app.user.email}}<a href="{{ path('edit_user_email', {'id' : app.user.id})}} "> Modifier l'email</a></p>
-        <p>Mot de passe : ************* <a href="{{ path('upgrade_password')}}">Modifier mot de passe</a></p>
-        <p><a href="{{ path('delete_user', {'id': app.user.id}) }}">Supprimer mon compte</a></p>
+    <section class="profil">
+        <h1>Bienvenue sur votre profil, {{app.user.pseudo}}</h1>
+        
+            {% if is_granted("ROLE_ADMIN") %}
+                {% include 'user/reservations/admin.html.twig' %}
+            {% else %}
+                {% include 'user/reservations/en_cours.html.twig' %}
+                {% include 'user/reservations/non_confirmees.html.twig' %}
+                {% include 'user/reservations/a_venir.html.twig' %}
+                {% include 'user/reservations/passees.html.twig' %}
+            {% endif %}
+        
+                <h6>Paramètres</h6>
+                <p>Pseudo : {{app.user.pseudo}} <a href="{{ path('edit_user', {'id' : app.user.id})}}">Modifier pseudo</a></p>
+                <p>Email : {{app.user.email}}<a href="{{ path('edit_user_email', {'id' : app.user.id})}} "> Modifier l'email</a></p>
+                <p>Mot de passe : ************* <a href="{{ path('upgrade_password')}}">Modifier mot de passe</a></p>
+                <p><a href="{{ path('delete_user', {'id': app.user.id}) }}">Supprimer mon compte</a></p>
+    </section>
     
 {% endblock %}
