@@ -1,0 +1,51 @@
+
+/* ALENTOURS */
+@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+
+    ul{
+        list-style-type: none;
+    }
+
+    .alentours{
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        padding: 50px;
+    }
+
+    .alentours h1{
+        width: 100%;
+        /* background-color: yellow; */
+    }
+
+    .alentours ul{
+        /* background-color: red; */
+        display: block;
+        padding: 50px;
+        margin-top: 30px;
+        position: absolute;
+        top: 80px;
+    }
+
+    .alentours li{
+        text-align: justify;
+    }
+
+    .alentours .image-sortie{
+        width: 330px;
+        margin-bottom: 10px;
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    }
+
+    .credit{
+        font-size: 10px;
+        color: grey;
+    }
+
+    .alentours a{
+        color: var(--hover);
+        text-decoration: underline;
+    }
+}

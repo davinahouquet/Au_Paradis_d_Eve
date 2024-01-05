@@ -269,141 +269,15 @@ footer{
         color: var(--font-color);
     }
 
-/* } */
+    footer{
+        width: 100%;
+        height: 30px;
+        text-align: center;
+        position: static;
+        background-color: var(--dark-brown);
+    }
 
-/* .admin{
-    background-color: red;
-} */
-/* Interface administrateur */
-/* .admin{
-    display: flex;
-    height: 250px;
-    flex-wrap: wrap;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    width: 80%;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-    background: rgb(157,130,80);
-    background: linear-gradient(156deg, rgba(157,130,80,0.7371323529411764) 23%, rgba(137,93,61,0.9556197478991597) 82%, rgba(137,93,61,0.958420868347339) 89%, rgba(133,85,57,0.9023984593837535) 100%);
+    footer a, footer{
+        color: var(--white);
+    }
 }
-
-.button {
-    color: var(--white);
-	background-color: var(--dark-brown);
-	border: 5px solid transparent;
-	transition: .2s ease;
-	border-radius: 3px;
-    padding: 5px;
-    transition: 0.3s;
-}
-
-.button:hover {
-    color: var(--dark-brown);
-	background-color: var(--hover) ;
-	transform: scale(1.1);
-    transition: 0.3s;
-}
-
-.action{
-    padding: 10px;
-    display: flex;
-    align-items: center;
-} */
-
-
-
-
-/* ESPACES */
-.espaces-section{
-    width: 100%;
-    position: absolute;
-    top: 60px;
-}
-
-.action-espace{
-    color: var(--hover);
-    margin: 20px;
-}
-
-.espaces-section h1{
-    position: absolute;
-    font-family: 'Licorice';
-    font-size: 70px;
-    top: 50px;
-    left: 50px;
-    color: var(--white);
-}
-
-.espaces-liste{
-    position: absolute;
-    top: 150px;
-}
-
-.espace-illustration{
-    width: 100%;
-    max-height: 150px;
-    object-fit: cover;
-    position: absolute;
-}
-
-.espace{
-    width: 90%;
-    height: 250px;
-    /* padding: 30px; */
-    margin-top: 30px;
-    margin-left: 25px;
-    margin-bottom: 30px;
-    /* border-radius: 5px; */
-    /* background-color: red; */
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-    overflow: hidden;
-}
-
-.espace img{
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    object-fit: cover;
-    /* filter: grayscale(0.5); */
-}
-
-/* .cover-image-espace{
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background-color: rgb(0, 0, 0);
-    opacity: 0.1;
-} */
-
-.nom-espace{
-    width: 90%;
-    height: 250px;
-    color: var(--white);
-    /* border-radius: 5px; */
-    background-color: rgba(22, 22, 22, 0.4);
-    position: absolute;
-    font-size: 30px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: 600;
-    /* text-transform: uppercase; */
-    padding-top: 80px;
-}
-
-/* Détail espace */
-.detail-espace{
-    width: 100%;
-    min-height: 100vh;
-    padding: 100px 50px 50px 50px;
-}
-
-
-/* Formulaire espace */
-.formulaire-espace{
-    height: 100vh;
-    padding: 80px;
-}
-} /* fermeture media query tél mobile */
