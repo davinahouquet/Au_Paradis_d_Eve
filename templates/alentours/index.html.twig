@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-{# {% block css %}<link rel="stylesheet" href="{{ path('css/alentours.css') }}">{% endblock %} #}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/alentours.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
 
 {% block title %}Alentours{% endblock %}
 
