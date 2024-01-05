@@ -27,26 +27,25 @@
     </section>
 
     <section class="apercu-chambres">
-        <a href="">Réservez votre séjour</a>
+        <a href="{{ path('app_reservation') }}" class="titre-apercu-chambres"><h2>Réservez votre séjour</h2></a>
 
         {% for chambre in chambres %}
             <div class="carte-chambre">
-                {# <img src="{{chambre.image}}" alt=""> #}
-                <img src="{{asset('img/chambreLilas.jpg')}}" alt="exemple de chambre" class="image-chambre">
-                <p class="prix-chambre-par-nuit">{{ chambre.prix }}€/nuit</p>
-                {# <a href="{{path('show_espace', {'id' :chambre.id})}}">{{chambre.nomEspace}}</a> #}
+                {% for image in chambre.images %}
+                    {% if image.lienImage is null %}
+                        <img src="{{ asset('img/chambreLilas.jpg')}}" width="300">
+                    {% else %}
+                        <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" width="300">
+                    {% endif %}
+                {% endfor %}
+                <div class="details-apercu-chambre">
+                    <a href="{{path('show_espace', {'id' :chambre.id})}}">{{chambre.nomEspace}}</a>
+                    <p class="prix-chambre-par-nuit">{{ chambre.prix }}€/nuit</p>
+                </div>
                 {# <p>Disponible à partir du [prochaine dispo]</p> #}
                 {# <a href="">Réserver</a> #}
             </div>
         {% endfor %}
-    </div>
-
-        {# {% for chambre in chambres %}
-            <a href="{{path('show_espace', {'id' :chambre.id})}}">{{chambre.nomEspace}}</a>
-            {{chambre.prix}}€
-            <p>Disponible à partir du</p>
-            <a href="">Réserver</a>
-        {% endfor %} #}
     </section>
     <section class="pdb">
         <img src="{{ asset('img/altschlossfelsen.jpg') }}" alt="L'Altschlossfelsen, nom à consonance germanique signifie :Rocher du Vieux Château.  Barre rocheuse aux couleurs rougeâtres qui porte toutes les particularités géologiques des Vosges du Nord.">
