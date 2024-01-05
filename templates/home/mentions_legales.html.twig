@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/mentions.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
+
+{% block title %}Mentions Légales{% endblock %}
+
+{% block body %}
+
+    <section class="mentions-legales">
+        <h1>Mentions Légales</h1>
+
+        <h2>1. Informations sur le Propriétaire du Site :</h2>
+        <p>Nom du propriétaire : [Nom]</p>
+        <p>Adresse postale : [Adresse]</p>
+        <p>Numéro de téléphone : [Numéro de téléphone]</p>
+        <p>Adresse e-mail : [Adresse e-mail]</p>
+        <p>Numéro d'identification fiscale : [Numéro d'identification fiscale]</p>
+    
+        <h2>2. Hébergeur du Site :</h2>
+        <p>Nom de l'hébergeur : [Nom de l'hébergeur]</p>
+        <p>Raison sociale de l'hébergeur : [Raison sociale de l'hébergeur]</p>
+        <p>Adresse de l'hébergeur : [Adresse de l'hébergeur]</p>
+        <p>Numéro de téléphone de l'hébergeur : [Numéro de téléphone de l'hébergeur]</p>
+        </p>
+
+        <a href="{{ path('app_home') }}">Retour à l'accueil</a>
+    </section>
+{% endblock %}

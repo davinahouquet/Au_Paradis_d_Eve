@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/mentions.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
+
+{% block title %}Conditions Générales d'Utilisation{% endblock %}
+
+{% block body %}
+
+    <section class="conditions-generales">
+
+        <h1>Conditions Générales d'Utilisation - Au Paradis d'Eve</h1>
+        <p>
+
+Acceptation des Conditions
+En utilisant ce site web, vous acceptez sans réserve ces Conditions Générales d'Utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser le site.
+
+Objet du Site
+Ce site est destiné à fournir des informations sur nos chambres d'hôtes, à faciliter les réservations et à offrir des services connexes.
+
+Réservations et Paiements
+Les réservations sont soumises à disponibilité. Les tarifs, les conditions de paiement et les politiques d'annulation sont clairement spécifiés lors du processus de réservation.
+
+Utilisation du Site
+Vous vous engagez à utiliser le site de manière légale et conforme à ces conditions. Toute utilisation abusive ou frauduleuse du site est strictement interdite.
+
+Propriété Intellectuelle
+Tout le contenu présent sur le site, y compris les textes, images, logos, etc., est protégé par des droits de propriété intellectuelle et ne peut être reproduit sans autorisation.
+
+Confidentialité
+Les informations personnelles que vous fournissez lors de la réservation sont traitées conformément à notre politique de confidentialité. Consultez notre politique de confidentialité pour plus d'informations.
+
+Responsabilités
+Nous ne sommes pas responsables des dommages directs ou indirects résultant de l'utilisation du site ou de l'incapacité d'utiliser le site.
+
+Modification des Conditions
+Nous nous réservons le droit de modifier ces Conditions Générales d'Utilisation à tout moment. Les modifications entrent en vigueur dès leur publication sur le site.
+
+Droit Applicable et Juridiction
+Ces conditions sont régies par la loi en vigueur dans votre région. Tout litige sera soumis à la juridiction compétente.
+
+En acceptant ces Conditions Générales d'Utilisation, vous reconnaissez avoir lu, compris et accepté toutes les dispositions énoncées.
+        </p>
+        <a href="{{ path('app_home') }}">Retour à l'accueil</a>
+    </section>
+{% endblock %}

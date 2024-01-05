@@ -44,4 +44,16 @@ class HomeController extends AbstractController
             'data' => $data
         ]);
     }
+
+    #[Route('/mentions', name: 'mentions')]
+    public function mentions(){
+
+        return $this->render('home/mentions_legales.html.twig');
+    }
+
+    #[Route('/conditions', name: 'conditions')]
+    public function conditions(){
+
+        return $this->render('home/conditions_generales.html.twig');
+    }
 }
