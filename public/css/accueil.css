@@ -1,5 +1,14 @@
 @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
     
+    .edit-home-text{
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        padding: 50px;
+    }
+
     .home-page{
         position: relative;
         height: 100vh;
@@ -94,7 +103,7 @@
     /* SECTION PDB */
     .pdb{
         position: relative;
-        min-height: 80vh;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;

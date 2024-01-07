@@ -6,7 +6,7 @@
         list-style-type: none;
     }
 
-    .alentours{
+    .alentours, .edit-alentours{
         min-height: 100vh;
         display: flex;
         flex-direction: column;
