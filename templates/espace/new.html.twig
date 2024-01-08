@@ -4,23 +4,22 @@
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
 {% endblock %}
 {% block title %}
-    {# {% if edit %}
+    {% if edit %}
         Editer un Espace
-    {% else %} #}
+    {% else %}
         Créer un Espace
-    {# {% endif %} #}
+    {% endif %}
 {% endblock %}
 
 {% block body %}
 
 <section class="formulaire-espace">
-    {# {% if edit %}
+    {% if edit %}
         <h1>Editer un Espace</h1>
-    {% else %} #}
+    {% else %}
         <h1>Créer un Espace</h1>
-    {# {% endif %} #}
+    {% endif %}
 
-<p>Faire une condition pour afficher l'un ou l'autre stp merci :)</p>
     {{ form_start(form) }}
     
         {{ form_row(form.nom_espace) }}
