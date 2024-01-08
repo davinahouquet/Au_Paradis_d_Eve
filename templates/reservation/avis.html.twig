@@ -12,20 +12,32 @@
 
         <h1>Vos avis...</h1>
 
+        {% if is_granted('ROLE_ADMIN') %}
+            <button id="reafficher-evaluations">Réafficher les évaluations masquées</button>
+        {% endif %}
+
         {% for reservation in toutesRervationsPassees %}
-            <div class="evaluation">
-                    {% if reservation.getNote() is not null %}
-                        {{ reservation.getNote() }}
-                        {% if reservation.getAvis() is not null %}
-                        {{ reservation.getAvis() }}
-                        {% endif %}
-                        {{ reservation.prenom|slice(0, 1) }}.
-                    {% endif %}
+            <div class="evaluation" id="evaluation_{{ reservation.id }}">
+                <h2>{{reservation.espace.nomEspace}}</h2>
+                {{reservation.dateDebutFr}} au {{reservation.dateFinFr}}<br>
+
+                {{ reservation.prenom|slice(0, 1) }} :
+                {# {% if reservation.getAvis() is not null %} #}
+                {% if reservation.getAvis()|length > 1 %}
+                    {{ reservation.getAvis() }}<br>
+                {% else %}
+                    <p>Pas de commentaire</p>
+                {% endif %}
+
+                {% if reservation.getNote() is not null %}
+                    <h3>Note : {{ reservation.getNote() }} /20</h3>
+                {% endif %}
+
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="">Supprimer l'évaluation</a>
-                        <a href="">Répondre à l'utilisateur</a>
+                        <a href="" class="masquer-evaluation" data-evaluation-id="{{ reservation.id }}">Masquer l'évaluation</a><br>
+                        {# <a href="">Répondre à l'utilisateur</a> #}
                     {% endif %}
-                </div>
+            </div>
         {% endfor %}
 
     </section>
