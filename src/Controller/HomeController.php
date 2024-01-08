@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Espace;
 use App\Form\ContactType;
+use App\Repository\EspaceRepository;
 use App\Services\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
-    public function index(EntityManagerInterface $entityManager, Request $request, MailerService $mailer): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, MailerService $mailer, EspaceRepository $espaceRepository): Response
     {
         // Récupère le contenu du fichier JSON
         $jsonData = file_get_contents('../public/json/home_text.json');
