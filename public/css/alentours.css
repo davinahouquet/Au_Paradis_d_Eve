@@ -8,6 +8,7 @@
 
     .alentours, .edit-alentours{
         min-height: 100vh;
+        width: 100%;
         display: flex;
         flex-direction: column;
         position: absolute;

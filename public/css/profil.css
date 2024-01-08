@@ -1,7 +1,11 @@
 /* SECTION PROFIL */
 @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
-    .profil{
+    .profil, .registration, .login{
         min-height: 100vh;
         padding: 120px 50px 50px 50px;
+    }
+
+    .registration a, .login a{
+        color: var(--hover);
     }
 }
