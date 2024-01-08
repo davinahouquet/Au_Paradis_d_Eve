@@ -1,0 +1,21 @@
+@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+    .erreur{
+        min-height: 100vh;
+        width: 100%;
+        padding: 130px 50px 50px 50px;
+    }
+
+    .erreur img{
+        position: absolute;
+        bottom: 100px;
+        right: 10px;
+    }
+
+    .erreur a{
+        color: var(--hover);
+        text-decoration: none;
+        padding: 10px;
+        border-radius: 3px;
+        box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356);
+    }
+}

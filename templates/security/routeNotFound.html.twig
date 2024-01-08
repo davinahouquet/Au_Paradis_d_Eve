@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/erreur.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
 
 {% block title %}Erreur - Page non trouvée{% endblock %}
 
 {% block body %}
 
-    <h1>Oups... Il semblerait que cette page n'existe pas !</h1>
+    <section class="erreur">
+        <h1>Oups... Il semblerait que cette page n'existe pas !</h1><br>
 
-    <a href="{{ path('app_home') }}">Retourner à l'accueil</a>
+        <a href="{{ path('app_home') }}">Retourner à l'accueil</a>
+
+        <img src="{{ asset('img/erreur.png') }}" alt="Image jeune biche égarée">
+    </section>
 
 {% endblock %}
