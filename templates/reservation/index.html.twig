@@ -9,20 +9,47 @@
 {% block body %}
 
 <section class="reservation">
-    <h1>SELECTIONNEZ VOTRE SEJOUR</h1>
+    <img src="{{ asset('../img/bibliothèque.jpg') }}" alt="bibliothèque murale avec statue" class="reservation-illustration">
+    <h1>Sélectionnez votre séjour</h1>
+    
+    <div class="conteneur-cartes-chambre">
+        {% for chambre in chambres %}
+            <div class="carte-chambre">
+            {# Contient tous la photo + les infos sur la chambre + les conditions (min 2 nuit) + le prix #}
+                <div class="gauche-carte-chambre"> 
+                    <a href="{{path('show_espace', {'id' :chambre.id})}}">
+                        {% for image in chambre.images %}
+                            <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="image de la chambre à réserver">
+                        {% endfor %}
+                    </a>
 
-    <div class="carte-chambre">
-        <img src="" alt="">
-        <div class="info-chambre">
-            {% for chambre in chambres %}
-            <a href="{{path('show_espace', {'id' :chambre.id})}}">{{chambre}}</a><a href="{{ path('new_reservation', {'id' :chambre.id})}}">Réserver</a><br>
-            {% endfor %}
-        </div>
+                    <div class="infos-techniques-chambre">
+                        <p>{{ chambre.taille }}m²</p>
+                        <p>{{ chambre.nbPlaces }} personnes</p>
+    
+                        {% if chambre.wifi == 1%}
+                            {# <p>{{ chambre.wifi }}</p>  #}
+                            wifi (logo)
+                        {% endif %}
+                    </div>
+
+                    <p>2 nuits minimum*</p>
+                    <h3>{{ chambre.prix }}€/nuit</h3>
+
+                </div>
+                {# Contient le nom de la chambre + description + bouton réserver #}
+                <div class="droite-carte-chambre">
+                    <h2>{{chambre.nomEspace}}</h2>
+                    <p>{{chambre.description}}</p>
+                    <a href="{{ path('new_reservation', {'id' :chambre.id})}}" type="button" class="btn btn-success">Réserver</a>
+                </div>
+            </div>
+        {% endfor %}
     </div>
     {# Formulaire - Zone de recherche de séjour aux dates entrées (n'afficher que les chambres dispos pour le nb de personnes si possible) #}
-    <div class="selection-sejour">
+    {# <div class="selection-sejour">
         <form action=""></form>
-    </div>
+    </div> #}
 </section>
 
 {% endblock %}

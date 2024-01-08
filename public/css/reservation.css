@@ -1,7 +1,104 @@
 /* SECTION RESERVATION */
-.reservation{
-    width: 100%;
-    min-height: 100vh;
-    padding: 120px 50px 50px 50px;
-}
+@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+    .reservation{
+        width: 100%;
+        min-height: 100vh;
+        position: absolute;
+        top: 60px;
+    }
+    
+    .reservation a{
+        color: var(--hover);
+    }
 
+    .reservation-illustration{
+        width: 100%;
+        max-height: 150px;
+        object-fit: cover;
+        position: absolute;
+    }
+
+    .reservation h1{
+        position: absolute;
+        font-family: 'Licorice';
+        font-size: 50px;
+        top: 50px;
+        left: 50px;
+        color: var(--white);
+    }
+
+    .conteneur-cartes-chambre{
+        width: 100%;
+        position: absolute;
+        top: 150px;
+        /* border: 10px solid green; */
+    }
+
+    .carte-chambre{
+        max-width: 100%;
+        height: 250px;
+        margin: 20px;
+        display: flex;
+        border-radius: 3px;
+        box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356);
+        background-color: #c369141b;
+        /* background-color: red; */
+        /* position: absolute; */
+        /* margin: 55px; */
+        /* margin: 150px 50px 50px 50px; */
+    }
+
+    .carte-chambre img{
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 3px;
+        margin-bottom: 10px;
+    }
+
+    .gauche-carte-chambre, .droite-carte-chambre{
+        width: 50%;
+        padding: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .infos-techniques-chambre{
+        width: 100%;
+        font-size: 10px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .droite-carte-chambre h2{
+        max-height: 30px;
+        font-family: 'Licorice';
+        font-size: 25px;
+        text-align: center;
+    }
+
+    .droite-carte-chambre p{
+        height: 130px;
+        overflow: hidden;
+        font-size: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
+        text-align: justify;
+    }
+
+    .droite-carte-chambre a{
+        color: var(--white);
+    }
+
+    /* SECTION FORMULAIRE DE RESERVATION */
+    .section-reservation{
+        width: 100%;
+        min-height: 100vh;
+        padding: 120px 50px 50px 50px;
+    }
+    .section-reservation h1{
+        color: var(--dark-font);
+    }
+}
