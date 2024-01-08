@@ -18,26 +18,29 @@ class CoordonneesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [
-                'label' => 'Email*',
-                'required' => true,
-                'attr' => [
-                    'autocomplete' => 'off',
-                    'value' => 'stewie@griffin'
-                ]
-            ])
-            ->add('adresse', TextType::class, [
-                'label' => 'Adresse*',
-                'required' => true,
-                'attr' => [
-                    'autocomplete' => 'off',
-                    'value' => '31 Spooner Street'
-                ]
-            ])
+        ->add('email', EmailType::class, [
+            'label' => 'Email*',
+            'required' => true,
+            'attr' => [
+                'class' => 'form-control',
+                'autocomplete' => 'off',
+                'value' => 'stewie@griffin'
+            ]
+        ])
+        ->add('adresse', TextType::class, [
+            'label' => 'Adresse*',
+            'required' => true,
+            'attr' => [
+                'class' => 'form-control',
+                'autocomplete' => 'off',
+                'value' => '31 Spooner Street'
+            ]
+        ])
             ->add('cp', TextType::class, [
                 'label' => 'Code postal*',
                 'required' => true,
                 'attr' => [
+                    'class' => 'form-control',
                     'autocomplete' => 'off',
                     'value' => '00093'
                 ]
@@ -46,6 +49,7 @@ class CoordonneesType extends AbstractType
                 'label' => 'Ville*',
                 'required' => true,
                 'attr' => [
+                    'class' => 'form-control',
                     'autocomplete' => 'off',
                     'value' => 'Quahog'
                 ]
@@ -54,6 +58,7 @@ class CoordonneesType extends AbstractType
                 'label' => 'Pays*',
                 'required' => true,
                 'attr' => [
+                    'class' => 'form-control',
                     'autocomplete' => 'off',
                     'value' => 'Rhode Island'
                 ]
@@ -66,10 +71,15 @@ class CoordonneesType extends AbstractType
             ->add('souvenir', CheckboxType::class, [
                 'label'    => 'Se souvenir de mon adresse pour de futures réservations',
                 'required' => false,
+                'attr' => [
+                    'class' => 'form-check-input',
+                ]
             ])
-            ->add('valider', SubmitType::class);
+            ->add('valider', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success',
+                ]
+            ]);
         ;
     }
-
-   
 }
