@@ -1,20 +1,26 @@
-{# templates/evaluation.html.twig #}
-
 {% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/avis.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
+
 
 {% block title %}Évaluation de la réservation{% endblock %}
 
 {% block body %}
+
+<section class="section-avis">
     <h1>Évaluation de la réservation</h1>
 
     {{ form_start(form) }}
 
-    {{ form_row(form.note, {'label': 'Note :'}) }}
+    {{ form_row(form.note) }}
 
-    {{ form_row(form.avis, {'label': 'Avis :'}) }}
+    {{ form_row(form.avis) }}
+    <p>Seule la première lettre de votre prénom apparaîtra dans l'évaluation.</p>
 
     {{ form_row(form.valider) }}
-
-    <p>Votre nom n'apparaîtra pas dans l'évaluation.</p>
     {{ form_end(form) }}
+
+</section>
 {% endblock %}

@@ -16,15 +16,21 @@ class EvaluationType extends AbstractType
     {
         $builder
         ->add('note', NumberType::class, [
+            'label'=> 'Note /5',
             'html5' => true,
             'attr' => [
-                'max' => 5
+                'max' => 5,
+                'class' => 'form-control'
             ]
         ])
         ->add('avis', TextareaType::class, [
-            'attr' => ['rows' => 5], // Pour un champ longtext
+            'attr' => ['class' => 'form-control']
         ])
-        ->add('valider', SubmitType::class)
+        ->add('valider', SubmitType::class, [
+            'attr' => [
+                'class' => 'btn btn-success'
+            ]
+        ])
     ;
     }
 
