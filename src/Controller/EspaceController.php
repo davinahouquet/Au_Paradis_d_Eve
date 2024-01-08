@@ -36,8 +36,13 @@ class EspaceController extends AbstractController
     }
 
     #[Route('/espace/remove/{id}', name: 'remove_espace')]
-    public function remove_espace(Espace $espace, EntityManagerInterface $entityManager): Response
+    public function remove_espace(Espace $espace, EntityManagerInterface $entityManager, Image $image): Response
     {
+        // si cet espace a une image associée, suppr l'image
+        if($espace->getImages() !== null){
+            $espace->removeImage($image);
+        }
+
         $entityManager->remove($espace);
         $entityManager->flush();
 
@@ -48,51 +53,19 @@ class EspaceController extends AbstractController
     #[Route('/espace/edit/{id}', name: 'edit_espace')] 
     public function new_edit_espace(Espace $espace = null, Image $image = null, CategorieRepository $categorieRepository, Request $request, EntityManagerInterface $entityManager, ImageUploadService $imageUploadService): Response
     {
-        // dd($espace->getImages());
         if(!$espace){
             $espace = new Espace();
         }
         $categories = $categorieRepository->findAll();
 
         $form = $this->createForm(EspaceType::class, $espace);
-        // $formImage = $this->createForm(ImageType::class, $image);
-
         $form->handleRequest($request);
-        // $formImage->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // dump();
-            // if($formImage->isSubmitted() && $formImage->isValid()) {
-                // $images = $form['images']->getData(); 
-                // dd($images);
                 $espace = $form->getData();
-
-                // $images = $form->get('images')->getData();
-
-                // foreach ($images as $imageFile) {
-                //     // Créer une nouvelle image de l'entité Image
-                //     $image = new Image();
-
-                //     // Nom de fichier unique comme un lien
-                //     $fileName = md5(uniqid()) . '.' . $imageFile->guessExtension();
-                //     $imageFile->move(
-                //         $this->getParameter('../public/img/espaces/'),
-                //         $fileName
-                //     );
-
-                    // $image->setLienImage($fileName);
-                    // $image->setAltImage('Texte de Remplacement');
-
-                    // Mise en lien de l'image et de l'espace
-                    // $image->setEspace($espace);
-                    
-                    // dd($form->getData());
-                    // dd($espace);
-                    // $espace->addImage();
-                    
-                    $images = $form['imageFiles']->getData();
-                    $this->imageUploadService->uploadImages($images, $espace);
+                $images = $form['imageFiles']->getData();
+                $this->imageUploadService->uploadImages($images, $espace);
                     
                 $entityManager->persist($espace);
                 $entityManager->flush();
@@ -100,14 +73,12 @@ class EspaceController extends AbstractController
                 $this->addFlash('success', 'Espace ajouté');
     
                 return $this->redirectToRoute('app_espace');
-                // }
-            // }
-            // dump();
         }
 
         return $this->render('espace/new.html.twig', [
             'form' => $form,
             'categories' => $categories,
+            'edit' =>$espace->getId()
         ]);
     }
     
