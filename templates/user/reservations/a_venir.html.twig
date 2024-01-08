@@ -1,10 +1,22 @@
-{% if reservationsAVenir %}
-    <h5>Vos réservations à venir</h5>
-    <p>Préparez votre séjour</p>
-    {% for reservationAVenir in reservationsAVenir %}
-        <p>Votre séjour du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}, au nom de  {{reservationAVenir.prenom}}{{reservationAVenir.nom}}</p>
-        <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
-        <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
-        <a href="">Annuler ma réservation</a>
-    {% endfor %}
-{% endif %}
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    {% if reservationsAVenir %}
+        <div class="profil">
+            <h5>Vos réservations à venir</h5>
+            <p>Préparez votre séjour</p>
+            {% for reservationAVenir in reservationsAVenir %}
+                <p>Votre séjour du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}, au nom de  {{reservationAVenir.prenom}}{{reservationAVenir.nom}}</p>
+                <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
+                <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
+                <a href="">Annuler ma réservation</a>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <a href="{{ path('app_user') }}">Retour au profil</a>
+{% endblock %}

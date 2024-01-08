@@ -1,4 +1,5 @@
 {% if reservationEnCours %}
+<div class="reservations-user">
     {% for reservationEnCours in reservationEnCours %}
                 <h2>Votre réservation en cours</h2>
                     {{reservationEnCours.prenom}}
@@ -21,4 +22,5 @@
                     <p>Prix total : {{reservationEnCours.prixTotal}} €</p>
                     <p><a href="">Détails</a>(adresseFacturation, lien pdf)</p>
     {% endfor %}
+</div>
 {% endif %}
