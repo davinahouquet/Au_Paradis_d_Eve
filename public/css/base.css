@@ -42,7 +42,6 @@ nav{
     width: 100%;
     position: sticky;
     top: 10px;
-    
 }
 
 ul{
@@ -106,6 +105,10 @@ footer{
     .langages{
         position: fixed;
         z-index: 2;
+    }
+
+    .langages img{
+        width: 10px;
     }
 
     .burger-icon {
@@ -227,6 +230,11 @@ footer{
     
     .user-menu.active {
         display: block;
+    }
+    
+    .user-menu.active li{
+        padding-top: 20px;
+        padding-bottom: 10px;
     }
 
     .user-menu.active a{
