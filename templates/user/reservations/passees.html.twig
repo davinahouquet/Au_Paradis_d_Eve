@@ -27,9 +27,9 @@
                 {{reservationPassee.espace}}
                 Du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}}
                 <p>Options :</p>
-                    {% if reservationAVenir.options is not empty %}
+                    {% if reservationPassee.options is not empty %}
                         <ul>
-                            {% for option in reservationAVenir.options %}
+                            {% for option in reservationPassee.options %}
                                 <li>{{ option.nom }}</li>
                                 <li>{{ option.tarif }} €</li>
                             {% endfor %}
@@ -37,9 +37,8 @@
                     {% else %}
                         <p>Pas d'option</p>
                     {% endif %}
-            {% endif %}
                 {{reservationPassee.avis}}
                 {{reservationPassee.note}}
             {% endif %}
-        {% endfor %}
+    {% endfor %}
 {% endif %}
