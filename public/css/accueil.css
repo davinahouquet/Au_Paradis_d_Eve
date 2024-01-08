@@ -108,7 +108,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356);
+        /* box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356); */
     }
 
     .pdb img{
@@ -136,44 +136,20 @@
         padding-right: 40px;
         line-height: 1.8em;
     }
-
-    /* SECTION MASCOTTE */
-    .mascotte{
-        background: linear-gradient(rgba(255, 255, 255, 0.679), rgba(255, 255, 255, 0.915)), url('../img/flowers-bg.jpg');
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356);
-    }
-
-    .mascotte h3{
-        font-family: 'Licorice';
-        font-size: 50px;
-        text-align: center;
-    }
-
-    .mascotte img{
-        width: 350px;
-        height: 350px;
-        object-fit: cover;
-        margin-bottom: 30px;
-        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-    }
-
     /* SECTION CONTACT */
     .contact{
         width: 100%;
         /* min-height: 100vh; */
         height: auto;
         padding: 30px;
-        background: linear-gradient(rgba(0, 0, 0, 0.471), rgba(0, 0, 0, 0.367)), url('../img/contact.jpg')  no-repeat center/cover;
+        background: linear-gradient(rgba(152, 152, 152, 0.471), rgba(46, 46, 46, 0.367)), url('../img/contact.jpg')  no-repeat center/cover;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        box-shadow: 0px -10px 10px -10px rgba(0, 0, 0, 0.45);
+        box-shadow: inset 0px 9px 15px -3px rgba(0, 0, 0, 0.419);
+        /* box-shadow: 0px -10px 10px -10px rgba(0, 0, 0, 0.45); */
+        /* box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356); */
     }
 
     .infos-contact, .form-contact{
@@ -202,6 +178,41 @@
         height: 5px;
         margin-right: 10px;
     }
+
+    .contact-row{
+        display: flex;
+        align-items:start;
+        justify-content: left;
+        padding: 10px;
+        gap: 20px;
+    }
+
+    /* SECTION MASCOTTE */
+    .mascotte{
+        background: linear-gradient(rgba(255, 255, 255, 0.679), rgba(255, 255, 255, 0.915)), url('../img/flowers-bg.jpg');
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: inset 0px 9px 15px -3px rgba(0, 0, 0, 0.419);
+        /* box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356); */
+    }
+
+    .mascotte h3{
+        font-family: 'Licorice';
+        font-size: 50px;
+        text-align: center;
+    }
+
+    .mascotte img{
+        width: 350px;
+        height: 350px;
+        object-fit: cover;
+        margin-bottom: 30px;
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    }
+
 
     /* LOGIN/REGISTRATION*/
     .login, .registration{

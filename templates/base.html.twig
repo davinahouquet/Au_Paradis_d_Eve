@@ -82,19 +82,22 @@
             {{ message }}
         {% endfor %} #}
         
-        {% block flashes %}
-        {% for label, messages in app.flashes %}
-        {% for message in messages %}
-        <div class="flash-{{ label }}">
-            {{ message }}
-        </div>
-        {% endfor %}
-        {% endfor %}
-        {% endblock %}
         
         {% block body %}            
         {% endblock %}
-
+        
+        <div class="flashes">
+            {% block flashes %}
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="flash-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endblock %}
+        </div>
+        
         {% block footer %}
             <footer>
                 <a href="{{ path('mentions') }}">Mentions légales</a><p>&</p><a href="{{ path('conditions') }}">Conditions générales</a>
