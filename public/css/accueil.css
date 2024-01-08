@@ -1,5 +1,23 @@
 @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+    .home-page{
+        position: relative;
+        height: 100vh;
+        box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356);
+    }
     
+    .parallax {
+        min-height: 100vh;
+        padding-top: 60px;
+        background-image: linear-gradient(rgba(52, 52, 52, 0.577), rgba(23, 23, 23, 0.367)), url("../../img/Terasse3.jpg");
+        /* background: linear-gradient(rgba(152, 152, 152, 0.471), rgba(46, 46, 46, 0.367)), url('../img/contact.jpg')  no-repeat center/cover; */
+
+/* effet parallax */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
     .edit-home-text{
         min-height: 100vh;
         display: flex;
@@ -9,13 +27,8 @@
         padding: 50px;
     }
 
-    .home-page{
-        position: relative;
-        height: 100vh;
-        box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356);
-    }
 
-    .landingPage-img-container{
+    /* .landingPage-img-container{
         width: 100%;
         height: 100vh;
         overflow: hidden;
@@ -26,7 +39,7 @@
         height: 100%;
         object-fit: cover;
         object-position: 27%;
-    }
+    } */
 
     .description p{
         padding: 0 30px 0 30px;
@@ -157,7 +170,7 @@
         padding: 20px;
         margin-bottom: 30px;
         background-color: #ffffffd8;
-        border-radius: 3px;
+        border-radius: 5px;
         display: flex;
         flex-direction: column;
         align-items: left;
@@ -169,7 +182,7 @@
     }
 
     .form-contact input, .form-contact textarea{
-        padding: 3px;
+        padding: 5px;
         border-radius: 3px;
     }
 

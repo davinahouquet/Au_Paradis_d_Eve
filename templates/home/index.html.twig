@@ -9,10 +9,11 @@
 {% block body %}
 
     <section class="home-page">
+        <div class="parallax"></div>
 
-    <div class="landingPage-img-container">
+    {# <div class="landingPage-img-container">
         <img src="{{asset('img/Terasse3.jpg')}}" class="landingPage-img">
-    </div>
+    </div> #}
 
     <div class="description">
         <h1 class="licorice-title">Au Paradis d'Eve</h1>
@@ -24,6 +25,7 @@
         <p><strong>{{ data.maison_dhote }}</p>
         <p><a href="{{ path('app_reservation') }}">Réservez</a> sur notre site en toute sécurité</p>
         <p>{{ data.environnement }}</p>
+    </div>
     </section>
 
     <section class="apercu-chambres">
