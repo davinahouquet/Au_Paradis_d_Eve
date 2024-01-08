@@ -8,6 +8,8 @@
 {% block body %}
 
 <section class="detail-espace">
+  <h1>{{espace.nomEspace}}</h1>
+  
   {% if is_granted ('ROLE_ADMIN') %}
     {# <a href="{{ path('new_image', {'id' :espace.id}) }}">Ajouter des images</a> #}
     <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Modifier l'espace</a>
@@ -15,47 +17,60 @@
   {% endif %}
   
   <div class="details-espace">
-      {{espace.nomEspace}}
+    
+    {% for image in espace.images %}
+      {% if image is not empty %}
+        <img src="{{ asset('uploads/images/' ~ image.lienImage) }}">
+      {% endif %}
+    {% endfor %}
+    <div class="infos-techniques-espace">
       {{espace.taille}} m²
-      {{espace.wifi}}
       {{espace.nbPlaces}} personnes
-      {{espace.prix}}€
-      {{espace.categorie.nomCategorie}}
-      
-      {% for image in espace.images %}
-        {% if image is not empty %}
-          <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" width="300">
-        {% endif %}
-      {% endfor %}
-  
+      {% if espace.wifi == 1 %}
+        <span class="material-symbols-outlined">wifi</span> Wifi
+      {% endif %}
+    </div>
+
+    <div class="description-espace">
+      <p>{{ espace.description }}</p>
+    </div>
+    <h2>{{espace.prix}}€ /personne</h2>
+    
+    
+    {# N'autoriser la réservation que si la catégorie est 1 (chambre) ou 11 (logement entier) #}
       {% if espace.categorie.Id == 1 %}
-        <a href="{{ path('app_direction', {'id' :espace.id})}}">Réserver</a>
+        <a href="{{ path('app_direction', {'id' :espace.id})}}" type="button" class="btn btn-success">Réserver</a>
       {% endif %}
   
       {% if espace.categorie.Id == 11 %}
-        <a href="{{ path('app_direction', {'id' :espace.id})}}">Réserver</a>
+        <a href="{{ path('app_direction', {'id' :espace.id})}}" type="button" class="btn btn-success">Réserver</a>
       {% endif %}
-  
-      <div class="evaluations">
-        {% if reservations|length > 0 %}
-            {% for reservation in reservations %}
-                {% if reservation.getNote() is not null %}
-                    {{ reservation.getNote() }}
-                    {% if reservation.getAvis() is not null %}
-                    {{ reservation.getAvis() }}
-                    {% endif %}
-                    {{ reservation.prenom|slice(0, 1) }}.
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
-                  <a href="">Supprimer l'évaluation</a>
-                  <a href="">Répondre à l'utilisateur</a>
-                {% endif %}
-            {% endfor %}
-        {% else %}
-            <p>Aucun avis pour le moment</p>
-        {% endif %}
-      </div>
-  
+      
+      <h3>Vos avis sur {{ espace.nomEspace }}</h3>
+
+      {% for reservation in reservations %}
+        <div class="evaluation" id="evaluation_{{ reservation.id }}">
+          Séjour efféctué du {{reservation.dateDebutFr}} au {{reservation.dateFinFr}}<br>
+
+          {{ reservation.prenom|slice(0, 1) }} :
+          {# {% if reservation.getAvis() is not null %} #}
+          {% if reservation.getAvis()|length > 1 %}
+              {{ reservation.getAvis() }}<br>
+          {% else %}
+              <p>Pas de commentaire</p>
+          {% endif %}
+
+          {% if reservation.getNote() is not null %}
+              <h4>Note : {{ reservation.getNote() }} /20</h4>
+          {% endif %}
+
+              {% if is_granted('ROLE_ADMIN') %}
+                  <a href="" class="masquer-evaluation" data-evaluation-id="{{ reservation.id }}">Masquer l'évaluation</a><br>
+                  {# <a href="">Répondre à l'utilisateur</a> #}
+              {% endif %}
+
+        </div>
+      {% endfor %}
   </div>
 </section>
 {% endblock %}
