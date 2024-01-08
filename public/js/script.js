@@ -38,3 +38,29 @@ function scrollFunction() {
         scrollToTopBtn.style.display = "none";
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    var masquerLiens = document.querySelectorAll('.masquer-evaluation');
+    var reAfficherBouton = document.getElementById('reafficher-evaluations');
+
+    masquerLiens.forEach(function(lien) {
+        lien.addEventListener('click', function(e) {
+            e.preventDefault();
+            var evaluationId = this.getAttribute('data-evaluation-id');
+            var evaluationDiv = document.getElementById('evaluation_' + evaluationId);
+
+            // Masquer l'évaluation
+            if (evaluationDiv) {
+                evaluationDiv.classList.add('evaluation-masquee');
+            }
+        });
+    });
+
+    reAfficherBouton.addEventListener('click', function() {
+        var evaluationsMasquees = document.querySelectorAll('.evaluation-masquee');
+        
+        evaluationsMasquees.forEach(function(evaluation) {
+            evaluation.classList.remove('evaluation-masquee');
+        });
+    });
+});
