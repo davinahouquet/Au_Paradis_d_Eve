@@ -1,4 +1,8 @@
 {% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
 
 {% block title %}Connexion{% endblock %}
 
@@ -26,7 +30,7 @@
                value="{{ csrf_token('authenticate') }}"
         >
     
-        <button type="submit" class="submit-button">
+        <button type="submit" class="btn btn-success submit-button">
             Connexion
         </button>
     </form>

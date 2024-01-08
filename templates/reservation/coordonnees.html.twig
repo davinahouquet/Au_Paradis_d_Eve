@@ -1,38 +1,44 @@
 {% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
 
 {% block title %}Etape 2 réservation{% endblock %}
 
 {% block body %}
-    <h1>Réservation</h1>
+    <section class="reservation">
+        <h1>Réservation</h1>
 
-    <div class="resume-reservation">
-        <h2>Résumé de la réservation</h2>
-        <p>Du {{reservation.dateDebutFr}} au {{reservation.dateFinFr}}</p>
-        <p>Pour {{reservation.nbPersonnes}} personnes (enfants non inclus)</p>
-        <p>Check-in à partir de 15h - Check-out à 11h</p>
-        <hr>
-        <p>{{espace.nomEspace}}</p>
-        <p>{{espace.taille}} m²</p>
-        <p>{{espace.nbPlaces}} places</p>
-        <p>{{espace.wifi}}</p>
+        <div class="resume-reservation">
+            <h2>Résumé de la réservation</h2>
+            <p>Du {{reservation.dateDebutFr}} au {{reservation.dateFinFr}}</p>
+            <p>Pour {{reservation.nbPersonnes}} personnes (enfants non inclus)</p>
+            <p>Check-in à partir de 15h - Check-out à 11h</p>
+            <hr>
+            <p>{{espace.nomEspace}}</p>
+            <p>{{espace.taille}} m²</p>
+            <p>{{espace.nbPlaces}} places</p>
+            <p>{{espace.wifi}}</p>
 
-    </div>
-    <div class="etape-reservation-form">
-        <h3>Vos coordonnées</h3>
+        </div>
+        <div class="etape-reservation-form">
+            <h3>Vos coordonnées</h3>
 
-        {{ form_start(form) }}
-            {{ form_label(form.email) }}
-            {{ form_label(form.adresse) }}
-            {{ form_label(form.cp) }}
-            {{ form_label(form.ville) }}
-            {{ form_label(form.pays) }}
-            {% if is_granted('ROLE_USER') %}
-                {{ form_label(form.souvenir) }}
-            {% endif %}
-        {{ form_end(form) }}
+            {{ form_start(form) }}
+                {{ form_label(form.email) }}
+                {{ form_label(form.adresse) }}
+                {{ form_label(form.cp) }}
+                {{ form_label(form.ville) }}
+                {{ form_label(form.pays) }}
+                {% if is_granted('ROLE_USER') %}
+                    {{ form_label(form.souvenir) }}
+                {% endif %}
+            {{ form_end(form) }}
 
-        <p>Ces informations apparaîtront sur votre facture</p>
-        <p>Les champs marqués d'un * sont obligatoires</p>
-    </div>
+            <p>Ces informations apparaîtront sur votre facture</p>
+            <p>Les champs marqués d'un * sont obligatoires</p>
+        </div>
+    </section>
 
 {% endblock %}
