@@ -8,8 +8,8 @@
 {% block body %}
 
 <section class="espaces-section">
-    <img src="{{ asset('../img/bibliothèque.jpg') }}" alt="bibliothèque murale avec statue" class="espace-illustration">
-    <h1>Les espaces de vie</h1>
+    {# <img src="{{ asset('../img/bibliothèque.jpg') }}" alt="bibliothèque murale avec statue" class="espace-illustration"> #}
+    <h1>Les chambres et espaces de vie</h1>
     <div class="espaces-liste">
         <a href="{{ path('new_espace')}}" class="action-espace">Ajouter un espace</a>
         {% for espace in espaces %}

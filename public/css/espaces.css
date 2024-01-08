@@ -13,25 +13,25 @@
     }
     
     .espaces-section h1{
-        position: absolute;
-        font-family: 'Licorice';
-        font-size: 70px;
-        top: 50px;
-        left: 50px;
-        color: var(--white);
+        padding: 45px;
+        /* position: absolute; */
+        /* font-family: 'Licorice'; */
+        font-size: 40px;
+        /* top: 50px; */
+        /* left: 30px; */
     }
     
     .espaces-liste{
         position: absolute;
         top: 150px;
     }
-    
+/*     
     .espace-illustration{
         width: 100%;
         max-height: 150px;
         object-fit: cover;
         position: absolute;
-    }
+    } */
     
     .espace{
         width: 90%;
@@ -74,7 +74,8 @@
     
     /* Formulaire espace */
     .formulaire-espace{
-        height: 100vh;
-        padding: 80px;
+        min-height: 100vh;
+        width: 100%;
+        padding: 130px 50px 50px 50px;
     }
 }
