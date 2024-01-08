@@ -1,12 +1,18 @@
 {% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
 
 {% block title %}Choix utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Poursuivre...</h1>
-    <p>En tant qu'invité</p>
-    <a href="{{ path('new_reservation', {'id' : espace.id }) }}">POURSUIVRE</a>
-    <hr>
-    <p>En me connectant</p>
-    <a href="{{ path('app_login')}}">CONNEXION</a>
+    <section class="reservation">
+        <h1>Poursuivre...</h1>
+        <p>En tant qu'invité</p>
+        <a href="{{ path('new_reservation', {'id' : espace.id }) }}">POURSUIVRE</a>
+        <hr>
+        <p>En me connectant</p>
+        <a href="{{ path('app_login')}}">CONNEXION</a>
+    </section>
 {% endblock %}
