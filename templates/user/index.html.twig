@@ -11,20 +11,38 @@
     <section class="profil">
         <h1>Bienvenue sur votre profil, {{app.user.pseudo}}</h1>
         
-            {% if is_granted("ROLE_ADMIN") %}
+        {# <p>si réservation en cours => réservations en cours</p> #}
+        {% if reservationEnCours is not empty %}
+            {{ reservationEnCours }}
+        {% endif %}
+
+        <div class="boutons-reservations-user">
+
+            <a href="{{ path('reservations_a_venir') }}"><span class="material-symbols-outlined">
+                event_upcoming
+                </span>Réservations à venir</a>
+            <a href="{{ path('reservations_passees') }}"><span class="material-symbols-outlined">
+                event_busy
+                </span>Réservations passées</a>
+            <a href="{{ path('parametres') }}"><span class="material-symbols-outlined">
+                settings
+                </span>Paramètres</a>
+
+        </div>
+            {# {% if is_granted("ROLE_ADMIN") %}
                 {% include 'user/reservations/admin.html.twig' %}
             {% else %}
                 {% include 'user/reservations/en_cours.html.twig' %}
                 {% include 'user/reservations/non_confirmees.html.twig' %}
                 {% include 'user/reservations/a_venir.html.twig' %}
                 {% include 'user/reservations/passees.html.twig' %}
-            {% endif %}
+            {% endif %} #}
         
-                <h6>Paramètres</h6>
+                {# <h6>Paramètres</h6>
                 <p>Pseudo : {{app.user.pseudo}} <a href="{{ path('edit_user', {'id' : app.user.id})}}">Modifier pseudo</a></p>
                 <p>Email : {{app.user.email}}<a href="{{ path('edit_user_email', {'id' : app.user.id})}} "> Modifier l'email</a></p>
                 <p>Mot de passe : ************* <a href="{{ path('upgrade_password')}}">Modifier mot de passe</a></p>
-                <p><a href="{{ path('delete_user', {'id': app.user.id}) }}">Supprimer mon compte</a></p>
+                <p><a href="{{ path('delete_user', {'id': app.user.id}) }}">Supprimer mon compte</a></p> #}
     </section>
     
 {% endblock %}
