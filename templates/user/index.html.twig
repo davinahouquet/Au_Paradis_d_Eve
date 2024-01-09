@@ -12,21 +12,59 @@
         <h1>Bienvenue sur votre profil, {{app.user.pseudo}}</h1>
         
         {# <p>si réservation en cours => réservations en cours</p> #}
-        {% if reservationEnCours is not empty %}
-            {{ reservationEnCours }}
-        {% endif %}
+        {# {% if reservationEnCours is not empty %}
+            <h2>Vos réservations en cours</h2>
+            <div class="resa-en-cours">
+                {% for reservation in reservationEnCours %}
+                    {{ reservation }}
+                {% endfor %}
+            </div>
+        {% endif %} #}
 
         <div class="boutons-reservations-user">
 
+            
+            {% if is_granted('ROLE_ADMIN') %}            
+
+                <a href="{{ path('toutes_reservations') }}" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Administration</a>
+
+                {# <a href="" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Réservations en cours</a>
+                <a href="" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Réservations à venir</a>
+                <a href="" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Réservations passées</a> #}
+            {% endif %}
+
+            {% if reservationsNonConfirmees %}
+                <div class="non-confirmees">
+                    <p>Vous avez des réservations non confirmées...</p>
+                    <a href="{{ path('reservations_non_confirmees') }}"><span class="material-symbols-outlined">
+                        edit_calendar
+                    </span>Poursuivre</a>
+                </div>
+            {% endif %}
+
+            <a href="{{ path('reservations_en_cours') }}"><span class="material-symbols-outlined">
+                event
+            </span>Réservations en cours</a>
             <a href="{{ path('reservations_a_venir') }}"><span class="material-symbols-outlined">
                 event_upcoming
-                </span>Réservations à venir</a>
+            </span>Réservations à venir</a>
             <a href="{{ path('reservations_passees') }}"><span class="material-symbols-outlined">
                 event_busy
-                </span>Réservations passées</a>
+            </span>Réservations passées</a>
             <a href="{{ path('parametres') }}"><span class="material-symbols-outlined">
                 settings
-                </span>Paramètres</a>
+            </span>Paramètres</a>
+            <a href="{{ path('questions_pratiques') }}"><span class="material-symbols-outlined">
+                help_center
+            </span>Questions pratiques</a>
 
         </div>
             {# {% if is_granted("ROLE_ADMIN") %}

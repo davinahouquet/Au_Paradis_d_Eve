@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+{% endblock %}
+
+{% block body %}
+<section class="profil">
+    <h1>Questions pratiques</h1>
+
+    
+<h2>Le petit déjeuner est-il inclus?</h2>
+<p>Oui, le petit déjeuner est offert lorsque vous réservez en direct. C’est-à-dire lorsque vous réservez en ligne sur ce site, par email, par téléphone. Il est en supplément lorsque vous réservez sur les agences de réservation en ligne comme Booking et autres. Il est servi de 8h à 9h30 en salle ou en terrasse selon la météo et selon vos envies.</p>
+
+<h2>Comment peut-on se restaurer lorsqu’on séjourne en chambres d’hôtes?</h2>
+<p>Je propose 2 dîners par semaine en table d’hôtes sur réservation. Les soirs sont déterminés en fonction des demandes de mes hôtes afin de constituer une table conviviale. Les autres soirs, je vous propose les meilleures recommandations de restaurants dans les villages alentours à moins de 10mn de voiture. Certains soirs, je vous prépare des tapas maison entre 17h et 19h30. Vous pouvez aussi utiliser mes espaces extérieurs pour vos piques-niques. Vous disposez d’un réfrigérateur et d’un micro-onde communs. L’usage de la cuisine est réservé à notre usage professionnel et privatif.</p>
+
+<h2>Avez-vous un parking?</h2>
+<p>Oui, nous disposons d’un parking privé et gratuit.</p>
+
+<h2>Y a-t-il le wifi dans les chambres d’hôtes?</h2>
+<p>Oui, toutes les chambres ont accès au wifi gratuit mais nous sommes en milieu rural, le débit reste très faible.</p>
+
+<h2>Les chambres d’hôtes ont-elles des salles de bain privatives?</h2>
+<p>Oui, toutes nos chambres d’hôtes ont une salle de bain et wc privatifs.</p>
+
+<h2>Les chambres sont-elles à l’étage?</h2>
+<p>Toutes nos chambres ont un accès de plain-pied.</p>
+
+<h2>Les chambres ont-elles une terrasse?</h2>
+<p>Au Petit Ségriès, pas de terrasse privative mais des terrasses et des jardins tout autour de la maison dont vous pouvez disposer à toute heure. Vous pouvez rester dans l’intimité ou vous mêler aux autres hôtes.</p>
+
+<h2>Les chambres sont-elles dans la maison du propriétaire?</h2>
+<p>Non, j’habite dans le bâtiment mitoyen et vous avez un accès complètement indépendant.</p>
+
+<h2>Les chambres sont-elles adaptées pour les familles?</h2>
+<p>Oui, mes 2 chambres familiales: Lou Luberon pour une famille de 3 et Santa Vitoria pour une famille de 4, sont adaptées aux enfants et adolescents. Certains préfèreront prendre 2 chambres, c’est aussi possible et gros avantage elles sont toutes au même étage. Je pratique la gratuité pour les enfants de moins de 2 ans en chambre confort. Je prête chaise haute et baignoire. Merci d’indiquer à la réservation si vous souhaitez louer un lit parapluie (10€/séjour).</p>
+
+<h2>Les chambres d’hôtes sont-elles adaptées pour les personnes à mobilité réduite?</h2>
+<p>L’établissement n’est pas totalement accessible aux personnes à mobilité réduite, aussi je vous invite à me contacter pour communiquer en amont de votre séjour.</p>
+
+<h2>Les animaux sont-ils admis dans les chambres d’hôtes?</h2>
+<p>Non. Par mesure d’hygiène et de respect pour l’ensemble des personnes qui vivent dans la maison, les animaux ne sont pas admis en chambres d’hôtes.</p>
+
+<h2>Y a-t-il la télévision dans les chambres?</h2>
+<p>Non, cela viendrait rompre la quiétude et la convivialité du lieu. Le Petit Ségriès, c’est plutôt une reconnexion avec la nature, soi-même, avec les autres. Observer les étoiles, faire une balade au crépuscule et au coucher du soleil en suivant le sentier de découverte, partager l’apéritif en amoureux ou avec d’autres personnes ou la table du dîner, bouquiner en terrasse, faire des jeux de société (bibliothèque et jeux de société sur place).</p>
+
+<h2>Y a-t-il une cafetière ou une bouilloire dans les chambres?</h2>
+<p>Un plateau de courtoisie avec café, thé et tisane est à disposition 24h/24h dans le couloir des chambres.</p>
+
+<h2>Y a-t-il un lieu de baignade à proximité?</h2>
+<p>Oui, vous êtes au cœur du Verdon, le Lac de Sainte-Croix est à seulement 10mn mais vous avez aussi le Lac d’Esparron, le petit lac à Moustiers et bien d’autres lieux où l’eau y est plus fraîche: le Verdon, lac de Montpezat et Quinson…</p>
+
+<h2>A quelle heure peut-on arriver?</h2>
+<p>Les arrivées se font de 17h à 19h30 ou sur rdv lorsque c’est possible. Dans ce cas, merci de nous contacter la veille.</p>
+
+<h2>Pourquoi est-il préférable de réserver directement auprès du propriétaire?</h2>
+<p>Parce que vous avez les mêmes garanties, vous payez moins cher, le petit déjeuner est offert et vous avez un contact personnalisé.</p>
+
+<h2>Etes-vous ouverts en ce moment?</h2>
+<p>Nous sommes ouverts du 1er Avril au 15 Novembre, accueil de groupe sur demande pendant la période de fermeture annuelle (3 nuits minimum), nous contacter.</p>
+
+<h2>Puis-je recharger mon véhicule électrique?</h2>
+<p>Oui, avec une participation forfaitaire de 7€ à 13€ selon le véhicule.</p>
+
+    <a href="{{ path('app_user') }}" class="btn btn-success">Retour au profil</a>
+</section>
+{% endblock %}

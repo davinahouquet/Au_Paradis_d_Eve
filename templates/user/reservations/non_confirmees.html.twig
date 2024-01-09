@@ -1,10 +1,23 @@
-{% if reservationsNonConfirmees %}
-    <div class="reservations-user">
-        {% for reservationNonConfirmee in reservationsNonConfirmees %}
-                <h3>Vos réservations non confirmées</h3>
-                {% if reservationNonConfirmee.dateFin > currentDate %}
-                    <p><a href="{{ path('new_coordonnees', {'reservation' : reservationNonConfirmee.id}) }}">Reprendre votre réservation</a> du  {{reservationNonConfirmee.dateDebutFr}} au {{reservationNonConfirmee.dateFinFr}} dans la {{reservationNonConfirmee.espace}}</p>   
-                {% endif %}
-        {% endfor %}  
-    </div>
-{% endif %}
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+{% endblock %}
+
+{% block title %}Poursuivre vos réservations{% endblock %}
+
+{% block body %}
+    <section class="profil">
+
+        {# {% if reservationsNonConfirmees %} #}
+            <div class="reservations-user">
+                {% for reservationNonConfirmee in reservationsNonConfirmees %}
+                        <h3>Vos réservations non confirmées</h3>
+                        {% if reservationNonConfirmee.dateFin > currentDate %}
+                            <p><a href="{{ path('new_coordonnees', {'reservation' : reservationNonConfirmee.id}) }}">Reprendre votre réservation</a> du  {{reservationNonConfirmee.dateDebutFr}} au {{reservationNonConfirmee.dateFinFr}} dans la {{reservationNonConfirmee.espace}}</p>   
+                        {% endif %}
+                {% endfor %}  
+            </div>
+        {# {% endif %} #}
+
+{% endblock %}

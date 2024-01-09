@@ -34,14 +34,14 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         $currentDate = new \DateTime();
-        $reservationEnCours = $reservationRepository->findReservationEnCours($user);
+        // $reservationEnCours = $reservationRepository->findReservationEnCours($user);
         // $reservationsPassees = $reservationRepository->findReservationsPassees($user);
         // $reservationsAVenir = $reservationRepository->findReservationsAVenir($user);
         $toutesReservationsAVenir = $reservationRepository->findToutesReservationsAVenir();
         $reservationsNonConfirmees = $reservationRepository->findReservationsNonConfirmees($user);
         // $currentDate = new \Datetime();
         return $this->render('user/index.html.twig', [
-            'reservationEnCours' => $reservationEnCours,
+            // 'reservationEnCours' => $reservationEnCours,
             // 'reservationsPassees' => $reservationsPassees,
             // 'reservationsAVenir' => $reservationsAVenir,
             'reservationsNonConfirmees' => $reservationsNonConfirmees,
@@ -262,11 +262,16 @@ class UserController extends AbstractController
             'form' => $form
         ]);
     }
-
-    #[Route('/user/parametres', name: 'parametres')]
-    public function reservationsDirectory()
+    
+    #[Route('/user/reservations/enCours', name: 'reservations_en_cours')]
+    public function reservationsEnCoursDirectory(ReservationRepository $reservationRepository, User $user)
     {
-        return $this->render('user/parametres.html.twig');
+        $user = $this->getUser();
+        $reservationEnCours = $reservationRepository->findReservationEnCours($user);
+        
+        return $this->render('user/reservations/en_cours.html.twig', [
+            'reservationEnCours' => $reservationEnCours,
+        ]);
     }
 
     #[Route('/user/reservations/passees', name: 'reservations_passees')]
@@ -274,23 +279,46 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         $reservationsPassees = $reservationRepository->findReservationsPassees($user);
-
+        
         return $this->render('user/reservations/passees.html.twig', [
             'reservationsPassees' => $reservationsPassees
         ]);
     }
-
+    
     #[Route('/user/reservations/aVenir', name: 'reservations_a_venir')]
     public function reservationsAVenirDirectory(ReservationRepository $reservationRepository, User $user)
     {
         $user = $this->getUser();
         $reservationsAVenir = $reservationRepository->findReservationsAVenir($user);
-
+        
         return $this->render('user/reservations/a_venir.html.twig', [
             'reservationsAVenir' => $reservationsAVenir
         ]);
     }
 
+    #[Route('/user/reservations/nonConfirmees', name: 'reservations_non_confirmees')]
+    public function reservationsnonConfirmees(ReservationRepository $reservationRepository, User $user)
+    {
+        $user = $this->getUser();
+        $reservationsNonConfirmees = $reservationRepository->findReservationsNonConfirmees($user);
+        
+        return $this->render('user/reservations/non_confirmees.html.twig', [
+            'reservationsNonConfirmees' => $reservationsNonConfirmees,
+        ]);
+    }
+    
+    #[Route('/user/parametres', name: 'parametres')]
+    public function reservationsDirectory()
+    {
+        return $this->render('user/parametres.html.twig');
+    }
+
+    #[Route('/user/questions/pratiques', name: 'questions_pratiques')]
+    public function questionsPratiques()
+    {
+        return $this->render('user/questions_pratiques.html.twig');
+    }
+    
     //TEST
     public function disponibiliteEspace(Espace $espace, \DateTime $dateDebut, \DateTime $dateFin, EntityManagerInterface $entityManager)
     {

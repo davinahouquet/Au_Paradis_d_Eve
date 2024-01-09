@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+{% endblock %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+    <section class="profil">
+
+        <h1>Administration</h1>
+
+        <p>Consultez l'ensemble des réservations en cours, à venir et passées</p>
+        
+        <div class="boutons-reservations-user">
+                    
+            {% if is_granted('ROLE_ADMIN') %}            
+        
+                <a href="" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Réservations en cours</a>
+                <a href="" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Réservations à venir</a>
+                <a href="" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Réservations passées</a>
+            {% endif %}
+        </div>
+        <a href="{{ path('app_user') }}">Retour</a>
+    </section>
+{% endblock %}
