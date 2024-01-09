@@ -82,6 +82,9 @@ class Reservation
     #[ORM\ManyToMany(targetEntity: Option::class, inversedBy: 'reservations')]
     private Collection $Options;
 
+    #[ORM\Column]
+    private ?string $statut = null;
+
     public function __construct()
     {
         $this->Options = new ArrayCollection();
@@ -375,6 +378,18 @@ class Reservation
     public function removeOption(Option $option): static
     {
         $this->Options->removeElement($option);
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(string $statut): static
+    {
+        $this->statut = $statut;
 
         return $this;
     }
