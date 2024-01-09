@@ -46,7 +46,8 @@ class EspaceType extends AbstractType
             ])
             ->add('description', TextType::class, [
                 'label' => 'Description de l\'espace (facultative)',
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
+                'required' => false
             ])
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
