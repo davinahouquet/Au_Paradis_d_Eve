@@ -44,7 +44,7 @@ class ReservationController extends AbstractController
         $chambres = $repository->findByCategorie(1);
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
-   
+
         return $this->render('home/index.html.twig', [
             'chambres' => $chambres
         ]);
@@ -60,25 +60,6 @@ class ReservationController extends AbstractController
         }
     }
 
-    // private function calculerPrixOptions($selectedOptions)
-    // {
-    //     $optionsFile = file_get_contents('../public/json/options.json');
-    //     $optionsData = json_decode($optionsFile, true);
-    
-    //     $prixTotalOptions = 0;
-    
-    //     foreach ($selectedOptions as $selectedOption) {
-    //         foreach ($optionsData['options_chambres_hotes'] as $optionData) {
-    //             if ($optionData['id_option'] == $selectedOption) {
-    //                 $prixTotalOptions += $optionData['tarif_option'];
-    //                 break;
-    //             }
-    //         }
-    //     }
-    
-    //     return $prixTotalOptions;
-    // }
-    
     // Ajouter une réservation OU modifier
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
     public function newReservation( Espace $espace, Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
@@ -90,13 +71,9 @@ class ReservationController extends AbstractController
         if ($user){
             $email = $user->getEmail();
         }
-
         $chambre = $espace->getNomEspace();
-        
-        // $options = $this->reservationService->getAllOptionsFromJson();
     
         $form = $this->createForm(ReservationType::class, $reservation);
-        // $form = $this->createForm(ReservationType::class, $reservation);
             
         $form->handleRequest($request);
 
@@ -105,13 +82,13 @@ class ReservationController extends AbstractController
         $reservation = $form->getData();
         $reservation->setEspace($espace);
 
-        // verifie si la chambre est disponible
+        // Vérifie la disponibilité de la chambre
         $message = $this->reservationService->verifierDisponibiliteChambre($espace, $reservation);
          // si le message est null, alors erreur de disponiblité
             if ($message !== null) {
                 $this->addFlash('danger', $message);
                 return $this->redirectToRoute('new_reservation', ['id' => $espace->getId()]);
-            } else {
+            } else {             
                 $entityManager->persist($reservation);
                 $entityManager->flush();
                 
@@ -122,11 +99,11 @@ class ReservationController extends AbstractController
         }
         return $this->render('reservation/new.html.twig', [
             'form' => $form,
-            'chambre' => $chambre,
-            // 'options' => $options
+            'chambre' => $chambre
         ]);
     }
 
+        // Redirige l'utilisateur vers la page de choix entre créer un compte ou poursuivre en tant qu'invité
         #[Route('/reservation/choix/{id}', name:'app_choix') ]
         public function choix(Espace $espace, EspaceRepository $espaceRepository, EntityManagerInterface $entityManager, Request $request)
         {
@@ -135,6 +112,7 @@ class ReservationController extends AbstractController
             ]);
         }
 
+        // Permettre à l'utilisateur de laisser un avis à la fin de son séjour
         #[Route('/reservation/evaluation/{reservation}', name:'new_evaluation') ]
         public function evaluation(Reservation $reservation = null, EntityManagerInterface $entityManager, Request $request)
         {            
@@ -158,7 +136,6 @@ class ReservationController extends AbstractController
                     return $this->redirectToRoute('app_user');
                 }
             }
-            
             return $this->render('reservation/evaluation.html.twig', [
                 'form' => $form,
                 'eval' => $eval
@@ -174,11 +151,38 @@ class ReservationController extends AbstractController
         }
 
         #[Route('/reservation/avis', name:'avis') ]
-        public function toutesReservationsPassees(ReservationRepository $reservationRepository){
+        public function toutesReservationsPassees(ReservationRepository $reservationRepository)
+        {
             $toutesRervationsPassees = $reservationRepository->findToutesReservationsPassees();
 
             return $this->render('reservation/avis.html.twig', [
                 'toutesRervationsPassees' => $toutesRervationsPassees
             ]);
         }
+
+        #[Route('/annuler/reservation/{id}', name:'annuler_reservation')]
+        public function annulerReservation(Reservation $reservation = null, ReservationService $reservationService)
+        {
+            // Si la réservation était bien confirmée
+            // if($reservation->getAdresseFacturation() !== null){
+                $reservation = $reservationService->conditionsAnnulation($reservation); 
+                // REGENERER FACTURE MONTANT RESTANT !!! PDF
+            // }
+            // $reservation = $this->reservation;
+            // // Si 7j avant currentdate 
+            // if($reservation->getDateDebutFr() > $dateLimite){
+            //     $this->addFlash('message', 'Votre réservation ne peut être annulée à moins de 7 jours avant la date de début du séjour.');
+            //     return $this->redirectToRoute('app_user');
+            // }
+            // // Si admin OU user.id = reservation.user
+
+            $this->addFlash('message', 'Votre réservation a bien été annulée...');
+            return $this->redirectToRoute('app_user');
+        }
+
+        // #[Route('/suppression/reservations/nonConfirmees', name:'suppression_reservations_non_confirmees')]
+        // public function suppressionReservationsNonConfirmees(Reservation $reservation)
+        // {
+
+        // }
 }

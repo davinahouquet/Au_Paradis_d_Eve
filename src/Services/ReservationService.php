@@ -66,4 +66,64 @@ class ReservationService
             }
         }
     }
+
+    public function conditionsAnnulation(Reservation $reservation)
+    {
+        $dateDebutReservation = $reservation->getDateDebut();
+        $datePlusTrenteJours = date("d-m-Y", strtotime("+30 days"));
+        $datePlusVingtJours = date("d-m-Y", strtotime("+20 days"));
+        $datePlusSeptJours = date("d-m-Y", strtotime("+7 days"));
+        // $currentUser = get_current_user();
+
+        // Conditions à l'annulation
+        // dump($datePlusTrenteJours);
+        // dd($currentUser);
+        // S'il s'agit bien de l'auteur de la réservation
+        // if($reservation->getUser() !== $currentUser){
+            $message = 'Seul l\'auteur de cette réservation a l\'autorisation de l\'annuler';
+            // [ VALIDEE ]Si l’annulation intervient plus de 30 jours avant la date d’arrivée, le montant versé lors de la réservation sera remboursé.
+        // }
+        if($datePlusTrenteJours < $dateDebutReservation){
+            // [ A REMBOURSER ] Si l’annulation intervient moins de 20jours avant la date d’arrivée,  30 %  du total de la réservation est conservé.
+            $message = 'Le montant versé lors de la réservation sera remboursé';
+        }
+        elseif($datePlusVingtJours > $dateDebutReservation){
+            // [A REMBOURSER PARTIELLEMENT] Si l'annulation intervient moins de 20 jours avant la date d'arrivée, l'établissement se réserve le droit de conserver 30% du total de la réservation.
+            $message = 'Remboursement partiel, 30 %  du total de la réservation est conservé';
+        }
+        elseif($datePlusSeptJours > $dateDebutReservation){
+            // Si l’annulation intervient moins de 7 jours avant la date d’arrivée, ou en cas de non présentation, ou si le client écourte son séjour, l'établissement se réserve le droit de facturer et de réclamer ou prélever le montant total du séjour prévu y compris la réservation de prestations annexes commandées (table d’hôtes,…).
+            $message = 'Annulation impossible, merci de contacter l\'établissement';
+        }
+        
+        return $message ?? null;
+
+        // Si c'est l'admin qui annule pas de contraintes de temps et remboursement
+        // if($currentUser->isAdmin()){
+
+        // }
+
+// Si le client ne se manifeste pas de quelque manière que ce soit avant 20h le jour prévu de début de séjour, le présent contrat devient nul et le propriétaire peut disposer de ses chambres d’hôtes. L'acompte reste acquis au propriétaire qui se réserve le droit de réclamer le solde du prix de l'hébergement.
+// Si avant le début du séjour l'établissement se voit dans l’obligation d’annuler la réservation, il doit informer son client soit par courrier, soit par email. Le client, sans préjuger des recours en réparation des dommages éventuellement subis, sera remboursé immédiatement des sommes déjà versées.
+    
+    }
+
+    // Fonctions permettant de modifier le statut des réservations
+    public function confirmationReservation(Reservation $reservation): ?string
+    {
+
+        // $statut = 'validé'
+        // $reservation->setStatut($statut);
+    }
+
+    
+    public function reservationARembourse(Reservation $reservation): ?string
+    {
+        
+    }
+    
+    public function reservationRemboursee(Reservation $reservation): ?string
+    {
+
+    }
 }
