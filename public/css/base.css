@@ -8,6 +8,7 @@
     --box-shadow: rgb(78, 77, 77);
     --white: rgb(255, 255, 255);
     --hover:#FFA800;
+    --clear-card: rgba(195, 105, 20, 0.106);
 }
 
 *{

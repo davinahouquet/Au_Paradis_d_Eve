@@ -38,4 +38,8 @@
         align-items: center;
         gap: 20px;
     }
+
+    .admin-bouton{
+        background-color: var(--clear-card);
+    }
 }
