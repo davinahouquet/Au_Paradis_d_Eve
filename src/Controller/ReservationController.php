@@ -120,14 +120,12 @@ class ReservationController extends AbstractController
                 return $this->redirectToRoute('new_coordonnees', ['reservation' => $reservation->getId()]);
             }
         }
-        
         return $this->render('reservation/new.html.twig', [
             'form' => $form,
             'chambre' => $chambre,
             // 'options' => $options
         ]);
     }
-
 
         #[Route('/reservation/choix/{id}', name:'app_choix') ]
         public function choix(Espace $espace, EspaceRepository $espaceRepository, EntityManagerInterface $entityManager, Request $request)
@@ -161,7 +159,6 @@ class ReservationController extends AbstractController
                 }
             }
             
-
             return $this->render('reservation/evaluation.html.twig', [
                 'form' => $form,
                 'eval' => $eval
@@ -176,25 +173,6 @@ class ReservationController extends AbstractController
             return count($reservationsExistantes) === 0;
         }
 
-
-        // #[Route('/reservation/avis', name:'avis') ]
-        // public function afficherAvis(Reservation $reservation){
-
-        //     if($reservation->getAvis() !== null && $reservation->getNote() !== null){
-        //         $note = $reservation->getNote();
-        //         $avis = $reservation->getAvis();
-        //     }
-
-        //     $evaluations = $reservations->findTousAvisConfondus();
-        //     // faire requete dql qui recup tous les avis confondus trier par date desc
-        
-
-        //     return $this->render('reservation/avis.html.twig', [
-        //         'note' => $note,
-        //         'avis' => $avis,
-        //         'evaluations' => $evaluations
-        //     ]);
-        // }
         #[Route('/reservation/avis', name:'avis') ]
         public function toutesReservationsPassees(ReservationRepository $reservationRepository){
             $toutesRervationsPassees = $reservationRepository->findToutesReservationsPassees();

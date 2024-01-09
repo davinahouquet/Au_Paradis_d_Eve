@@ -49,8 +49,8 @@ class EspaceController extends AbstractController
         return $this->redirectToRoute('app_espace');
     }
 
-    #[Route('/espace/new', name: 'new_espace')]
-    #[Route('/espace/edit/{id}', name: 'edit_espace')] 
+    #[Route('/admin/espace/new', name: 'new_espace')]
+    #[Route('/admin/espace/edit/{id}', name: 'edit_espace')] 
     public function new_edit_espace(Espace $espace = null, Image $image = null, CategorieRepository $categorieRepository, Request $request, EntityManagerInterface $entityManager, ImageUploadService $imageUploadService): Response
     {
         if(!$espace){

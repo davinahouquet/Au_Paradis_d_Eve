@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PdfGeneratorController extends AbstractController
 {
-    #[Route('/pdf/generator/{id}', name: 'app_pdf_generator')]
+    #[Route('/profile/pdf/generator/{id}', name: 'app_pdf_generator')]
     public function index(Reservation $reservation, ReservationRepository $reservationRepository): Response
     {
         // return $this->render('pdf_generator/index.html.twig', [
