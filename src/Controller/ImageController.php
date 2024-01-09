@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Espace;
+use App\Entity\Image;
 use App\Form\ImageType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +18,18 @@ class ImageController extends AbstractController
         return $this->render('image/index.html.twig', [
             'controller_name' => 'ImageController',
         ]);
+    }
+
+    #[Route('/image/remove/{id}', name: 'remove_image')]
+    public function remove(Image $image, EntityManagerInterface $entityManager): Response
+    {
+        $espaceId = $image->getEspace()->getId();
+        $entityManager->remove($image);
+        $entityManager->flush();
+
+        $this->addFlash('message', 'bien joué mec');
+        
+        return $this->redirectToRoute('show_espace', ['id'=> $espaceId]);
     }
 
     // #[Route('/new/image/{id}', name: 'new_image')]
