@@ -118,4 +118,10 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
         ]);
     }    
+
+    #[Route('/admin/toutes/reservations', name: 'toutes_reservations')]
+    public function voirToutesReservations()
+    {
+        return $this->render('admin/reservations.html.twig');
+    }   
 }
