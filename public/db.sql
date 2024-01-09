@@ -149,6 +149,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `adresse_facturation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `facture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_reservation` datetime DEFAULT CURRENT_TIMESTAMP,
+  `statut` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_42C84955B6885C6C` (`espace_id`),
   KEY `IDX_42C84955A76ED395` (`user_id`),
@@ -157,15 +158,15 @@ CREATE TABLE IF NOT EXISTS `reservation` (
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table au_paradis_d_eve_test.reservation : ~8 rows (environ)
-INSERT INTO `reservation` (`id`, `espace_id`, `user_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `note`, `avis`, `email`, `adresse_facturation`, `facture`, `date_reservation`) VALUES
-	(1, 13, NULL, 'Celine', 'Test', 123456, 3, '2023-01-07 15:49:11', '2023-01-09 15:49:13', 45, 18, 'Notre séjour s\'est bien déroulé. Cet avis est un test pour l\'affichage des avis, à bientôt !', 'celine@celine.fr', '123 rue georges pompidou', 'fef', '2022-01-07 15:49:47'),
-	(2, 13, 19, 'test', 'test', 555, 5, '2023-01-05 10:52:00', '2023-01-06 10:52:03', 569, 20, '', 'test@test', 'gqegqe', 'gqerg', '2024-01-02 10:52:35'),
-	(3, 18, NULL, 'qre', 'ER', 555, 5, '2022-01-05 11:46:33', '2022-01-07 11:47:07', 584, 3, 'Test Avis', 'test@test.fr', 'ezF', 'EFZ', '2021-01-05 11:47:44'),
-	(4, 13, 22, 'Kirby', 'Star', 444719, 2, '2023-01-08 14:12:47', '2023-01-12 14:12:54', 50, NULL, NULL, 'ydhy@hsyry', 'dtydyd', 'jkl', '2023-01-05 14:13:17'),
-	(5, 16, 25, 'Josi', 'Star', 154875, 2, '2022-01-08 14:24:29', '2022-01-16 14:24:36', 554, NULL, NULL, 'josi@star.fr', 'josi house', NULL, '2024-01-08 14:24:45'),
-	(6, 13, 22, 'Stewie', 'Griffin', 444719, 1, '2024-01-07 15:00:00', '2024-01-09 11:00:00', 45, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2024-01-05 10:51:26'),
-	(7, 13, 25, 'Stewie', 'Griffin', 444719, 1, '2024-01-10 15:00:00', '2024-01-25 11:00:00', 653, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2024-01-08 09:18:36'),
-	(8, 14, NULL, 'Stewie', 'Griffin', 444719, 1, '2024-01-23 15:00:00', '2024-01-26 11:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `reservation` (`id`, `espace_id`, `user_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `note`, `avis`, `email`, `adresse_facturation`, `facture`, `date_reservation`, `statut`) VALUES
+	(1, 13, NULL, 'Celine', 'Test', 123456, 3, '2023-01-07 15:49:11', '2023-01-09 15:49:13', 45, 18, 'Notre séjour s\'est bien déroulé. Cet avis est un test pour l\'affichage des avis, à bientôt !', 'celine@celine.fr', '123 rue georges pompidou', 'fef', '2022-01-07 15:49:47', '0'),
+	(2, 13, 19, 'test', 'test', 555, 5, '2023-01-05 10:52:00', '2023-01-06 10:52:03', 569, 20, '', 'test@test', 'gqegqe', 'gqerg', '2024-01-02 10:52:35', '0'),
+	(3, 18, NULL, 'qre', 'ER', 555, 5, '2022-01-05 11:46:33', '2022-01-07 11:47:07', 584, 3, 'Test Avis', 'test@test.fr', 'ezF', 'EFZ', '2021-01-05 11:47:44', '0'),
+	(4, 13, 22, 'Kirby', 'Star', 444719, 2, '2023-01-08 14:12:47', '2023-01-12 14:12:54', 50, NULL, NULL, 'ydhy@hsyry', 'dtydyd', 'jkl', '2023-01-05 14:13:17', '0'),
+	(5, 16, 25, 'Josi', 'Star', 154875, 2, '2022-01-08 14:24:29', '2022-01-16 14:24:36', 554, NULL, NULL, 'josi@star.fr', 'josi house', NULL, '2024-01-08 14:24:45', '0'),
+	(6, 13, 22, 'Stewie', 'Griffin', 444719, 1, '2024-01-07 15:00:00', '2024-01-09 11:00:00', 45, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2024-01-05 10:51:26', '0'),
+	(7, 13, 25, 'Stewie', 'Griffin', 444719, 1, '2024-01-10 15:00:00', '2024-01-25 11:00:00', 653, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2024-01-08 09:18:36', '0'),
+	(8, 14, NULL, 'Stewie', 'Griffin', 444719, 1, '2024-01-23 15:00:00', '2024-01-26 11:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0');
 
 -- Listage de la structure de table au_paradis_d_eve_test. reservation_option
 CREATE TABLE IF NOT EXISTS `reservation_option` (
@@ -178,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `reservation_option` (
   CONSTRAINT `FK_1277492BB83297E7` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.reservation_option : ~0 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.reservation_option : ~4 rows (environ)
 INSERT INTO `reservation_option` (`reservation_id`, `option_id`) VALUES
 	(7, 1),
 	(7, 2),
@@ -199,9 +200,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.user : ~12 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.user : ~13 rows (environ)
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `pseudo`, `adresse`, `cp`, `ville`, `pays`, `is_verified`) VALUES
 	(12, 'davina@deglingo.fr', '["ROLE_ADMIN"]', '$2y$13$gs0DAuuP3JGP3WSkkmIBh.w6c87RuYXMDkOY.m0e/2TmuoNqQL2ym', 'davina', NULL, NULL, NULL, NULL, 0),
 	(13, 'ricardo@psycho.fr', '["ROLE_USER"]', '$2y$13$Zmk5Vjtr59VSkwad1g/5m./fihnoCNT4Jh6AkjxLPpi4fU1j8dRJ2', 'ricardo', NULL, NULL, NULL, NULL, 0),
@@ -214,7 +215,8 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `pseudo`, `adresse`, `cp
 	(22, 'admin@admin.fr', '["ROLE_ADMIN"]', '$2y$13$7TBrqeAM7no3O2jw1tbo2eaVvTQuehAnQaIofJdnqaZt8fEFiCy/m', 'admin', NULL, NULL, NULL, NULL, 0),
 	(23, 'test@user.fr', '[]', '$2y$13$uj7wveDZhIvsKGHUAXO44OEKnmmOXjBWI7ewI0kE7oeLFa55stcWu', 'Test User', NULL, NULL, NULL, NULL, 0),
 	(24, 'test2@user.fr', '[]', '$2y$13$U2J84UfPNTsZetqbIzVShufOzMpoRk5.aL45ey/T3nJgDrmqkxdoi', 'Test User2', NULL, NULL, NULL, NULL, 0),
-	(25, 'josephine@gmail.fr', '[]', '$2y$13$LSu8fZ8/oJ6oZ0crMT/75.GRyGDytFu.elBNDzyAo8kWQm2F/KYgq', 'Joséphine', '31 Spooner Street', '00093', 'Quahog', 'Rhode Island', 0);
+	(25, 'josephine@gmail.fr', '[]', '$2y$13$LSu8fZ8/oJ6oZ0crMT/75.GRyGDytFu.elBNDzyAo8kWQm2F/KYgq', 'Joséphine', '31 Spooner Street', '00093', 'Quahog', 'Rhode Island', 0),
+	(26, 'gregoire@greg.fr', '[]', '$2y$13$pmynHjS2sUSSV9zZww/nPOmkuaIGXYbtJCkUTEMWEr6R.mVtLF2UG', 'TestavecConfirmation', NULL, NULL, NULL, NULL, 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
