@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\ImageRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ImageRepository;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
@@ -16,7 +17,7 @@ class Image
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $lien_image = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $alt_image = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]

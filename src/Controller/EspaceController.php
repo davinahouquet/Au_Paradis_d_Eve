@@ -65,7 +65,8 @@ class EspaceController extends AbstractController
 
                 $espace = $form->getData();
                 $images = $form['imageFiles']->getData();
-                $this->imageUploadService->uploadImages($images, $espace);
+                $altImage = $form['altImage']->getData();
+                $this->imageUploadService->uploadImages($images, $altImage, $espace);
                     
                 $entityManager->persist($espace);
                 $entityManager->flush();

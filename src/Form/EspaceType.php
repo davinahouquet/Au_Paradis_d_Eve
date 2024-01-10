@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class EspaceType extends AbstractType
@@ -58,7 +59,14 @@ class EspaceType extends AbstractType
                 'label' => 'Image',
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('altImage', TextareaType::class, [
+                'label' => 'Texte de remplacement',
+                'mapped' => false,
+                'required' => false,
+                'attr' => ['class' => 'form-control']
             ])
             ->add('valider', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-success']
