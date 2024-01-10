@@ -38,7 +38,7 @@ class Espace
     #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $categorie = null;
 
-    #[ORM\OneToMany(mappedBy: 'espace', targetEntity: Image::class)]
+    #[ORM\OneToMany(mappedBy: 'espace', targetEntity: Image::class, orphanRemoval: true)]
     private Collection $images;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
