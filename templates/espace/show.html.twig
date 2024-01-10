@@ -20,7 +20,7 @@
     
     {% for image in espace.images %}
       {% if image is not empty %}
-        <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('image espace')}}">
+        <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('Texte de remplacement')}}">
         <a href="{{ path('remove_image', {'id' :image.id}) }}">X</a>
       {% endif %}
     {% endfor %}

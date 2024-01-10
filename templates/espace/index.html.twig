@@ -14,13 +14,16 @@
         <a href="{{ path('new_espace')}}" class="action-espace">Ajouter un espace</a>
         {% for espace in espaces %}
             <div class="espace">
+                {# {{ dump((espace.images | first)) }} #}
                 <a href="{{path('show_espace', {'id' :espace.id})}}" class="nom-espace"> {{espace.nomEspace}}</a>
+                {# <img src="{{ asset('img/' ~ espace.images | first) }}" alt=""> #}
 
                 {% for image in espace.images %}
+                {# {{ dump(image.lienImage) }} #}
                     {% if image.lienImage is null %}
                         <img src="{{ asset('img/chambreLilas.jpg')}}" width="300">
                     {% else %}
-                        <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" width="300">
+                        <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('Texte de remplacement')}}" width="300">
                     {% endif %}
                 {% endfor %}
                 

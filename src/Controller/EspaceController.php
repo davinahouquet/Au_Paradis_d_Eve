@@ -66,6 +66,11 @@ class EspaceController extends AbstractController
                 $espace = $form->getData();
                 $images = $form['imageFiles']->getData();
                 $altImage = $form['altImage']->getData();
+                
+                if($altImage == null){
+                    $altImage = 'Texte de remplacement indisponible';
+                }
+
                 $this->imageUploadService->uploadImages($images, $altImage, $espace);
                     
                 $entityManager->persist($espace);

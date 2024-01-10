@@ -6,7 +6,9 @@ use App\Entity\Espace;
 use App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,7 +18,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class EspaceType extends AbstractType
 {
@@ -60,7 +61,19 @@ class EspaceType extends AbstractType
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
+                'help' => 'Formats autorisés : JPEG, PNG, WEBP | Taille maximale : 5 Mo',
+                'constraints' => [
+                    new All([
+                        'constraints' => [
+                            new File([
+                                'maxSize' => '5M', // Limite la taille à 5 Mo (ajustez selon vos besoins)
+                                'mimeTypes' => ['image/jpeg', 'image/png', 'image/webp'],
+                                'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPEG, PNG, WEBP)',
+                            ]),
+                        ],
+                    ]),
+                ],
             ])
             ->add('altImage', TextareaType::class, [
                 'label' => 'Texte de remplacement',
