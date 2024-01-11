@@ -7,6 +7,43 @@
 {% block body %}
 
     <div class="profil">
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('toutes_reservations') }}">Retour</a>
+        {% else %}
+            <a href="{{ path('app_user') }}">Retour au profil</a>
+        {% endif %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            {# Toutes les réservations en cours #}
+            {% if toutesReservationsEnCours %}
+                {% for reservationEnCours in toutesReservationsEnCours %}
+                        <h2>Votre réservation en cours</h2>
+                            {{reservationEnCours.prenom}}
+                            {{reservationEnCours.nom}}
+                            <p>Du {{reservationEnCours.dateDebutFr}} au {{reservationEnCours.dateFinFr}} dans {{reservationEnCours.espace}}</p>
+                            <p>Durée totale : {{reservationEnCours.duree}} nuits</p>
+                            {% if reservationEnCours.options %}
+                                <p>Options :</p>
+                                    {% if reservationEnCours.options is not empty %}
+                                        <ul>
+                                            {% for option in reservationEnCours.options %}
+                                                <li>{{ option.nom }}</li>
+                                                <li>{{ option.tarif }} €</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p>Pas d'option</p>
+                                    {% endif %}
+                            {% endif %}
+                            <p>Prix total : {{reservationEnCours.prixTotal}} €</p>
+                            <p><a href="">Détails</a>(adresseFacturation, lien pdf)</p>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+
+
+
         {% if reservationEnCours %}
             {% for reservationEnCours in reservationEnCours %}
                         <h2>Votre réservation en cours</h2>
@@ -31,10 +68,10 @@
                             <p><a href="">Détails</a>(adresseFacturation, lien pdf)</p>
             {% endfor %}
         {% else %}
-            <h5>Pas de réservations à venir</h5>
+            <h5>Pas de réservations en cours</h5>
             <a href="{{path('app_reservation')}}">Réserver</a>    
+            <a href="{{ path('app_user') }}">Retour au profil</a>
         {% endif %}
     </div>
-    <a href="{{ path('app_user') }}">Retour au profil</a>
 
 {% endblock %}
