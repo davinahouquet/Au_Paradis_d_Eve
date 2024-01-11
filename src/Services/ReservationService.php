@@ -73,16 +73,13 @@ class ReservationService
         $datePlusTrenteJours = date("d-m-Y", strtotime("+30 days"));
         $datePlusVingtJours = date("d-m-Y", strtotime("+20 days"));
         $datePlusSeptJours = date("d-m-Y", strtotime("+7 days"));
-        // $currentUser = get_current_user();
 
-        // Conditions à l'annulation
-        // dump($datePlusTrenteJours);
-        // dd($currentUser);
-        // S'il s'agit bien de l'auteur de la réservation
-        // if($reservation->getUser() !== $currentUser){
-            // $message = 'Seul l\'auteur de cette réservation a l\'autorisation de l\'annuler';
-            // [ VALIDEE ]Si l’annulation intervient plus de 30 jours avant la date d’arrivée, le montant versé lors de la réservation sera remboursé.
-        // }
+        if($_SESSION['user']['role'] = 'ROLE_ADMIN'){
+            // [ A REMBOURSER ] Si l’annulation intervient moins de 20jours avant la date d’arrivée,  30 %  du total de la réservation est conservé.
+            $message = 'Le montant versé lors de la réservation sera remboursé';
+            $reservation->setStatut('A REMBOURSER');
+        }
+
         if($datePlusTrenteJours < $dateDebutReservation){
             // [ A REMBOURSER ] Si l’annulation intervient moins de 20jours avant la date d’arrivée,  30 %  du total de la réservation est conservé.
             $message = 'Le montant versé lors de la réservation sera remboursé';
@@ -101,20 +98,7 @@ class ReservationService
         
         return $message ?? null;
 
-        // Si c'est l'admin qui annule pas de contraintes de temps et remboursement
-        // if($currentUser->isAdmin()){
-
-        // }
-
-// Si le client ne se manifeste pas de quelque manière que ce soit avant 20h le jour prévu de début de séjour, le présent contrat devient nul et le propriétaire peut disposer de ses chambres d’hôtes. L'acompte reste acquis au propriétaire qui se réserve le droit de réclamer le solde du prix de l'hébergement.
-// Si avant le début du séjour l'établissement se voit dans l’obligation d’annuler la réservation, il doit informer son client soit par courrier, soit par email. Le client, sans préjuger des recours en réparation des dommages éventuellement subis, sera remboursé immédiatement des sommes déjà versées.
-    
     }
-
-    // public function annulerReservation()
-    // {
-        
-    // }
 
     // Fonctions permettant de modifier le statut des réservations
     public function confirmationReservation(Reservation $reservation): ?string
