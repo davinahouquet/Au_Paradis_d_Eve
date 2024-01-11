@@ -67,7 +67,7 @@ class ReservationService
         }
     }
 
-    public function conditionsAnnulation(Reservation $reservation)
+    public function verifierConditionsAnnulation(Reservation $reservation)
     {
         $dateDebutReservation = $reservation->getDateDebut();
         $datePlusTrenteJours = date("d-m-Y", strtotime("+30 days"));
@@ -80,20 +80,23 @@ class ReservationService
         // dd($currentUser);
         // S'il s'agit bien de l'auteur de la réservation
         // if($reservation->getUser() !== $currentUser){
-            $message = 'Seul l\'auteur de cette réservation a l\'autorisation de l\'annuler';
+            // $message = 'Seul l\'auteur de cette réservation a l\'autorisation de l\'annuler';
             // [ VALIDEE ]Si l’annulation intervient plus de 30 jours avant la date d’arrivée, le montant versé lors de la réservation sera remboursé.
         // }
         if($datePlusTrenteJours < $dateDebutReservation){
             // [ A REMBOURSER ] Si l’annulation intervient moins de 20jours avant la date d’arrivée,  30 %  du total de la réservation est conservé.
             $message = 'Le montant versé lors de la réservation sera remboursé';
+            $reservation->setStatut('A REMBOURSER');
         }
         elseif($datePlusVingtJours > $dateDebutReservation){
             // [A REMBOURSER PARTIELLEMENT] Si l'annulation intervient moins de 20 jours avant la date d'arrivée, l'établissement se réserve le droit de conserver 30% du total de la réservation.
             $message = 'Remboursement partiel, 30 %  du total de la réservation est conservé';
+            $reservation->setStatut('A REMBOURSER PARTIELLEMENT');
         }
         elseif($datePlusSeptJours > $dateDebutReservation){
             // Si l’annulation intervient moins de 7 jours avant la date d’arrivée, ou en cas de non présentation, ou si le client écourte son séjour, l'établissement se réserve le droit de facturer et de réclamer ou prélever le montant total du séjour prévu y compris la réservation de prestations annexes commandées (table d’hôtes,…).
             $message = 'Annulation impossible, merci de contacter l\'établissement';
+            $reservation->setStatut('NON REMBOURSABLE');
         }
         
         return $message ?? null;
@@ -107,6 +110,11 @@ class ReservationService
 // Si avant le début du séjour l'établissement se voit dans l’obligation d’annuler la réservation, il doit informer son client soit par courrier, soit par email. Le client, sans préjuger des recours en réparation des dommages éventuellement subis, sera remboursé immédiatement des sommes déjà versées.
     
     }
+
+    // public function annulerReservation()
+    // {
+        
+    // }
 
     // Fonctions permettant de modifier le statut des réservations
     public function confirmationReservation(Reservation $reservation): ?string

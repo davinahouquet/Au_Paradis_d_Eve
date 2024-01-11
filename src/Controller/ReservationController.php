@@ -117,7 +117,6 @@ class ReservationController extends AbstractController
         public function evaluation(Reservation $reservation = null, EntityManagerInterface $entityManager, Request $request)
         {            
             $eval = $reservation->getNote();
-
             if ($eval) {
                 // Si un avis est déjà laissé, redirection vers une page d'erreur
                 return $this->redirectToRoute('app_user');
@@ -161,12 +160,19 @@ class ReservationController extends AbstractController
         }
 
         #[Route('/annuler/reservation/{id}', name:'annuler_reservation')]
-        public function annulerReservation(Reservation $reservation = null, ReservationService $reservationService)
+        public function annulerReservation(Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationService $reservationService)
         {
             // Si la réservation était bien confirmée
             // if($reservation->getAdresseFacturation() !== null){
-                $reservation = $reservationService->conditionsAnnulation($reservation); 
+                $annulation = $this->reservationService->verifierConditionsAnnulation($reservation);
+
+                // $reservation->setStatut($statut);
+                
+                $entityManager->persist($reservation);
+                $entityManager->flush();
+
                 // REGENERER FACTURE MONTANT RESTANT !!! PDF
+                
             // }
             // $reservation = $this->reservation;
             // // Si 7j avant currentdate 
