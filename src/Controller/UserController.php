@@ -34,23 +34,15 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         $currentDate = new \DateTime();
-        // $reservationEnCours = $reservationRepository->findReservationEnCours($user);
-        // $reservationsPassees = $reservationRepository->findReservationsPassees($user);
-        // $reservationsAVenir = $reservationRepository->findReservationsAVenir($user);
-        $toutesReservationsAVenir = $reservationRepository->findToutesReservationsAVenir();
         $reservationsNonConfirmees = $reservationRepository->findReservationsNonConfirmees($user);
-        // $currentDate = new \Datetime();
+
         return $this->render('user/index.html.twig', [
-            // 'reservationEnCours' => $reservationEnCours,
-            // 'reservationsPassees' => $reservationsPassees,
-            // 'reservationsAVenir' => $reservationsAVenir,
             'reservationsNonConfirmees' => $reservationsNonConfirmees,
-            'toutesReservationsAVenir'=> $toutesReservationsAVenir,
             'currentDate' => $currentDate,
-            // 'reservationsOptions' => $this->reservationService->getAllOptionsFromJson()
         ]);
     }
 
+    // Deuxième partie du formulaire pour remplir le formulaire et passer le statut de la réservation à CONFIRMEE
     #[Route ('/user/coordonnees/{reservation}', name:'new_coordonnees')]
     public function new_coordonnees(Reservation $reservation,  User $user = null, Espace $espace = null, EntityManagerInterface $entityManager, Request $request, ReservationRepository $reservationRepository): Response
     {
@@ -149,7 +141,7 @@ class UserController extends AbstractController
                 $entityManager->flush();
                 // dd($reservation);
                 $this->addFlash('message', 'La réservation a bien été prise en compte');
-                return $this->redirectToRoute('app_user');
+                return $this->redirectToRoute('reservations_a_venir');
             }
         return $this->render('reservation/coordonnees.html.twig', [
             'form' => $form,
@@ -286,9 +278,11 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         $reservationsPassees = $reservationRepository->findReservationsPassees($user);
-        
+        $toutesReservationsPassees = $reservationRepository->findToutesReservationsPassees();
+
         return $this->render('user/reservations/passees.html.twig', [
-            'reservationsPassees' => $reservationsPassees
+            'reservationsPassees' => $reservationsPassees,
+            'toutesReservationsPassees' => $toutesReservationsPassees
         ]);
     }
 
@@ -308,9 +302,11 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         $reservationsAVenir = $reservationRepository->findReservationsAVenir($user);
+        $toutesReservationsAVenir = $reservationRepository->findToutesReservationsAVenir();
         
         return $this->render('user/reservations/a_venir.html.twig', [
-            'reservationsAVenir' => $reservationsAVenir
+            'reservationsAVenir' => $reservationsAVenir,
+            'toutesReservationsAVenir' => $toutesReservationsAVenir
         ]);
     }
 
@@ -336,7 +332,7 @@ class UserController extends AbstractController
     {
         return $this->render('user/questions_pratiques.html.twig');
     }
-    
+
     //TEST
     public function disponibiliteEspace(Espace $espace, \DateTime $dateDebut, \DateTime $dateFin, EntityManagerInterface $entityManager)
     {
