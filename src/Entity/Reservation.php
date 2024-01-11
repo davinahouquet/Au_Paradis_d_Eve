@@ -82,7 +82,7 @@ class Reservation
     #[ORM\ManyToMany(targetEntity: Option::class, inversedBy: 'reservations')]
     private Collection $Options;
 
-    #[ORM\Column]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $statut = null;
 
     public function __construct()
