@@ -150,12 +150,12 @@ class ReservationController extends AbstractController
         }
 
         #[Route('/reservation/avis', name:'avis') ]
-        public function toutesReservationsPassees(ReservationRepository $reservationRepository)
+        public function toutesReservationsPasseesAvis(ReservationRepository $reservationRepository)
         {
-            $toutesRervationsPassees = $reservationRepository->findToutesReservationsPassees();
+            $toutesReservationsPassees = $reservationRepository->findToutesReservationsPassees();
 
             return $this->render('reservation/avis.html.twig', [
-                'toutesRervationsPassees' => $toutesRervationsPassees
+                'toutesReservationsPassees' => $toutesReservationsPassees
             ]);
         }
 

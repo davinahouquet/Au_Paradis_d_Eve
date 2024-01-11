@@ -7,6 +7,33 @@
 {% block body %}
 
     <div class="profil">
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('toutes_reservations') }}">Retour</a>
+        {% else %}
+            <a href="{{ path('app_user') }}">Retour au profil</a>
+        {% endif %}
+        
+        {% if is_granted('ROLE_ADMIN') %}
+            {# Toutes les réservations passées #}
+            <h1>Les réservations passées</h1>
+            {% for reservationPassee in toutesReservationsPassees %}
+                <p>Votre séjour du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}} dans {{reservationPassee.espace}}, au nom de  {{reservationPassee.prenom}}{{reservationPassee.nom}}</p>
+                <p>Durée totale : {{reservationPassee.duree}} nuits</p>
+
+                {% if reservationPassee.options %}
+                    <p>Options :</p>
+                    {# <ul>
+                        {% for option in reservationPassee.options %}
+                            <li>{{ option }}</li>
+                        {% endfor %}
+                    </ul> #}
+                {% endif %}
+                <p>Prix total : {{reservationPassee.prixTotal}} €</p>
+
+            {% endfor %}
+        {% endif %}
+        
         {% if reservationsPassees %}
 
         <h4>Vos réservations passées</h4>
@@ -53,9 +80,8 @@
                 {% endif %}
             {% endfor %}
         {% else %}
-            <h5>Pas de réservations à venir</h5>
+            <h5>Pas de réservations passées</h5>
             <a href="{{path('app_reservation')}}">Réserver</a>    
         {% endif %}
     </div>
-<a href="{{ path('app_user') }}">Retour au profil</a>
 {% endblock %}
