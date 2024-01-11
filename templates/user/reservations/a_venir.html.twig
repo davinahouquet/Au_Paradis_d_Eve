@@ -7,6 +7,31 @@
 {% block body %}
 
     <div class="profil">
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('toutes_reservations') }}">Retour</a>
+        {% else %}
+            <a href="{{ path('app_user') }}">Retour au profil</a>
+        {% endif %}
+
+        
+        {% if is_granted('ROLE_ADMIN') %}
+            {# Toutes les réservations à venir #}
+            {% if toutesReservationsAVenir %}
+                <h5>Les prochaines réservations</h5>
+                {% for reservationAVenir in toutesReservationsAVenir %}
+                    <p>Votre séjour du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}, au nom de  {{reservationAVenir.prenom}}{{reservationAVenir.nom}}</p>
+                    <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
+                    <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
+                    <a href="{{ path('annuler_reservation', {'id' : reservationAVenir.id}) }}">Annuler la réservation</a>
+                {% endfor %}
+            {% else %}
+                <h5>Pas de réservations à venir</h5>
+                <a href="{{ path('app_reservation') }}">Réserver</a>
+            {% endif %}    
+        {% endif %}
+
+
         {% if reservationsAVenir %}
                 <h5>Vos réservations à venir</h5>
                 <p>Préparez votre séjour</p>
@@ -21,5 +46,4 @@
             <a href="{{ path('app_reservation') }}">Réserver</a>
         {% endif %}
     </div>
-    <a href="{{ path('app_user') }}">Retour au profil</a>
 {% endblock %}

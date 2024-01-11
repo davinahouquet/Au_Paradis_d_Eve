@@ -12,6 +12,7 @@
   
   {% if is_granted ('ROLE_ADMIN') %}
     {# <a href="{{ path('new_image', {'id' :espace.id}) }}">Ajouter des images</a> #}
+    <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Marquer comme indisponible</a>
     <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Modifier l'espace</a>
     <a href="{{ path('remove_espace', {'id' :espace.id}) }}">Supprimer l'espace</a>
   {% endif %}
@@ -21,7 +22,9 @@
     {% for image in espace.images %}
       {% if image is not empty %}
         <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('Texte de remplacement')}}">
-        <a href="{{ path('remove_image', {'id' :image.id}) }}">X</a>
+        {% if is_granted ('ROLE_ADMIN') %}
+          <a href="{{ path('remove_image', {'id' :image.id}) }}">X</a>
+        {% endif %}
       {% endif %}
     {% endfor %}
     <div class="infos-techniques-espace">
@@ -48,29 +51,38 @@
       {% endif %}
       
       <h3>Vos avis sur {{ espace.nomEspace }}</h3>
-
+      
+      
       {% for reservation in reservations %}
-        <div class="evaluation" id="evaluation_{{ reservation.id }}">
-          Séjour efféctué du {{reservation.dateDebutFr}} au {{reservation.dateFinFr}}<br>
+      
+        {% if  reservation.getNote() is not null %}
 
-          {{ reservation.prenom|slice(0, 1) }} :
-          {# {% if reservation.getAvis() is not null %} #}
-          {% if reservation.getAvis()|length > 1 %}
-              {{ reservation.getAvis() }}<br>
+          <div class="evaluation" id="evaluation_{{ reservation.id }}">
+            Séjour efféctué du {{reservation.dateDebutFr}} au {{reservation.dateFinFr}}<br>
+
+            {{ reservation.prenom|slice(0, 1) }} :
+            {# {% if reservation.getAvis() is not null %} #}
+            {% if reservation.getAvis()|length > 1 %}
+                {{ reservation.getAvis() }}<br>
+            {% else %}
+                <p>Pas de commentaire</p>
+            {% endif %}
+
+            {% if reservation.getNote() is not null %}
+                <h4>Note : {{ reservation.getNote() }} /20</h4>
+            {% endif %}
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="" class="masquer-evaluation" data-evaluation-id="{{ reservation.id }}">Masquer l'évaluation</a><br>
+                    {# <a href="">Répondre à l'utilisateur</a> #}
+                {% endif %}
+
+          </div>
           {% else %}
-              <p>Pas de commentaire</p>
-          {% endif %}
+          <p>Pas de commentaire</p>
 
-          {% if reservation.getNote() is not null %}
-              <h4>Note : {{ reservation.getNote() }} /20</h4>
-          {% endif %}
+        {% endif %}
 
-              {% if is_granted('ROLE_ADMIN') %}
-                  <a href="" class="masquer-evaluation" data-evaluation-id="{{ reservation.id }}">Masquer l'évaluation</a><br>
-                  {# <a href="">Répondre à l'utilisateur</a> #}
-              {% endif %}
-
-        </div>
       {% endfor %}
   </div>
 </section>

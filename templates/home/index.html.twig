@@ -35,7 +35,6 @@
             <div class="carte-chambre">
                 <a href="{{path('show_espace', {'id' :chambre.id})}}">
                     {% for image in chambre.images|slice(0, 1) %}
-                    
                         {% if image.lienImage is null %}
                             <img src="{{ asset('img/chambreLilas.jpg')}}" width="300">
                         {% else %}
@@ -94,7 +93,7 @@
         </div>
         <button id="scrollToTopBtn" onclick="scrollToTop()"><span class="material-symbols-outlined">
             arrow_upward
-            </span></button>
+        </span></button>
     </section>
     <section class="mascotte">
         <h3>{{ data.mascotte }}</h3>

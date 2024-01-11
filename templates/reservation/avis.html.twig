@@ -16,7 +16,7 @@
             <button id="reafficher-evaluations">Réafficher les évaluations masquées</button>
         {% endif %}
 
-        {% for reservation in toutesRervationsPassees %}
+        {% for reservation in toutesReservationsPassees %}
             <div class="evaluation" id="evaluation_{{ reservation.id }}">
                 <h2>{{reservation.espace.nomEspace}}</h2>
                 {{reservation.dateDebutFr}} au {{reservation.dateFinFr}}<br>

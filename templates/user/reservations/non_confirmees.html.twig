@@ -9,6 +9,11 @@
 {% block body %}
     <section class="profil">
 
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('toutes_reservations') }}">Retour</a>
+        {% else %}
+            <a href="{{ path('app_user') }}">Retour au profil</a>
+        {% endif %}
         {# {% if reservationsNonConfirmees %} #}
             <div class="reservations-user">
                 {% for reservationNonConfirmee in reservationsNonConfirmees %}
