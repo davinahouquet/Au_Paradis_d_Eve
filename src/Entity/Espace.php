@@ -31,7 +31,7 @@ class Espace
     #[ORM\Column]
     private ?float $prix = null;
 
-    #[ORM\OneToMany(mappedBy: 'espace', targetEntity: Reservation::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'espace', targetEntity: Reservation::class)]
     private Collection $reservations;
 
     #[ORM\ManyToOne(inversedBy: 'espaces')]
