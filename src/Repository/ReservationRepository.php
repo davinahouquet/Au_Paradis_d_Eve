@@ -73,25 +73,16 @@ class ReservationRepository extends ServiceEntityRepository
     public function findReservationsAVenir(User $user): array
     {
         $now = new \DateTime();
+        $confirmee = 'CONFIRMEE';
+
         return $this->createQueryBuilder('r')
             ->andWhere('r.user = :user')
             ->andWhere('r.adresseFacturation IS NOT NULL')
             ->andWhere('r.date_debut > :now')
+            ->andWhere('r.statut = :confirmee' )
             ->setParameter('now', $now)
             ->setParameter('user', $user)
-            ->orderBy('r.date_debut', 'ASC')
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    public function findToutesReservationsAVenir(): array
-    {
-        $now = new \DateTime();
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.adresseFacturation IS NOT NULL')
-            ->andWhere('r.date_debut > :now')
-            ->setParameter('now', $now)
+            ->setParameter('confirmee', $confirmee)
             ->orderBy('r.date_debut', 'ASC')
             ->getQuery()
             ->getResult()
@@ -113,6 +104,36 @@ class ReservationRepository extends ServiceEntityRepository
         ;
     }
 
+    // Récupère toutes les réservations en cours (tous les utilisateurs confondus, afin de les afficher dans l'administration)
+    public function findToutesReservationsEnCours(): array
+    {
+        $now = new \DateTime();
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.adresseFacturation IS NOT NULL')
+            ->andWhere('r.date_debut < :now')
+            ->andWhere('r.date_fin > :now ')
+            ->setParameter('now', $now)
+            ->orderBy('r.date_debut', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // Récupère toutes les réservations à venir (tous les utilisateurs confondus, afin de les afficher dans l'administration)
+    public function findToutesReservationsAVenir(): array
+    {
+        $now = new \DateTime();
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.adresseFacturation IS NOT NULL')
+            ->andWhere('r.date_debut > :now')
+            ->setParameter('now', $now)
+            ->orderBy('r.date_debut', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // Récupère toutes les réservations passées (tous les utilisateurs confondus, afin de les afficher dans l'administration et de permettre le téléchargement du justificatif)
     public function findToutesReservationsPassees(): array
     {
         $now = new \DateTime();
@@ -125,6 +146,19 @@ class ReservationRepository extends ServiceEntityRepository
         ;
     }
 
+    // Récupère toutes les réservations annulées
+    public function findReservationsAnnulees(): array
+    {
+        $annulee = 'ANNULEE';
+
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.statut = :annulee' )
+            ->setParameter('annulee', $annulee)
+            ->orderBy('r.date_debut', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 //     public function findLatestReservation(): ?Reservation
 // {
 //     return $this->createQueryBuilder('r')
