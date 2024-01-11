@@ -49,11 +49,14 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.doctrine_migration_versions : ~3 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.doctrine_migration_versions : ~6 rows (environ)
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20231219161738', '2023-12-19 16:19:29', 270),
 	('DoctrineMigrations\\Version20231219173449', '2023-12-19 17:35:03', 40),
-	('DoctrineMigrations\\Version20231219173624', '2023-12-19 17:36:31', 98);
+	('DoctrineMigrations\\Version20231219173624', '2023-12-19 17:36:31', 98),
+	('DoctrineMigrations\\Version20240109201552', '2024-01-09 20:17:11', 70),
+	('DoctrineMigrations\\Version20240110132505', '2024-01-10 13:25:21', 95),
+	('DoctrineMigrations\\Version20240110145402', '2024-01-10 14:54:08', 77);
 
 -- Listage de la structure de table au_paradis_d_eve_test. espace
 CREATE TABLE IF NOT EXISTS `espace` (
@@ -68,36 +71,33 @@ CREATE TABLE IF NOT EXISTS `espace` (
   PRIMARY KEY (`id`),
   KEY `IDX_6AB096DBCF5E72D` (`categorie_id`),
   CONSTRAINT `FK_6AB096DBCF5E72D` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table au_paradis_d_eve_test.espace : ~6 rows (environ)
 INSERT INTO `espace` (`id`, `categorie_id`, `nom_espace`, `taille`, `wifi`, `nb_places`, `prix`, `description`) VALUES
-	(13, 1, 'Chambre Lilas', 45, 1, 4, 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'),
-	(14, 1, 'Test Espace Avec Img', 45, 1, 45, 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
 	(15, 1, 'Test Espace33', 14, 1, 56, 59, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
 	(16, 1, 'Chambre du Soleil', 27, 0, 2, 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'),
 	(17, 2, 'Jardin Sud', 50, 0, 9, 0, 'Jardin Test'),
-	(18, 7, 'Test Espace', 10, 0, NULL, 65, 'Test aire de jeu');
+	(21, 1, 'Test remplacement txt avec plusieurs img', 45, 0, 3, 50, NULL);
 
 -- Listage de la structure de table au_paradis_d_eve_test. image
 CREATE TABLE IF NOT EXISTS `image` (
   `id` int NOT NULL AUTO_INCREMENT,
   `espace_id` int DEFAULT NULL,
   `lien_image` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `alt_image` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alt_image` longtext COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `IDX_C53D045FB6885C6C` (`espace_id`),
   CONSTRAINT `FK_C53D045FB6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.image : ~6 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.image : ~8 rows (environ)
 INSERT INTO `image` (`id`, `espace_id`, `lien_image`, `alt_image`) VALUES
-	(3, 13, '69e91268474b46bd62cc81c5583022fb.png', NULL),
-	(4, 14, '0df4418561209171b82ceb27c245c4a6.webp', NULL),
 	(5, 15, 'cc96f6acf4a0a16d23ef15e44af4423e.jpg', NULL),
 	(6, 16, '897de879b10db0904e7e4503e9c42358.jpg', NULL),
 	(7, 17, 'a743ceb4381d118445fe645be27455f4.jpg', NULL),
-	(8, 18, '56aa979fdad64698fc4a91a209ac56a9.jpg', NULL);
+	(17, 21, 'a2ce8cea0a226c7c2a24b7ff26c78399.jpg', 'Texte de remplacement avec 2 img'),
+	(18, 21, 'ffb71606587ec2c2ba7e08b0162b990a.jpg', 'Texte de remplacement avec 2 img');
 
 -- Listage de la structure de table au_paradis_d_eve_test. messenger_messages
 CREATE TABLE IF NOT EXISTS `messenger_messages` (
@@ -149,24 +149,18 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `adresse_facturation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `facture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_reservation` datetime DEFAULT CURRENT_TIMESTAMP,
-  `statut` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `statut` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_42C84955B6885C6C` (`espace_id`),
   KEY `IDX_42C84955A76ED395` (`user_id`),
   CONSTRAINT `FK_42C84955A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_42C84955B6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.reservation : ~8 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.reservation : ~2 rows (environ)
 INSERT INTO `reservation` (`id`, `espace_id`, `user_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `note`, `avis`, `email`, `adresse_facturation`, `facture`, `date_reservation`, `statut`) VALUES
-	(1, 13, NULL, 'Celine', 'Test', 123456, 3, '2023-01-07 15:49:11', '2023-01-09 15:49:13', 45, 18, 'Notre séjour s\'est bien déroulé. Cet avis est un test pour l\'affichage des avis, à bientôt !', 'celine@celine.fr', '123 rue georges pompidou', 'fef', '2022-01-07 15:49:47', '0'),
-	(2, 13, 19, 'test', 'test', 555, 5, '2023-01-05 10:52:00', '2023-01-06 10:52:03', 569, 20, '', 'test@test', 'gqegqe', 'gqerg', '2024-01-02 10:52:35', '0'),
-	(3, 18, NULL, 'qre', 'ER', 555, 5, '2022-01-05 11:46:33', '2022-01-07 11:47:07', 584, 3, 'Test Avis', 'test@test.fr', 'ezF', 'EFZ', '2021-01-05 11:47:44', '0'),
-	(4, 13, 22, 'Kirby', 'Star', 444719, 2, '2023-01-08 14:12:47', '2023-01-12 14:12:54', 50, NULL, NULL, 'ydhy@hsyry', 'dtydyd', 'jkl', '2023-01-05 14:13:17', '0'),
-	(5, 16, 25, 'Josi', 'Star', 154875, 2, '2022-01-08 14:24:29', '2022-01-16 14:24:36', 554, NULL, NULL, 'josi@star.fr', 'josi house', NULL, '2024-01-08 14:24:45', '0'),
-	(6, 13, 22, 'Stewie', 'Griffin', 444719, 1, '2024-01-07 15:00:00', '2024-01-09 11:00:00', 45, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2024-01-05 10:51:26', '0'),
-	(7, 13, 25, 'Stewie', 'Griffin', 444719, 1, '2024-01-10 15:00:00', '2024-01-25 11:00:00', 653, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2024-01-08 09:18:36', '0'),
-	(8, 14, NULL, 'Stewie', 'Griffin', 444719, 1, '2024-01-23 15:00:00', '2024-01-26 11:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0');
+	(13, 15, 22, 'Stewie', 'Griffin', 444719, 1, '2024-01-22 15:00:00', '2024-01-28 11:00:00', 306, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2024-01-11 14:17:42', 'CONFIRMEE'),
+	(14, 15, 22, 'Stewie', 'Griffin', 444719, 1, '2024-02-19 15:00:00', '2024-03-16 11:00:00', 1486, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'lien.pdf', '2024-01-11 14:19:48', 'CONFIRMEE');
 
 -- Listage de la structure de table au_paradis_d_eve_test. reservation_option
 CREATE TABLE IF NOT EXISTS `reservation_option` (
@@ -179,12 +173,10 @@ CREATE TABLE IF NOT EXISTS `reservation_option` (
   CONSTRAINT `FK_1277492BB83297E7` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.reservation_option : ~4 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.reservation_option : ~2 rows (environ)
 INSERT INTO `reservation_option` (`reservation_id`, `option_id`) VALUES
-	(7, 1),
-	(7, 2),
-	(7, 3),
-	(8, 2);
+	(13, 1),
+	(14, 1);
 
 -- Listage de la structure de table au_paradis_d_eve_test. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -202,9 +194,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.user : ~13 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.user : ~12 rows (environ)
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `pseudo`, `adresse`, `cp`, `ville`, `pays`, `is_verified`) VALUES
-	(12, 'davina@deglingo.fr', '["ROLE_ADMIN"]', '$2y$13$gs0DAuuP3JGP3WSkkmIBh.w6c87RuYXMDkOY.m0e/2TmuoNqQL2ym', 'davina', NULL, NULL, NULL, NULL, 0),
+	(1, 'davina@deglingo.fr', '["ROLE_ADMIN"]', '$2y$13$gs0DAuuP3JGP3WSkkmIBh.w6c87RuYXMDkOY.m0e/2TmuoNqQL2ym', 'davina', NULL, NULL, NULL, NULL, 0),
 	(13, 'ricardo@psycho.fr', '["ROLE_USER"]', '$2y$13$Zmk5Vjtr59VSkwad1g/5m./fihnoCNT4Jh6AkjxLPpi4fU1j8dRJ2', 'ricardo', NULL, NULL, NULL, NULL, 0),
 	(14, 'granit@granit.granit', '[]', '$2y$13$Beekfg7D.ZQD3.JNOFHkkObRSpMFjEtatj1XPwkY/0leW9whF70vW', 'granit', '31 Spooner Street', '00093', 'Quahog', 'Rhode Island', 1),
 	(15, 'daz@daz.fr', '[]', '$2y$13$.nfg5WmdTrSi86YKzmZdGeJu.zXNARt/IqFQN3z33jMbU1FYp.39y', 'daz', NULL, NULL, NULL, NULL, 0),
