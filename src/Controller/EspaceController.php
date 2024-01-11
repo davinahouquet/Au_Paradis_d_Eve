@@ -12,10 +12,8 @@ use App\Services\ImageUploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-// use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 
 class EspaceController extends AbstractController
 {
@@ -36,11 +34,14 @@ class EspaceController extends AbstractController
     }
 
     #[Route('/espace/remove/{id}', name: 'remove_espace')]
-    public function remove_espace(Espace $espace, EntityManagerInterface $entityManager, Image $image): Response
+    public function remove_espace(Espace $espace, EntityManagerInterface $entityManager): Response
     {
-        // si cet espace a une image associée, suppr l'image
-        if($espace->getImages() !== null){
-            $espace->removeImage($image);
+
+        $reservations = $espace->getReservations();
+
+        if(sizeof($reservations) > 1){
+            $this->addFlash('error', 'Cet espace est réservé, vous ne pouvez pas le supprimer si des réservations y sont associés.');
+            return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
         }
 
         $entityManager->remove($espace);
@@ -93,18 +94,11 @@ class EspaceController extends AbstractController
     {
         $repository = $entityManager->getRepository(Espace::class);
         $chambre = $repository->findByCategorie(1);
-        // $notes = $espaceRepository->getReservations()->getNote();
-        // $avis = $espaceRepository->getReservations()->getAvis();
         $reservations = $espace->getReservations();
-        // $notes = $reservations->getNote();
-        // $evaluations = $notes + $avis;
-
         return $this->render('espace/show.html.twig', [
             'espace' => $espace,
             'chambre' => $chambre,
-            // 'notes' => $notes,
             'reservations' => $reservations
-            // 'evaluations' => $evaluations
         ]);
     }
 }
