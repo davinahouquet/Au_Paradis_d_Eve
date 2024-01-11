@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\SortieType;
 use App\Form\HomeTextType;
+use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -123,5 +124,5 @@ class AdminController extends AbstractController
     public function voirToutesReservations()
     {
         return $this->render('admin/reservations.html.twig');
-    }   
+    }    
 }

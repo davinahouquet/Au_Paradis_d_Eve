@@ -56,12 +56,17 @@ class UserController extends AbstractController
     {
             // Afficher toutes les infos de la chambre qu'on réserve
             $espace = $reservation->getEspace();
+            $statut = 'CONFIRMEE';
+
             //Insérer les heures de check-in et check-out
             $checkIn = 15;
             $checkOut= 11;
             //Trouver les dates de début et de fin de la réservation en question -> Trouver une meilleure façon si possible
             $reservation->setDateDebut((new \DateTime($reservation->getDateDebut()->format("d-m-Y")))->setTime($checkIn, 0, 0)); //ok
             $reservation->setDateFin((new \DateTime($reservation->getDateFin()->format("d-m-Y")))->setTime($checkOut, 0, 0)); //ok
+
+            $reservation->setStatut($statut);
+            
             $entityManager->persist($reservation);
             $entityManager->flush();
 
@@ -266,11 +271,13 @@ class UserController extends AbstractController
     #[Route('/user/reservations/enCours', name: 'reservations_en_cours')]
     public function reservationsEnCoursDirectory(ReservationRepository $reservationRepository, User $user)
     {
+        $toutesReservationsEnCours = $reservationRepository->findToutesReservationsEnCours();
         $user = $this->getUser();
         $reservationEnCours = $reservationRepository->findReservationEnCours($user);
         
         return $this->render('user/reservations/en_cours.html.twig', [
             'reservationEnCours' => $reservationEnCours,
+            'toutesReservationsEnCours' => $toutesReservationsEnCours
         ]);
     }
 
@@ -282,6 +289,17 @@ class UserController extends AbstractController
         
         return $this->render('user/reservations/passees.html.twig', [
             'reservationsPassees' => $reservationsPassees
+        ]);
+    }
+
+    #[Route('/user/reservations/annulees', name: 'reservations_annulees')]
+    public function reservationsAnnulees(ReservationRepository $reservationRepository, User $user)
+    {
+        $user = $this->getUser();
+        $reservationsAnnulees = $reservationRepository->findReservationsAnnulees($user);
+        
+        return $this->render('user/reservations/annulees.html.twig', [
+            'reservationsAnnulees' => $reservationsAnnulees
         ]);
     }
     

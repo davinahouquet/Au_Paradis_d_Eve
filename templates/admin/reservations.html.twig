@@ -10,22 +10,45 @@
     <section class="profil">
 
         <h1>Administration</h1>
-
-        <p>Consultez l'ensemble des réservations en cours, à venir et passées</p>
         
         <div class="boutons-reservations-user">
                     
             {% if is_granted('ROLE_ADMIN') %}            
         
-                <a href="" class="admin-bouton"><span class="material-symbols-outlined">
+                <a href="{{ path('reservations_en_cours') }}" class="admin-bouton"><span class="material-symbols-outlined">
                     admin_panel_settings
                 </span>Réservations en cours</a>
-                <a href="" class="admin-bouton"><span class="material-symbols-outlined">
+                <a href="{{ path('reservations_a_venir') }}" class="admin-bouton"><span class="material-symbols-outlined">
                     admin_panel_settings
                 </span>Réservations à venir</a>
-                <a href="" class="admin-bouton"><span class="material-symbols-outlined">
+                <a href="{{ path('reservations_passees') }}" class="admin-bouton"><span class="material-symbols-outlined">
                     admin_panel_settings
                 </span>Réservations passées</a>
+                <a href="{{ path('reservations_annulees') }}" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Les annulations</a>
+
+                <a href="{{ path('admin_edit_home_text') }}" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Modifier les textes de la page d'accueil</a>
+
+                <a href="{{ path('new_espace')}}" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Ajouter un espace de vie</a>
+
+                <a href="{{ path('app_espace') }}" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Modifier ou supprimer un espace de vie</a>
+
+                <a href="{{ path('app_alentours') }}" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Modifier les textes des alentours</a>
+
+                <a href="" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Liste des options</a>
+
+        
             {% endif %}
         </div>
         <a href="{{ path('app_user') }}">Retour</a>
