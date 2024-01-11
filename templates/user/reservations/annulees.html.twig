@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+{% endblock %}
+
+{% block title %}Poursuivre vos réservations{% endblock %}
+
+{% block body %}
+
+    <section class="profil">
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('toutes_reservations') }}">Retour</a>
+        {% else %}
+            <a href="{{ path('app_user') }}">Retour au profil</a>
+        {% endif %}
+        
+        <div class="rappel">
+            <p>Rappel concernant les statuts des réservations :</p>
+            <ol>
+                <li>"<b><span style="color:#FFA800">A REMBOURSER</span></b>" concerne les réservations dont l'annulation est survenue 30j avant la date de début du séjour.</li>
+                <li> "<b><span style="color:#FFA800">A REMBOURSER PARTIELLEMENT</span></b>" concerne les réservations dont l'annulation est survenue 20j avant la date de début du séjour. <br></li>
+                <li>"<b><span style="color:#FFA800">ANNULEE</span></b>" concerne les réservations survenues moins de 20j avant la date de début du séjour.</li>
+            </ol>
+        </div>
+        
+        {% if is_granted('ROLE_ADMIN') %}
+        {# Toutes les réservations annulées #}
+        {% if reservationsAnnulees %}
+                    <h5>Réservations annulées</h5>
+                {% for reservationAnnulee in reservationsAnnulees %}
+                    <h6><b>{{ reservationAnnulee.prenom }}{{ reservationAnnulee.nom }}</b></h6>
+                    <p>Séjour du {{ reservationAnnulee.dateDebutFr }} au {{ reservationAnnulee.dateFinFr }} dans {{ reservationAnnulee.espace }}</p>
+                    <p>Durée totale : {{ reservationAnnulee.duree }} nuits</p>
+                    <p>Prix total : {{ reservationAnnulee.prixTotal }} €</p>
+                    <p>Statut : {{ reservationAnnulee.statut }}</p>
+                {% endfor %}
+                <a href="">Télécharger le justificatif d'annulation</a>
+                <a href="">Supprimer</a>
+                {% else %}
+                <h5>Pas de réservations annulées</h5>
+            {% endif %}
+        {% endif %}
+
+        {# Vue desktop #}
+        {# {% if is_granted('ROLE_ADMIN') %}
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Nom</th>
+                        <th colspan="2">Dates</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2">Prénom Nom</td>
+                        <td>with two columns</td>
+                        <td>Date de début</td>
+                        <td>Date de fin</td>
+                    </tr>
+                  </tbody>
+            </table>
+        {% endif %} #}
+
+    </section>
+{% endblock %}
