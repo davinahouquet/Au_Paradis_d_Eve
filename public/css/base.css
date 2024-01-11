@@ -20,9 +20,9 @@ body{
     position: relative;
 }
 
-/* .flashes{
-
-} */
+.flashes{
+    background-color: red;
+}
 
 .licorice-title{
     font-family: 'Licorice';
