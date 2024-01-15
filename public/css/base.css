@@ -20,13 +20,14 @@ body{
     position: relative;
 }
 
+/* Messages add flash */
 .flashes{
     background-color: red;
 }
 
 .licorice-title{
     font-family: 'Licorice';
-    font-size: 40pxlo;
+    font-size: 40px;
 }
 
 .langages{
@@ -39,22 +40,6 @@ body{
     z-index: 2;
 }
 
-nav{
-    width: 100%;
-    position: sticky;
-    top: 10px;
-}
-
-ul{
-    list-style-type: none;
-    display: flex;
-    justify-content: space-evenly;
-}
-
-ul a{
-    text-decoration: none;
-}
-
 .parallax-home, .espaces, .details-espace, .apercu-chambres, .contact, .reservation-form, .selection-sejour{
     width: 100%;
     min-height: 100vh;
@@ -65,10 +50,12 @@ footer{
     bottom: 0;
     height: 50px;
     display: flex;
+    text-align: center;
 }
 
 .burger-icon {
     display: none;
+    /* display: block; */
     cursor: pointer;
 }
 
@@ -80,7 +67,7 @@ footer{
     display: none;
 }
 
-@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+/* @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) { */
     
     nav {
         position: fixed;
@@ -105,7 +92,7 @@ footer{
 
     .langages{
         position: fixed;
-        z-index: 2;
+        z-index: 5;
     }
 
     .langages img{
@@ -141,7 +128,6 @@ footer{
     }
 
     ul {
-        /* display: flex; */
         flex-direction: column;
         position: absolute;
         top: 60px;
@@ -170,16 +156,6 @@ footer{
         font-size: 16px;
     }
     
-    /* .burger-icon span.material-symbols-outlined {
-        display: inline-block;
-        font-size: 24px;
-        transition: transform 0.3s ease-in-out;
-    }
-    
-    .burger-icon.active span.material-symbols-outlined {
-        transform: rotate(45deg);
-    } */
-    
     .user{
         padding-right: 20px;
         font-size: 25px;
@@ -200,33 +176,15 @@ footer{
     .user li, .user-menu li{
         list-style-type: none;
     }
-
-    /* .user-menu {
-        display: none;
-        position: fixed;
-        top: 60px;
-        right: 0;
-        width: 200px;
-        background-color: green;
-        text-align: center;
-    }
-
-    .user-menu a{
-        text-decoration: none;
-        color: var(--font-color);
-    }
-    .user-menu:active {
-        display: block;
-    } */
     .user-menu {
         display: none;
         position: fixed;
         top: 70px;
-        right: 0; /* Ensure the user menu is positioned on the right side */
+        right: 0;
         width: 100%;
         background-color: var(--white);
         text-align: center;
-        z-index: 3; /* Adjust the z-index to be higher than other elements */
+        z-index: 3; 
     }
     
     .user-menu.active {
@@ -257,5 +215,64 @@ footer{
         padding-left: 30px;
         text-align: center;
         color: var(--white);
+    }
+/* } */
+
+@media only screen and (min-width : 1224px){
+
+    header{
+        display: flex;
+    }
+
+    nav{
+        width: 100%;
+        position: fixed;
+        height: 20px;
+        display: block;
+    }
+    
+    nav ul {
+        height: 60px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-top: 30px;
+        position: absolute;
+        top: 10px;
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+        /* background-color: red; */
+        /* gap: 100px; */
+    }
+
+    ul li{
+        list-style-type: none;
+        padding-left: 50px;
+    }
+
+    ul a:hover{
+        color: var(--hover);
+        transition: 0.3s;
+    }
+    
+    .logo h1{
+        font-family: 'Licorice';
+        padding: 0;
+        margin: 0;
+        font-size: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .logo li a{
+        font-size: 8px;
+    }
+
+    .user-menu, .burger-icon, .logo-burger{
+        display: none;
+    }
+
+    .user, .logo{
+        display: block;
     }
 }
