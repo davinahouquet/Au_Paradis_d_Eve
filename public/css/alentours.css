@@ -1,6 +1,6 @@
 
 /* ALENTOURS */
-@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+/* @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) { */
 
     ul{
         list-style-type: none;
@@ -49,4 +49,25 @@
         color: var(--hover);
         text-decoration: underline;
     }
+    
+@media only screen and (min-width : 1224px){
+    .alentours h1{
+        /* display: flex; */
+        text-align: center;
+    }
+    .alentours ul li{
+        display: flex;
+        gap: 150px;
+    }
+
+    .titre-texte-tarif-alentours{
+        max-width: 50%;
+    }
+
+    .img-credit-alentours{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+    }
 }
+/* } */
