@@ -73,11 +73,11 @@ CREATE TABLE IF NOT EXISTS `espace` (
   CONSTRAINT `FK_6AB096DBCF5E72D` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.espace : ~6 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.espace : ~4 rows (environ)
 INSERT INTO `espace` (`id`, `categorie_id`, `nom_espace`, `taille`, `wifi`, `nb_places`, `prix`, `description`) VALUES
 	(15, 1, 'Test Espace33', 14, 1, 56, 59, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
 	(16, 1, 'Chambre du Soleil', 27, 0, 2, 45, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'),
-	(17, 2, 'Jardin Sud', 50, 0, 9, 0, 'Jardin Test'),
+	(17, 2, 'Jardin Sud', 50, 0, 9, 0, 'Jardin Test ncididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
 	(21, 1, 'Test remplacement txt avec plusieurs img', 45, 0, 3, 50, NULL);
 
 -- Listage de la structure de table au_paradis_d_eve_test. image
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `image` (
   CONSTRAINT `FK_C53D045FB6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.image : ~8 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.image : ~5 rows (environ)
 INSERT INTO `image` (`id`, `espace_id`, `lien_image`, `alt_image`) VALUES
 	(5, 15, 'cc96f6acf4a0a16d23ef15e44af4423e.jpg', NULL),
 	(6, 16, '897de879b10db0904e7e4503e9c42358.jpg', NULL),
