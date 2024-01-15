@@ -1,5 +1,5 @@
 /* CHAMBRES ET ESPACES DE VIE */
-@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+/* @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) { */
     .espaces-section{
         width: 100%;
         min-height: 100vh;
@@ -118,4 +118,67 @@
         width: 100%;
         padding: 130px 50px 50px 50px;
     }
+/* } */
+
+@media (device-height: 430px) and (device-width: 932px){
+
+    .espaces-section{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .espaces-liste{
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 }
+
+/* Taille desktop et + */
+@media only screen and (min-width : 1224px){
+
+    /* Index espaces, page de choix */
+    .espaces-section{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .espaces-section h1{
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .espaces-liste{
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-direction: row;
+        gap: 60px;
+    }
+
+    .espace, .nom-espace, .espace img{
+        width: 200px;
+        height: 200px;
+        border-radius: 0;
+    }
+
+    .nom-espace{
+        transition: 0.5s;
+        font-size: 20px;
+    }
+
+    .nom-espace:hover{
+        transition: 0.5s;
+        background-color: rgba(255, 0, 0, 0);
+    }
+
+    /* Détails d'un espace */
+    
+}    
