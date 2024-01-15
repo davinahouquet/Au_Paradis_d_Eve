@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block meta_description %} Les alentours - Nos propositions de sortie {% endblock %}
 {% block css %}
     <link rel="stylesheet" href="{{ asset('css/alentours.css') }}">
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
@@ -16,12 +17,16 @@
                 {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('edit_alentours', {'id': sortie.id_sortie}) }}">Modifier</a>
                 {% endif %}
-                <h2>{{ sortie.nom_sortie }}</h2>
-                <p>{{ sortie.description_sortie }}</p>
-                <p>Tarif approximatif: {{ sortie.tarif_sortie }} €</p>
-                {# <img src="{{ sortie.image_sortie }}" alt="{{ sortie.nom_sortie }}" width="200" height="150"> #}
-                <img src="{{ asset('../img/citadelle.png') }}" alt="{{ sortie.nom_sortie }}" class="image-sortie">
-                <p class="credit">@utilisateur ou lien pour crédit photo</p>
+                <div class="titre-texte-tarif-alentours">
+                    <h2>{{ sortie.nom_sortie }}</h2>
+                    <p>{{ sortie.description_sortie }}</p>
+                    <p>Tarif approximatif: {{ sortie.tarif_sortie }} €</p>
+                </div>
+                <div class="img-credit-alentours">
+                    {# <img src="{{ sortie.image_sortie }}" alt="{{ sortie.nom_sortie }}" width="200" height="150"> #}
+                    <img src="{{ asset('../img/citadelle.png') }}" alt="{{ sortie.nom_sortie }}" class="image-sortie">
+                    <p class="credit">@utilisateur ou lien pour crédit photo</p>
+                </div>
             </li>
         {% endfor %}
     </ul>

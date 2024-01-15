@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block meta_description %} Liste des espaces {% endblock %}
 {% block css %}
     <link rel="stylesheet" href="{{ asset('css/espaces.css') }}">
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
@@ -10,8 +11,8 @@
 <section class="espaces-section">
     {# <img src="{{ asset('../img/bibliothèque.jpg') }}" alt="bibliothèque murale avec statue" class="espace-illustration"> #}
     <h1>Les chambres et espaces de vie</h1>
+    <a href="{{ path('new_espace')}}" class="action-espace"> + Ajouter un espace</a>
     <div class="espaces-liste">
-        <a href="{{ path('new_espace')}}" class="action-espace">Ajouter un espace</a>
         {% for espace in espaces %}
             <div class="espace">
                 {# {{ dump((espace.images | first)) }} #}

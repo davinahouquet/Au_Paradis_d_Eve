@@ -2,7 +2,9 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="{% block meta_description %}Waloude Prévoyance Décès{% endblock %}">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>🤎​</text></svg>">
         {% block stylesheets %}
@@ -16,9 +18,12 @@
     <body>
         <header>
             <div class="langages">
-                <img src="{{asset('icons/french.png')}}" width="16"><!-- <a href="https://www.flaticon.com/fr/icones-gratuites/drapeau" title="drapeau icônes">Drapeau icônes créées par Freepik - Flaticon</a> -->
-                <img src="{{asset('icons/uk.png')}}" width="20"><!-- <a href="https://www.flaticon.com/free-icons/uk-flag" title="uk flag icons">Uk flag icons created by Freepik - Flaticon</a> -->
-                <img src="{{asset('icons/german.png')}}" width="20"><!-- <a href="https://www.flaticon.com/free-icons/german" title="german icons">German icons created by Mzipi - Flaticon</a> -->
+                <img src="{{asset('icons/french.png')}}" width="16">
+                <!-- <a href="https://www.flaticon.com/fr/icones-gratuites/drapeau" title="drapeau icônes">Drapeau icônes créées par Freepik - Flaticon</a> -->
+                <img src="{{asset('icons/uk.png')}}" width="20">
+                <!-- <a href="https://www.flaticon.com/free-icons/uk-flag" title="uk flag icons">Uk flag icons created by Freepik - Flaticon</a> -->
+                <img src="{{asset('icons/german.png')}}" width="20">
+                <!-- <a href="https://www.flaticon.com/free-icons/german" title="german icons">German icons created by Mzipi - Flaticon</a> -->
             </div>
             <nav>
                 <ul>
@@ -26,12 +31,26 @@
                     <li><a href="{{ path('app_alentours') }}">LES ALENTOURS</a></li>
                     <li><a href="{{ path('app_espace') }}">CHAMBRES ET ESPACES DE VIE</a></li>
                     <div class="logo">
-                        <li><a href="{{ path('app_home') }}">Au Paradis d'Eve</a></li>
+                        <li><a href="{{ path('app_home') }}"><h1>Au Paradis d'Eve</h1></a></li>
                         <li><a href="{{ path('app_home') }}">Maison d'hôte à Bitche</a></li>
                     </div>
                     <li><a href="{{ path('app_reservation') }}">RESERVATION</a></li>
                     <li><a href="/home#contact">CONTACT</a></li>
                     <li><a href="{{ path('avis') }}">AVIS</a></li>
+                    <li> 
+                        {% if app.user %}
+                        <a href="{{ path('app_user') }}"><span class="material-symbols-outlined">
+                            account_circle
+                            </span></a>
+                            <a href="{{path('app_logout')}}"><span class="material-symbols-outlined">
+                            logout
+                            </span></a>
+            
+                        {% else %}
+                            <a href="{{path('app_login')}}">CONNEXION</a>
+                            {# <a href="{{path('app_register')}}">INSCRIPTION</a> #}
+                    {% endif %}
+                    </li>
                 </ul>
                 <div class="burger-icon" id="burger-icon" onclick="toggleBurgerMenu()">
                     <span class="material-symbols-outlined">
