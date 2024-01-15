@@ -1,100 +1,83 @@
-@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
-    .home-page{
-        position: relative;
-        height: 100vh;
-        box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356);
-    }
+/* Taille mobile vertical */
+.home-page{
+    position: relative;
+    height: 100vh;
+    box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356);
+}
     
-    .parallax {
-        min-height: 100vh;
-        padding-top: 60px;
-        background-image: linear-gradient(rgba(52, 52, 52, 0.577), rgba(23, 23, 23, 0.367)), url("../../img/Terasse3.jpg");
-        /* background: linear-gradient(rgba(152, 152, 152, 0.471), rgba(46, 46, 46, 0.367)), url('../img/contact.jpg')  no-repeat center/cover; */
-
+.parallax {
+    min-height: 100vh;
+    padding-top: 60px;
+    background-image: linear-gradient(rgba(52, 52, 52, 0.577), rgba(23, 23, 23, 0.367)), url("../../img/Terasse3.jpg");
 /* effet parallax */
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
-    .edit-home-text{
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        padding: 50px;
-    }
+.edit-home-text{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    padding: 50px;
+}
 
+.description p{
+    padding: 0 30px 0 30px;
+}
 
-    /* .landingPage-img-container{
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-    }
+.home-page .description{
+    z-index: 1;
+    position: absolute;
+    text-align: center;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 20%;
+    color: var(--white);
+    width: 100%;
+}
 
-    .landingPage-img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: 27%;
-    } */
+.home-page .description a{
+    color: var(--hover);
+}
 
-    .description p{
-        padding: 0 30px 0 30px;
-    }
-
-    .home-page .description{
-        z-index: 1;
-        position: absolute;
-        text-align: center;
-        margin: 0 auto;
-        left: 0;
-        right: 0;
-        top: 20%;
-        color: var(--white);
-        width: 100%;
-    }
-
-    .home-page .description a{
-        color: var(--hover);
-    }
-
-    .home-page .description h1{
-        font-family: "Licorice";
-        font-size: 55px;
-    }
+.home-page .description h1{
+    font-family: "Licorice";
+    font-size: 55px;
+}
     
-    /* APERCU DES CHAMBRES SUR LA PAGE D'ACCUEIL VERSION MOBILE */
-    .apercu-chambres{
-        min-height: 100vh;
-        height: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+/* APERCU DES CHAMBRES SUR LA PAGE D'ACCUEIL VERSION MOBILE */
+.apercu-chambres{
+    min-height: 100vh;
+    padding: 50px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
     
-    .titre-apercu-chambres{
-        color: var(--dark-font);
-        text-decoration: none;
-        padding: 30px;
-    }
+.titre-apercu-chambres{
+    color: var(--dark-font);
+    text-decoration: none;
+    padding: 30px;
+}
 
-    .details-apercu-chambre{
-        display: flex;
-    }
+.details-apercu-chambre{
+    display: flex;
+}
 
-    .details-apercu-chambre a{
-        text-decoration: none;
-        color: var(--dark-font);
-    }
+.details-apercu-chambre a{
+    text-decoration: none;
+    color: var(--dark-font);
+}
 
-    .carte-chambre{
-        min-width: 80%;
+.carte-chambre{
         max-height: 300px;
         box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356);
-        width: 80%;
         border-radius: 5px;
         margin-bottom: 20px;
         display: flex;
@@ -102,17 +85,21 @@
         justify-content: center;
         flex-direction: column;
         overflow: hidden;
-    } 
-    .carte-chambre img{
+} 
+.carte-chambre img{
         width: 100%;
         height: auto;
         object-fit: cover;
-    }
+}
     
-    .prix-chambre-par-nuit{
+.prix-chambre-par-nuit{
         width: 100%;
         text-align: left;
-    }
+}
+
+.options-chambre-hover {
+    display: none;
+}
     
     /* SECTION PDB */
     .pdb{
@@ -127,7 +114,7 @@
 
     .pdb img{
         width: 100%;
-        max-height: 200px;
+        /* max-height: 200px; */
         object-fit: cover;
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
         margin-bottom: 30px;
@@ -156,14 +143,12 @@
         /* min-height: 100vh; */
         height: auto;
         padding: 30px;
-        background: linear-gradient(rgba(152, 152, 152, 0.471), rgba(46, 46, 46, 0.367)), url('../img/contact.jpg')  no-repeat center/cover;
+        /* background: linear-gradient(rgba(152, 152, 152, 0.471), rgba(46, 46, 46, 0.367)), url('../img/contact.jpg')  no-repeat center/cover; */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         box-shadow: inset 0px 9px 15px -3px rgba(0, 0, 0, 0.419);
-        /* box-shadow: 0px -10px 10px -10px rgba(0, 0, 0, 0.45); */
-        /* box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356); */
     }
 
     .infos-contact, .form-contact{
@@ -204,20 +189,28 @@
     /* SECTION MASCOTTE */
     .mascotte{
         background: linear-gradient(rgba(255, 255, 255, 0.679), rgba(255, 255, 255, 0.915)), url('../img/flowers-bg.jpg');
+        box-shadow: inset 0px 9px 15px -3px rgba(0, 0, 0, 0.419);
+        width: 100%;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        box-shadow: inset 0px 9px 15px -3px rgba(0, 0, 0, 0.419);
-        /* box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356); */
     }
-
+    
     .mascotte h3{
         font-family: 'Licorice';
         font-size: 50px;
         text-align: center;
     }
+    .mascotte-img-text{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
 
     .mascotte img{
         width: 350px;
@@ -252,4 +245,272 @@
         padding: 10px 15px 10px 15px;
         background-color: var(--white);
     }
+/* } */
+
+/* Taille mobile horizontal */
+@media (device-height: 430px) and (device-width: 932px){
+    /* APERCU DES CHAMBRES SUR LA PAGE D'ACCUEIL VERSION MOBILE */
+    .apercu-chambres{
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 50px;
+    }
+    
+    .titre-apercu-chambres{
+        color: var(--dark-font);
+        text-decoration: none;
+        padding: 30px;
+    }
+
+    .details-apercu-chambre a{
+        text-decoration: none;
+        color: var(--dark-font);
+        font-size: 10px;
+        padding: 10px;
+    }
+
+    .conteneur-cartes-chambre{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .carte-chambre{
+        width: 300px;
+    }
+
+    .carte-chambre img{
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        /* display: none; */
+    }
+
+    .prix-chambre-par-nuit{
+        display: none;
+    }  
+
+    /* SECTION MASCOTTE */
+    .mascotte{
+        background: linear-gradient(rgba(255, 255, 255, 0.679), rgba(255, 255, 255, 0.915)), url('../img/flowers-bg.jpg');
+        min-height: 100vh;
+        box-shadow: inset 0px 9px 15px -3px rgba(0, 0, 0, 0.419);
+        padding: 50px;
+    }
+        
+    .mascotte-img-text{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;    
+    }
+
+    .mascotte h3{
+        font-family: 'Licorice';
+        font-size: 50px;
+        text-align: center;
+    }
+    
+    .mascotte img{
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        margin-bottom: 30px;
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    }
+
+    /* SECTION PDB */
+    .pdb h2{
+            top: 50px;
+            left: 250px;
+    }
 }
+
+/* Taille desktop et plus */
+@media only screen and (min-width : 1224px){
+    .conteneur-cartes-chambre{
+        max-width: 100%;
+        height:auto;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        overflow: hidden;
+    }
+
+    .carte-chambre{
+        width: 500px;
+        height: auto;
+        max-height: 1000px;
+        overflow: hidden;
+        border-radius: 0;
+    }
+    
+    .carte-chambre img{
+        transition: 2s;
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        overflow: hidden;
+        /* display: none; */
+    }
+
+    .carte-chambre:hover .options-chambre-hover {
+        display: block;
+        transition: 0.3s;
+    }
+    
+    .options-chambre-hover{
+        /* max-width: 500px; */
+        border-radius: 0;
+        padding: 30px;
+        width: 460px;
+        height: 500px;
+        font-size: 20px;
+        position: absolute;
+        color: var(--white);
+        background-color: rgba(0, 0, 0, 0.351);
+    }
+
+    .details-apercu-chambre{
+        padding: 10px
+    }
+
+    .pdb{
+        display: flex;
+        width: 100%;
+        padding: 50px;
+        flex-direction: row-reverse;
+        background: rgb(140,116,16);
+        background: linear-gradient(0deg, rgba(140,116,16,0.31416316526610644) 0%, rgba(67,249,98,0) 90%);
+    }
+
+    .pdb p{
+        /* width: 50%; */
+        padding-right: 70px;
+        padding-top: 50px;
+        height: 500px;
+    }
+
+    .pdb img{
+        width: 50%;
+        height: 500px;
+        object-fit: cover;
+    }
+
+    .titre-text{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .titre-text h2{
+        color: var(--dark-font);
+        top: 25px;
+        left: 150px;
+    }
+
+    
+    /* SECTION CONTACT */
+    .contact{
+        width: 100%;
+        height: 100vh;
+        padding: 50px;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+        /* box-shadow: inset 0px 9px 15px -3px rgba(0, 0, 0, 0.419); */
+    }
+
+    .infos-contact, .form-contact{
+        width: 90%;
+        height: 450px;
+        padding: 20px;
+        margin-bottom: 30px;
+        background-color: #ffffffd8;
+        border-radius: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+
+    }
+
+    /*
+    .form-contact{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-contact input, .form-contact textarea{
+        padding: 5px;
+        border-radius: 3px;
+    }
+
+    .infos-contact span{
+        width: 5px;
+        height: 5px;
+        margin-right: 10px;
+    }
+
+    .contact-row{
+        display: flex;
+        align-items:start;
+        justify-content: left;
+        padding: 10px;
+        gap: 20px;
+    } */
+    /* SECTION MASCOTTE */
+    .mascotte{
+        background: linear-gradient(rgba(255, 255, 255, 0.679), rgba(255, 255, 255, 0.915)), url('../img/flowers-bg.jpg');
+        min-height: 100vh;
+        box-shadow: inset 0px 9px 15px -3px rgba(0, 0, 0, 0.419);
+        padding: 50px;
+    }
+        
+    .mascotte-img-text{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;    
+    }
+/*
+    .mascotte h3{
+        font-family: 'Licorice';
+        font-size: 50px;
+        text-align: center;
+    }
+  */  
+    .mascotte img{
+        max-width: 50%;
+        width: auto;
+        height: auto;
+        max-height: 500px;
+        object-fit: cover;
+        margin-bottom: 30px;
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    }
+
+    .mascotte p{
+        max-width: 50%;
+        width: 500px;
+        padding: 50px;
+    }
+}
+/* @media (min-height: 768px) and (min-width: 991px){
+
+} */
+/* Desktop (écrans normaux) :
+
+De 768 pixels à 991 pixels de largeur
+Large desktop (grands écrans) :
+
+De 992 pixels à 1200 pixels de largeur
+Extra large desktop (très grands écrans) :
+
+1201 pixels et plus */
