@@ -67,7 +67,7 @@ class EspaceType extends AbstractType
                     new All([
                         'constraints' => [
                             new File([
-                                'maxSize' => '5M', // Limite la taille à 5 Mo (ajustez selon vos besoins)
+                                'maxSize' => '5M', // Limite la taille à 5 Mo
                                 'mimeTypes' => ['image/jpeg', 'image/png', 'image/webp'],
                                 'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPEG, PNG, WEBP)',
                             ]),
