@@ -41,6 +41,7 @@ class ReservationRepository extends ServiceEntityRepository
 
     }
 
+    // Récupère les réservations en cours d'un utilisateur
     public function findReservationEnCours(User $user): array
     {
         $now = new \DateTime();
@@ -70,6 +71,7 @@ class ReservationRepository extends ServiceEntityRepository
         ;
     }
 
+    // Récupère les réservations à venir d'un utilisateur
     public function findReservationsAVenir(User $user): array
     {
         $now = new \DateTime();
@@ -89,6 +91,7 @@ class ReservationRepository extends ServiceEntityRepository
         ;
     }
 
+    // Récupère les réservations non confirmées d'un utilisateur
     public function findReservationsNonConfirmees(User $user): array
     {
         $now = new \DateTime();
