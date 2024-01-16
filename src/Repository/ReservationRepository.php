@@ -79,7 +79,6 @@ class ReservationRepository extends ServiceEntityRepository
 
         return $this->createQueryBuilder('r')
             ->andWhere('r.user = :user')
-            ->andWhere('r.adresseFacturation IS NOT NULL')
             ->andWhere('r.date_debut > :now')
             ->andWhere('r.statut = :confirmee' )
             ->setParameter('now', $now)
