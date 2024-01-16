@@ -9,79 +9,123 @@
 {% block body %}
 
 <section class="detail-espace">
+  <a href="{{ path('app_espace') }}" class="return-button"><span class="material-symbols-outlined">
+    arrow_back
+    </span></a>
 
-  {% if is_granted ('ROLE_ADMIN') %}
-    <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Marquer comme indisponible</a>
-    <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Modifier l'espace</a>
-    <a href="{{ path('remove_espace', {'id' :espace.id}) }}">Supprimer l'espace</a>
-  {% endif %}
+    {% if is_granted ('ROLE_ADMIN') %}
+      <div class="admin-actions">
+        {# <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Marquer comme indisponible</a> #}
+        <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Modifier l'espace</a>
+        <a href="{{ path('remove_espace', {'id' :espace.id}) }}">Supprimer l'espace</a>
+      </div>
+    {% endif %}
 
   
   
   <div class="details-espace">
-    
-    {# image.s #}
-    {# {% for image in espace.images %}
-      {% if image is not empty %}
-        <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('Texte de remplacement')}}">
-        {% if is_granted ('ROLE_ADMIN') %}
-          <a href="{{ path('remove_image', {'id' :image.id}) }}">X</a>
-        {% endif %}
-      {% endif %}
-    {% endfor %} #}
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        {% for key, image in espace.images %}
-          {% if image is not empty %}
-            <div class="carousel-item {% if key == 0 %}active{% endif %}">
-              <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" class="d-block w-100" alt="{{ image.altImage|default('Texte de remplacement') }}">
-              {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('remove_image', {'id': image.id}) }}">X</a>
+    <div class="haut-de-page">
+
+      {% if  espace.images|length > 1 %}
+        
+      {# Caroussel #}
+      <div class="caroussel-gauche">
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            {% for key, image in espace.images %}
+              {% if image is not empty %}
+                <div class="carousel-item {% if key == 0 %}active{% endif %}">
+                  <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" class="d-block w-100" alt="{{ image.altImage|default('Texte de remplacement') }}">
+                  {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('remove_image', {'id': image.id}) }}">Supprimer l'image</a>
+                  {% endif %}
+                </div>
               {% endif %}
-            </div>
+            {% endfor %}
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+      
+      {% else %}
+      <div class="caroussel-gauche">
+        {% for image in espace.images %}
+          {% if image is not empty %}
+            <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('Texte de remplacement')}}">
+            {% if is_granted ('ROLE_ADMIN') %}
+              <a href="{{ path('remove_image', {'id' :image.id}) }}" class="delete-img">Supprimer l'image</a>
+            {% endif %}
           {% endif %}
         {% endfor %}
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    
-    
-
-    <h1>{{espace.nomEspace}}</h1>
-
-    <div class="infos-techniques-espace">
-      {{espace.taille}} m²
-      {{espace.nbPlaces}} personnes
-      {% if espace.wifi == 1 %}
-      <span class="material-symbols-outlined">wifi</span> Wifi
+        
       {% endif %}
-    </div>
-    
-    <div class="description-espace">
-      <p>{{ espace.description }}</p>
-    </div>
-    <h2>{{espace.prix}}€ /personne</h2>
-    
-    
-    {# N'autoriser la réservation que si la catégorie est 1 (chambre) ou 11 (logement entier) #}
-      {% if espace.categorie.Id == 1 %}
-        <a href="{{ path('app_direction', {'id' :espace.id})}}" type="button" class="btn btn-success">Réserver</a>
-      {% endif %}
+      {# Nom de l'espace + détails techniques + description + bouton réserver #}
+      <div class="details-espace-droite">
+        
+        <h1>{{espace.nomEspace}}</h1>
   
-      {% if espace.categorie.Id == 11 %}
-        <a href="{{ path('app_direction', {'id' :espace.id})}}" type="button" class="btn btn-success">Réserver</a>
-      {% endif %}
-      
+        <div class="infos-techniques-espace">
+          <span class="material-symbols-outlined">straighten</span>Taille : {{espace.taille}} m²
+            <span class="material-symbols-outlined">bed</span>Pour {{espace.nbPlaces}} personnes
+          {% if espace.wifi == 1 %}
+            <span class="material-symbols-outlined">wifi</span>
+          {% else %}
+            <span class="material-symbols-outlined">wifi_off</span>
+          {% endif %}
+        </div>
+        
+        <div class="description-espace">
+          <p>{{ espace.description }}</p>
+        </div>
+        <h2>{{espace.prix}}€ /personne</h2>
+        
+        
+        {# N'autoriser la réservation que si la catégorie est 1 (chambre) ou 11 (logement entier) #}
+          {% if espace.categorie.Id == 1 %}
+            <a href="{{ path('app_direction', {'id' :espace.id})}}" type="button" class="btn btn-success">Réserver</a>
+          {% else %}
+            <p>Cet espace est accessible avec votre réservation.</p>
+          {% endif %}
+  
+          {% if espace.categorie.Id == 11 %}
+            <a href="{{ path('app_direction', {'id' :espace.id})}}" type="button" class="btn btn-success">Réserver</a>
+          {% endif %}
+          
+          <h5 class="autres-espaces-title">Consulter les autres espaces...</h5>
+
+          <div class="autres-espaces">
+            {# afficher les autres espaces en preview #}
+            {% for espace in espaces|slice(0,5) %}
+              <div class="espace-preview">       
+                <a href="{{path('show_espace', {'id' :espace.id})}}" class="nom-espace-preview"> {{espace.nomEspace}}</a>
+                {% for image in espace.images|slice(0,1) %}
+                    {% if image.lienImage is null %}
+                        <img src="{{ asset('img/chambreLilas.jpg')}}" width="300">
+                    {% else %}
+                        <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('Texte de remplacement')}}" width="300">
+                    {% endif %}
+                {% endfor %}
+                
+                    
+                </div>
+            {% endfor %}
+          </div>
+      </div>
+
+
+    </div>
+
+    <div class="avis-bas-de-page">
+      {# Avis #}
       <h3>Vos avis sur {{ espace.nomEspace }}</h3>
-      
-      
       {% for reservation in reservations %}
       
         {% if  reservation.getNote() is not null %}
@@ -113,6 +157,10 @@
         {% endif %}
 
       {% endfor %}
-  </div>
+    </div>
+
+    </div>
+      
+
 </section>
 {% endblock %}

@@ -92,13 +92,21 @@ class EspaceController extends AbstractController
     #[Route('/espace/{id}', name: 'show_espace')]
     public function show_espace(Espace $espace, EspaceRepository $espaceRepository, EntityManagerInterface $entityManager): Response
     {
+        $espaces = $espaceRepository->findAll();
+        // Filtre les espaces pour exclure celui qu'on affiche
+        $espaces = array_filter($espaces, function ($e) use ($espace) {
+            return $e->getId() !== $espace->getId();
+        });
+        shuffle($espaces);
+
         $repository = $entityManager->getRepository(Espace::class);
         $chambre = $repository->findByCategorie(1);
         $reservations = $espace->getReservations();
         return $this->render('espace/show.html.twig', [
             'espace' => $espace,
             'chambre' => $chambre,
-            'reservations' => $reservations
+            'reservations' => $reservations,
+            'espaces' => $espaces
         ]);
     }
 }
