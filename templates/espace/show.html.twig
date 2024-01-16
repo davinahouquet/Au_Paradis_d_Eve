@@ -9,32 +9,61 @@
 {% block body %}
 
 <section class="detail-espace">
-  <h1>{{espace.nomEspace}}</h1>
-  
+
   {% if is_granted ('ROLE_ADMIN') %}
     <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Marquer comme indisponible</a>
     <a href="{{ path('edit_espace', {'id' :espace.id}) }}">Modifier l'espace</a>
     <a href="{{ path('remove_espace', {'id' :espace.id}) }}">Supprimer l'espace</a>
   {% endif %}
+
+  
   
   <div class="details-espace">
     
-    {% for image in espace.images %}
+    {# image.s #}
+    {# {% for image in espace.images %}
       {% if image is not empty %}
         <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('Texte de remplacement')}}">
         {% if is_granted ('ROLE_ADMIN') %}
           <a href="{{ path('remove_image', {'id' :image.id}) }}">X</a>
         {% endif %}
       {% endif %}
-    {% endfor %}
+    {% endfor %} #}
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% for key, image in espace.images %}
+          {% if image is not empty %}
+            <div class="carousel-item {% if key == 0 %}active{% endif %}">
+              <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" class="d-block w-100" alt="{{ image.altImage|default('Texte de remplacement') }}">
+              {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('remove_image', {'id': image.id}) }}">X</a>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    
+    
+
+    <h1>{{espace.nomEspace}}</h1>
+
     <div class="infos-techniques-espace">
       {{espace.taille}} m²
       {{espace.nbPlaces}} personnes
       {% if espace.wifi == 1 %}
-        <span class="material-symbols-outlined">wifi</span> Wifi
+      <span class="material-symbols-outlined">wifi</span> Wifi
       {% endif %}
     </div>
-
+    
     <div class="description-espace">
       <p>{{ espace.description }}</p>
     </div>
