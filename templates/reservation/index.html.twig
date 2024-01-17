@@ -19,8 +19,10 @@
             {# Contient tous la photo + les infos sur la chambre + les conditions (min 2 nuit) + le prix #}
                 <div class="gauche-carte-chambre"> 
                     <a href="{{path('show_espace', {'id' :chambre.id})}}">
-                        {% for image in chambre.images %}
-                            <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="image de la chambre à réserver">
+                        {% for image in chambre.images|slice(0,1) %}
+                            <div class="container-carte-chambre">
+                                <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="image de la chambre à réserver">
+                            </div>
                         {% endfor %}
                     </a>
 
@@ -34,18 +36,44 @@
                         {% endif %}
                     </div>
 
-                    <p>2 nuits minimum*</p>
-                    <h3>{{ chambre.prix }}€/nuit</h3>
-
+                    <p class="min-nuits">2 nuits minimum*</p>
+                    <h3 class="prix-nuit">{{ chambre.prix }}€/personne</h3>
+                    
                 </div>
                 {# Contient le nom de la chambre + description + bouton réserver #}
                 <div class="droite-carte-chambre">
                     <h2>{{chambre.nomEspace}}</h2>
-                    <p>{{chambre.description}}</p>
+                        <div class="infos-techniques-chambre-desktop">
+                            <span class="material-symbols-outlined">straighten</span>{{ chambre.taille }}m²
+                            <span class="material-symbols-outlined">bed</span>{{ chambre.nbPlaces }} personnes
+                            {% if chambre.wifi == 1%}
+                                <span class="material-symbols-outlined">wifi</span>
+                            {% else %}
+                                <span class="material-symbols-outlined">wifi_off</span>
+                            {% endif %}
+                        </div>
+                    <p>{{ chambre.description | slice(0, 400) }}{% if chambre.description | length > 400 %}...{% endif %}</p>
                     <a href="{{ path('new_reservation', {'id' :chambre.id})}}" type="button" class="btn btn-success">Réserver</a>
+                </div>
+                <div class="desktop-chambre-infos">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nuitées minimum</th>
+                                <th>Prix /personne</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2 nuits minimum*</td>
+                                <td>{{ chambre.prix }}€</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         {% endfor %}
+
     </div>
     {# Formulaire - Zone de recherche de séjour aux dates entrées (n'afficher que les chambres dispos pour le nb de personnes si possible) #}
     {# <div class="selection-sejour">

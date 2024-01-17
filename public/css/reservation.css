@@ -1,85 +1,73 @@
 /* SECTION RESERVATION */
-@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+/* Taille par défaut : mobile */
+    /* Section */
     .reservation{
+        max-width: 100%;
         width: 100%;
         min-height: 100vh;
         position: absolute;
         top: 60px;
     }
-    
     .reservation a{
         color: var(--hover);
     }
-
+    /* L'image de fond du titre, bibliothèque */
     .reservation-illustration{
         width: 100%;
-        max-height: 150px;
         object-fit: cover;
         position: absolute;
         box-shadow: 0px 3px 9px 1px rgba(89, 89, 89, 0.356);
     }
-
+    
     .reservation h1{
         position: absolute;
-        font-family: 'Licorice';
-        font-size: 50px;
-        top: 50px;
-        left: 50px;
         color: var(--white);
     }
-
     .conteneur-cartes-chambre{
         width: 100%;
         position: absolute;
-        top: 150px;
-        /* border: 10px solid green; */
     }
-
     .carte-chambre{
         max-width: 100%;
-        height: 250px;
         margin: 20px;
         display: flex;
         border-radius: 3px;
         box-shadow: 0px 3px 9px 1px rgba(29, 28, 28, 0.356);
         background-color: rgba(195, 105, 20, 0.106);
-        /* background-color: red; */
-        /* position: absolute; */
-        /* margin: 55px; */
-        /* margin: 150px 50px 50px 50px; */
     }
-
     .carte-chambre img{
-        width: 100%;
-        height: 120px;
         object-fit: cover;
         border-radius: 3px;
         margin-bottom: 10px;
     }
-
-    .gauche-carte-chambre, .droite-carte-chambre{
-        width: 50%;
+    .droite-carte-chambre{
         padding: 10px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
-
+    .droite-carte-chambre{
+        text-overflow: ellipsis;
+    }
+    .gauche-carte-chambre{
+        width: 50%;
+        padding: 10px;
+        overflow: hidden;
+        display: flex;
+    }
     .infos-techniques-chambre{
         width: 100%;
         font-size: 10px;
         display: flex;
         gap: 15px;
     }
-
     .droite-carte-chambre h2{
         max-height: 30px;
         font-family: 'Licorice';
         font-size: 25px;
         text-align: center;
     }
-
     .droite-carte-chambre p{
         height: 130px;
         overflow: hidden;
@@ -102,4 +90,112 @@
     .section-reservation h1{
         color: var(--dark-font);
     }
+
+/* Taille mobile */
+@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px){
+    .reservation-illustration{
+        max-height: 150px;
+    }
+    .reservation h1{
+        font-family: 'Licorice';
+        font-size: 50px;
+        top: 50px;
+        left: 50px;
+    }
+    .conteneur-cartes-chambre{
+        top: 150px;
+    }
+    .carte-chambre{
+        height: 250px;
+    }
+    .carte-chambre img{
+        width: 100%;
+        height: 120px;
+    }
+    .gauche-carte-chambre{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .droite-carte-chambre{
+        width: 50%;
+    }
+    .desktop-chambre-infos, .infos-techniques-chambre-desktop{
+        display: none;
+    }
+}
+/* Taille desktop et + */
+@media only screen and (min-width : 1224px){
+    .reservation-illustration{
+        height: 250px;
+        object-position: center;
+        filter: saturate(150%);
+    }
+    .conteneur-cartes-chambre{
+        top: 250px;
+        padding: 50px;
+
+    }
+    .reservation h1{
+        font-size: 55px;
+        font-weight: 600;
+        top: 80px;
+        left: 380px;
+        text-transform: uppercase;
+    }
+    .carte-chambre{
+        width: auto;
+        height: 300px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .container-carte-chambre{
+        width: 500px;
+        height: 250px;
+        border-radius: 3px;
+        overflow: hidden;
+    }
+    .carte-chambre img{
+        width: 500px;
+        height: 250px;
+        transition: 0.5s;
+    }
+    .carte-chambre img:hover{
+        transition: 0.5s;
+        transform: scale(1.1);
+    }
+    .gauche-carte-chambre{
+        flex-direction: row;
+        justify-content: center;
+    }
+    .droite-carte-chambre{
+        width: 30%;
+        margin-right: 50px;
+    }
+    .infos-techniques-chambre, .min-nuits, .prix-nuit{
+        display: none;
+    }
+
+    .desktop-chambre-infos table, .desktop-chambre-infos tr, .desktop-chambre-infos th, .desktop-chambre-infos td{
+        padding: 10px 25px;
+        border: 1px solid black;
+    }
+    .desktop-chambre-infos table{
+        margin-right: 30px;
+    }
+    .infos-techniques-chambre-desktop{
+        width: 100%;
+        height: 50px;
+        justify-content: center;
+        font-size: 10px;
+        display: flex;
+        padding: 5px;
+        gap: 10px;
+    }
+    .infos-techniques-chambre-desktop span{
+        font-size: 15px;
+        padding-left: 10px;
+    }
+    
 }
