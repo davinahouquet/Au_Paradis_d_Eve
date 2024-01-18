@@ -46,7 +46,7 @@ class EspaceType extends AbstractType
                 'label' => 'Prix*',
                 'attr' => ['class' => 'form-control']
             ])
-            ->add('description', TextType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => 'Description de l\'espace (facultative)',
                 'attr' => ['class' => 'form-control'],
                 'required' => false

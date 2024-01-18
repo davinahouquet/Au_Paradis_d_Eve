@@ -65,22 +65,18 @@ class ReservationController extends AbstractController
     public function newReservation( Espace $espace, Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
     {
         $user = $this->getUser();
-
         $reservation = new Reservation();
         
         if ($user){
             $email = $user->getEmail();
         }
         $chambre = $espace->getNomEspace();
-    
         $form = $this->createForm(ReservationType::class, $reservation);
-            
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-        
-        $reservation = $form->getData();
-        $reservation->setEspace($espace);
+            $reservation = $form->getData();
+            $reservation->setEspace($espace);
 
         // Vérifie la disponibilité de la chambre
         $message = $this->reservationService->verifierDisponibiliteChambre($espace, $reservation);
@@ -91,7 +87,6 @@ class ReservationController extends AbstractController
             } else {             
                 $entityManager->persist($reservation);
                 $entityManager->flush();
-                
                 //Redirection vers la deuxième partie de la réservation : formulaire de coordonnées     
                 $this->addFlash('message', 'Les informations ont bien été prises en compte, vous allez passer à l\'étape suivante...');
                 return $this->redirectToRoute('new_coordonnees', ['reservation' => $reservation->getId()]);

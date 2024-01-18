@@ -53,9 +53,10 @@ class UserController extends AbstractController
             //Insérer les heures de check-in et check-out
             $checkIn = 15;
             $checkOut= 11;
+
             //Trouver les dates de début et de fin de la réservation en question -> Trouver une meilleure façon si possible
-            $reservation->setDateDebut((new \DateTime($reservation->getDateDebut()->format("d-m-Y")))->setTime($checkIn, 0, 0)); //ok
-            $reservation->setDateFin((new \DateTime($reservation->getDateFin()->format("d-m-Y")))->setTime($checkOut, 0, 0)); //ok
+            $reservation->setDateDebut((new \DateTime($reservation->getDateDebut()->format("d-m-Y")))->setTime($checkIn, 0, 0));
+            $reservation->setDateFin((new \DateTime($reservation->getDateFin()->format("d-m-Y")))->setTime($checkOut, 0, 0));
 
             $reservation->setStatut($statut);
             
@@ -75,8 +76,6 @@ class UserController extends AbstractController
              // //la date du jour
             date_default_timezone_set('Europe/Paris');
             $currentDate = new \Datetime();
-            // dd($currentDate);
-
             $facture ='lien.pdf'; //lien vers le pdf
 
              // Calcul du prix total
@@ -118,7 +117,6 @@ class UserController extends AbstractController
                 //Définir l'user en session
                 $user = $this->getUser();
                 // $id = $user->getId();
-                // dd($id);
                 //si il y a bien un user connecté, et que la checkbox a été cochée
                 if($user){
                     $reservation->setUser($user);
@@ -134,12 +132,9 @@ class UserController extends AbstractController
                         $entityManager->flush();
                     }
                 }
-
-
                 //Et également dans la table réservation (via l'adresse de facturation)
                 $entityManager->persist($reservation);
                 $entityManager->flush();
-                // dd($reservation);
                 $this->addFlash('message', 'La réservation a bien été prise en compte');
                 return $this->redirectToRoute('reservations_a_venir');
             }
