@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block meta_description %} Nouvelle réservation - formulaire de réservation {% endblock %}
 {% block css %}
-    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
+<link rel="stylesheet" href="{{ asset('css/formulaireReservation.css') }}">
+    {# <link rel="stylesheet" href="{{ asset('css/reservation.css') }}"> #}
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
 {% endblock %}
 
@@ -51,7 +52,7 @@
                 {{ form_widget(form.options) }}
             </div>
             
-            <button type="submit" class="btn btn-primary">Réserver</button>
+            <button type="submit" class="btn btn-success">Réserver</button>
             {{ form_end(form) }}
             <p>Les champs marqués d'un * sont obligatoires</p>
         </div>
