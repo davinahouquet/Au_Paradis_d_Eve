@@ -209,6 +209,8 @@ footer{
         font-size: 15px;
         color: var(--white);
         background-color: var(--dark-brown);
+        bottom: 0;
+        z-index: 10;
     }
 
     footer a, footer p{
@@ -240,8 +242,7 @@ footer{
         position: absolute;
         top: 10px;
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-        /* background-color: red; */
-        /* gap: 100px; */
+        justify-content: center;
     }
 
     ul li{
@@ -258,7 +259,7 @@ footer{
         font-family: 'Licorice';
         padding: 0;
         margin: 0;
-        font-size: 10px;
+        font-size: 20px;
         display: flex;
         flex-direction: column;
         gap: 0;
@@ -266,6 +267,10 @@ footer{
 
     .logo li a{
         font-size: 8px;
+    }
+
+    .logo li{
+        margin: 0;
     }
 
     .user-menu, .burger-icon, .logo-burger{

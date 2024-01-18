@@ -9,16 +9,18 @@
     
     .action-espace{
         color: var(--hover);
-        margin: 20px;
+        position: absolute;
+        top: 60px;
+        right: 100px;
     }
-    
+    .action-espace-admin{
+        background-color: red;
+        height: 100px;
+
+    }
     .espaces-section h1{
         padding: 45px;
-        /* position: absolute; */
-        /* font-family: 'Licorice'; */
         font-size: 40px;
-        /* top: 50px; */
-        /* left: 30px; */
     }
     
     .espaces-liste{

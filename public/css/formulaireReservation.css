@@ -1,0 +1,42 @@
+.section-reservation{
+    width: 100%;
+    position: absolute;
+    min-height: 50vh;
+    margin-top: 70px;
+    top: -30px;
+}
+
+.reservation-form{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.section-reservation h1{
+    padding-top: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: center;
+}
+
+/* Taille mobile */
+@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px){
+    .section-reservation{
+        background-size: 100%;
+        background-image: linear-gradient(rgba(239, 232, 218, 0.57), rgba(255, 255, 255, 0.608)), url("../../img/guirlande.png");
+        background-repeat: no-repeat;
+    }
+}
+
+/* Taille desktop et + */
+@media only screen and (min-width : 1224px){
+    .section-reservation{
+        background-size: 100%;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.849), rgba(255, 235, 189, 0.508)), url("../../img/leaf.jpg");
+        background-repeat: no-repeat;
+    }
+
+    .reservation-form{
+        padding-left: 350px;
+        padding-right: 350px;
+    }
+}
