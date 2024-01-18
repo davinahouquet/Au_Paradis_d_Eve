@@ -40,6 +40,16 @@
                 <p>Votre séjour du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}, au nom de  {{reservationAVenir.prenom}}{{reservationAVenir.nom}}</p>
                 <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
                 <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
+                {% if reservationAVenir.options is not empty %}
+                <ul>
+                    {% for option in reservationAVenir.options %}
+                        <li>{{ option.nom }}</li>
+                        <li>{{ option.tarif }} €</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Pas d'option</p>
+            {% endif %}
                 <a href="{{ path('annuler_reservation', {'id' : reservationAVenir.id}) }}">Annuler ma réservation</a>
             {% endfor %}
             {% else %}
