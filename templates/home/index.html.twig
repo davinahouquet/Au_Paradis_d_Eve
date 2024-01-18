@@ -33,7 +33,7 @@
         <a href="{{ path('app_reservation') }}" class="titre-apercu-chambres"><h2>Réservez votre séjour</h2></a>
 
         <div class="conteneur-cartes-chambre">
-            {% for chambre in chambres %}
+            {% for chambre in chambres|slice(0,4) %}
             <div class="carte-chambre">
                 <a href="{{path('show_espace', {'id' :chambre.id})}}">
                     <div class="options-chambre-hover">

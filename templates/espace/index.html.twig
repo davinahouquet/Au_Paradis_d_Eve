@@ -11,7 +11,9 @@
 <section class="espaces-section">
     {# <img src="{{ asset('../img/bibliothèque.jpg') }}" alt="bibliothèque murale avec statue" class="espace-illustration"> #}
     <h1>Les chambres et espaces de vie</h1>
-    <a href="{{ path('new_espace')}}" class="action-espace"> + Ajouter un espace</a>
+    {% if is_granted("ROLE_ADMIN") %}
+        <a href="{{ path('new_espace')}}" class="action-espace"> + Ajouter un espace</a>     
+    {% endif %}
     <div class="espaces-liste">
         {% for espace in espaces %}
             <div class="espace">
@@ -28,10 +30,9 @@
                     {% endif %}
                 {% endfor %}
                 
-                    {# <a href="{{ path('app_direction', {'id' :espace.id})}}">Réserver</a> #}
                     {% if is_granted("ROLE_ADMIN") %}
-                        <a href="{{ path('edit_espace', {'id' :espace.id}) }}" class="action-espace">Modifier</a>
-                        <a href="{{ path('remove_espace', {'id' :espace.id}) }}" class="action-espace">Supprimer</a>
+                        <a href="{{ path('edit_espace', {'id' :espace.id}) }}" class="action-espace-admin">Modifier</a>
+                        <a href="{{ path('remove_espace', {'id' :espace.id}) }}" class="action-espace-admin">Supprimer</a>
                     {% endif %}
                     <br>
                 </div>
