@@ -26,8 +26,9 @@ class CalendarSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onCalendarSetData(CalendarEvent $calendar, Reservation $reservation, Espace $espace)
+    public function onCalendarSetData(CalendarEvent $calendar)
     {
+        dd('ok');
         $start = $calendar->getStart();
         $end = $calendar->getEnd();
         // $start = $reservation->getDateDebut();
