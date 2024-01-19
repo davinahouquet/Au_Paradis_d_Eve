@@ -7,12 +7,13 @@ use App\Entity\Espace;
 use App\Form\ImageType;
 use App\Form\EspaceType;
 use App\Repository\EspaceRepository;
-use App\Repository\CategorieRepository;
 use App\Services\ImageUploadService;
+use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EspaceController extends AbstractController
@@ -97,7 +98,18 @@ class EspaceController extends AbstractController
         $espaces = array_filter($espaces, function ($e) use ($espace) {
             return $e->getId() !== $espace->getId();
         });
-        shuffle($espaces);
+        shuffle($espaces); //Permet d'afficher aléatoirement les autres epsaces pour donner plus de visibilité
+
+        $reservations = $espace->getReservations();
+        $reservationData = [];
+
+        foreach ($reservations as $reservation) {
+            $reservationData[] = [
+                'title' => 'Indisponible', // Vous pouvez personnaliser le titre si nécessaire
+                'start' => $reservation->getDateDebut()->format('Y-m-d'),
+                'end' => $reservation->getDateFin()->format('Y-m-d'),
+            ];
+        }
 
         $repository = $entityManager->getRepository(Espace::class);
         $chambre = $repository->findByCategorie(1);
@@ -106,7 +118,8 @@ class EspaceController extends AbstractController
             'espace' => $espace,
             'chambre' => $chambre,
             'reservations' => $reservations,
-            'espaces' => $espaces
+            'espaces' => $espaces,
+            'reservationData' => json_encode($reservationData),
         ]);
     }
 }
