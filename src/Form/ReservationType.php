@@ -62,8 +62,10 @@ class ReservationType extends AbstractType
             'required' => true,
             'attr' => [
                 'class' => 'form-control',
+                'min' => (new \DateTime())->add(new \DateInterval('P1D'))->format('Y-m-d'),
             ],
             'label' => 'Date de fin*',
+            'data' => (new \DateTime())->add(new \DateInterval('P3D')), //2 jours minimum pour réserver
         ])
             ->add('options', EntityType::class, [
                 'class' => Option::class,
