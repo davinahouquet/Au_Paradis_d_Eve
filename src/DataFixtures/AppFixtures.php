@@ -22,12 +22,12 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $pseudos = [
-            "davina",
-            "ricardo",
+            "Tom",
+            "Jerry",
         ];
         $emails = [
-            "davina@deglingo.fr",
-            "ricardo@psycho.fr",
+            "tom@spike.fr",
+            "jerry@tyke.fr",
         ];
         $roles = [
             '["ROLE_ADMIN"]',
