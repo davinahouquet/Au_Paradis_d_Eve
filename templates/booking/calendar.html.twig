@@ -5,7 +5,7 @@
 {% block body %}
     {# <a href="{{ path('app_booking_new') }}">Réserver</a> #}
     <div id="calendar-holder"></div>
-    <a href="{{ path('app_direction', {'id' :espace.id})}}" type="button" class="btn btn-success">Réserver</a>
+    <a href="{{ path('new_reservation', {'id' :espace.id})}}" type="button" class="btn btn-success">Réserver</a>
 {% endblock %}
 
 {% block javascripts %}

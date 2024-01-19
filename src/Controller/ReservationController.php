@@ -49,21 +49,15 @@ class ReservationController extends AbstractController
             'chambres' => $chambres
         ]);
     }
-    
-    #[Route('/direction/{id}', name: 'app_direction')]
-    public function direction(Espace $espace, EntityManagerInterface $entityManager): Response
-    {
-        if(!$this->getUser()){
-            return $this->redirectToRoute('app_choix', ['id' => $espace->getId()]);
-        } else {
-            return $this->redirectToRoute('new_reservation', ['id' => $espace->getId()]);
-        }
-    }
 
     // Ajouter une réservation OU modifier
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
     public function newReservation( Espace $espace, Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
     {
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_choix', ['id' => $espace->getId()]);
+        }
+
         $user = $this->getUser();
         $reservation = new Reservation();
         
