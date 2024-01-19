@@ -6,27 +6,39 @@ use DateTime;
 use App\Entity\User;
 use App\Entity\Espace;
 use App\Form\UserType;
+use App\Entity\Booking;
 use App\Entity\Reservation;
 use App\Form\EmailFormType;
 use App\Form\CoordonneesType;
+use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
 use App\Form\ChangePasswordFormType;
 use App\Services\ReservationService;
+use Symfony\Component\Routing\Router;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
+use App\EventSubscriber\CalendarSubscriber;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use ContainerLcJPPOG\getBookingRepositoryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Loader\Configurator\mailer;
+use Symfony\Component\Mailer\Mailer as MailerMailer;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
     private $reservationService;
+    private $bookingEvent;
+    private $mailer;
 
-    public function __construct(ReservationService $reservationService)
+    public function __construct(ReservationService $reservationService, CalendarSubscriber $bookingEvent, MailerInterface $mailer)
     {
         $this->reservationService = $reservationService;
+        $this->bookingEvent = $bookingEvent;
+        $this->mailer = $mailer;
     }
     
     #[Route('/user', name: 'app_user')]
@@ -44,7 +56,7 @@ class UserController extends AbstractController
 
     // Deuxième partie du formulaire pour remplir le formulaire et passer le statut de la réservation à CONFIRMEE
     #[Route ('/user/coordonnees/{reservation}', name:'new_coordonnees')]
-    public function new_coordonnees(Reservation $reservation,  User $user = null, Espace $espace = null, EntityManagerInterface $entityManager, Request $request, ReservationRepository $reservationRepository): Response
+    public function new_coordonnees(Reservation $reservation,  User $user = null, Espace $espace = null, EntityManagerInterface $entityManager, Request $request, ReservationRepository $reservationRepository, MailerInterface $mailer): Response
     {
             // Afficher toutes les infos de la chambre qu'on réserve
             $espace = $reservation->getEspace();
@@ -65,6 +77,7 @@ class UserController extends AbstractController
 
             $dateDebut = $reservation->getDateDebut();
             $dateFin = $reservation->getDateFin();
+            
             // On Revérifie ici si réservation (pas que qqun ait réservé entre temps)
             $indisponible = $reservationRepository->findEspacesReserves($espace, $dateDebut, $dateFin);
             
@@ -76,10 +89,9 @@ class UserController extends AbstractController
              // //la date du jour
             date_default_timezone_set('Europe/Paris');
             $currentDate = new \Datetime();
-            $facture ='lien.pdf'; //lien vers le pdf
-
+            $facture = 'app_pdf_generator';
              // Calcul du prix total
-             $prixTotal = $this->reservationService->calculerPrixTotal($reservation);
+            $prixTotal = $this->reservationService->calculerPrixTotal($reservation);
                 
             //Création du formulaire de coordonnées
             $form = $this->createForm(CoordonneesType::class);
@@ -114,9 +126,12 @@ class UserController extends AbstractController
                 $reservation->setPrixTotal($prixTotal);
                 $reservation->setFacture($facture);
 
+                // Pour mettre la réservation dans le calendrier
+                // $bookingEvent->onCalendarSetData($reservation);
+
                 //Définir l'user en session
                 $user = $this->getUser();
-                // $id = $user->getId();
+
                 //si il y a bien un user connecté, et que la checkbox a été cochée
                 if($user){
                     $reservation->setUser($user);
@@ -127,16 +142,33 @@ class UserController extends AbstractController
                         $user->setVille($ville);
                         $user->setPays($pays);
 
-
                         $entityManager->persist($user);
                         $entityManager->flush();
                     }
                 }
+
                 //Et également dans la table réservation (via l'adresse de facturation)
                 $entityManager->persist($reservation);
                 $entityManager->flush();
-                $this->addFlash('message', 'La réservation a bien été prise en compte');
-                return $this->redirectToRoute('reservations_a_venir');
+
+                $emailReservation = $reservation->getEmail();
+                $prenom = $reservation->getPrenom();
+        
+                $email = (new Email())
+                    ->from('admin@auparadisdeve.fr')
+                    ->to($emailReservation)
+                    ->subject('Au Paradis d\'Eve - Votre réservation!')
+                    ->html('<p>See Twig integration for better HTML integration!</p>');
+        
+                $mailer->send($email);
+
+                
+                $this->addFlash('message', 'La réservation a bien été prise en compte, veuillez trouver toutes les informations nécessaires dans votre boîte mail');
+                if($user){
+                    return $this->redirectToRoute('reservations_a_venir');
+                } else {
+                    return $this->redirectToRoute('app_home');
+                }
             }
         return $this->render('reservation/coordonnees.html.twig', [
             'form' => $form,
@@ -296,7 +328,11 @@ class UserController extends AbstractController
     public function reservationsAVenirDirectory(ReservationRepository $reservationRepository, User $user)
     {
         $user = $this->getUser();
-        $reservationsAVenir = $reservationRepository->findReservationsAVenir($user);
+        if($user){
+            $reservationsAVenir = $reservationRepository->findReservationsAVenir($user);
+        } else {
+            $reservationsAVenir = [];
+        }
         $toutesReservationsAVenir = $reservationRepository->findToutesReservationsAVenir();
         
         return $this->render('user/reservations/a_venir.html.twig', [
