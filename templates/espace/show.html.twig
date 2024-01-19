@@ -85,20 +85,22 @@
         <div class="description-espace">
           <p>{{ espace.description }}</p>
         </div>
-        <h2>{{espace.prix}}€ /personne</h2>
-        
+        {# <h2>{{espace.prix}}€ /personne</h2> #}
         
         {# N'autoriser la réservation que si la catégorie est 1 (chambre) ou 11 (logement entier) #}
-          {% if espace.categorie.Id == 1 %}
-            <a href="{{ path('app_direction', {'id' :espace.id})}}" type="button" class="btn btn-success">Réserver</a>
+          {# {% if espace.categorie.Id == 1 %}
+            {% include 'booking/calendar.html.twig' %}
+            <h2>{{espace.prix}}€ /personne</h2>
           {% else %}
             <p>Cet espace est accessible avec votre réservation.</p>
           {% endif %}
   
           {% if espace.categorie.Id == 11 %}
-            <a href="{{ path('app_direction', {'id' :espace.id})}}" type="button" class="btn btn-success">Réserver</a>
-          {% endif %}
-          
+            {% include 'booking/calendar.html.twig' %}
+            <h2>{{espace.prix}}€ /personne</h2>
+          {% endif %} #}
+
+
           <h5 class="autres-espaces-title">Consulter les autres espaces...</h5>
 
           <div class="autres-espaces">
@@ -120,8 +122,22 @@
           </div>
       </div>
 
-
+      
     </div>
+    <div class="calendrier-container">
+      {% if espace.categorie.Id == 1 %}
+      {% include 'booking/calendar.html.twig' %}
+      <h2>{{espace.prix}}€ /personne</h2>
+    {% else %}
+      <p>Cet espace est accessible avec votre réservation.</p>
+    {% endif %}
+  
+    {% if espace.categorie.Id == 11 %}
+      {% include 'booking/calendar.html.twig' %}
+      <h2>{{espace.prix}}€ /personne</h2>
+    {% endif %}
+    </div>
+
 
     <div class="avis-bas-de-page">
       {# Avis #}

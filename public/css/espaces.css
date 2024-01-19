@@ -121,6 +121,9 @@
         padding: 130px 50px 50px 50px;
     }
 /* } */
+    .autres-espaces{
+        display: none;
+    }
 
 @media (device-height: 430px) and (device-width: 932px){
 
