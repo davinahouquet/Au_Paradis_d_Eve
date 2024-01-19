@@ -1,0 +1,64 @@
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/calendrier.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
+{% block body %}
+    {# <a href="{{ path('app_booking_new') }}">Réserver</a> #}
+    <div id="calendar-holder"></div>
+    <a href="{{ path('app_direction', {'id' :espace.id})}}" type="button" class="btn btn-success">Réserver</a>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/main.min.js" integrity="sha256-dHUNnePy81fXq4D/wfu7cPsEIP7zl6MvLb84jtZf+UY=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            var today = new Date();
+            today.setHours(12, 0, 0, 0); // Réinitialise les heures, minutes, secondes et millisecondes à 0
+            // Ajouter un jour à la date du jour
+            today.setDate(today.getDate() + 1)
+
+            var calendarEl = document.getElementById('calendar-holder');
+
+            // Récupérer les dates de début et de fin de réservation depuis PHP (Twig)
+            var reservations = "{{ reservations|json_encode|raw }}";
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                defaultView: 'dayGridMonth',
+                editable: true,
+                eventSources: [
+                    {
+                        url: "{{ path('fc_load_events') }}",
+                        method: "POST",
+                        extraParams: {
+                            filters: JSON.stringify({})
+                        },
+                        failure: () => {
+                            // alert("There was an error while fetching FullCalendar!");
+                        },
+                    },
+                    {
+                        events: "{{ path('show_espace', {'id': espace.id}) }}",
+                        eventColor: '#378006'
+                    },
+                    {
+                        events: reservations,
+                        display: 'background',
+                        color: '#FF0000'
+                    }
+                ],
+                headerToolbar: {
+                    start: 'prev,next today',
+                    center: 'title',
+                    end: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                timeZone: 'UTC+1',
+                validRange: {
+                    start: today
+                },
+            });
+
+            calendar.render();
+        });
+    </script>
+{% endblock %}
