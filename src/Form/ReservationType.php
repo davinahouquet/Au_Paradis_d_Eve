@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Option;
 use App\Entity\Reservation;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -50,18 +52,18 @@ class ReservationType extends AbstractType
             'required' => true,
             'attr' => [
                 'class' => 'form-control',
-                // 'min' => ( new \DateTime() )->format('Y-m-d H:i:s')
+                'min' => (new \DateTime())->add(new \DateInterval('P1D'))->format('Y-m-d'),
             ],
             'label' => 'Date de début*',
-            'data' => new \DateTime()
+            'data' => (new \DateTime())->add(new \DateInterval('P1D')), // La date du jour + 1 jour
         ])
         ->add('date_fin', DateType::class, [
             'widget' => 'single_text',
             'required' => true,
             'attr' => [
-                'class' => 'form-control'
+                'class' => 'form-control',
             ],
-            'label' => 'Date de fin*'
+            'label' => 'Date de fin*',
         ])
             ->add('options', EntityType::class, [
                 'class' => Option::class,
