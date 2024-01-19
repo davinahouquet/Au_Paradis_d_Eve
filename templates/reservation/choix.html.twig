@@ -11,7 +11,7 @@
     <section class="section-reservation">
         <h1>Poursuivre...</h1>
         <p>En tant qu'invité</p>
-        <a href="{{ path('new_reservation', {'id' : espace.id }) }}">POURSUIVRE</a>
+        <a href="{{ path('new_reservation', {'id' : espace.id, 'acceptInvited' : true }) }}">POURSUIVRE</a>
         <hr>
         <p>En me connectant</p>
         <a href="{{ path('app_login')}}">CONNEXION</a>

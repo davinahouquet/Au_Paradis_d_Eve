@@ -54,7 +54,7 @@ class ReservationController extends AbstractController
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
     public function newReservation( Espace $espace, Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
     {
-        if(!$this->getUser()){
+        if(!$this->getUser() && !$request->query->get('acceptInvited')){
             return $this->redirectToRoute('app_choix', ['id' => $espace->getId()]);
         }
 

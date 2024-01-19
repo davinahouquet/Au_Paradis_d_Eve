@@ -28,14 +28,12 @@ class ReservationRepository extends ServiceEntityRepository
     return $this->createQueryBuilder('r')
 
         ->where('r.espace = :espace')
-        // ->andWhere('r.user = :user')
         ->andWhere('r.date_debut <= :date_fin')
         ->andWhere('r.date_fin >= :date_debut')
         ->andWhere('r.adresseFacturation IS NOT NULL')
         ->setParameter('espace', $espace)
         ->setParameter('date_debut', $dateDebut)
         ->setParameter('date_fin', $dateFin)
-        // ->setParameter('user', $user)
         ->getQuery()
         ->getResult();
 
@@ -161,36 +159,4 @@ class ReservationRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-//     public function findLatestReservation(): ?Reservation
-// {
-//     return $this->createQueryBuilder('r')
-//         ->orderBy('r.date_reservation', 'DESC')
-//         ->setMaxResults(1)
-//         ->getQuery()
-//         ->getOneOrNullResult();
-// }
-//    /**
-//     * @return Reservation[] Returns an array of Reservation objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Reservation
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
