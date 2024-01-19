@@ -8,7 +8,7 @@
 {% block body %}
 
     <div class="profil">
-
+    {% if app.user %}
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('toutes_reservations') }}">Retour</a>
         {% else %}
@@ -31,7 +31,6 @@
                 <a href="{{ path('app_reservation') }}">Réserver</a>
             {% endif %}    
         {% endif %}
-
 
         {% if reservationsAVenir %}
                 <h5>Vos réservations à venir</h5>
@@ -56,5 +55,6 @@
             <h5>Pas de réservations à venir</h5>
             <a href="{{ path('app_reservation') }}">Réserver</a>
         {% endif %}
+    {% endif %}
     </div>
 {% endblock %}
