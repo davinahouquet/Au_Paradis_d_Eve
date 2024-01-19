@@ -14,6 +14,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    transition: 1s;
 }
 
 .edit-home-text{
@@ -368,7 +369,7 @@
         /* max-width: 500px; */
         border-radius: 0;
         padding: 30px;
-        width: 345px;
+        width: 340px;
         height: 500px;
         font-size: 20px;
         position: absolute;
