@@ -2,11 +2,12 @@
 /* Taille par défaut : mobile */
     /* Section */
     .reservation{
-        max-width: 100%;
         width: 100%;
-        min-height: 100vh;
-        position: absolute;
-        top: 60px;
+        height: auto;
+        /* min-height: 100vh; */
+        max-width: 100%;
+        position: relative;
+        margin-top: 60px;
     }
     .reservation a{
         color: var(--hover);

@@ -3,8 +3,8 @@
     .espaces-section{
         width: 100%;
         min-height: 100vh;
-        position: absolute;
-        top: 60px;
+        position: relative;
+        margin-top: 60px;
     }
     
     .action-espace{

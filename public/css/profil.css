@@ -1,8 +1,9 @@
 /* SECTION PROFIL */
-@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+/* @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) { */
     .profil, .registration, .login{
         min-height: 100vh;
         padding: 120px 50px 50px 50px;
+        position: relative;
     }
 
     .profil h1{
@@ -53,4 +54,4 @@
     .profil h6{
         font-size: 20px;
     }
-}
+/* } */

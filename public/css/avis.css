@@ -1,9 +1,10 @@
 /* SECTION AVIS */
-@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+/* @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) { */
     .section-avis{
         min-height: 100vh;
         width: 100%;
         padding: 130px 50px 50px 50px;
+        position: relative;
     }
 
     .evaluation{
@@ -27,4 +28,4 @@
         color: #007BFF; /* Couleur bleue, ajustez selon vos préférences */
     }
 
-}
+/* } */
