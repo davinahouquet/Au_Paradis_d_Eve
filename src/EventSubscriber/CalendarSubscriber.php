@@ -52,7 +52,7 @@ class CalendarSubscriber implements EventSubscriberInterface
             ->getQuery()
             ->getSingleResult();
         ;
-dd($_SESSION);
+
         foreach ($espace->getReservations() as $reservation) {
             $bookingEvent = new Event(
                 $_SESSION['user']['role'] = 'ROLE_ADMIN' ? $reservation->getNom() . ' ' . $reservation->getPrenom()  : "Reservé",
