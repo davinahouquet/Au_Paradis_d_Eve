@@ -75,13 +75,14 @@ footer{
     
     nav {
         position: fixed;
+        top: 0;
         background-color: rgb(255, 255, 255);
         width: 100%;
         height: 60px;
         display: flex;
         align-items: center;
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-        z-index: 3;
+        z-index: 1000;
     }
     
     .icon-name{
@@ -206,15 +207,16 @@ footer{
     }
 
     footer{
-        position: static;
+        position: fixed;
+        bottom: 0;
         width: 100%;
+        z-index: 1000;
         height: auto;
         padding: 10px;
         font-size: 15px;
         color: var(--white);
         background-color: var(--dark-brown);
-        bottom: 0;
-        z-index: 10;
+        margin-top: 50px;
     }
 
     footer a, footer p{
@@ -277,7 +279,7 @@ footer{
         margin: 0;
     }
 
-    .user-menu, .burger-icon, .logo-burger{
+    .user-menu, .burger-icon, .logo-burger, .icon-name{
         display: none;
     }
 

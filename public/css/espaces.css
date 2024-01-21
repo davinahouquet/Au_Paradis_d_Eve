@@ -15,7 +15,7 @@
     }
     .action-espace-admin{
         background-color: red;
-        height: 100px;
+        z-index: 5;
 
     }
     .espaces-section h1{
@@ -150,6 +150,7 @@
         justify-content: center;
         flex-wrap: wrap;
         width: 100%;
+        margin-bottom: 50px;
     }
 
     .espaces-section h1{
