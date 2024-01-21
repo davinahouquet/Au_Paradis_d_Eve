@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\SortieType;
 use App\Form\HomeTextType;
+use App\Form\QuestionsPratiquesType;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -125,4 +126,46 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/reservations.html.twig');
     }    
+
+    #[Route('/admin/edit/question/{id}', name: 'edit_question')]
+    public function editQuestion(Request $request, EntityManagerInterface $entityManager, $id): Response
+    {
+        $jsonFilePath = '../public/json/questions_pratiques.json';
+        $jsonData = file_get_contents($jsonFilePath);
+        $data = json_decode($jsonData, true);
+    
+        $questionToEdit = null;
+        foreach ($data as &$question) { //Le symbole & dans la boucle foreach crée une référence à chaque élément du tableau plutôt que de créer une copie de la valeur. Sans le &, la boucle foreach travaillerait sur des copies des éléments du tableau, et toute modification apportée à ces copies n'aurait aucun impact sur le tableau d'origine.
+            if ($question['id'] == $id) {
+                $questionToEdit = $question;
+                break;
+            }
+        }
+    
+        $form = $this->createForm(QuestionsPratiquesType::class, $questionToEdit);
+    
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $updatedData = $form->getData();
+    
+            foreach ($data as &$question) {
+                if ($question['id'] == $id) {
+                    $question = $updatedData;
+                    break;
+                }
+            }
+    
+            $updatedJson = json_encode($data, JSON_PRETTY_PRINT);
+            file_put_contents($jsonFilePath, $updatedJson);
+    
+            $this->addFlash('success', 'Les informations ont été mises à jour avec succès.');
+            return $this->redirectToRoute('questions_pratiques');
+        }
+    
+        return $this->render('admin/edit_questions.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    
 }

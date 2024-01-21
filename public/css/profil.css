@@ -1,8 +1,6 @@
 /* SECTION PROFIL */
-/* @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) { */
     .profil, .registration, .login{
         min-height: 100vh;
-        padding: 120px 50px 50px 50px;
         position: relative;
     }
 
@@ -54,4 +52,32 @@
     .profil h6{
         font-size: 20px;
     }
-/* } */
+
+    .questions_pratiques{
+        display: block;
+        text-align: justify;
+    }   
+
+    @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) {
+        .profil, .registration, .login{
+            padding: 120px 50px 50px 50px;
+        }  
+    }
+
+    /* Taille desktop et + */
+    @media only screen and (min-width : 1224px){
+        
+        .questions-h1{
+            display: block;
+            padding-top: 30px;
+        }
+        .questions_pratiques{
+            display: block;
+            text-align: justify;
+            padding-bottom: 100px;
+        }
+
+        .profil, .registration, .login{
+            padding: 120px 50px 50px 50px;
+        }  
+    }

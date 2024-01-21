@@ -1,0 +1,77 @@
+[
+    {
+        "id": "1",
+        "question": "Le petit d\u00e9jeuner est-il inclus?",
+        "reponse": "Oui, le petit d\u00e9jeuner est offert lorsque vous r\u00e9servez en direct. C\u2019est-\u00e0-dire lorsque vous r\u00e9servez en ligne sur ce site, par email, par t\u00e9l\u00e9phone. Il est en suppl\u00e9ment lorsque vous r\u00e9servez sur les agences de r\u00e9servation en ligne comme Booking et autres. Il est servi de 8h \u00e0 9h30 en salle ou en terrasse selon la m\u00e9t\u00e9o et selon vos envies."
+    },
+    {
+        "id": 2,
+        "question": "Comment peut-on se restaurer lorsqu\u2019on s\u00e9journe en chambres d\u2019h\u00f4tes?",
+        "reponse": "Je propose 2 d\u00eeners par semaine en table d\u2019h\u00f4tes sur r\u00e9servation. Les soirs sont d\u00e9termin\u00e9s en fonction des demandes de mes h\u00f4tes afin de constituer une table conviviale. Les autres soirs, je vous propose les meilleures recommandations de restaurants dans les villages alentours \u00e0 moins de 10mn de voiture. Certains soirs, je vous pr\u00e9pare des tapas maison entre 17h et 19h30. Vous pouvez aussi utiliser mes espaces ext\u00e9rieurs pour vos piques-niques. Vous disposez d\u2019un r\u00e9frig\u00e9rateur et d\u2019un micro-onde communs. L\u2019usage de la cuisine est r\u00e9serv\u00e9 \u00e0 notre usage professionnel et privatif."
+    },
+    {
+        "id": 3,
+        "question": "Avez-vous un parking?",
+        "reponse": "Oui, nous disposons d\u2019un parking priv\u00e9 et gratuit."
+    },
+    {
+        "id": 4,
+        "question": "Y a-t-il le wifi dans les chambres d\u2019h\u00f4tes?",
+        "reponse": "Oui, toutes les chambres ont acc\u00e8s au wifi gratuit mais nous sommes en milieu rural, le d\u00e9bit reste tr\u00e8s faible."
+    },
+    {
+        "id": 5,
+        "question": "Les chambres d\u2019h\u00f4tes ont-elles des salles de bain privatives?",
+        "reponse": "Non, toutes nos chambres d\u2019h\u00f4tes n'ont une salle de bain et wc privatifs actuellement."
+    },
+    {
+        "id": 6,
+        "question": "Les chambres sont-elles \u00e0 l\u2019\u00e9tage?",
+        "reponse": "Oui."
+    },
+    {
+        "id": 7,
+        "question": "Les chambres ont-elles une terrasse?",
+        "reponse": "Pas de terrasse privative mais des terrasses et des jardins tout autour de la maison dont vous pouvez disposer \u00e0 toute heure. Vous pouvez rester dans l\u2019intimit\u00e9 ou vous m\u00ealer aux autres h\u00f4tes."
+    },
+    {
+        "id": 8,
+        "question": "Les chambres sont-elles dans la maison du propri\u00e9taire?",
+        "reponse": "Oui."
+    },
+    {
+        "id": 9,
+        "question": "Les chambres sont-elles adapt\u00e9es pour les familles?",
+        "reponse": "Oui, elles sont adapt\u00e9es aux enfants et adolescents. Certains pr\u00e9f\u00e8reront prendre 2 chambres, c\u2019est aussi possible et gros avantage elles sont toutes au m\u00eame \u00e9tage. Je pratique la gratuit\u00e9 pour les enfants de moins de 2 ans en chambre confort. Je pr\u00eate chaise haute et baignoire. Merci d\u2019indiquer \u00e0 la r\u00e9servation si vous souhaitez louer un lit parapluie (10\u20ac\/s\u00e9jour)."
+    },
+    {
+        "id": 10,
+        "question": "Les chambres d\u2019h\u00f4tes sont-elles adapt\u00e9es pour les personnes \u00e0 mobilit\u00e9 r\u00e9duite?",
+        "reponse": "L\u2019\u00e9tablissement n\u2019est pas totalement accessible aux personnes \u00e0 mobilit\u00e9 r\u00e9duite, aussi je vous invite \u00e0 me contacter pour communiquer en amont de votre s\u00e9jour."
+    },
+    {
+        "id": 11,
+        "question": "Les animaux sont-ils admis dans les chambres d\u2019h\u00f4tes?",
+        "reponse": "Oui ! \u2665"
+    },
+    {
+        "id": 12,
+        "question": "Y a-t-il la t\u00e9l\u00e9vision dans les chambres?",
+        "reponse": "Non, cela viendrait rompre la qui\u00e9tude et la convivialit\u00e9 du lieu. Ici, c\u2019est plut\u00f4t une reconnexion avec la nature, soi-m\u00eame, avec les autres. Observer les \u00e9toiles, faire une balade au cr\u00e9puscule et au coucher du soleil en suivant le sentier de d\u00e9couverte, partager l\u2019ap\u00e9ritif en amoureux ou avec d\u2019autres personnes ou la table du d\u00eener, bouquiner en terrasse, faire des jeux de soci\u00e9t\u00e9 (biblioth\u00e8que et jeux de soci\u00e9t\u00e9 sur place)."
+    },
+    {
+        "id": 13,
+        "question": "Y a-t-il une cafeti\u00e8re ou une bouilloire dans les chambres?",
+        "reponse": "Un plateau de courtoisie avec caf\u00e9, th\u00e9 et tisane est \u00e0 disposition 24h\/24h dans le couloir des chambres."
+    },
+    {
+        "id": 14,
+        "question": "A quelle heure peut-on arriver?",
+        "reponse": "Les arriv\u00e9es se font de 17h \u00e0 19h30 ou sur rdv lorsque c\u2019est possible. Dans ce cas, merci de nous contacter la veille."
+    },
+    {
+        "id": 15,
+        "question": "Etes-vous ouverts en ce moment?",
+        "reponse": "Nous sommes ouverts du 1er Avril au 15 Novembre, accueil de groupe sur demande pendant la p\u00e9riode de fermeture annuelle (3 nuits minimum), nous contacter."
+    }
+]
