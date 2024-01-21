@@ -23,9 +23,13 @@
                     <p>Tarif approximatif: {{ sortie.tarif_sortie }} €</p>
                 </div>
                 <div class="img-credit-alentours">
-                    {# <img src="{{ sortie.image_sortie }}" alt="{{ sortie.nom_sortie }}" width="200" height="150"> #}
-                    <img src="{{ asset('../img/citadelle.png') }}" alt="{{ sortie.nom_sortie }}" class="image-sortie">
-                    <p class="credit">@utilisateur ou lien pour crédit photo</p>
+                    {% if sortie.image_sortie|length > 1 %}
+                        <img src="{{ asset('img/' ~ sortie.image_sortie) }}" alt="{{ sortie.nom_sortie }}" class="image-sortie">
+                    {% else %}
+                        <img src="{{ asset('../img/citadelle.png') }}" alt="{{ sortie.nom_sortie }}" class="image-sortie">
+
+                    {% endif %}
+                    <a href="{{ sortie.credit }}" class="credit">{{ sortie.credit }}</a>
                 </div>
             </li>
         {% endfor %}

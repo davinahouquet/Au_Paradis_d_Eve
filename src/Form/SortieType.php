@@ -32,6 +32,11 @@ class SortieType extends AbstractType
         ->add('image_sortie', TextType::class, [
             'label' => 'Image',
             'attr' => ['class' => 'form-control'],
+            'required' => false
+        ])
+        ->add('credit', TextType::class, [
+            'label' => 'Crédit photo',
+            'attr' => ['class' => 'form-control'],
         ])
         ->add('save', SubmitType::class, [
             'label' => 'Enregistrer',
