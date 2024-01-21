@@ -27,7 +27,7 @@ class ImageController extends AbstractController
         $entityManager->remove($image);
         $entityManager->flush();
 
-        $this->addFlash('message', 'bien joué mec');
+        $this->addFlash('message', 'Image supprimée avec succès');
         
         return $this->redirectToRoute('show_espace', ['id'=> $espaceId]);
     }
