@@ -361,10 +361,14 @@ class UserController extends AbstractController
     #[Route('/user/questions/pratiques', name: 'questions_pratiques')]
     public function questionsPratiques()
     {
-        return $this->render('user/questions_pratiques.html.twig');
+        $jsonData = file_get_contents('../public/json/questions_pratiques.json');
+        $data = json_decode($jsonData, true);
+
+        return $this->render('user/questions_pratiques.html.twig', [
+            'data' => $data
+        ]);
     }
 
-    //TEST
     public function disponibiliteEspace(Espace $espace, \DateTime $dateDebut, \DateTime $dateFin, EntityManagerInterface $entityManager)
     {
         $reservationRepository = $entityManager->getRepository(Reservation::class);
