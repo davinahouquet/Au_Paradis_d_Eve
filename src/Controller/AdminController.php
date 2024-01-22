@@ -79,7 +79,7 @@ class AdminController extends AbstractController
                 $entityManager->persist($option);
                 $entityManager->flush();
     
-                $this->addFlash('success', 'Option modifiée');
+                $this->addFlash('success', 'Options modifiées');
                 return $this->redirectToRoute('liste_options');
         }
     
