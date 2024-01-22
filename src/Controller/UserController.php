@@ -158,7 +158,10 @@ class UserController extends AbstractController
                     ->from('admin@auparadisdeve.fr')
                     ->to($emailReservation)
                     ->subject('Au Paradis d\'Eve - Votre réservation!')
-                    ->html('<p>See Twig integration for better HTML integration!</p>');
+                    ->html($this->renderView('mailer/index.html.twig', [
+                        'reservation' => $reservation,
+                        'espace' => $espace,
+                    ]));
         
                 $mailer->send($email);
 

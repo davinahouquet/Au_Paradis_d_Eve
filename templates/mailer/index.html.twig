@@ -1,9 +1,72 @@
-{% block title %}Hello MailerController!{% endblock %}
+{% block title %}Au Paradis d'Eve - Confirmation de réservation{% endblock %}
 
 {% block body %}
 
-    <h1>Bonjour</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de Réservation - Au Paradis d'Eve</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
 
-    <p>Lien d'annulation</p>
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #db7f34;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Confirmation de Réservation</h1>
+        <p>Merci d'avoir choisi Au Paradis d'Eve pour votre séjour. Votre réservation a été confirmée avec succès.</p>
+        
+        <h2>Détails de la Réservation :</h2>
+        <ul>
+            <li><strong>Numéro de Réservation :</strong> {{ reservation.id }}</li>
+            <li><strong>Votre chambre :</strong> {{ espace.nomEspace }}</li>
+            {% if reservation.options is not null %}
+            {% for option in reservation.options %}
+            {{ option.nom }} - {{ option.tarif }} €<br>
+            {% endfor %}
+            {% endif %}
+            <li>Tarif : <strong>{{ reservation.prixTotal }}</strong> € </li>
+        </ul>
+        
+        <p>Vous pouvez annuler votre réservation en suivant ce <a href="{{ path('annuler_reservation', {'id' : reservation.id}) }}">lien d'annulation</a>.</p>
+        
+        <p>Consultez nos <a href="{{ path('conditions') }}">Conditions Générales d'Utilisation</a> pour plus d'informations.</p>
+
+        <p>Merci de nous avoir choisis. Nous sommes impatients de vous accueillir à Au Paradis d'Eve.</p>
+        
+        <p>Cordialement,<br>Au Paradis d'Eve</p>
+    </div>
+</body>
+</html>
 
 {% endblock %}
