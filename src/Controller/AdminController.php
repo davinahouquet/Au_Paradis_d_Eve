@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Option;
+use App\Form\OptionType;
 use App\Form\SortieType;
 use App\Form\HomeTextType;
+use Doctrine\ORM\Mapping\Entity;
 use App\Form\QuestionsPratiquesType;
-use App\Repository\ReservationRepository;
+use App\Repository\OptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,6 +28,8 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
         ]);
     }
+
+    // [DEPRECATED]
     public function listeOptions(): Response
     {
         $jsonFilePath = '../public/json/options.json';
@@ -43,6 +49,65 @@ class AdminController extends AbstractController
         ]);
     }
 
+    //Afficher la liste des options
+    #[Route('/admin/options', name: 'liste_options')]
+    public function options(OptionRepository $optionRepository): Response
+    {
+        $options = $optionRepository->findAll();
+    
+        return $this->render('admin/liste_options.html.twig', [
+            'options' => $options
+        ]);
+    }
+
+    //Ajouter ou modifier une option
+    #[Route('/admin/edit/option/{id}', name: 'edit_option')]
+    #[Route('/admin/new/option', name: 'new_option')] 
+    public function NewEditOption(Option $option, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if(!$option){
+            $option = new Option();
+        }
+
+        $form = $this->createForm(OptionType::class, $option);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+                $option = $form->getData();
+
+                $entityManager->persist($option);
+                $entityManager->flush();
+    
+                $this->addFlash('success', 'Option modifiée');
+                return $this->redirectToRoute('liste_options');
+        }
+    
+        return $this->render('admin/edit_option.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    //Supprimer une option
+    #[Route('/admin/remove/option/{id}', name: 'remove_option')]
+    public function removeOption(Option $option, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $reservations = $option->getReservations();
+
+        if(sizeof($reservations) > 1){
+            $this->addFlash('error', 'Ces options sont inclues dans des réservations. Vous ne pouvez pas la supprimer si des réservations y sont associées.');
+            return $this->redirectToRoute('liste_options');
+        }
+
+        $entityManager->remove($option);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Option supprimée');
+        return $this->redirectToRoute('liste_options');
+    }
+    
+
+    // Edition des textes de la page d'accueil
     #[Route('/admin/edit_home_text', name: 'admin_edit_home_text')]
     public function editHomeText(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -82,7 +147,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-        
+    // Edition des textes des alentours
     #[Route('/admin/edit/sortie/{id}', name: 'edit_alentours')]
     public function editSortie(Request $request, EntityManagerInterface $entityManager, $id): Response
     {
@@ -121,12 +186,14 @@ class AdminController extends AbstractController
         ]);
     }    
 
+    // Vue sur l'ensemble des réservations
     #[Route('/admin/toutes/reservations', name: 'toutes_reservations')]
     public function voirToutesReservations()
     {
         return $this->render('admin/reservations.html.twig');
     }    
 
+    // Edition des questions pratiques
     #[Route('/admin/edit/question/{id}', name: 'edit_question')]
     public function editQuestion(Request $request, EntityManagerInterface $entityManager, $id): Response
     {

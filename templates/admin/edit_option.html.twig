@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block meta_description %} Formulaire de modification des options - Administration {% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section class="profil">
+        <h1>Modifier les options</h1>
+
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+        {{ form_end(form) }}
+
+    </section>
+{% endblock %}
