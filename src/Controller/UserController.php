@@ -15,6 +15,7 @@ use App\Repository\UserRepository;
 use App\Form\ChangePasswordFormType;
 use App\Services\ReservationService;
 use Symfony\Component\Routing\Router;
+use App\Form\CoordonneesConnectedType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
 use App\EventSubscriber\CalendarSubscriber;
@@ -23,9 +24,9 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use ContainerLcJPPOG\getBookingRepositoryService;
+use Symfony\Component\Mailer\Mailer as MailerMailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Loader\Configurator\mailer;
-use Symfony\Component\Mailer\Mailer as MailerMailer;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
@@ -94,7 +95,11 @@ class UserController extends AbstractController
             $prixTotal = $this->reservationService->calculerPrixTotal($reservation);
                 
             //Création du formulaire de coordonnées
-            $form = $this->createForm(CoordonneesType::class);
+            if($this->getUser()){
+                $form = $this->createForm(CoordonneesConnectedType::class);
+            } else {
+                $form = $this->createForm(CoordonneesType::class);
+            }
             $form->handleRequest($request);
             
             // if($this->getUser()){
@@ -109,6 +114,9 @@ class UserController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 
                 $formData = $form->getData();
+                // Vérifier si la clé 'souvenir' existe dans $formData
+                $souvenir = isset($formData['souvenir']) ? $formData['souvenir'] : false;
+
                 
                 // On ne manipule plus d'objet mais bien un tableau associatif
                 $email = $formData['email'];
@@ -116,7 +124,7 @@ class UserController extends AbstractController
                 $cp = $formData['cp'];
                 $ville = $formData['ville'];
                 $pays = $formData['pays'];
-                $souvenir = $formData['souvenir'];
+                // $souvenir = $formData['souvenir'];
                 
                 //Définir l'adresse de facturation grâce aux données récupérées dans le formulaire
                 $adresseFacturation = $adresse.' '.$cp." ".$ville.' '.$pays;
@@ -162,9 +170,7 @@ class UserController extends AbstractController
                         'reservation' => $reservation,
                         'espace' => $espace,
                     ]));
-        
                 $mailer->send($email);
-
                 
                 $this->addFlash('message', 'La réservation a bien été prise en compte, veuillez trouver toutes les informations nécessaires dans votre boîte mail');
                 if($user){

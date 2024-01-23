@@ -2,18 +2,17 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class CoordonneesType extends AbstractType
+class CoordonneesConnectedType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -68,18 +67,13 @@ class CoordonneesType extends AbstractType
                 'disabled' => true, // lecture seule
                 'currency' => 'EUR', // Devise
         ])
-        // ->add('souvenir', CheckboxType::class, [
-        //     'attr' => [
-        //         'class' => 'souvenir',
-        //         'value' => false
-        //     ]
-        // ])
-        // ->add('souvenir', HiddenType::class, [
-        //     'data' => false,
-        //     'attr' => [
-        //         'class' => 'souvenir',
-        //     ],
-        // ])
+        ->add('souvenir', CheckboxType::class, [
+                'label' => 'Se souvenir de mon adresse pour de futures réservations',
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-check-input',
+                ]
+        ])
         ->add('valider', SubmitType::class, [
             'attr' => [
                 'class' => 'btn btn-success',
