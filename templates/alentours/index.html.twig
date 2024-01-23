@@ -10,12 +10,21 @@
 {% block body %}
 
 <section class="alentours">
-    <h1>Nos 5 propositions de sorties</h1>
+    
+    {# {% if is_granted('ROLE_ADMIN') %}
+        <a href="">Ajouter une sortie</a>
+    {% endif %} #}
+    
+    <h1>Nos 5 propositions de sorties</h1>    
+
     <ul>
         {% for sortie in data.sorties %}
             <li>
                 {% if is_granted('ROLE_ADMIN') %}
+                <div class="action-admin">
                     <a href="{{ path('edit_alentours', {'id': sortie.id_sortie}) }}">Modifier</a>
+                    {# <a href="">Supprimer</a> #}
+                </div>
                 {% endif %}
                 <div class="titre-texte-tarif-alentours">
                     <h2>{{ sortie.nom_sortie }}</h2>
@@ -24,7 +33,8 @@
                 </div>
                 <div class="img-credit-alentours">
                     {% if sortie.image_sortie|length > 1 %}
-                        <img src="{{ asset('img/' ~ sortie.image_sortie) }}" alt="{{ sortie.nom_sortie }}" class="image-sortie">
+                        {# <img src="{{ asset('img/' ~ sortie.image_sortie) }}" alt="{{ sortie.nom_sortie }}" class="image-sortie"> #}
+                        <img src="{{ sortie.image_sortie }}" alt="{{ sortie.nom_sortie }}" class="image-sortie">
                     {% else %}
                         <img src="{{ asset('../img/citadelle.png') }}" alt="{{ sortie.nom_sortie }}" class="image-sortie">
 
@@ -34,8 +44,6 @@
             </li>
         {% endfor %}
     </ul>
-    {# <button id="scrollToTopBtn" onclick="scrollToTop()"><span class="material-symbols-outlined">
-        arrow_upward
-    </span></button> #}
+
 </section>
 {% endblock %}
