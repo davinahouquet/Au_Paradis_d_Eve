@@ -12,57 +12,148 @@
     <section class="profil">
 
         {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('toutes_reservations') }}">Retour</a>
+        <a href="{{ path('toutes_reservations') }}">Retour</a>
         {% else %}
-            <a href="{{ path('app_user') }}">Retour au profil</a>
+        <a href="{{ path('app_user') }}">Retour au profil</a>
         {% endif %}
+        <h1>Les annulations</h1>
         
         <div class="rappel">
             <p>Rappel concernant les statuts des réservations :</p>
             <ol>
-                <li>"<b><span style="color:#FFA800">A REMBOURSER</span></b>" concerne les réservations dont l'annulation est survenue 30j avant la date de début du séjour.</li>
-                <li> "<b><span style="color:#FFA800">A REMBOURSER PARTIELLEMENT</span></b>" concerne les réservations dont l'annulation est survenue 20j avant la date de début du séjour. <br></li>
-                <li>"<b><span style="color:#FFA800">ANNULEE</span></b>" concerne les réservations survenues moins de 20j avant la date de début du séjour.</li>
+                <li>"<b><span style="color:#FFA800">A REMBOURSER</span></b>" concerne les réservations dont l'annulation est survenue 30j avant la date de début du séjour, ou à n'importe quel moment par le responsable de l'établissement. Un remboursement est à effectuer.</li>
+                <li> "<b><span style="color:#FFA800">A REMBOURSER PARTIELLEMENT</span></b>" concerne les réservations dont l'annulation est survenue 20j avant la date de début du séjour. 30% sont dues au client. <br></li>
+                <li>"<b><span style="color:#FFA800">ANNULEE</span></b>" concerne les réservations survenues moins de 20j avant la date de début du séjour. Aucun remboursement n'est nécessaire</li>
             </ol>
         </div>
         
-        {% if is_granted('ROLE_ADMIN') %}
-        {# Toutes les réservations annulées #}
-        {% if reservationsAnnulees %}
-                    <h5>Réservations annulées</h5>
-                {% for reservationAnnulee in reservationsAnnulees %}
-                    <h6><b>{{ reservationAnnulee.prenom }}{{ reservationAnnulee.nom }}</b></h6>
-                    <p>Séjour du {{ reservationAnnulee.dateDebutFr }} au {{ reservationAnnulee.dateFinFr }} dans {{ reservationAnnulee.espace }}</p>
-                    <p>Durée totale : {{ reservationAnnulee.duree }} nuits</p>
-                    <p>Prix total : {{ reservationAnnulee.prixTotal }} €</p>
-                    <p>Statut : {{ reservationAnnulee.statut }}</p>
-                {% endfor %}
-                <a href="">Télécharger le justificatif d'annulation</a>
-                <a href="">Supprimer</a>
-                {% else %}
-                <h5>Pas de réservations annulées</h5>
-            {% endif %}
-        {% endif %}
+        {# Affiche les réservations annulées à rembourser #}        
+        <h2>Les réservations à rembourser</h2>
+        {# {% for reservation in reservationARembourser %} #}
+        <table class="table table-danger table-striped">
+            <thead>
+            <tr>
+                <th scope="col">N° réservation</th>
+                <th scope="col">Nom Prénom</th>
+                <th scope="col">Dates</th>
+                <th scope="col">Chambre</th>
+                <th scope="col">Durée</th>
+                <th scope="col">Option(s)</th>
+                <th scope="col">Prix total</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservationARembourser %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ reservation.prenom }} {{ reservation.nom }}</td>
+                <td>{{ reservation.dateDebutFr }} au {{ reservation.dateFinFr }}</td>
+                <td>{{ reservation.espace.nomEspace }}</td>
+                <td>{{ reservation.duree }} nuits</td>
+                <td>
+                    {% if reservation.options %}                      
+                        {% for option in reservation.options %}
+                            * {{ option.nom }} <br>
+                        {% endfor %}
+                    {% else %}
+                        <p>Pas d'option</p>
+                    {% endif %}
+                </td>
+                <td>{{ reservation.prixTotal }} €</td>
+                <td><a href="">REMBOURSER</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {# {% endfor %} #}
 
-        {# Vue desktop #}
-        {# {% if is_granted('ROLE_ADMIN') %}
-            <table>
+        {# Affiche les réservations à rembourser partiellement#}
+        <h3>Les réservations à rembourser partiellement</h3>
+        {# {% for reservation in reservationARembourserPartiellement %} #}
+        <table class="table table-info table-striped">
+            <thead>
+            <tr>
+                <th scope="col">N° réservation</th>
+                <th scope="col">Nom Prénom</th>
+                <th scope="col">Dates</th>
+                <th scope="col">Chambre</th>
+                <th scope="col">Durée</th>
+                <th scope="col">Option(s)</th>
+                <th scope="col">Prix total</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservationARembourserPartiellement %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ reservation.prenom }} {{ reservation.nom }}</td>
+                <td>{{ reservation.dateDebutFr }} au {{ reservation.dateFinFr }}</td>
+                <td>{{ reservation.espace.nomEspace }}</td>
+                <td>{{ reservation.duree }} nuits</td>
+                <td>
+                    {% if reservation.options %}                      
+                        {% for option in reservation.options %}
+                            * {{ option.nom }} <br>
+                        {% endfor %}
+                    {% else %}
+                        <p>Pas d'option</p>
+                    {% endif %}
+                </td>
+                <td>{{ reservation.prixTotal }} €</td>
+                <td><a href="">REMBOURSER 30%</a>
+                </td>
+            </tr>
+            {% endfor %}  
+            </tbody>
+        </table>
+        {# {% endfor %}   #}
+
+        {# Affiche les réservations annulées#}
+        <h4>Les réservations annulées sans besoin de remboursement</h4>
+        {% if is_granted('ROLE_ADMIN') %}   
+            {# {% for reservation in reservationsAnnulees %} #}
+            <table class="table table-secondary table-striped">
                 <thead>
-                    <tr>
-                        <th colspan="2">Nom</th>
-                        <th colspan="2">Dates</th>
-                    </tr>
+                    {% for reservation in reservationsAnnulees %}
+                <tr>
+                    <th scope="col">N° réservation</th>
+                    <th scope="col">Nom Prénom</th>
+                    <th scope="col">Dates</th>
+                    <th scope="col">Chambre</th>
+                    <th scope="col">Durée</th>
+                    <th scope="col">Option(s)</th>
+                    <th scope="col">Prix total</th>
+                    <th scope="col">Action</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td colspan="2">Prénom Nom</td>
-                        <td>with two columns</td>
-                        <td>Date de début</td>
-                        <td>Date de fin</td>
-                    </tr>
-                  </tbody>
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ reservation.prenom }} {{ reservation.nom }}</td>
+                    <td>{{ reservation.dateDebutFr }} au {{ reservation.dateFinFr }}</td>
+                    <td>{{ reservation.espace.nomEspace }}</td>
+                    <td>{{ reservation.duree }} nuits</td>
+                    <td>
+                        {% if reservation.options %}                      
+                            {% for option in reservation.options %}
+                                * {{ option.nom }} <br>
+                            {% endfor %}
+                        {% else %}
+                            <p>Pas d'option</p>
+                        {% endif %}
+                    </td>
+                    <td>{{ reservation.prixTotal }} €</td>
+                    <td><a href="">Télécharger le justificatif d'annulation</a>
+                    </td>
+                </tr>
+                {% endfor %}  
+                </tbody>
             </table>
-        {% endif %} #}
+            {# {% endfor %}   #}
+        {% endif %}
 
     </section>
 {% endblock %}

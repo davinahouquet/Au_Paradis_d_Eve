@@ -7,54 +7,103 @@
 
 {% block body %}
 
-    <div class="profil">
+
+<div class="profil">
     {% if app.user %}
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('toutes_reservations') }}">Retour</a>
-        {% else %}
-            <a href="{{ path('app_user') }}">Retour au profil</a>
-        {% endif %}
-
-        
-        {% if is_granted('ROLE_ADMIN') %}
-            {# Toutes les réservations à venir #}
-            {% if toutesReservationsAVenir %}
-                <h5>Les prochaines réservations</h5>
-                {% for reservationAVenir in toutesReservationsAVenir %}
-                    <p>Votre séjour du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}, au nom de  {{reservationAVenir.prenom}}{{reservationAVenir.nom}}</p>
-                    <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
-                    <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
-                    <a href="{{ path('annuler_reservation', {'id' : reservationAVenir.id}) }}">Annuler la réservation</a>
-                {% endfor %}
-            {% else %}
-                <h5>Pas de réservations à venir</h5>
-                <a href="{{ path('app_reservation') }}">Réserver</a>
-            {% endif %}    
-        {% endif %}
-
-        {% if reservationsAVenir %}
-                <h5>Vos réservations à venir</h5>
-                <p>Préparez votre séjour</p>
-            {% for reservationAVenir in reservationsAVenir %}
-                <p>Votre séjour du {{reservationAVenir.dateDebutFr}} au {{reservationAVenir.dateFinFr}} dans {{reservationAVenir.espace}}, au nom de  {{reservationAVenir.prenom}}{{reservationAVenir.nom}}</p>
-                <p>Durée totale : {{reservationAVenir.duree}} nuits</p>
-                <p>Prix total : {{reservationAVenir.prixTotal}} €</p>
-                {% if reservationAVenir.options is not empty %}
-                <ul>
-                    {% for option in reservationAVenir.options %}
-                        <li>{{ option.nom }}</li>
-                        <li>{{ option.tarif }} €</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>Pas d'option</p>
-            {% endif %}
-                <a href="{{ path('annuler_reservation', {'id' : reservationAVenir.id}) }}">Annuler ma réservation</a>
-            {% endfor %}
-            {% else %}
-            <h5>Pas de réservations à venir</h5>
-            <a href="{{ path('app_reservation') }}">Réserver</a>
-        {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('toutes_reservations') }}">Retour</a>
+    {% else %}
+    <a href="{{ path('app_user') }}">Retour au profil</a>
     {% endif %}
+    
+    <h1>Réservation à venir</h1>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        {# {% for reservationAVenir in toutesReservationsAVenir %} #}
+            <table class="table table-warning table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">N° réservation</th>
+                    <th scope="col">Nom Prénom</th>
+                    <th scope="col">Dates</th>
+                    <th scope="col">Chambre</th>
+                    <th scope="col">Durée</th>
+                    <th scope="col">Option(s)</th>
+                    <th scope="col">Prix total</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for reservationAVenir in toutesReservationsAVenir %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ reservationAVenir.prenom }} {{ reservationAVenir.nom }}</td>
+                    <td>{{ reservationAVenir.dateDebutFr }} au {{ reservationAVenir.dateFinFr }}</td>
+                    <td>{{ reservationAVenir.espace.nomEspace }}</td>
+                    <td>{{ reservationAVenir.duree }} nuits</td>
+                    <td>
+                        {% if reservationAVenir.options %}                      
+                            {% for option in reservationAVenir.options %}
+                                * {{ option.nom }} <br>
+                            {% endfor %}
+                        {% else %}
+                            <p>Pas d'option</p>
+                        {% endif %}
+                    </td>
+                    <td>{{ reservationAVenir.prixTotal }} €</td>
+                    <td><a href="{{ path('annuler_reservation', {'id' : reservationAVenir.id})}}">Annuler</a>
+                    </td>
+                </tr>
+                {% endfor %}  
+                </tbody>
+            </table>
+        {# {% endfor %}   #}
+    {% endif %}
+
+    {% if reservationsAVenir %}
+        {# {% for reservationAVenir in reservationsAVenir %} #}
+                <table class="table table-warning table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">N° réservation</th>
+                        <th scope="col">Nom Prénom</th>
+                        <th scope="col">Dates</th>
+                        <th scope="col">Chambre</th>
+                        <th scope="col">Durée</th>
+                        <th scope="col">Option(s)</th>
+                        <th scope="col">Prix total</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for reservationAVenir in reservationsAVenir %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ reservationAVenir.prenom }} {{ reservationAVenir.nom }}</td>
+                        <td>{{ reservationAVenir.dateDebutFr }} au {{ reservationAVenir.dateFinFr }}</td>
+                        <td>{{ reservationAVenir.espace.nomEspace }}</td>
+                        <td>{{ reservationAVenir.duree }} nuits</td>
+                        <td>
+                            {% if reservationAVenir.options %}                      
+                                {% for option in reservationAVenir.options %}
+                                    * {{ option.nom }} <br>
+                                {% endfor %}
+                            {% else %}
+                                <p>Pas d'option</p>
+                            {% endif %}
+                        </td>
+                        <td>{{ reservationAVenir.prixTotal }} €</td>
+                        <td><a href="{{ path('annuler_reservation', {'id' : reservationAVenir.id})}}">Annuler</a>
+                        </td>
+                    </tr>   
+                    {% endfor %} 
+                    </tbody>
+                </table>
+            {# {% endfor %}   #}
+        {% endif %}
+    {% else %}
+        <p>Pas de réservation à venir</p>
+    {% endif %}
+
     </div>
 {% endblock %}
