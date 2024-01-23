@@ -50,7 +50,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    // Ajouter une réservation OU modifier
+    // Ajouter une réservation
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
     public function newReservation( Espace $espace, Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
     {

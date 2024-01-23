@@ -1,5 +1,4 @@
 <?php
-
 namespace App\EventSubscriber;
 use CalendarBundle\Entity\Event;
 use CalendarBundle\CalendarEvents;
@@ -8,18 +7,24 @@ use CalendarBundle\Event\CalendarEvent;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+
 
 class CalendarSubscriber implements EventSubscriberInterface
 {
-    private RequestStack $requestStack;
+        private $requestStack;
+        private $authorizationChecker;
+
 
     public function __construct(
         private EspaceRepository $espaceRepository,
         private UrlGeneratorInterface $router,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        AuthorizationCheckerInterface $authorizationChecker
     )
     {
         $this->requestStack = $requestStack;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     public static function getSubscribedEvents()
@@ -31,47 +36,32 @@ class CalendarSubscriber implements EventSubscriberInterface
 
     public function onCalendarSetData(CalendarEvent $calendar)
     {
-        $start = $calendar->getStart();
-        $end = $calendar->getEnd();
-        
-        $filters = $calendar->getFilters();
-        // Récupérer la requête actuelle
-        $request = $this->requestStack->getCurrentRequest();
+        // Récupérer l'espaceId
+        $espaceId = $this->requestStack->getCurrentRequest()->get('espaceId');
 
-        // Récupérer le chemin de l'URL référente
-        $refererPathInfo = $request->headers->get('referer');
+        $espace = $this->espaceRepository->find($espaceId);
 
-        // Utiliser Symfony pour extraire le paramètre 'id' du chemin de l'URL
-        $segments = explode('/', trim($refererPathInfo, '/'));
-        $espaceId = end($segments);
+        if(isset($espace)) {
+            foreach ($espace->getReservations() as $reservation) {
+                $bookingEvent = new Event(
+                    $this->authorizationChecker->isGranted('ROLE_ADMIN') ? $reservation->getNom() . ' ' . $reservation->getPrenom()  : "Reservé",
+                    $reservation->getDateDebut(),
+                    $reservation->getDateFin()
+                );
 
-        $espace = $this->espaceRepository
-            ->createQueryBuilder('e')
-            ->where('e.id = :espaceId')
-            ->setParameter('espaceId', $espaceId)
-            ->getQuery()
-            ->getSingleResult();
-        ;
+                $bookingEvent->setOptions([
+                    'backgroundColor' => 'red',
+                    'borderColor' => 'red',
+                ]);
+                $bookingEvent->addOption(
+                    'url',
+                    $this->router->generate('app_booking_show', [
+                        'id' => $reservation->getId(),
+                    ])
+                );
 
-        foreach ($espace->getReservations() as $reservation) {
-            $bookingEvent = new Event(
-                $_SESSION['user']['role'] = 'ROLE_ADMIN' ? $reservation->getNom() . ' ' . $reservation->getPrenom()  : "Reservé",
-                $reservation->getDateDebut(),
-                $reservation->getDateFin()
-            );
-
-            $bookingEvent->setOptions([
-                'backgroundColor' => 'red',
-                'borderColor' => 'red',
-            ]);
-            $bookingEvent->addOption(
-                'url',
-                $this->router->generate('app_booking_show', [
-                    'id' => $reservation->getId(),
-                ])
-            );
-
-            $calendar->addEvent($bookingEvent);
+                $calendar->addEvent($bookingEvent);
+            }
         }
     }
 }

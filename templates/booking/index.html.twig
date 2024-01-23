@@ -1,4 +1,23 @@
 {% extends 'base.html.twig' %}
+{% block meta_description %} Calendrier - Administration {% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+{% endblock %}
+
+{% block title %}Calendrier - Administration{% endblock %}
+
+{% block body %}
+
+<section class="profil">
+    <h1>Calendrier - Administration</h1>
+
+    {% include 'booking/calendar.html.twig' %}
+
+</section>
+{% endblock %}
+
+{# {% extends 'base.html.twig' %}
 
 {% block title %}Booking index{% endblock %}
 
@@ -36,4 +55,4 @@
     </table>
 
     <a href="{{ path('app_booking_new') }}">Create new</a>
-{% endblock %}
+{% endblock %} #}

@@ -31,7 +31,8 @@
                         url: "{{ path('fc_load_events') }}",
                         method: "POST",
                         extraParams: {
-                            filters: JSON.stringify({})
+                            filters: JSON.stringify({}),
+                            espaceId: JSON.stringify({{ espace.id }}),
                         },
                         failure: () => {
                             // alert("There was an error while fetching FullCalendar!");
