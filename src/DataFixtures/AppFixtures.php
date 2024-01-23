@@ -19,6 +19,7 @@ class AppFixtures extends Fixture
         $this->passwordHasher = $passwordHasher;
     }
     
+    // fixtures = données statiques ou pré-définies utilisées pour initialiser un système, une base de données ou un environnement de test.
     public function load(ObjectManager $manager): void
     {
         $pseudos = [
@@ -29,6 +30,8 @@ class AppFixtures extends Fixture
             "tom@spike.fr",
             "jerry@tyke.fr",
         ];
+
+        // à modifier
         $roles = [
             '["ROLE_ADMIN"]',
             '["ROLE_USER"]'
@@ -87,9 +90,8 @@ class AppFixtures extends Fixture
         }
 
         $optionsNames = [
-            'Option 1', 'Option 2', 'Option 3' 
+            'Brunch', 'Dîner', 'Anniversaire' 
         ];
-
 
         // Liste des Options
         $optionsList = [];
@@ -99,7 +101,7 @@ class AppFixtures extends Fixture
             $option = new Option();
             $option->setNom($optionsNames[$i]);
             $option->setTarif(rand(5,20));
-            $option->setDescription('test description');
+            $option->setDescription('Test description');
             $optionsList[] = $option;
             $manager->persist($option);
         }
