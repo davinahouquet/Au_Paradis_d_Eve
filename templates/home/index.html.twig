@@ -39,6 +39,8 @@
                     <div class="options-chambre-hover">
                         {{ chambre.nomEspace }} <br>
                         {{ chambre.taille }} m² <br>
+                        Pour {{ chambre.nbPlaces }} personnes
+                        {{ chambre.prix }}€/personne <br>
                         {% if chambre.wifi == 1 %}
                             <span class="material-symbols-outlined">
                                 wifi
@@ -48,9 +50,6 @@
                                 wifi_off
                             </span>
                         {% endif %}
-                        {# {{ chambre.wifi }} #}<br>
-                        Pour {{ chambre.nbPlaces }} personnes
-                        {{ chambre.prix }}€/personne
                     </div>
                     {% for image in chambre.images|slice(0, 1) %}
                         {% if image.lienImage is null %}
@@ -61,7 +60,6 @@
                     {% endfor %}
                     <div class="details-apercu-chambre">
                         <a href="{{path('show_espace', {'id' :chambre.id})}}">{{chambre.nomEspace}}</a>
-                        {# <p class="prix-chambre-par-nuit">{{ chambre.prix }}€/nuit</p> #}
                     </div>
                 </a>
             </div>
