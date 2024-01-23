@@ -320,10 +320,18 @@ class UserController extends AbstractController
     public function reservationsAnnulees(ReservationRepository $reservationRepository, User $user)
     {
         $user = $this->getUser();
+
+        // Affichage pour l'utilisateur
         $reservationsAnnulees = $reservationRepository->findReservationsAnnulees($user);
+
+        // Affichage pour l'admin
+        $reservationARembourser = $reservationRepository->findReservationsARembourser();
+        $reservationARembourserPartiellement = $reservationRepository->findReservationARembourserPartiellement();
         
         return $this->render('user/reservations/annulees.html.twig', [
-            'reservationsAnnulees' => $reservationsAnnulees
+            'reservationsAnnulees' => $reservationsAnnulees,
+            'reservationARembourser' => $reservationARembourser,
+            'reservationARembourserPartiellement' => $reservationARembourserPartiellement
         ]);
     }
     
