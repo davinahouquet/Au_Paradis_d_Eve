@@ -29,6 +29,17 @@ class AdminController extends AbstractController
         ]);
     }
 
+    // Calendrier de l'administrateur
+    #[Route('/admin/calendrier', name: 'calendrier_admin')]
+    public function calendrierAdmin(): Response
+    {
+        
+
+        return $this->render('booking/index.html.twig', [
+            'calendrier' => 'calendrier',
+        ]);
+    }
+
     // [DEPRECATED]
     public function listeOptions(): Response
     {
