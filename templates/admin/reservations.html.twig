@@ -16,6 +16,9 @@
                     
             {% if is_granted('ROLE_ADMIN') %}            
         
+                <a href="{{ path('calendrier_admin') }}" class="admin-bouton"><span class="material-symbols-outlined">
+                    calendar_month
+                </span>Calendrier</a>
                 <a href="{{ path('reservations_en_cours') }}" class="admin-bouton"><span class="material-symbols-outlined">
                     admin_panel_settings
                 </span>Réservations en cours</a>
@@ -45,10 +48,13 @@
                     admin_panel_settings
                 </span>Modifier les textes des alentours</a>
 
-                <a href="" class="admin-bouton"><span class="material-symbols-outlined">
+                <a href="{{ path('liste_options') }}" class="admin-bouton"><span class="material-symbols-outlined">
                     admin_panel_settings
                 </span>Liste des options</a>
 
+                <a href="{{ path('questions_pratiques') }}" class="admin-bouton"><span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>Modifier les questions pratiques</a>
         
             {% endif %}
         </div>
