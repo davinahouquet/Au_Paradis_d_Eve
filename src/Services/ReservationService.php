@@ -99,23 +99,4 @@ class ReservationService
         return $message ?? null;
 
     }
-
-    // Fonctions permettant de modifier le statut des réservations
-    public function confirmationReservation(Reservation $reservation): ?string
-    {
-
-        // $statut = 'validé'
-        // $reservation->setStatut($statut);
-    }
-
-    
-    public function reservationARembourse(Reservation $reservation): ?string
-    {
-        
-    }
-    
-    public function reservationRemboursee(Reservation $reservation): ?string
-    {
-
-    }
 }
