@@ -101,7 +101,6 @@
             {{ message }}
         {% endfor %} #}
         
-        
         {% block body %}            
         {% endblock %}
         
@@ -119,7 +118,13 @@
         
         {% block footer %}
             <footer>
-                <a href="{{ path('mentions') }}">Mentions légales</a><p>&</p><a href="{{ path('conditions') }}">Conditions générales</a>
+                <div class="reseaux">
+                    <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/fr/" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+                <a href="{{ path('mentions') }}">Mentions légales</a><a href="{{ path('conditions') }}">Conditions générales</a>
+                <a href="https://www.linkedin.com/in/davina-houquet/" target="_blank">Davina Houquet</a>
             </footer>
         {% endblock footer %}
         

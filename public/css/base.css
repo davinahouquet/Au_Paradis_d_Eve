@@ -145,13 +145,14 @@ footer{
         text-align: center;
         z-index: 2;
     }
-
+    
     ul.active {
         display: flex;
         z-index: 3;
     }
-
+    
     ul li {
+        list-style-type: none;
         margin-bottom: 25px;
     }
 
@@ -213,7 +214,7 @@ footer{
         z-index: 1000;
         height: auto;
         padding: 10px;
-        font-size: 15px;
+        font-size: 10px;
         color: var(--white);
         background-color: var(--dark-brown);
         margin-top: 50px;
@@ -227,6 +228,16 @@ footer{
 /* } */
 
 @media only screen and (min-width : 1224px){
+    a{
+        text-decoration: none;
+        color: var(--font-color);
+        transition: 0.2s;
+    }
+    
+    a:hover{
+        color: var(--hover);
+        transition: 0.2s;
+    }
 
     header{
         display: flex;
@@ -285,5 +296,15 @@ footer{
 
     .user, .logo{
         display: block;
+    }
+
+    footer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    footer a:hover{
+        color: var(--hover);
     }
 }
