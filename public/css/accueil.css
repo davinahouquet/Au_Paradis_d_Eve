@@ -515,3 +515,43 @@ De 992 pixels à 1200 pixels de largeur
 Extra large desktop (très grands écrans) :
 
 1201 pixels et plus */
+
+/* Breakpoint 1 : Smartphone */
+@media screen and (min-width: 360px) and (max-width: 767px) {
+    /* Styles pour la zone de contenu (ZC) */
+    .zone-de-contenu {
+        width: 360px;
+    }
+}
+
+/* Breakpoint 2 : Tablette Portrait - PC avec navigateur fenêtré */
+@media screen and (min-width: 768px) and (max-width: 999px) {
+    /* Styles pour la zone de contenu (ZC) */
+    .zone-de-contenu {
+        width: 700px;
+    }
+}
+
+/* Breakpoint 3 : Tablette Paysage - PC Laptop - Tout PC avec navigateur fenêtré */
+@media screen and (min-width: 1000px) and (max-width: 1279px) {
+    /* Styles pour la zone de contenu (ZC) */
+    .zone-de-contenu {
+        width: 960px;
+    }
+}
+
+/* Breakpoint 4 : PC Full HD - Tablette grand format Paysage - Tout PC à plus haute définition avec navigateur fenêtré */
+@media screen and (min-width: 1280px) and (max-width: 1599px) {
+    /* Styles pour la zone de contenu (ZC) */
+    .zone-de-contenu {
+        width: 1140px;
+    }
+}
+
+/* Breakpoint 5 : PC 4K - Tout PC à plus haute définition avec navigateur fenêtré (Au delà de 1600px) */
+@media screen and (min-width: 1600px) {
+    /* Styles pour la zone de contenu (ZC) */
+    .zone-de-contenu {
+        width: 1140px; /* ou 1350px selon la définition spécifiée */
+    }
+}

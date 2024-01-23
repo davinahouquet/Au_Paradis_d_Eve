@@ -1,6 +1,10 @@
 /* SECTION RESERVATION */
 /* Taille par défaut : mobile */
     /* Section */
+.souvenir{
+    display: none;
+}
+
     .reservation{
         width: 100%;
         height: auto;
@@ -90,6 +94,11 @@
     }
     .section-reservation h1{
         color: var(--dark-font);
+    }
+
+    .section-reservation a{
+        text-decoration: none;
+        color: var(--hover);
     }
 
 /* Taille mobile */

@@ -1,5 +1,11 @@
 /* CHAMBRES ET ESPACES DE VIE */
 /* @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) { */
+    #booking-button{
+        margin: 30px;
+        padding: 10px;
+        font-size: 20px;
+    }
+
     .espaces-section{
         width: 100%;
         min-height: 100vh;
