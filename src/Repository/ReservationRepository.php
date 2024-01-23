@@ -159,4 +159,33 @@ class ReservationRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    // Récupère toutes les réservations à rembourser
+    public function findReservationsARembourser(): array
+    {
+        $aRembourser = 'REMBOURSEE';
+
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.statut = :aRembourser' )
+            ->setParameter('aRembourser', $aRembourser)
+            ->orderBy('r.date_debut', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // Récupère toutes les réservations à rembourser partiellement
+    public function findReservationARembourserPartiellement(): array
+    {
+        $aRembourser = 'A REMBOURSER PARTIELLEMENT';
+
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.statut = :aRembourser' )
+            ->setParameter('aRembourser', $aRembourser)
+            ->orderBy('r.date_debut', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 }
