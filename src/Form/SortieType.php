@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class SortieType extends AbstractType
 {
@@ -29,7 +30,7 @@ class SortieType extends AbstractType
             'label' => 'Tarif approximatif',
             'attr' => ['class' => 'form-control'],
         ])
-        ->add('image_sortie', TextType::class, [
+        ->add('image_sortie', UrlType::class, [
             'label' => 'Image',
             'attr' => ['class' => 'form-control'],
             'required' => false
