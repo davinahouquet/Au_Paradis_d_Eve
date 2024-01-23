@@ -99,7 +99,8 @@
 }
 
 .options-chambre-hover {
-    display: none;
+    opacity: 0;
+    transition: 0.3s;
 }
     
     /* SECTION PDB */
@@ -333,7 +334,7 @@
 }
 
 /* Taille desktop et plus */
-@media only screen and (min-width : 1224px){
+@media only screen and (min-width: 992px) {
     .conteneur-cartes-chambre{
         max-width: 100%;
         height:auto;
@@ -353,23 +354,22 @@
     
     .carte-chambre img{
         transition: 2s;
-        width: 100%;
+        min-width: 100%;
         height: 500px;
         object-fit: cover;
         overflow: hidden;
-        /* display: none; */
     }
 
     .carte-chambre:hover .options-chambre-hover {
-        display: block;
+        opacity: 1;
         transition: 0.3s;
     }
     
     .options-chambre-hover{
-        /* max-width: 500px; */
         border-radius: 0;
         padding: 30px;
-        width: 340px;
+        width: fit-content;
+        max-width: 340px;
         height: 500px;
         font-size: 20px;
         position: absolute;
