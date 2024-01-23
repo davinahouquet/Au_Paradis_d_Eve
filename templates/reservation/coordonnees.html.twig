@@ -32,9 +32,14 @@
                 {{ form_label(form.cp) }}
                 {{ form_label(form.ville) }}
                 {{ form_label(form.pays) }}
-                {% if is_granted('ROLE_USER') %}
+
+                {# {% if is_granted('ROLE_USER') %}
+                    <p><a href="{{ path('app_login')}}">Connectez-vous</a> pour sauvegarder vos informations</p>
+                {% else %}
                     {{ form_label(form.souvenir) }}
                 {% endif %}
+                {{dump(app.user)}} #}
+
             {{ form_end(form) }}
 
             <p>Ces informations apparaîtront sur votre facture</p>
