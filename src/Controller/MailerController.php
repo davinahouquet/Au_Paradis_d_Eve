@@ -12,24 +12,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MailerController extends AbstractController
 {
     #[Route('/email')]
-    public function sendEmail(MailerInterface $mailer, Reservation $reservation): Response
+    public function sendEmailApresSejour(MailerInterface $mailer, Reservation $reservation): Response
     {
-        $emailReservation = $reservation->getEmail();
-        $prenom = $reservation->getPrenom();
+            // Après la date de fin du séjour, email envoyé automatiquement avec le résumé du séjour
+    
+            // dateEnvoiMail = dateFin + 1
+            // when dateEnvoieMail = currentDate
+            // sendEmaiApresSejour
 
-        $email = (new Email())
-            ->from('admin@auparadisdeve.fr')
-            ->to($emailReservation)
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Au Paradis d\'Eve - Votre réservation!')
-            ->text('Bonjour'. $prenom .'! vous avez réserver au sein de notre établissement, voici un rappel des règles etcetc + conditions d\'annulation + lien vers l\'annulation')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
+        // $emailReservation = $reservation->getEmail();
+        // $prenom = $reservation->getPrenom();
 
-        $mailer->send($email);
+        // $email = (new Email())
+        //     ->from('admin@auparadisdeve.fr')
+        //     ->to($emailReservation)
+        //     ->subject('Au Paradis d\'Eve - Votre réservation!')
+        //     ->text('Bonjour'. $prenom .'! vous avez réserver au sein de notre établissement, voici un rappel des règles etcetc + conditions d\'annulation + lien vers l\'annulation')
+        //     ->html('template.html.twig');
 
-        // ...
+        // $mailer->send($email);
     }
 }
