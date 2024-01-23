@@ -93,7 +93,7 @@ class ReservationService
         elseif($datePlusSeptJours > $dateDebutReservation){
             // Si l’annulation intervient moins de 7 jours avant la date d’arrivée, ou en cas de non présentation, ou si le client écourte son séjour, l'établissement se réserve le droit de facturer et de réclamer ou prélever le montant total du séjour prévu y compris la réservation de prestations annexes commandées (table d’hôtes,…).
             $message = 'Annulation impossible, merci de contacter l\'établissement';
-            $reservation->setStatut('NON REMBOURSABLE');
+            $reservation->setStatut('ANNULEE');
         }
         
         return $message ?? null;
