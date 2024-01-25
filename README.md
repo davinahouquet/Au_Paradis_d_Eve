@@ -1,19 +1,34 @@
-<h1>Au Paradis d'Eve</h1>
+# Au Paradis d'Eve
 
-<h2>Environnement de travail</h2>
-<li>Symfony 6</li>
-<li>Lancer un <b>composer install</b></li>
-<li>MySQL</li>
-<li>Installer <a href="https://scoop.sh/" target="_blank">Scoop sh</a></li>
-<p> > Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser<br> > Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression</p>
-<li>Installer Symfony CLI </li>
-<p>Commande Windows : scoop install symfony-cli </p>
+## Environnement de travail
 
-<h2>Bundles à installer</h2>
-<li>MailHost</li>
-<p>Télécharger exec de <a href="https://github.com/mailhog/MailHog/releases/tag/v1.0.1" target="_blank">MailHog</a> et l'exécuter (laisser tourner en arrière plan si besoin de tester les mails)</p>
-<li>Dompdf</li>
-<p>Lancer la commande : composer require dompdf/dompdf</p>
+- **Symfony 6**
+  - Lancer la commande suivante pour installer les dépendances :
+    ```bash
+    composer install
+    ```
 
-<h2>Base de données</h2>
-<li>public/db.sql</li>
+- **MySQL**
+  - Installer [Scoop sh](https://scoop.sh/):
+    ```powershell
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+    ```
+    
+  - Installer Symfony CLI avec la commande suivante (pour Windows) :
+    ```powershell
+    scoop install symfony-cli
+    ```
+
+## Bundles à installer
+
+### MailHost
+- Télécharger l'exécutable de [MailHog](https://github.com/mailhog/MailHog/releases/tag/v1.0.1) et l'exécuter (laisser tourner en arrière-plan si besoin de tester les e-mails).
+  ![MailHog]
+### Dompdf
+- Lancer la commande suivante pour installer Dompdf :
+  ```bash
+  composer require dompdf/dompdf
+
+## Aperçu
+[![Aperçu](public/img/readme/readme.png)]
