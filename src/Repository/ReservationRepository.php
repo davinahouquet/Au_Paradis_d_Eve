@@ -163,7 +163,7 @@ class ReservationRepository extends ServiceEntityRepository
     // Récupère toutes les réservations à rembourser
     public function findReservationsARembourser(): array
     {
-        $aRembourser = 'REMBOURSEE';
+        $aRembourser = 'A REMBOURSER';
 
         return $this->createQueryBuilder('r')
             ->andWhere('r.statut = :aRembourser' )
