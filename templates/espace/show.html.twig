@@ -58,7 +58,7 @@
       <div class="caroussel-gauche">
         {% for image in espace.images %}
           {% if image is not empty %}
-            <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('Texte de remplacement')}}">
+            <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('Chambre de l\'établissement Au Paradis d\'Eve, lumineuse, disposant d\'un lit, d\'une commode, d\'un fauteuil')}}">
             {% if is_granted ('ROLE_ADMIN') %}
               <a href="{{ path('remove_image', {'id' :image.id}) }}" class="delete-img">Supprimer l'image</a>
             {% endif %}
@@ -120,7 +120,17 @@
                 </div>
             {% endfor %}
           </div>
+          {% if espace.categorie.Id == 1 %}
           <a href="{{ path('new_reservation', {'id' :espace.id})}}" type="button" class="btn btn-success" id="booking-button">Réserver</a>
+          {% else %}
+          <p>Cet espace est accessible avec votre réservation.</p>
+        {% endif %}
+
+        {% if espace.categorie.Id == 11 %}
+        <a href="{{ path('new_reservation', {'id' :espace.id})}}" type="button" class="btn btn-success" id="booking-button">Réserver</a>
+        {% else %}
+      {% endif %}
+
       </div>
 
       
