@@ -21,6 +21,36 @@ class EspaceRepository extends ServiceEntityRepository
         parent::__construct($registry, Espace::class);
     }
 
+    public function findEspacesLouables(): array
+    {
+        $chambre = '1';
+        $appartement = '11';
+    
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.categorie = :chambre OR e.categorie = :appartement')
+            ->setParameter('chambre', $chambre)
+            ->setParameter('appartement', $appartement)
+            ->orderBy('e.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findEspacesNonLouables(): array
+    {
+        $chambre = '1';
+        $appartement = '11';
+
+    return $this->createQueryBuilder('e')
+        ->andWhere('e.categorie != :chambre')
+        ->andWhere('e.categorie != :appartement')
+        ->setParameter('chambre', $chambre)
+        ->setParameter('appartement', $appartement)
+        ->orderBy('e.id', 'ASC')
+        ->getQuery()
+        ->getResult()
+    ;
+    }
+
     public function findByCategorie($categorieId): array
     {
     return $this->createQueryBuilder('e')
