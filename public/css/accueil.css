@@ -122,6 +122,13 @@
         margin-bottom: 30px;
     }
 
+    .credit{
+        font-size: 8px;
+        padding: 10px;
+        text-align: center;
+        color: var(--hover);
+    }
+
     .pdb h2{
         text-align: center;
         color : var(--white);
@@ -151,6 +158,15 @@
         justify-content: center;
         align-items: center;
         box-shadow: inset 0px 9px 15px -3px rgba(0, 0, 0, 0.419);
+        background: url('../img/leaf.png') no-repeat;
+        background-position: right bottom;
+    }
+
+    .cadre{
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        border: 1px solid rgb(4, 94, 21);
     }
 
     .infos-contact, .form-contact{
@@ -167,6 +183,10 @@
     .form-contact{
         display: flex;
         flex-direction: column;
+    }
+
+    .form-contact button{
+        margin-top: 10px;
     }
 
     .form-contact input, .form-contact textarea{
@@ -187,6 +207,8 @@
         padding: 10px;
         gap: 20px;
     }
+
+
 
     /* SECTION MASCOTTE */
     .mascotte{
@@ -268,6 +290,9 @@
     } */
 /* } */
 
+@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px){
+
+}
 /* Taille mobile horizontal */
 @media (device-height: 430px) and (device-width: 932px){
     /* APERCU DES CHAMBRES SUR LA PAGE D'ACCUEIL VERSION MOBILE */
@@ -348,10 +373,10 @@
     }
 
     /* SECTION PDB */
-    .pdb h2{
+    /* .pdb h2{
             top: 50px;
             left: 250px;
-    }
+    } */
 }
 
 /* Taille desktop et plus */
@@ -411,6 +436,7 @@
 
     .pdb{
         display: flex;
+        align-items: center;
         width: 100%;
         padding: 50px;
         flex-direction: row-reverse;
@@ -421,7 +447,7 @@
     .pdb p{
         /* width: 50%; */
         padding-right: 70px;
-        padding-top: 50px;
+        padding-top: 100px;
         height: 500px;
     }
 
@@ -431,6 +457,13 @@
         object-fit: cover;
     }
 
+    .credit{
+        font-size: 10px;
+        position: absolute;
+        right: 50px;
+        bottom: 100px;
+    }
+
     .titre-text{
         display: flex;
         flex-direction: column;
@@ -438,7 +471,7 @@
 
     .titre-text h2{
         color: var(--dark-font);
-        top: 25px;
+        top: 100px;
         left: 150px;
     }
 
@@ -453,8 +486,8 @@
         justify-content: center;
         align-items: center;
         gap: 50px;
-        background: url('../img/leaf.png') no-repeat;
-        background-position: right bottom;
+        /* background: url('../img/leaf.png') no-repeat;
+        background-position: right bottom; */
     }
 
     .contact h5{
@@ -483,8 +516,8 @@
     }
 
     .cadre{
-        width: 100%;
-        height: 100%;
+        /* width: 100%;
+        height: 100%; */
         padding: 50px;
         border: 3px solid rgb(4, 94, 21);
     }
