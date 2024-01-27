@@ -11,45 +11,41 @@
 
     <section class="home-page">
         <div class="parallax"></div>
+        <div class="description">
+            <strong><h1 class="licorice-title">Au Paradis d'Eve</h1></strong>
 
-    {# <div class="landingPage-img-container">
-        <img src="{{asset('img/Terasse3.jpg')}}" class="landingPage-img">
-    </div> #}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('admin_edit_home_text') }}">Modifier la page d'accueil</a>
+            {% endif %}
 
-    <div class="description">
-        <strong><h1 class="licorice-title">Au Paradis d'Eve</h1></strong>
-
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('admin_edit_home_text') }}">Modifier la page d'accueil</a>
-        {% endif %}
-
-        <p><strong>{{ data.maison_dhote }}</p>
-        <p><a href="{{ path('app_reservation') }}"><strong>Réservez</strong></a> sur notre site en toute sécurité</p>
-        <p>{{ data.environnement }}</p>
-    </div>
+            <p><strong>{{ data.maison_dhote }}</p>
+            <p><a href="{{ path('app_reservation') }}"><strong>Réservez</strong></a> sur notre site en toute sécurité</p>
+            <p>{{ data.environnement }}</p>
+        </div>
     </section>
 
     <section class="apercu-chambres">
         <a href="{{ path('app_reservation') }}" class="titre-apercu-chambres"><h2>Réservez votre séjour</h2></a>
-
         <div class="conteneur-cartes-chambre">
             {% for chambre in chambres|slice(0,4) %}
             <div class="carte-chambre">
                 <a href="{{path('show_espace', {'id' :chambre.id})}}">
                     <div class="options-chambre-hover">
-                        {{ chambre.nomEspace }} <br>
-                        {{ chambre.taille }} m² <br>
-                        Pour {{ chambre.nbPlaces }} personnes
-                        {{ chambre.prix }}€/personne <br>
-                        {% if chambre.wifi == 1 %}
-                            <span class="material-symbols-outlined">
-                                wifi
-                            </span>
-                        {% else %}
-                            <span class="material-symbols-outlined">
-                                wifi_off
-                            </span>
-                        {% endif %}
+                        <div class="cadre">
+                            {{ chambre.nomEspace }} <br>
+                            {{ chambre.taille }} m² <br>
+                            Pour {{ chambre.nbPlaces }} personnes
+                            {{ chambre.prix }}€/personne <br>
+                            {% if chambre.wifi == 1 %}
+                                <span class="material-symbols-outlined">
+                                    wifi
+                                </span>
+                            {% else %}
+                                <span class="material-symbols-outlined">
+                                    wifi_off
+                                </span>
+                            {% endif %}
+                        </div>
                     </div>
                     {% for image in chambre.images|slice(0, 1) %}
                         {% if image.lienImage is null %}

@@ -53,7 +53,6 @@
                             {% endif %}
                         </div>
                     <p>{{ chambre.description | slice(0, 400) }}{% if chambre.description | length > 400 %}...{% endif %}</p>
-                    <a href="{{ path('new_reservation', {'id' :chambre.id})}}" type="button" class="btn btn-success">Réserver</a>
                 </div>
                 <div class="desktop-chambre-infos">
                     <table>
@@ -70,6 +69,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <a href="{{ path('new_reservation', {'id' :chambre.id})}}" type="button" class="btn btn-success">Réserver</a>
                 </div>
             </div>
         {% endfor %}
