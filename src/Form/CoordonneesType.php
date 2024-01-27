@@ -63,11 +63,11 @@ class CoordonneesType extends AbstractType
                     'value' => 'Rhode Island'
                 ]
         ])
-        ->add('prixTotal', MoneyType::class, [
-                'label' => 'Prix total',
-                'disabled' => true, // lecture seule
-                'currency' => 'EUR', // Devise
-        ])
+        // ->add('prixTotal', MoneyType::class, [
+        //         'label' => 'Prix total',
+        //         'disabled' => true, // lecture seule
+        //         'currency' => 'EUR', // Devise
+        // ])
         // ->add('souvenir', CheckboxType::class, [
         //     'attr' => [
         //         'class' => 'souvenir',
