@@ -24,24 +24,26 @@ class EspaceController extends AbstractController
         $this->imageUploadService = $imageUploadService;
     }
 
+    // Onglet Chambres et Espaces de vie
     #[Route('/espace', name: 'app_espace')]
     public function index(EspaceRepository $espaceRepository): Response
     {
-        $espaces = $espaceRepository->findAll();
+        $espaces = $espaceRepository->findEspacesNonLouables();
+        $chambres = $espaceRepository->findEspacesLouables();
 
         return $this->render('espace/index.html.twig', [
-            'espaces' => $espaces
+            'espaces' => $espaces,
+            'chambres' => $chambres
         ]);
     }
 
     #[Route('/espace/remove/{id}', name: 'remove_espace')]
     public function remove_espace(Espace $espace, EntityManagerInterface $entityManager): Response
     {
-
         $reservations = $espace->getReservations();
 
-        if(sizeof($reservations) > 1){
-            $this->addFlash('error', 'Cet espace est réservé, vous ne pouvez pas le supprimer si des réservations y sont associés.');
+        if($reservations){
+            $this->addFlash('danger', 'Cet espace est réservé, vous ne pouvez pas le supprimer si des réservations y sont associées.');
             return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
         }
 

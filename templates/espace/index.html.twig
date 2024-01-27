@@ -10,34 +10,53 @@
 
 <section class="espaces-section">
     {# <img src="{{ asset('../img/bibliothèque.jpg') }}" alt="bibliothèque murale avec statue" class="espace-illustration"> #}
-    <h1>Les chambres et espaces de vie</h1>
+    <h1>Nos espaces communs</h1>
     {% if is_granted("ROLE_ADMIN") %}
         <a href="{{ path('new_espace')}}" class="action-espace"> + Ajouter un espace</a>     
     {% endif %}
+    
     <div class="espaces-liste">
         {% for espace in espaces %}
-            <div class="espace">
-                {# {{ dump((espace.images | first)) }} #}
+            <div class="espace">          
                 <a href="{{path('show_espace', {'id' :espace.id})}}" class="nom-espace"> {{espace.nomEspace}}</a>
-                {# <img src="{{ asset('img/' ~ espace.images | first) }}" alt=""> #}
-
                 {% for image in espace.images %}
-                {# {{ dump(image.lienImage) }} #}
                     {% if image.lienImage is null %}
                         <img src="{{ asset('img/chambreLilas.jpg')}}" width="300">
                     {% else %}
                         <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('Texte de remplacement')}}" width="300">
                     {% endif %}
                 {% endfor %}
-                
+                {% if is_granted("ROLE_ADMIN") %}
+                    <a href="{{ path('edit_espace', {'id' :espace.id}) }}" class="action-espace-admin">Modifier</a>
+                    <a href="{{ path('remove_espace', {'id' :espace.id}) }}" class="action-espace-admin">Supprimer</a>
+                {% endif %}
+                <br>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h2>Nos chambres</h2>
+
+    <div class="chambres-liste">
+        {% for espace in chambres %}
+            <div class="espace">          
+                <a href="{{path('show_espace', {'id' :espace.id})}}" class="nom-espace"> {{espace.nomEspace}}</a>
+                    {% for image in espace.images %}
+                        {% if image.lienImage is null %}
+                            <img src="{{ asset('img/chambreLilas.jpg')}}" width="300">
+                        {% else %}
+                            <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('Texte de remplacement')}}" width="300">
+                        {% endif %}
+                    {% endfor %}
                     {% if is_granted("ROLE_ADMIN") %}
                         <a href="{{ path('edit_espace', {'id' :espace.id}) }}" class="action-espace-admin">Modifier</a>
                         <a href="{{ path('remove_espace', {'id' :espace.id}) }}" class="action-espace-admin">Supprimer</a>
                     {% endif %}
-                    <br>
+                    
                 </div>
-            {% endfor %}
+                    {% endfor %}
     </div>
+
 </section>
 
 {% endblock %}
