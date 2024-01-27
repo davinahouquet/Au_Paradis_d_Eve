@@ -182,7 +182,8 @@ class UserController extends AbstractController
         return $this->render('reservation/coordonnees.html.twig', [
             'form' => $form,
             'espace' => $espace,
-            'reservation' => $reservation
+            'reservation' => $reservation,
+            'prixTotal' => $prixTotal
         ]);
     }
 

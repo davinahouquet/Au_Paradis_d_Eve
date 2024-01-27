@@ -82,7 +82,7 @@ class ReservationController extends AbstractController
                 $entityManager->persist($reservation);
                 $entityManager->flush();
                 //Redirection vers la deuxième partie de la réservation : formulaire de coordonnées     
-                $this->addFlash('message', 'Les informations ont bien été prises en compte, vous allez passer à l\'étape suivante...');
+                $this->addFlash('success', 'Les informations ont bien été prises en compte, vous allez passer à l\'étape suivante...');
                 return $this->redirectToRoute('new_coordonnees', ['reservation' => $reservation->getId()]);
             }
         }
