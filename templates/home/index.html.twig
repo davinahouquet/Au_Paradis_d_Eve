@@ -17,14 +17,14 @@
     </div> #}
 
     <div class="description">
-        <h1 class="licorice-title">Au Paradis d'Eve</h1>
+        <strong><h1 class="licorice-title">Au Paradis d'Eve</h1></strong>
 
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('admin_edit_home_text') }}">Modifier la page d'accueil</a>
         {% endif %}
 
         <p><strong>{{ data.maison_dhote }}</p>
-        <p><a href="{{ path('app_reservation') }}">Réservez</a> sur notre site en toute sécurité</p>
+        <p><a href="{{ path('app_reservation') }}"><strong>Réservez</strong></a> sur notre site en toute sécurité</p>
         <p>{{ data.environnement }}</p>
     </div>
     </section>
@@ -65,8 +65,11 @@
             </div>
             {% endfor %}
         </div>
-
+        
     </section>
+    <button id="scrollToTopBtn"><span class="material-symbols-outlined">
+        arrow_upward
+        </span></button>
     <section class="pdb">
         {# <div class="parallax-pdb"></div> #}
         <img src="{{ asset('img/altschlossfelsen.jpg') }}" alt="L'Altschlossfelsen, nom à consonance germanique signifie :Rocher du Vieux Château.  Barre rocheuse aux couleurs rougeâtres qui porte toutes les particularités géologiques des Vosges du Nord.">
@@ -76,43 +79,47 @@
         </div>
     </section>
     <section class="contact" id="contact">
-        <div class="form-contact">
-            <h5>Contactez-nous...</h5>
-
-            {{ form_start(form) }}
-
-            {{ form_row(form.email) }}
-            {{ form_row(form.message) }}
-            {{ form_row(form.valider)}}
-
-            {{ form_end(form) }}
+        <div class="cadre">
+            <h5>Nous contacter</h5>
+    
+            <div class="infos-and-form">
+                <div class="form-contact">
+                    <h6>Contactez-nous...</h6>
+        
+                    {{ form_start(form) }}
+        
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.message) }}
+                    {{ form_row(form.valider)}}
+        
+                    {{ form_end(form) }}
+                </div>
+                <div class="infos-contact">
+                    <h6>Nos coordonnées...</h6>
+                    <div class="contact-row">
+                        <span class="material-symbols-outlined">call</span>
+                        {{ data.telephone_fixe }}
+                    </div>
+                    <div class="contact-row">
+                        <span class="material-symbols-outlined">sms</span>
+                        {{ data.telephone }}
+                    </div>
+                    <div class="contact-row">
+                        <span class="material-symbols-outlined">home</span>
+                        {{ data.adresse }}
+                    </div>
+                    <div class="contact-row">
+                        {{ data.cp }}
+                        {{ data.ville }}
+                    </div>
+                    <div class="contact-row">
+                        <span class="material-symbols-outlined">mail</span>
+                        <a href="mailto:auparadisdeve@gmail.com">{{ data.email }}</a>
+                    </div>
+                </div>
+                {# <img src="{{ asset('img/leaf.png') }}" alt="Aquarelle de feuilles vertes"> #}
+            </div>
         </div>
-        <div class="infos-contact">
-            <h6>Nos coordonnées...</h6>
-            <div class="contact-row">
-                <span class="material-symbols-outlined">call</span>
-                {{ data.telephone_fixe }}
-            </div>
-            <div class="contact-row">
-                <span class="material-symbols-outlined">sms</span>
-                {{ data.telephone }}
-            </div>
-            <div class="contact-row">
-                <span class="material-symbols-outlined">home</span>
-                {{ data.adresse }}
-            </div>
-            <div class="contact-row">
-                {{ data.cp }}
-                {{ data.ville }}
-            </div>
-            <div class="contact-row">
-                <span class="material-symbols-outlined">mail</span>
-                <a href="mailto:auparadisdeve@gmail.com">{{ data.email }}</a>
-            </div>
-        </div>
-        <button id="scrollToTopBtn" onclick="scrollToTop()"><span class="material-symbols-outlined">
-            arrow_upward
-        </span></button>
     </section>
     <section class="mascotte">
         <h3>{{ data.mascotte }}</h3>
