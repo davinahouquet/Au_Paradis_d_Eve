@@ -19,25 +19,24 @@ function toggleUserMenu() {
     menu.classList.toggle('active');
 }
 
-// Fonction pour faire défiler vers le haut
-function scrollToTop() {
-    document.body.scrollTop = 0; // Pour les navigateurs Safari
-    document.documentElement.scrollTop = 0; // Pour les autres navigateurs
-}
-
-// Afficher/masquer le bouton en fonction de la position de défilement
-window.onscroll = function() { scrollFunction() };
-
-function scrollFunction() {
+document.addEventListener("DOMContentLoaded", function () {
     var scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
-    // Afficher le bouton lorsque la page est défilée de 100 pixels ou plus
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        scrollToTopBtn.style.display = "block";
-    } else {
-        scrollToTopBtn.style.display = "none";
-    }
-}
+    // Show or hide the button based on scroll position
+    window.onscroll = function () {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            scrollToTopBtn.style.display = "block";
+        } else {
+            scrollToTopBtn.style.display = "none";
+        }
+    };
+
+    // Scroll to the top when the button is clicked
+    scrollToTopBtn.addEventListener("click", function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    });
+});  
 
 document.addEventListener('DOMContentLoaded', function() {
     var masquerLiens = document.querySelectorAll('.masquer-evaluation');
@@ -62,5 +61,21 @@ document.addEventListener('DOMContentLoaded', function() {
         evaluationsMasquees.forEach(function(evaluation) {
             evaluation.classList.remove('evaluation-masquee');
         });
+    });
+});
+$(document).ready(function() {
+    // you may need to change this code if you are not using Bootstrap Datepicker
+    $('.js-datepicker').datepicker({
+        format: 'yyyy-mm-dd'
+    });
+});
+
+// les messages flashes : durée
+$(document).ready(function() {
+    // millisecondes
+    var duration = 5000;
+
+    $('.flashes .flash-message').delay(duration).fadeOut('slow', function() {
+        $(this).remove();
     });
 });
