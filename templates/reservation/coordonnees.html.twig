@@ -1,46 +1,51 @@
 {% extends 'base.html.twig' %}
 {% block meta_description %} Remplissez vos coordonnées - Coordonnées de réservation {% endblock %}
 {% block css %}
-    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
+<link rel="stylesheet" href="{{ asset('css/formulaireReservation.css') }}">
+    {# <link rel="stylesheet" href="{{ asset('css/reservation.css') }}"> #}
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
 {% endblock %}
 
 {% block title %}Etape 2 réservation{% endblock %}
 
 {% block body %}
-    <section class="section-reservation">
-        <h1>Réservation</h1>
+
+    <h1>Réservation</h1>
+    
+    <section class="section-coordonnees">
 
         <div class="resume-reservation">
             <h2>Résumé de la réservation</h2>
             <p>Du {{reservation.dateDebutFr}} au {{reservation.dateFinFr}}</p>
-            <p>Pour {{reservation.nbPersonnes}} personnes (enfants non inclus)</p>
+            <p>Pour {{reservation.nbPersonnes}} personne(s) (enfants non inclus)</p>
             <p>Check-in à partir de 15h - Check-out à 11h</p>
             <hr>
-            <p>{{espace.nomEspace}}</p>
-            <p>{{espace.taille}} m²</p>
-            <p>{{espace.nbPlaces}} places</p>
-            <p>{{espace.wifi}}</p>
+            <p>Dans la {{espace.nomEspace}} de {{espace.taille}} m²</p>
+            <p>Pour un total de <b>{{ prixTotal }} €</b></p>
 
         </div>
-        <div class="etape-reservation-form">
+        <div class="reservation-form">
+        {# <div class="etape-reservation-form"> #}
             <h3>Vos coordonnées</h3>
 
             {{ form_start(form) }}
                 {{ form_label(form.email) }}
-                {{ form_label(form.adresse) }}
-                {{ form_label(form.cp) }}
-                {{ form_label(form.ville) }}
-                {{ form_label(form.pays) }}
+                {{ form_widget(form.email) }}
 
-                {# {% if is_granted('ROLE_USER') %}
-                    <p><a href="{{ path('app_login')}}">Connectez-vous</a> pour sauvegarder vos informations</p>
-                {% else %}
-                    {{ form_label(form.souvenir) }}
-                {% endif %}
-                {{dump(app.user)}} #}
+                {{ form_label(form.adresse) }}
+                {{ form_widget(form.adresse) }}
+
+                {{ form_label(form.cp) }}
+                {{ form_widget(form.cp) }}
+
+                {{ form_label(form.ville) }}
+                {{ form_widget(form.ville) }}
+
+                {{ form_label(form.pays) }}
+                {{ form_widget(form.pays) }}
 
             {{ form_end(form) }}
+
 
             <p>Ces informations apparaîtront sur votre facture</p>
             <p>Les champs marqués d'un * sont obligatoires</p>

@@ -22,50 +22,52 @@ class ReservationType extends AbstractType
         ->add('prenom', TextType::class, [
             'label' => 'Prénom*',
             'required' => true,
-            'attr' => [
-                'value' => 'Stewie'
-            ]
+            // 'attr' => [
+            //     'value' => 'Stewie'
+            // ]
         ])
         ->add('nom', TextType::class, [
             'label' => 'Nom*',
             'required' => true,
-            'attr' => [
-                'value' => 'Griffin'
-            ]
+            // 'attr' => [
+            //     'value' => 'Griffin'
+            // ]
         ])
         ->add('telephone', TextType::class, [
             'label' => 'Téléphone*',
             'required' => true,
             'attr' => [
-                'value' => '444719'
+                // 'value' => '444719'
             ]
         ])
         ->add('nb_personnes', NumberType::class, [
             'label' => 'Nombre de personnes*',
             'required' => true,
             'attr' => [
-                'value' => 1
-            ]
+                'min' => 1
+            ],
         ])
         ->add('date_debut', DateType::class, [
             'widget' => 'single_text',
             'required' => true,
             'attr' => [
                 'class' => 'form-control',
-                'min' => (new \DateTime())->add(new \DateInterval('P1D'))->format('Y-m-d'),
+                'min' => (new \DateTime())->add(new \DateInterval('P1D'))->format('d-m-Y'),
             ],
             'label' => 'Date de début*',
             'data' => (new \DateTime())->add(new \DateInterval('P1D')), // La date du jour + 1 jour
+            // 'html5' => false
         ])
         ->add('date_fin', DateType::class, [
             'widget' => 'single_text',
             'required' => true,
             'attr' => [
                 'class' => 'form-control',
-                'min' => (new \DateTime())->add(new \DateInterval('P1D'))->format('Y-m-d'),
+                'min' => (new \DateTime())->add(new \DateInterval('P1D'))->format('d-m-Y'),
             ],
             'label' => 'Date de fin*',
             'data' => (new \DateTime())->add(new \DateInterval('P3D')), //2 jours minimum pour réserver
+            // 'html5' => false
         ])
             ->add('options', EntityType::class, [
                 'class' => Option::class,
