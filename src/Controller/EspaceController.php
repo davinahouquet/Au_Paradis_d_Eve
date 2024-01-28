@@ -40,16 +40,18 @@ class EspaceController extends AbstractController
     #[Route('/espace/remove/{id}', name: 'remove_espace')]
     public function remove_espace(Espace $espace, EntityManagerInterface $entityManager): Response
     {
+
         $reservations = $espace->getReservations();
 
-        if($reservations){
-            $this->addFlash('danger', 'Cet espace est réservé, vous ne pouvez pas le supprimer si des réservations y sont associées.');
+        if(sizeof($reservations) > 1){
+            $this->addFlash('error', 'Cet espace est réservé, vous ne pouvez pas le supprimer si des réservations y sont associés.');
             return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
         }
 
         $entityManager->remove($espace);
         $entityManager->flush();
 
+        $this->addFlash('success', 'Espace supprimé');
         return $this->redirectToRoute('app_espace');
     }
 

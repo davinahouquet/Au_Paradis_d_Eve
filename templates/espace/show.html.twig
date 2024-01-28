@@ -122,8 +122,6 @@
           </div>
           {% if espace.categorie.Id == 1 %}
           <a href="{{ path('new_reservation', {'id' :espace.id})}}" type="button" class="btn btn-success" id="booking-button">Réserver</a>
-          {% else %}
-          <p>Cet espace est accessible avec votre réservation.</p>
         {% endif %}
 
         {% if espace.categorie.Id == 11 %}
@@ -139,8 +137,6 @@
       {% if espace.categorie.Id == 1 %}
       {% include 'booking/calendar.html.twig' %}
       <h2>{{espace.prix}}€ /personne</h2>
-    {% else %}
-      <p>Cet espace est accessible avec votre réservation.</p>
     {% endif %}
   
     {% if espace.categorie.Id == 11 %}

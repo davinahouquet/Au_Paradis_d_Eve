@@ -45,11 +45,6 @@
 .home-page .description a{
     color: var(--hover);
 }
-
-.home-page .description h1{
-    font-family: "Licorice";
-    font-size: 55px;
-}
     
 /* APERCU DES CHAMBRES SUR LA PAGE D'ACCUEIL VERSION MOBILE */
 .apercu-chambres{
@@ -292,6 +287,11 @@
 
 @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px){
 
+    .home-page .description h1{
+        font-family: "Licorice";
+        font-size: 55px;
+    }
+
 }
 /* Taille mobile horizontal */
 @media (device-height: 430px) and (device-width: 932px){
@@ -381,6 +381,20 @@
 
 /* Taille desktop et plus */
 @media only screen and (min-width: 992px) {
+    .home-page .description h1{
+        font-family: "Licorice";
+        font-size: 65px;
+    }
+
+    .home-page .description{
+        font-size: 25px;
+    }
+
+    .home-page a:hover{
+        color: rgb(253, 215, 0);
+        transition: 0.3s;
+    }
+
     .conteneur-cartes-chambre{
         max-width: 100%;
         height:auto;

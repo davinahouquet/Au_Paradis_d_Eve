@@ -1,7 +1,7 @@
 /* CHAMBRES ET ESPACES DE VIE */
 /* @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) { */
     #booking-button{
-        margin: 30px;
+        margin: 20px;
         padding: 10px;
         font-size: 20px;
     }
@@ -203,7 +203,8 @@
 
     .nom-espace:hover{
         transition: 0.5s;
-        background-color: rgba(255, 0, 0, 0);
+        color: var(--white);
+        background-color: rgba(0, 0, 0, 0.07);
     }
 
     /* Détails d'un espace */
@@ -217,7 +218,7 @@
     }
 
     .carousel-item img, .caroussel-gauche img{
-        height: 85vh;
+        height: 75vh;
         object-fit: cover;
     }
 
@@ -294,6 +295,7 @@
     .nom-espace-preview:hover{
         background-color: rgba(22, 22, 22, 0.06);
         transition: 0.3s;
+        color: var(--white);
     }
 
     .autres-espaces-title{
