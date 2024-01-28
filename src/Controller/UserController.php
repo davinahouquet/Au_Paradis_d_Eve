@@ -83,7 +83,7 @@ class UserController extends AbstractController
             $indisponible = $reservationRepository->findEspacesReserves($espace, $dateDebut, $dateFin);
             
             if($indisponible){
-                $this->addFlash('message', 'La réservation n\'est plus disponible aux dates séléctionnées');
+                $this->addFlash('danger', 'La réservation n\'est plus disponible aux dates séléctionnées');
                 return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
                 exit;
             }

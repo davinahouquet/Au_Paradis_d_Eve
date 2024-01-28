@@ -1,3 +1,7 @@
+import 'bootstrap-datepicker';
+// Initialisation du datepicker
+$('.datepicker').datepicker();
+
 // Menu burger
 function toggleBurgerMenu() {
     var menu = document.querySelector('nav ul');

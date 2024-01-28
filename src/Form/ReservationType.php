@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Option;
 use App\Entity\Reservation;
+use App\Repository\ReservationRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
@@ -16,8 +17,17 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class ReservationType extends AbstractType
 {
+    private $reservationRepository;
+
+    // Injectez le ReservationRepository dans le constructeur
+    public function __construct(ReservationRepository $reservationRepository)
+    {
+        $this->reservationRepository = $reservationRepository;
+    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        
         $builder
         ->add('prenom', TextType::class, [
             'label' => 'Prénom*',
@@ -52,22 +62,20 @@ class ReservationType extends AbstractType
             'required' => true,
             'attr' => [
                 'class' => 'form-control',
-                'min' => (new \DateTime())->add(new \DateInterval('P1D'))->format('d-m-Y'),
+                'min' => (new \DateTime())->add(new \DateInterval('P1D'))->format('Y-m-d'), // Format ISO 8601
             ],
             'label' => 'Date de début*',
-            'data' => (new \DateTime())->add(new \DateInterval('P1D')), // La date du jour + 1 jour
-            // 'html5' => false
+            'data' => (new \DateTime())->add(new \DateInterval('P1D')),
         ])
         ->add('date_fin', DateType::class, [
             'widget' => 'single_text',
             'required' => true,
             'attr' => [
                 'class' => 'form-control',
-                'min' => (new \DateTime())->add(new \DateInterval('P1D'))->format('d-m-Y'),
+                'min' => (new \DateTime())->add(new \DateInterval('P1D'))->format('Y-m-d'), // Format ISO 8601
             ],
             'label' => 'Date de fin*',
-            'data' => (new \DateTime())->add(new \DateInterval('P3D')), //2 jours minimum pour réserver
-            // 'html5' => false
+            'data' => (new \DateTime())->add(new \DateInterval('P3D')),
         ])
             ->add('options', EntityType::class, [
                 'class' => Option::class,
@@ -75,8 +83,66 @@ class ReservationType extends AbstractType
                 'multiple' => true,
                 'expanded' => true
             ])
-        ;
+            
+        // ;
+        ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+            $espace =  $data->getEspace();
+
+            if ($data instanceof Reservation) {
+                // Récup dates déjà réservées depuis repo
+                $datesReservees = $this->reservationRepository->findDatesReservees($espace);
+
+                // Attribut "disabled" aux options de date déjà réservées
+                $disabledDates = [];
+                foreach ($datesReservees as $dateReservee) {
+                    $disabledDates[] = $dateReservee->getDateDebut()->format('Y-m-d');
+                }
+
+                $form->add('date_debut', DateType::class, [
+                    'widget' => 'single_text',
+                    'required' => true,
+                    'attr' => [
+                        'class' => 'form-control',
+                        'min' => (new \DateTime())->add(new \DateInterval('P1D'))->format('Y-m-d'),
+                        'data-indisponibles' => json_encode($disabledDates), // Ajoute dates indisponibles comme attribut data
+                    ],
+                    'label' => 'Date de début*',
+                    'data' => (new \DateTime())->add(new \DateInterval('P1D')),
+                ]);
+            }
+        });
+        // $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        //     $form = $event->getForm();
+        //     $data = $event->getData();
+
+        //     if ($data instanceof Reservation) {
+        //         // Récup dates indisponibles depuis repository ou service
+        //         $indisponibilites = $this->reservationRepository->findIndisponibilites($data->getEspace());
+
+        //         // Ajoute attribut "disabled" aux options de date indisponibles
+        //         $disabledDates = [];
+        //         foreach ($indisponibilites as $indisponibilite) {
+        //             $disabledDates[] = $indisponibilite->getDateDebut()->format('Y-m-d');
+        //         }
+
+        //         $form->add('date_debut', DateType::class, [
+        //             'widget' => 'single_text',
+        //             'required' => true,
+        //             'attr' => [
+        //                 'class' => 'form-control',
+        //                 'min' => (new \DateTime())->add(new \DateInterval('P1D'))->format('Y-m-d'),
+        //                 'data-indisponibles' => json_encode($disabledDates), // Ajoute dates indisponibles comme attribut data
+        //             ],
+        //             'label' => 'Date de début*',
+        //             'data' => (new \DateTime())->add(new \DateInterval('P1D')),
+        //         ]);
+        //     }
+        // });
     }
+
+    
 
     public function configureOptions(OptionsResolver $resolver): void
     {

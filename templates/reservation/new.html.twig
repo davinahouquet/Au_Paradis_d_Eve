@@ -38,7 +38,7 @@
             {{ form_widget(form.nb_personnes, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="date-group">
-            <div class="form-group">
+            {# <div class="form-group">
                 {{ form_label(form.date_debut) }}
                 {{ form_widget(form.date_debut, {'attr': {'class': 'form-control'}}) }}
                 <p>Demain minimum*</p>
@@ -47,6 +47,17 @@
             <div class="form-group">
                 {{ form_label(form.date_fin) }}
                 {{ form_widget(form.date_fin, {'attr': {'class': 'form-control'}}) }}
+                <p>2 jours minimum*</p>
+            </div> #}
+             <div class="form-group">
+                {{ form_label(form.date_debut) }}
+                {{ form_widget(form.date_debut, {'attr': {'class': 'form-control datepicker'}}) }}
+                <p>Demain minimum*</p>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.date_fin) }}
+                {{ form_widget(form.date_fin, {'attr': {'class': 'form-control datepicker'}}) }}
                 <p>2 jours minimum*</p>
             </div>
         </div>
@@ -61,4 +72,19 @@
         <p>Les champs marqués d'un * sont obligatoires</p>
     </div>
 </section>
+
+{% block javascript %}
+<script>
+    $(document).ready(function(){
+        var indisponibles = {{ indisponibilites|json_encode|raw }};
+
+        $('.datepicker').datepicker({
+            beforeShowDay: function(date){
+                var dateString = $.datepicker.formatDate('yy-mm-dd', date);
+                return [indisponibles.indexOf(dateString) == -1];
+            }
+        });
+    });
+</script>
+{% endblock javascript %}
 {% endblock %}

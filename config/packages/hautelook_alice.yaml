@@ -1,0 +1,5 @@
+when@dev: &dev
+    hautelook_alice:
+        fixtures_path: '%kernel.project_dir%/src/DataFixtures'
+
+when@test: *dev

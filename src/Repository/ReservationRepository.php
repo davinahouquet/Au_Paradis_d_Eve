@@ -23,6 +23,24 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+        // Récupère les réservations à venir d'un espace
+        public function findDatesReservees(?Espace $espace): array
+        {
+            $now = new \DateTime();
+            $confirmee = 'CONFIRMEE';
+    
+            return $this->createQueryBuilder('r')
+                ->andWhere('r.espace = :espace')
+                ->andWhere('r.date_debut > :now')
+                ->andWhere('r.statut = :confirmee' )
+                ->setParameter('now', $now)
+                ->setParameter('espace', $espace)
+                ->setParameter('confirmee', $confirmee)
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
     public function findEspacesReserves(Espace $espace, \DateTime $dateDebut, \DateTime $dateFin)
     {
     return $this->createQueryBuilder('r')

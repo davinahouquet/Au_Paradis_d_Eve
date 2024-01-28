@@ -54,6 +54,15 @@ class ReservationController extends AbstractController
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
     public function newReservation( Espace $espace, Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
     {
+        // Assurez-vous que $espace est non nul avant d'appeler findIndisponibilites
+        if ($espace->getReservations() !== null) {
+            $indisponibilites = $reservationRepository->findDatesReservees($espace);
+        } else {
+            // Gérez le cas où $espace est nul, par exemple, lancez une exception ou renvoyez un message d'erreur
+            throw new \InvalidArgumentException('$espace ne peut pas être null.');
+        }
+        // $indisponibilites = $reservationRepository->findIndisponibilites($espace);
+
         if(!$this->getUser() && !$request->query->get('acceptInvited')){
             return $this->redirectToRoute('app_choix', ['id' => $espace->getId()]);
         }
@@ -88,7 +97,8 @@ class ReservationController extends AbstractController
         }
         return $this->render('reservation/new.html.twig', [
             'form' => $form,
-            'chambre' => $chambre
+            'chambre' => $chambre,
+            'indisponibilites' => $indisponibilites
         ]);
     }
 
