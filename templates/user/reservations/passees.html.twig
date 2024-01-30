@@ -51,7 +51,7 @@
                                 {% endif %}
                             </td>
                             <td>{{ reservationPassee.prixTotal }} €</td>
-                            <td><a href="">PDF</a> <br>
+                            <td><a href="{{path('app_pdf_generator', {'id' : reservationPassee.id})}}" target="_blank"">PDF</a> <br>
                                 <a href="">Envoyer</a>
                             </td>
                         </tr>
@@ -78,6 +78,9 @@
                 </ul> #}
             {% endif %}
                 <p>Prix total : {{reservationPassee.prixTotal}} €</p>
+
+                <a href="">Télécharger PDF</a>
+
                 {% if reservationPassee.avis %}
                     <p>Merci d'avoir partagé votre avis</p>
                     {{reservationPassee.avis}}
