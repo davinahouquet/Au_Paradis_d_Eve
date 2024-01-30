@@ -70,7 +70,7 @@ class ReservationRepository extends ServiceEntityRepository
             ->orderBy('r.date_debut', 'ASC')
             ->getQuery()
             ->getResult()
-       ;
+    ;
     }
 
     public function findReservationsPassees(User $user): array

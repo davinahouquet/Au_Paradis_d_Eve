@@ -54,16 +54,15 @@ class ReservationController extends AbstractController
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
     public function newReservation( Espace $espace, Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
     {
-        // Assurez-vous que $espace est non nul avant d'appeler findIndisponibilites
+        // Assurez-vous que $espace est non nul avant d'appeler findDatesReservees
         if ($espace->getReservations() !== null) {
             $indisponibilites = $reservationRepository->findDatesReservees($espace);
-        } else {
+} else {
             // Gérez le cas où $espace est nul, par exemple, lancez une exception ou renvoyez un message d'erreur
             throw new \InvalidArgumentException('$espace ne peut pas être null.');
         }
-        // $indisponibilites = $reservationRepository->findIndisponibilites($espace);
-
-        if(!$this->getUser() && !$request->query->get('acceptInvited')){
+        // Si pas d'utilisateur connecté ET qu'il n'a pas encore choisi poursuivre/connexion
+        if(!$this->getUser() && !$request->query->get('poursuivre')){
             return $this->redirectToRoute('app_choix', ['id' => $espace->getId()]);
         }
 

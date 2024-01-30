@@ -40,28 +40,10 @@ class RegistrationFormType extends AbstractType
             ],
             'attr' => ['class' => 'form-check-input']
         ])
-        // ->add('plainPassword', PasswordType::class, [
-        //     'mapped' => false,
-        //     'label' => 'Mot de passe*',
-        //     'attr' => [
-        //         'class' => 'form-control',
-        //         'autocomplete' => 'new-password'
-        //     ],
-        //     'constraints' => [
-        //         new NotBlank([
-        //             'message' => 'Veuillez entrer un mot de passe',
-        //         ]),
-        //         new Length([
-        //             'min' => 6,
-        //             'minMessage' => 'Votre mot de passe doit contenir {{ limit }} caractères minimum',
-        //             'max' => 4096,
-        //         ]),
-        //     ],
-        // ])
         ->add('plainPassword', RepeatedType::class, [
             'type' => PasswordType::class,
             'mapped' => false,
-            'invalid_message' => 'The password fields must match.',
+            'invalid_message' => 'Les mots de passe doivent correspondre.',
             'options' => ['attr' => ['class' => 'password-field']],
             'required' => true,
             'first_options'  => ['label' => 'Mot de passe',

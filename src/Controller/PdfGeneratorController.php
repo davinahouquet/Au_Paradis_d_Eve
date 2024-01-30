@@ -16,13 +16,8 @@ class PdfGeneratorController extends AbstractController
     #[Route('/profile/pdf/generator/{id}', name: 'app_pdf_generator')]
     public function index(Reservation $reservation, ReservationRepository $reservationRepository): Response
     {
-        // return $this->render('pdf_generator/index.html.twig', [
-        //     'controller_name' => 'PdfGeneratorController',
-        // ]);
         $currentDate = date('l-d-m-Y');
-
         $reservation = $reservationRepository->findOneBy([]);
-
         $data = [
             'currentDate' => $currentDate,
             'reservation' => $reservation
@@ -38,12 +33,4 @@ class PdfGeneratorController extends AbstractController
             ['Content-Type' => 'application/pdf']
         );
     }
-
-    // private function imageToBase64($path) {
-    //     $path = $path;
-    //     $type = pathinfo($path, PATHINFO_EXTENSION);
-    //     $data = file_get_contents($path);
-    //     $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-    //     return $base64;
-    // }
 }
