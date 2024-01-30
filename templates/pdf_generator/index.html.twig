@@ -1,10 +1,7 @@
-{# <img src="{{asset('public/img/pdf/JardinPano.jpg')}}"> #}
-
 {% block title %}Votre commande{% endblock %}
-
 {% block body %}
-+Dn///+D/nv/////8gMPv8AAAAAAAAAAH///////////////AaSB//////cDDd/gAAAAAAAAAA//////////////8gDwgP/////6IYSPwAAAAAAAAAAf//////////n///AQwYR////jfBgA34AAAAAAAAAAB//////////p///44FkAfv//sckYAIQAAAAAAAAAAAP//////////f/98MCQAAZ//7AgQAAAKAAAAAAAAAAB/////////wX//jTBiAAAP//AEUAAABEAAAAAAAAAA//////////F//3UAAgAAD/8wAEAAAAAAAAAAAAAAAP////////8Df/xwAAYAAAf/AAAAAAAAAAAAAAAAAAC/////////HX/8IAAIAAAD/4AAAgAAAAIAAAAAAAAAP///////+D3//AAAIAAAAf0AIAAAAABAAAAAAAAAAD////////AHv+AAAAAAAgP9AAAIAAAABAAAAAAAAAA///////+0x//gAAAAAAAB8AAAABAAEAAAAAAAAAAAO///////PO4/wAAAAAAAAGEAQABAAAwAAAAAAAAAADP///////+H/8AAAAQABAAgIAAAAACAAAAAAAAAAAgIf/v////P4DGAAAAAAAAA5QAAAHAAgAAAAAAAAAAAAD/x///vwAALAAAAAAAABwAIAABgAYACAAAAAAAAAAA/8/3/AAAAMgAAAAAIABgBAAQYAAAAAAAAAAAAAAgAG/H/gAAAABAAAAAAAAgEQSEAAAAAAgAAAAAAAGAIBgrx8AAAAAAfAAAAAAAH4AMAAAAAAAAAAAAAAABBAACBvwAAAAAALAAAAAAwB0MAAAAgAAADAAAAAAAGeAAAIeAAAAAAAAAAAAAJcA94AAAAEAAAAAAAAAAAAAAAAHQAAAAAAAAAAAAAAfEPgAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAgH7h4AAAABAAAAAAAAAAAAAIAAAQAAAAAAAAAAAAAAATMMAAAAAAAAAAAAAAAAAAyAAFQAAAAAAAAAAAAAAAA7PAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAACAAf/wAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAcAAJ/8AAAAAAAAAAAAAAAAAAAAAABgAAAACAAAAAABAAAf/AAAAAAAAAAAAAAAAAAAAAAAIAAAAAgAAAAAI4AkO9QAAAAAAAAAAAAAAAAAAAAAACAAAAAYAAAIACfEJ7/EAAAAAAAAAAADgACAAAAAAEAgAAAAPQAACABHzib/1AAAAAAAAAAAAeAgAAHAAAICgAAAAH/AAAAAZvsO//4AAAAAAAAAAAH4IAABcACAA4AAAAB/wAAAAGAAH+/2AAAAAAAAAAAT++QAIfxAgALAAAAAf8AAAAHAABwD/AAAAAAAAAAAB+8AH+LfgQAAwAAAAF/AABAEAgCwA68AAAAAAAAAAAP6xX8v38CA/kAAAAB9wAAAHQAAEAGDAAAAAAAAAAAB4h2/vzf6AENgAAAAf+AAAAAAAgAAgAAAAAAAAAAAAACHH4h++AoHYAAAAH/gAAACAAAAAAMAAAAAAAAAAAAH+XIg+PiQh2AAAAAf4AAAAAAAKAAAAAAAAAAAAAAAACnawvH4CQfgAgAAB+AAAAAIAAAAAAAAAAAAAAAAAAX/xLaz5FAF8AAAAADwAAAAAAAAAAAAAAAAAAAAAAAAfgicf96AAfAEwAAAcAAAAAAACAAAAAAAAAAAAAAAAPgoBXf/wYHgMeAAAHAAAAAAABAAAgAAAAAAAAAAAAC+fgK8/7HB4H/4AABwACAAAAAgAAAAAAAAAAAAAAAAD84ADvG8wfA//gAAcAAgAAAAAAAAAAAAAAAAAAAAAAfIAL7QncHwP/+AAHgAkAAAAAAAAAAAAAAAAAAAAD83yAH/xZ/g/B//4ABwAOAAAAAAAAAAAAAAAAAAAAAfv+gAf/yvAPwP//gAeADgAAAAAAAAAAAAAAAAAAAgD+L4AA+8jz3+D//+AHgAgAAAAAAAAAAAAAAAAAAAQA8g8AQDHEv9/wf//gB4AAAAAAAAAAAAAAAAAAAAAOh/CAAAA+wD//8T//4A+AAAMAAAAAAAAAAAAAAAAABv/4AAAANkDf+/if//APgAADAAAAAAAAAAAAAAAAAAF/lAAAAOQLf//8D//wBwAAAAEAAAAAAAAAAAAAAAAT/7wAAAD007///Af/8A0ABAAIAAAAAAAAAAAAAAAAAv/wAAADzAff/v4j//AHgAAAYAAAAAAAAAAAAAAAAAAbmAAAAfQu8f7/G//wB4AAAAAAAAAIAAAAAAAAAAAADCAAAAOQWkXq/wn/4A+AA=
-<p>Date de la réservation</p> {{currentDate}}
+
+{{currentDate}}
 
 <h1>Au Paradis d'Eve</h1>
 <h2>Votre facture</h2>
@@ -44,25 +41,26 @@
             <td>Date de fin:</td>
             <td>{{reservation.dateFinFr}}</td>
         </tr>
-        {# si options sélectionnées, boucle sur les options sélectionnées #}
         <tr>
             <td colspan="2">
                 Vos options:
             </td>
         </tr>
+        {% if reservation.options %}
+            {% for option in reservation.options %}
         <tr>
-            <td>Noms de l'option</td>
-            <td>Prix €</td>
+            <td>{{ option.nom }}</td>
+            <td>{{ option.tarif }} €</td>
         </tr>
+        {% endfor %}
+        {% endif %}
         <tr>
             <td><b>Prix total:</b></td>
             <td><b>{{reservation.prixTotal}}€</b></td>
         </tr>
-         {# <td>{{reservation.options}}</td> #}
     </table>
+    <p>Nous éspérons que vous avez passé un séjour agréable au sein de notre établissement Au Paradis d'Eve.</p>
 
-    <p>Les infos pratiques : <br>Horaire d'arrivée : <b>15h</b><br>Horaire de départ : <b>9h</b><br> Des places de stationnements sont disponibles devant la maison, les vélos et motos peuvent être accueillis dans un garage</p>
-    <p>Pour toute information supplémentaire, vous pouvez me contacter via le service de contact, à l'adresse mail auparadisdeve@hotmail.com ou au 0613325980.</p>
     <p>Cordialement, <br> Au Paradis d'Eve</p>
 </div>
 {% endblock %}
