@@ -145,7 +145,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $form->get($data);
+            // $form->get($data);
             $updatedData = $form->getData();
             $updatedJson = json_encode($updatedData, JSON_PRETTY_PRINT);
 
