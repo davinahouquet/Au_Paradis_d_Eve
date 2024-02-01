@@ -115,8 +115,6 @@
                         <img src="{{ asset('uploads/images/' ~ image.lienImage) }}" alt="{{ image.altImage|default('Texte de remplacement')}}" width="300">
                     {% endif %}
                 {% endfor %}
-                
-                    
                 </div>
             {% endfor %}
           </div>
@@ -128,9 +126,7 @@
         <a href="{{ path('new_reservation', {'id' :espace.id})}}" type="button" class="btn btn-success" id="booking-button">Réserver</a>
         {% else %}
       {% endif %}
-
       </div>
-
       
     </div>
     <div class="calendrier-container">
@@ -174,8 +170,6 @@
                 {% endif %}
 
           </div>
-          {% else %}
-          <p>Pas de commentaire</p>
 
         {% endif %}
 

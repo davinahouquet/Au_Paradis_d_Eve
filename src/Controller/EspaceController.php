@@ -109,7 +109,7 @@ class EspaceController extends AbstractController
 
         foreach ($reservations as $reservation) {
             $reservationData[] = [
-                'title' => 'Indisponible', // Vous pouvez personnaliser le titre si nécessaire
+                'title' => 'Indisponible',
                 'start' => $reservation->getDateDebut()->format('Y-m-d'),
                 'end' => $reservation->getDateFin()->format('Y-m-d'),
             ];

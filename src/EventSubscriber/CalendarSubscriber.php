@@ -34,6 +34,7 @@ class CalendarSubscriber implements EventSubscriberInterface
         ];
     }
 
+    // Pour mettre des données dans le calendrier.html.twig
     public function onCalendarSetData(CalendarEvent $calendar)
     {
         // Récupérer l'espaceId
