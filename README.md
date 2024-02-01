@@ -31,4 +31,4 @@
   composer require dompdf/dompdf
 
 ## Aperçu
-[!Aperçu](public/img/readme/readme.png)
+[![Aperçu](public/img/readme/readme.png)]
