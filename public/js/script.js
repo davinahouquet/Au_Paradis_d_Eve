@@ -1,6 +1,6 @@
-import 'bootstrap-datepicker';
-// Initialisation du datepicker
-$('.datepicker').datepicker();
+// import 'bootstrap-datepicker';
+// // Initialisation du datepicker
+// $('.datepicker').datepicker();
 
 // Menu burger
 function toggleBurgerMenu() {
@@ -67,12 +67,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-$(document).ready(function() {
-    // you may need to change this code if you are not using Bootstrap Datepicker
-    $('.js-datepicker').datepicker({
-        format: 'yyyy-mm-dd'
-    });
-});
+// $(document).ready(function() {
+//     // you may need to change this code if you are not using Bootstrap Datepicker
+//     $('.js-datepicker').datepicker({
+//         format: 'yyyy-mm-dd'
+//     });
+// });
 
 // les messages flashes : durée
 $(document).ready(function() {
