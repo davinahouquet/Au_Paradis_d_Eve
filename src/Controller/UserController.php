@@ -323,7 +323,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/reservations/annulees', name: 'reservations_annulees')]
+    #[Route('/admin/user/reservations/annulees', name: 'reservations_annulees')]
     public function reservationsAnnulees(ReservationRepository $reservationRepository, User $user)
     {
         $user = $this->getUser();
