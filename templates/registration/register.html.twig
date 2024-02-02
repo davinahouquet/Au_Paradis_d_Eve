@@ -13,7 +13,7 @@
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
-
+<form>
     <h1>Inscription</h1>
 
     {{ form_errors(registrationForm) }}
@@ -29,6 +29,7 @@
 
     {{ form_end(registrationForm) }}
 
-    <p>Vous avez déjà un compte ? <a href="{{ path('app_login')}}">Connectez-vous</a> !</p>
+</form>
+<p>Vous avez déjà un compte ? <a href="{{ path('app_login')}}">Connectez-vous</a> !</p>
 </section>
 {% endblock %}

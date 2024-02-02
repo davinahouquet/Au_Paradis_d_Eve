@@ -66,7 +66,29 @@
 
     /* Taille desktop et + */
     @media only screen and (min-width : 1224px){
-        
+    .registration h1, .login h1, .registration p, .login p{
+        color: var(--white);
+    }
+
+    .registration form, .login form{
+        padding:  50px 450px 0 450px;
+        color: var(--white);
+    }
+
+    .registration input, .login input{
+        margin-bottom: 30px;
+    }
+
+    .registration p, .login p{
+        padding:  50px 450px 0 450px;
+    }
+
+    .registration, .login{
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/login.jpg) no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+
         .questions-h1{
             display: block;
             padding-top: 30px;

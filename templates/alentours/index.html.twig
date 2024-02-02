@@ -37,13 +37,12 @@
                         <img src="{{ sortie.image_sortie }}" alt="{{ sortie.nom_sortie }}" class="image-sortie">
                     {% else %}
                         <img src="{{ asset('../img/citadelle.png') }}" alt="{{ sortie.nom_sortie }}" class="image-sortie">
-
                     {% endif %}
                     <a href="{{ sortie.credit }}" class="credit">{{ sortie.credit }}</a>
                 </div>
             </li>
         {% endfor %}
     </ul>
-
+    
 </section>
 {% endblock %}
