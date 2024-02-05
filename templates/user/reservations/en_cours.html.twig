@@ -10,9 +10,9 @@
     <div class="profil">
 
         {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('toutes_reservations') }}">Retour</a>
+            <a href="{{ path('toutes_reservations') }}" type="button" class="btn btn-light" id="retour">Retour</a>
         {% else %}
-            <a href="{{ path('app_user') }}">Retour au profil</a>
+            <a href="{{ path('app_user') }}" type="button" class="btn btn-light" id="retour">Retour au profil</a>
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
@@ -70,8 +70,8 @@
             {% endfor %}
         {% else %}
             <h5>Pas de réservations en cours</h5>
-            <a href="{{path('app_reservation')}}">Réserver</a>    
-            <a href="{{ path('app_user') }}">Retour au profil</a>
+            <a href="{{path('app_reservation')}}" type="button" class="btn btn-success" id="retour" >Réserver</a>    
+            <a href="{{ path('app_user') }}" type="button" class="btn btn-light" id="retour">Retour au profil</a>
         {% endif %}
     </div>
 

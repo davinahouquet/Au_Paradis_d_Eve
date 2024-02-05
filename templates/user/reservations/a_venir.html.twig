@@ -9,21 +9,23 @@
 
 
 <div class="profil">
-    {% if app.user %}
-    {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('toutes_reservations') }}">Retour</a>
-    {% else %}
-    <a href="{{ path('app_user') }}">Retour au profil</a>
-    {% endif %}
-    
+
     <h1>Réservation à venir</h1>
+    
+    {% if app.user %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('toutes_reservations') }}"  type="button" class="btn btn-light" id="retour">Retour</a>
+        {% else %}
+            <a href="{{ path('app_user') }}"  type="button" class="btn btn-light" id="retour">Retour au profil</a>
+        {% endif %}
+    
 
     {% if is_granted('ROLE_ADMIN') %}
         {# {% for reservationAVenir in toutesReservationsAVenir %} #}
             <table class="table table-warning table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">N° réservation</th>
+                    <th scope="col">N°</th>
                     <th scope="col">Nom Prénom</th>
                     <th scope="col">Dates</th>
                     <th scope="col">Chambre</th>
@@ -36,7 +38,7 @@
                 <tbody>
                     {% for reservationAVenir in toutesReservationsAVenir %}
                 <tr>
-                    <th scope="row">{{ loop.index }}</th>
+                    <th scope="row">{{ reservationAVenir.id }}</th>
                     <td>{{ reservationAVenir.prenom }} {{ reservationAVenir.nom }}</td>
                     <td>{{ reservationAVenir.dateDebutFr }} au {{ reservationAVenir.dateFinFr }}</td>
                     <td>{{ reservationAVenir.espace.nomEspace }}</td>
@@ -78,7 +80,7 @@
                     <tbody>
                         {% for reservationAVenir in reservationsAVenir %}
                     <tr>
-                        <th scope="row">{{ loop.index }}</th>
+                        <th scope="row">{{ reservationAVenir.prenom }}</th>
                         <td>{{ reservationAVenir.prenom }} {{ reservationAVenir.nom }}</td>
                         <td>{{ reservationAVenir.dateDebutFr }} au {{ reservationAVenir.dateFinFr }}</td>
                         <td>{{ reservationAVenir.espace.nomEspace }}</td>
@@ -104,6 +106,15 @@
     {% else %}
         <p>Pas de réservation à venir</p>
     {% endif %}
+
+    <div class="rappel">
+        <p>Modalités d'annulations :</p>
+        <ol>
+            <li><b><span style="color:#FFA800">REMBOURSABLES</span></b> : Les réservations dont l'annulation est survenue 30j avant la date de début du séjour, ou à n'importe quel moment par le responsable de l'établissement font l'objet d'un remboursement total.</li>
+            <li><b><span style="color:#FFA800">REMBOURSEMENT PARTIEL</span></b>: Les réservations dont l'annulation est survenue 20j avant la date de début du séjour font l'objet d'un remboursement de 30% du prix total. <br></li>
+            <li><b><span style="color:#FFA800">NON REMBOURSABLE</span></b>: Les réservations survenues moins de 20j avant la date de début du séjour ne feront l'objet d'aucun remboursement.</li>
+        </ol>
+    </div>
 
     </div>
 {% endblock %}

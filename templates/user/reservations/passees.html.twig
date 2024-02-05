@@ -12,54 +12,46 @@
         <h1>Réservations passées</h1>
 
         {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('toutes_reservations') }}">Retour</a>
+            <a href="{{ path('toutes_reservations') }}" type="button" class="btn btn-light" id="retour">Retour</a>
         {% else %}
-            <a href="{{ path('app_user') }}">Retour au profil</a>
+            <a href="{{ path('app_user') }}" type="button" class="btn btn-light" id="retour">Retour au profil</a>
         {% endif %}
         
         {% if is_granted('ROLE_ADMIN') %}
         
-            {# {% for reservationPassee in toutesReservationsPassees %} #}
-                <table class="table table-danger table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">N° réservation</th>
-                        <th scope="col">Nom Prénom</th>
-                        <th scope="col">Dates</th>
-                        <th scope="col">Chambre</th>
-                        <th scope="col">Durée</th>
-                        <th scope="col">Option(s)</th>
-                        <th scope="col">Prix total</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for reservationPassee in toutesReservationsPassees %}
-                        <tr>
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ reservationPassee.prenom }} {{ reservationPassee.nom }}</td>
-                            <td>{{ reservationPassee.dateDebutFr }} au {{ reservationPassee.dateFinFr }}</td>
-                            <td>{{ reservationPassee.espace.nomEspace }}</td>
-                            <td>{{ reservationPassee.duree }} nuits</td>
-                            <td>
-                                {% if reservationPassee.options %}                      
-                                    {% for option in reservationPassee.options %}
-                                        * {{ option.nom }} <br>
-                                    {% endfor %}
-                                {% else %}
-                                    <p>Pas d'option</p>
-                                {% endif %}
-                            </td>
-                            <td>{{ reservationPassee.prixTotal }} €</td>
-                            <td><a href="{{path('app_pdf_generator', {'id' : reservationPassee.id})}}" target="_blank"">PDF</a> <br>
-                                <a href="">Envoyer</a>
-                            </td>
-                        </tr>
+        <table>
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Nom Prénom</th>
+                    <th>Dates</th>
+                    <th>Chambre</th>
+                    <th>Options</th>
+                    <th>Prix total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservationPassee in toutesReservationsPassees %}
+                <tr>
+                <td>{{ reservationPassee.id }}</td>
+                <td>{{ reservationPassee.prenom }} {{ reservationPassee.nom }}</td>
+                <td>{{ reservationPassee.dateDebutFr }} au {{ reservationPassee.dateFinFr }}</td>
+                <td>{{ reservationPassee.espace.nomEspace }}</td>
+                <td> {% if reservationPassee.options %}                      
+                    {% for option in reservationPassee.options %}
+                        * {{ option.nom }} <br>
                     {% endfor %}
-                    </tbody>
-                </table>
-            {# {% endfor %} #}
-
+                {% else %}
+                    <p>Pas d'option</p>
+                {% endif %}</td>
+                <td>{{ reservationPassee.prixTotal }} €</td>
+                <td><a href="{{path('app_pdf_generator', {'id' : reservationPassee.id})}}" target="_blank">PDF</a> <br>
+                    <a href="">Envoyer</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
         {% else %}
             {% if reservationsPassees %}
 

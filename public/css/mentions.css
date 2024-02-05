@@ -4,3 +4,7 @@
     min-height: 100vh;
     text-align: justify;
 }
+
+#accessibilite, #politique-confidentialite{
+    padding: 40px;
+}

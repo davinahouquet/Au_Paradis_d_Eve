@@ -8,6 +8,38 @@
         margin-bottom: 50px;
     }
 
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        }
+
+        th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        }
+
+        th {
+        background-color: #f2f2f2;
+        }
+
+        @media screen and (max-width: 600px) {
+        table {
+            overflow-x: auto;
+            display: block;
+        }
+
+        th, td {
+            white-space: nowrap;
+        }
+        }
+
+        #retour{
+            margin-bottom: 20px;
+            margin-right: 20px;
+        }
+
     .registration a, .login a{
         color: var(--hover);
     }
