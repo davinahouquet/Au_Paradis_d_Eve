@@ -226,7 +226,7 @@ class UserController extends AbstractController
                 'success',
                 'Les informations de votre compte ont bien été modifiées'
             ); 
-            return $this->redirectToRoute('app_user', ['id' => $user->getId()]);
+            return $this->redirectToRoute('parametres');
         }
 
 
@@ -257,7 +257,7 @@ class UserController extends AbstractController
                 'success',
                 'Les informations de votre compte ont bien été modifiées'
             ); 
-            return $this->redirectToRoute('app_user', ['id' => $user->getId()]);
+            return $this->redirectToRoute('parametres');
         }
         return $this->render('user/edit.html.twig', [
             'form' => $form
@@ -290,7 +290,7 @@ class UserController extends AbstractController
                 'success',
                 'Les informations de votre compte ont bien été modifiées'
             ); 
-            return $this->redirectToRoute('app_user');
+            return $this->redirectToRoute('parametres');
         }
         return $this->render('user/edit.html.twig', [
             'form' => $form
