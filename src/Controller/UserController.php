@@ -187,7 +187,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/delete/{id}', name: 'delete_user')]
+    #[Route('/profile/user/delete/{id}', name: 'delete_user')]
     public function delete(User $user, EntityManagerInterface $entityManager): Response
     {
         if (!$this->getUser()) {
@@ -206,7 +206,7 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_register');
     }
 
-    #[Route('/user/edit/pseudo/{id}', name: 'edit_user')]
+    #[Route('/profile/user/edit/pseudo/{id}', name: 'edit_user')]
     public function edit(User $user, Request $request, EntityManagerInterface $entityManager) : Response
     {
         
@@ -235,7 +235,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/editUserEmail/{id}', name: 'edit_user_email')]
+    #[Route('/profile/user/editUserEmail/{id}', name: 'edit_user_email')]
     public function editEmail(User $user, Request $request, EntityManagerInterface $entityManager) : Response
     {
         // Si l'user n'existe pas redirection à home
@@ -264,7 +264,7 @@ class UserController extends AbstractController
         ]);
     }
     
-    #[Route('/user/upgradePassword', name: 'upgrade_password')]
+    #[Route('/profile/user/upgradePassword', name: 'upgrade_password')]
     public function upgradePassword(UserPasswordHasherInterface $userPasswordHasher, Request $request, EntityManagerInterface $entityManager) : Response
     {
         // Si l'user n'existe pas redirection à la page de connexion
@@ -297,7 +297,7 @@ class UserController extends AbstractController
         ]);
     }
     
-    #[Route('/user/reservations/enCours', name: 'reservations_en_cours')]
+    #[Route('/profile/user/reservations/enCours', name: 'reservations_en_cours')]
     public function reservationsEnCoursDirectory(ReservationRepository $reservationRepository, User $user)
     {
         $toutesReservationsEnCours = $reservationRepository->findToutesReservationsEnCours();
@@ -310,7 +310,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/reservations/passees', name: 'reservations_passees')]
+    #[Route('/profile/user/reservations/passees', name: 'reservations_passees')]
     public function reservationsPasseesDirectory(ReservationRepository $reservationRepository, User $user)
     {
         $user = $this->getUser();
@@ -323,7 +323,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/user/reservations/annulees', name: 'reservations_annulees')]
+    #[Route('/profile/admin/user/reservations/annulees', name: 'reservations_annulees')]
     public function reservationsAnnulees(ReservationRepository $reservationRepository, User $user)
     {
         $user = $this->getUser();
@@ -342,7 +342,7 @@ class UserController extends AbstractController
         ]);
     }
     
-    #[Route('/user/reservations/aVenir', name: 'reservations_a_venir')]
+    #[Route('/profile/user/reservations/aVenir', name: 'reservations_a_venir')]
     public function reservationsAVenirDirectory(ReservationRepository $reservationRepository, User $user)
     {
         $user = $this->getUser();
@@ -359,7 +359,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/reservations/nonConfirmees', name: 'reservations_non_confirmees')]
+    #[Route('/profile/user/reservations/nonConfirmees', name: 'reservations_non_confirmees')]
     public function reservationsnonConfirmees(ReservationRepository $reservationRepository, User $user)
     {
         $user = $this->getUser();
@@ -370,7 +370,7 @@ class UserController extends AbstractController
         ]);
     }
     
-    #[Route('/user/parametres', name: 'parametres')]
+    #[Route('/profile/user/parametres', name: 'parametres')]
     public function reservationsDirectory()
     {
         return $this->render('user/parametres.html.twig');

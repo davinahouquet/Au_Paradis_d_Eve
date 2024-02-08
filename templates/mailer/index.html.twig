@@ -57,10 +57,12 @@
             {% endif %}
             <li>Tarif : <strong>{{ reservation.prixTotal }}</strong> € </li>
         </ul>
-        
-        <p>Vous pouvez annuler votre réservation en suivant ce <a href="{{ path('annuler_reservation', {'id' : reservation.id}) }}">lien d'annulation</a>.</p>
-        
-        <p>Consultez nos <a href="{{ path('conditions') }}">Conditions Générales d'Utilisation</a> pour plus d'informations.</p>
+        user/reservations/aVenir
+        {# <p>Vous pouvez annuler votre réservation en suivant ce <a href="{{ path('annuler_reservation', {'id' : reservation.id}) }}">lien d'annulation</a>.</p> #}
+        {# <p>Vous pouvez annuler votre réservation en suivant ce <a href="https://127.0.0.1:8000/{{ path('annuler_reservation', {'id' : reservation.id}) }}">lien d'annulation</a>.</p> #}
+        <p>Vous pouvez annuler votre réservation en nous contactant depuis le formulaire de contact sur notre page d'accueil en fournissant votre numéro de réservation.</p>
+        {# <p>Consultez nos <a href="{{ path('conditions') }}">Conditions Générales d'Utilisation</a> pour plus d'informations.</p> #}
+        <p>Consultez nos <b>Conditions Générales d'Utilisation</b> pour plus d'informations.</p>
 
         <p>Merci de nous avoir choisis. Nous sommes impatients de vous accueillir à Au Paradis d'Eve.</p>
         
