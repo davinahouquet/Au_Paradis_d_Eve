@@ -42,6 +42,7 @@ class BookingController extends AbstractController
         ]);
     }
 
+    // Permet d'afficher le calendrier (cf.calendarsubscriber)
     #[Route('/{id}', name: 'app_booking_show', methods: ['GET'])]
     public function show(Booking $booking): Response
     {

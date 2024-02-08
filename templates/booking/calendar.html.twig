@@ -39,15 +39,6 @@
                             // alert("There was an error while fetching FullCalendar!");
                         },
                     },
-                    {
-                        events: "{{ path('show_espace', {'id': espace.id}) }}",
-                        eventColor: '#378006'
-                    },
-                    {
-                        events: reservations,
-                        display: 'background',
-                        color: '#FF0000'
-                    }
                 ],
                 headerToolbar: {
                     start: 'prev,next today',

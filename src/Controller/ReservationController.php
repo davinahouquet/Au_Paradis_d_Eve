@@ -184,9 +184,4 @@ class ReservationController extends AbstractController
             return $this->redirectToRoute('app_user');
         }
 
-        // #[Route('/suppression/reservations/nonConfirmees', name:'suppression_reservations_non_confirmees')]
-        // public function suppressionReservationsNonConfirmees(Reservation $reservation)
-        // {
-
-        // }
 }

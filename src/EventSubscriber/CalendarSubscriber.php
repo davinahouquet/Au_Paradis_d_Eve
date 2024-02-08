@@ -44,7 +44,9 @@ class CalendarSubscriber implements EventSubscriberInterface
 
         if(isset($espace)) {
             foreach ($espace->getReservations() as $reservation) {
+                // Event = relatif au bundle
                 $bookingEvent = new Event(
+                    // Si c'est un admin on lui montre le nom et prénom, sinon juste que c'est réservé
                     $this->authorizationChecker->isGranted('ROLE_ADMIN') ? $reservation->getNom() . ' ' . $reservation->getPrenom()  : "Reservé",
                     $reservation->getDateDebut(),
                     $reservation->getDateFin()
