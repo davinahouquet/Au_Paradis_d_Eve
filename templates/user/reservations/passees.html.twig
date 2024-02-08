@@ -17,97 +17,59 @@
             <a href="{{ path('app_user') }}" type="button" class="btn btn-light" id="retour">Retour au profil</a>
         {% endif %}
         
-        {% if is_granted('ROLE_ADMIN') %}
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>N°</th>
-                    <th>Nom Prénom</th>
-                    <th>Dates</th>
-                    <th>Chambre</th>
-                    <th>Options</th>
-                    <th>Prix total</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for reservationPassee in toutesReservationsPassees %}
-                <tr>
-                <td>{{ reservationPassee.id }}</td>
-                <td>{{ reservationPassee.prenom }} {{ reservationPassee.nom }}</td>
-                <td>{{ reservationPassee.dateDebutFr }} au {{ reservationPassee.dateFinFr }}</td>
-                <td>{{ reservationPassee.espace.nomEspace }}</td>
-                <td> {% if reservationPassee.options %}                      
-                    {% for option in reservationPassee.options %}
-                        * {{ option.nom }} <br>
-                    {% endfor %}
-                {% else %}
-                    <p>Pas d'option</p>
-                {% endif %}</td>
-                <td>{{ reservationPassee.prixTotal }} €</td>
-                <td><a href="{{path('app_pdf_generator', {'id' : reservationPassee.id})}}" target="_blank">PDF</a> <br>
-                    <a href="">Envoyer</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-            </table>
-        {% else %}
-            {% if reservationsPassees %}
-
-            <h4>Vos réservations passées</h4>
-            <p>Liste</p>
-            {% for reservationPassee in reservationsPassees %}
-                <p>Votre séjour du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}} dans {{reservationPassee.espace}}, au nom de  {{reservationPassee.prenom}}{{reservationPassee.nom}}</p>
-                <p>Durée totale : {{reservationPassee.duree}} nuits</p>
-
-                {% if reservationPassee.options %}
-                <p>Options :</p>
-                {# <ul>
-                    {% for option in reservationPassee.options %}
-                        <li>{{ option }}</li>
-                    {% endfor %}
-                </ul> #}
-            {% endif %}
-                <p>Prix total : {{reservationPassee.prixTotal}} €</p>
-
-                <a href="">Télécharger PDF</a>
-
-                {% if reservationPassee.avis %}
-                    <p>Merci d'avoir partagé votre avis</p>
-                    {{reservationPassee.avis}}
-                    {{reservationPassee.note}}
-                {% else %}
-                    <a href="{{ path('new_evaluation', {'reservation' : reservationPassee.id})}}">Laisser un avis</a>
-                {% endif %}
-            {% endfor %}
-            {% for reservationPassee in reservationsPassees %}
-                    {% if reservationPassee.note %}
-                        <p>Mes avis</p>
-                        {{reservationPassee.espace}}
-                        Du {{reservationPassee.dateDebutFr}} au {{reservationPassee.dateFinFr}}
-                        <p>Options :</p>
-                            {% if reservationPassee.options is not empty %}
-                                <ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Nom Prénom</th>
+                        <th>Dates</th>
+                        <th>Chambre</th>
+                        <th>Options</th>
+                        <th>Prix total</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th>Action</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {% for reservationPassee in toutesReservationsPassees %}
+                        <tr>
+                        <td>{{ reservationPassee.id }}</td>
+                        <td>{{ reservationPassee.prenom }} {{ reservationPassee.nom }}</td>
+                        <td>{{ reservationPassee.dateDebutFr }} au {{ reservationPassee.dateFinFr }}</td>
+                        <td>{{ reservationPassee.espace.nomEspace }}</td>
+                        <td> {% if reservationPassee.options %}                      
+                            {% for option in reservationPassee.options %}
+                                * {{ option.nom }} <br>
+                            {% endfor %}
+                        {% else %}
+                            <p>Pas d'option</p>
+                        {% endif %}</td>
+                        <td>{{ reservationPassee.prixTotal }} €</td>
+                        <td><a href="{{path('app_pdf_generator', {'id' : reservationPassee.id})}}" target="_blank">PDF</a> <br>
+                            {# <a href="">Envoyer</a></td> #}
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% for reservationPassee in  reservationsPassees %}
+                            <tr>
+                                <td>{{ reservationPassee.id }}</td>
+                                <td>{{ reservationPassee.prenom }} {{ reservationPassee.nom }}</td>
+                                <td>{{ reservationPassee.dateDebutFr }} au {{ reservationPassee.dateFinFr }}</td>
+                                <td>{{ reservationPassee.espace.nomEspace }}</td>
+                                <td> {% if reservationPassee.options %}                      
                                     {% for option in reservationPassee.options %}
-                                        <li>{{ option.nom }}</li>
-                                        <li>{{ option.tarif }} €</li>
+                                        * {{ option.nom }} <br>
                                     {% endfor %}
-                                </ul>
-                            {% else %}
-                                <p>Pas d'option</p>
-                            {% endif %}
-                        {{reservationPassee.avis}}
-                        {{reservationPassee.note}}
+                                {% else %}
+                                    <p>Pas d'option</p>
+                                {% endif %}</td>
+                                <td>{{ reservationPassee.prixTotal }} €</td>
+                            </tr>
+                        {% endfor %}
                     {% endif %}
-                {% endfor %}
-            {% else %}
-                <h5>Pas de réservations passées</h5>
-                <a href="{{path('app_reservation')}}">Réserver</a>    
-            {% endif %}
-
-        {% endif %}
-
-        
+                </tbody>
+            </table>        
     </div>
 {% endblock %}
