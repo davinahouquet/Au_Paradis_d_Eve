@@ -8,13 +8,6 @@ function toggleBurgerMenu() {
     var icon = document.getElementById('burger-icon');
 
     menu.classList.toggle('active');
-
-    // Change l'icône en fonction de l'état du menu
-    // if (menu.classList.contains('active')) {
-    //     icon.innerHTML = '<span class="material-symbols-outlined">close</span>';
-    // } else {
-    //     icon.innerHTML = '<span class="material-symbols-outlined">menu</span>';
-    // }
 }
 
 // Menu user
@@ -26,7 +19,7 @@ function toggleUserMenu() {
 document.addEventListener("DOMContentLoaded", function () {
     var scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
-    // Show or hide the button based on scroll position
+    // Fait apparaître le bouton en fonction de sa position sur la page
     window.onscroll = function () {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
             scrollToTopBtn.style.display = "block";
@@ -35,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // Scroll to the top when the button is clicked
+    // Retour en haut (0) si le bouton est cliqué
     scrollToTopBtn.addEventListener("click", function () {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
