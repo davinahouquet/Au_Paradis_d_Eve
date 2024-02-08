@@ -37,7 +37,7 @@ class EspaceController extends AbstractController
         ]);
     }
 
-    #[Route('/espace/remove/{id}', name: 'remove_espace')]
+    #[Route('/admin/espace/remove/{id}', name: 'remove_espace')]
     public function remove_espace(Espace $espace, EntityManagerInterface $entityManager): Response
     {
 
