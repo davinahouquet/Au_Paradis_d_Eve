@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Option;
+use App\Entity\Reservation;
 use App\Form\OptionType;
 use App\Form\SortieType;
 use App\Form\HomeTextType;
@@ -246,4 +247,18 @@ class AdminController extends AbstractController
         ]);
     }
     
+    //Supprimer un avis
+    #[Route('/admin/remove/avis/{id}', name: 'remove_avis')]
+    public function removeAvis(Reservation $reservation, Request $request, EntityManagerInterface $entityManager): Response
+    {
+
+         // Modifier l'avis de la réservation pour le remplacer par "Avis supprimé"
+        $reservation->setAvis("Avis supprimé");
+    
+        // Enregistrer les modifications dans la base de données
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Avis supprimé');
+        return $this->redirectToRoute('avis');
+    }
 }

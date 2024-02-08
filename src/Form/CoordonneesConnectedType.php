@@ -62,11 +62,11 @@ class CoordonneesConnectedType extends AbstractType
                     'value' => 'Rhode Island'
                 ]
         ])
-        ->add('prixTotal', MoneyType::class, [
-                'label' => 'Prix total',
-                'disabled' => true, // lecture seule
-                'currency' => 'EUR', // Devise
-        ])
+        // ->add('prixTotal', MoneyType::class, [
+        //         'label' => 'Prix total',
+        //         'disabled' => true, // lecture seule
+        //         'currency' => 'EUR', // Devise
+        // ])
         ->add('souvenir', CheckboxType::class, [
                 'label' => 'Se souvenir de mon adresse pour de futures réservations',
                 'required' => false,

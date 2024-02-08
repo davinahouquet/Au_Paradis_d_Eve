@@ -13,9 +13,9 @@
 
         <h1>Vos avis...</h1>
 
-        {% if is_granted('ROLE_ADMIN') %}
+        {# {% if is_granted('ROLE_ADMIN') %}
             <button id="reafficher-evaluations">Réafficher les évaluations masquées</button>
-        {% endif %}
+        {% endif %} #}
 
         {% for reservation in toutesReservationsPassees %}
             <div class="evaluation" id="evaluation_{{ reservation.id }}">
@@ -35,7 +35,10 @@
                 {% endif %}
 
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="" class="masquer-evaluation" data-evaluation-id="{{ reservation.id }}">Masquer l'évaluation</a><br>
+                    <a href="{{ path('remove_avis', {'id' : reservation.id})}}"><span class="material-symbols-outlined">
+                        delete
+                        </span></a>
+                        {# <a href="" class="masquer-evaluation" data-evaluation-id="{{ reservation.id }}">Masquer l'évaluation</a><br> #}
                         {# <a href="">Répondre à l'utilisateur</a> #}
                     {% endif %}
             </div>

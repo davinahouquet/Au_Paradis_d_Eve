@@ -19,8 +19,7 @@ class UserType extends AbstractType
                 'class' => 'form-control'
             ],
             'label' => 'Nouveau pseudo'
-        ])
-                      
+        ]) 
         ->add('valider', SubmitType::class, [
             'attr' => [
             'class' => 'btn btn-success'
