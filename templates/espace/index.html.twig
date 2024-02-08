@@ -27,8 +27,14 @@
                     {% endif %}
                 {% endfor %}
                 {% if is_granted("ROLE_ADMIN") %}
-                    <a href="{{ path('edit_espace', {'id' :espace.id}) }}" class="action-espace-admin">Modifier</a>
-                    <a href="{{ path('remove_espace', {'id' :espace.id}) }}" class="action-espace-admin">Supprimer</a>
+                <div class="container-actions-espace">
+                    <a href="{{ path('edit_espace', {'id' :espace.id}) }}" class="action-espace-admin"><span class="material-symbols-outlined">
+                        edit
+                        </span></a>
+                    <a href="{{ path('remove_espace', {'id' :espace.id}) }}" class="action-espace-admin"><span class="material-symbols-outlined">
+                        delete
+                        </span></a>
+                </div>
                 {% endif %}
                 <br>
             </div>
@@ -49,8 +55,14 @@
                         {% endif %}
                     {% endfor %}
                     {% if is_granted("ROLE_ADMIN") %}
-                        <a href="{{ path('edit_espace', {'id' :espace.id}) }}" class="action-espace-admin">Modifier</a>
-                        <a href="{{ path('remove_espace', {'id' :espace.id}) }}" class="action-espace-admin">Supprimer</a>
+                    <div class="container-actions-espace">
+                        <a href="{{ path('edit_espace', {'id' :espace.id}) }}" class="action-espace-admin"><span class="material-symbols-outlined">
+                            edit
+                            </span></a>
+                        <a href="{{ path('remove_espace', {'id' :espace.id}) }}" class="action-espace-admin"><span class="material-symbols-outlined">
+                            delete
+                            </span></a>
+                    </div>
                     {% endif %}
                     
                 </div>
