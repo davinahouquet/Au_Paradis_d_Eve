@@ -1,4 +1,4 @@
-# Au Paradis d'Eve
+# 🍃 Au Paradis d'Eve 
 
 ## Environnement de travail
 
@@ -31,4 +31,4 @@
   composer require dompdf/dompdf
 
 ## Aperçu
-[![Aperçu](public/img/readme/readme.png)]
+![Aperçu](public/img/readme/readme.png)
