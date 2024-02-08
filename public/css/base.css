@@ -35,7 +35,8 @@ body{
 
 .langages{
     width: 100%;
-    display: flex;
+    /* display: flex; */
+    display: none;
     justify-content: right;
     align-items: center;
     gap: 10px;
@@ -226,7 +227,7 @@ footer{
     }
 /* } */
 
-@media only screen and (min-width : 1224px){
+@media (min-width : 1224px){
     a{
         text-decoration: none;
         color: var(--font-color);
