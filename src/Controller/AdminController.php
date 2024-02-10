@@ -3,16 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Option;
-use App\Entity\Reservation;
 use App\Form\OptionType;
 use App\Form\SortieType;
 use App\Form\HomeTextType;
+use App\Entity\Reservation;
 use Doctrine\ORM\Mapping\Entity;
+use Symfony\Component\Mime\Email;
 use App\Form\QuestionsPratiquesType;
 use App\Repository\OptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -260,5 +262,36 @@ class AdminController extends AbstractController
 
         $this->addFlash('success', 'Avis supprimé');
         return $this->redirectToRoute('avis');
+    }
+
+    //Envoyer justificatif après fin du séjour
+    #[Route('/admin/envoyer/justificatif/{id}', name: 'envoyer_justificatif')]
+    public function envoiJustificatif(Reservation $reservation, Request $request, EntityManagerInterface $entityManager,  MailerInterface $mailer): Response
+    {
+        // Vérifier que la date de fin de séjour est bien dépassée
+
+        // Récupérer l'adresse e-mail du client
+        $destinataireEmail = $reservation->getEmail();
+        $espace = $reservation->getEspace();
+        $currentDate = date('l-d-m-Y');
+        // Générer le PDF
+        // $pdfContent = $this->generatePdfContent($reservation);
+
+        // Créer un nouvel e-mail
+        $email = (new Email())
+            ->from('votre_adresse_email@example.com')
+            ->to($destinataireEmail)
+            ->subject('Au Paradis d\'Eve - Justificatif de réservation')
+            ->html($this->renderView('mailer/justificatif.html.twig', [
+                'reservation' => $reservation,
+                'espace' => $espace,
+                'currentDate' => $currentDate,
+            ]));
+
+        // Envoyer l'e-mail
+        $mailer->send($email);
+
+        $this->addFlash('success', 'Justificatif PDF envoyé');
+        return $this->redirectToRoute('reservations_passees');
     }
 }

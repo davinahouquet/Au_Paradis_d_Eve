@@ -1,0 +1,66 @@
+{% block title %}Justificatif de votre commande - Au Paradis d'Eve{% endblock %}
+{% block body %}
+
+{{currentDate}}
+
+<h1>Au Paradis d'Eve</h1>
+<h2>Votre facture</h2>
+<p>Voici le résumé de votre commande : </p>
+<div style="margin: 0 auto;display: block;width: 500px;">
+    <table width="100%" border="1">
+        <tr>
+            <td colspan="2">
+                Résumé de votre réservation
+            </td>
+        </tr>
+        <tr>
+            <td>Nom:</td>
+            <td>{{reservation.nom}} {{reservation.prenom}}</td>
+        </tr>
+        <tr>
+            <td>Adresse:</td>
+            <td> {{reservation.adresseFacturation}}</td>
+        </tr>
+        <tr>
+            <td>Numéro de téléphone:</td>
+            <td>{{reservation.telephone}}</td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>{{reservation.email}}</td>
+        </tr>
+        <tr>
+            <td>Espace réservé:</td>
+            <td>{{reservation.espace}}</td>
+        </tr>
+        <tr>
+            <td>Date de début:</td>
+            <td>{{reservation.dateDebutFr}}</td>
+        </tr>
+        <tr>
+            <td>Date de fin:</td>
+            <td>{{reservation.dateFinFr}}</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Vos options:
+            </td>
+        </tr>
+        {% if reservation.options %}
+            {% for option in reservation.options %}
+        <tr>
+            <td>{{ option.nom }}</td>
+            <td>{{ option.tarif }} €</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <tr>
+            <td><b>Prix total:</b></td>
+            <td><b>{{reservation.prixTotal}}€</b></td>
+        </tr>
+    </table>
+    <p>Nous éspérons que vous avez passé un séjour agréable au sein de notre établissement Au Paradis d'Eve.</p>
+
+    <p>Cordialement, <br> Au Paradis d'Eve</p>
+</div>
+{% endblock %}
