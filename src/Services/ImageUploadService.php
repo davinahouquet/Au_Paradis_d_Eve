@@ -22,8 +22,10 @@ class ImageUploadService{
     {
         foreach ($imageFiles as $imageFile) {
 
-            $newFileName = md5(uniqid()) . '.' . $imageFile->guessExtension();
-            $imageFile->move($this->parameterBag->get('images_directory'), $newFileName);
+            $newFileName = md5(uniqid()) . '.webp'; // Nouvelle extension en WebP
+            // Convertir l'image en WebP
+            $image = imagecreatefromstring(file_get_contents($imageFile->getPathname()));
+            imagewebp($image, $this->parameterBag->get('images_directory') . '/' . $newFileName, 80); // 80 = qualité
             $image = new Image();
             $image->setLienImage($newFileName);
     
