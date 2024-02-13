@@ -1,5 +1,13 @@
 /* SECTION RESERVATION */
 /* Taille par défaut : mobile */
+
+.paiement-container{
+    padding: 100px;
+}
+
+.paiement-container h1{
+    text-align: center;
+}
     /* Section */
 .souvenir{
     display: none;

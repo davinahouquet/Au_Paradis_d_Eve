@@ -75,6 +75,7 @@ class CoordonneesConnectedType extends AbstractType
                 ]
         ])
         ->add('valider', SubmitType::class, [
+            'label' => 'Passer au paiement',
             'attr' => [
                 'class' => 'btn btn-success',
             ]
