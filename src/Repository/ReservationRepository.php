@@ -23,24 +23,40 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
-        // Récupère les réservations à venir d'un espace
-        public function findDatesReservees(?Espace $espace): array
-        {
-            $now = new \DateTime();
-            $confirmee = 'CONFIRMEE';
-    
-            return $this->createQueryBuilder('r')
-                ->andWhere('r.espace = :espace')
-                ->andWhere('r.date_debut > :now')
-                ->andWhere('r.statut = :confirmee' )
-                ->setParameter('now', $now)
-                ->setParameter('espace', $espace)
-                ->setParameter('confirmee', $confirmee)
-                ->getQuery()
-                ->getResult()
-            ;
+    // Supprimer les réservations d'un utilisateur avant de supprimer un utilisateur
+    public function supprimerUtilisateurDeReservation(User $user): void
+    {
+        $reservations = $this->createQueryBuilder('r')
+            ->andWhere('r.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+        
+        foreach ($reservations as $reservation) {
+            $this->_em->remove($reservation);
         }
+        
+        $this->_em->flush();
+    }
 
+    // Récupère les réservations à venir d'un espace
+    public function findDatesReservees(?Espace $espace): array
+    {
+        $now = new \DateTime();
+        $confirmee = 'CONFIRMEE';
+
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.espace = :espace')
+            ->andWhere('r.date_debut > :now')
+            ->andWhere('r.statut = :confirmee' )
+            ->setParameter('now', $now)
+            ->setParameter('espace', $espace)
+            ->setParameter('confirmee', $confirmee)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+// Commenter ici !!!!!!
     public function findEspacesReserves(Espace $espace, \DateTime $dateDebut, \DateTime $dateFin)
     {
     return $this->createQueryBuilder('r')

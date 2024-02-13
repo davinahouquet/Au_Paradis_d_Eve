@@ -134,9 +134,6 @@ class UserController extends AbstractController
                 $reservation->setPrixTotal($prixTotal);
                 $reservation->setFacture($facture);
 
-                // Pour mettre la réservation dans le calendrier
-                // $bookingEvent->onCalendarSetData($reservation);
-
                 //Définir l'user en session
                 $user = $this->getUser();
 
@@ -158,6 +155,9 @@ class UserController extends AbstractController
                 //Et également dans la table réservation (via l'adresse de facturation)
                 $entityManager->persist($reservation);
                 $entityManager->flush();
+
+                // return $this->redirectToRoute('app_stripe', ['id' => $reservation->getId()] );
+                // return $this->redirectToRoute('app_stripe');
 
                 $emailReservation = $reservation->getEmail();
                 $prenom = $reservation->getPrenom();
@@ -188,22 +188,35 @@ class UserController extends AbstractController
     }
 
     #[Route('/profile/user/delete/{id}', name: 'delete_user')]
-    public function delete(User $user, EntityManagerInterface $entityManager): Response
+    public function delete(User $user, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
     {
+        // vérifie si l'user est authentifié
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
-
+        
+        // trouver ses réservations
+        $reservations = $user->getReservations();
+    
+        // s'il en a 
+        if($reservations->count() > 0) {
+            //on boucle dessus
+            foreach ($reservations as $reservation) {
+                // et on met le user a null
+                $reservation->setUser(null);
+            }
+        }
+    
         // Supprime l'utilisateur de la base de données
         $entityManager->remove($user);
         $entityManager->flush();
-
+    
         $this->addFlash(
             'success',
             'L\'utilisateur a été supprimé avec succès'
         );
-
-        return $this->redirectToRoute('app_register');
+    
+        return $this->redirectToRoute('app_home');
     }
 
     #[Route('/profile/user/edit/pseudo/{id}', name: 'edit_user')]
