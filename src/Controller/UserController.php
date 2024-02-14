@@ -71,11 +71,9 @@ class UserController extends AbstractController
             $reservation->setDateDebut((new \DateTime($reservation->getDateDebut()->format("d-m-Y")))->setTime($checkIn, 0, 0));
             $reservation->setDateFin((new \DateTime($reservation->getDateFin()->format("d-m-Y")))->setTime($checkOut, 0, 0));
 
-            $reservation->setStatut($statut);
-            
             $entityManager->persist($reservation);
             $entityManager->flush();
-
+            
             $dateDebut = $reservation->getDateDebut();
             $dateFin = $reservation->getDateFin();
             
@@ -87,36 +85,32 @@ class UserController extends AbstractController
                 return $this->redirectToRoute('show_espace', ['id' => $espace->getId()]);
                 exit;
             }
-             // //la date du jour
+            // //la date du jour
             date_default_timezone_set('Europe/Paris');
             $currentDate = new \Datetime();
             $facture = 'app_pdf_generator';
-             // Calcul du prix total
+            // Calcul du prix total
             $prixTotal = $this->reservationService->calculerPrixTotal($reservation);
-                
+            
             //Création du formulaire de coordonnées
             if($this->getUser()){
                 $form = $this->createForm(CoordonneesConnectedType::class);
+                    //On pointe (get) les champs qu'on veut préremplir et on y insère (set) les valeurs souhaitées
+                    $form->get('email')->setData($this->getUser()->getEmail());
+                    $form->get('adresse')->setData($this->getUser()->getAdresse());
+                    $form->get('cp')->setData($this->getUser()->getCp());
+                    $form->get('ville')->setData($this->getUser()->getVille());
+                    $form->get('pays')->setData($this->getUser()->getPays());
             } else {
                 $form = $this->createForm(CoordonneesType::class);
             }
             $form->handleRequest($request);
-            
-            // if($this->getUser()){
-            //     //On pointe (get) les champs qu'on veut préremplir et on y insère (set) les valeurs souhaitées
-            //     $form->get('email')->setData($this->getUser()->getEmail());
-            //     $form->get('adresse')->setData($this->getUser()->getAdresse());
-            //     $form->get('cp')->setData($this->getUser()->getCp());
-            //     $form->get('ville')->setData($this->getUser()->getVille());
-            //     $form->get('pays')->setData($this->getUser()->getPays());
-            // }
-
+                
             if ($form->isSubmitted() && $form->isValid()) {
                 
                 $formData = $form->getData();
                 // Vérifier si la clé 'souvenir' existe dans $formData
                 $souvenir = isset($formData['souvenir']) ? $formData['souvenir'] : false;
-
                 
                 // On ne manipule plus d'objet mais bien un tableau associatif
                 $email = $formData['email'];
@@ -124,8 +118,7 @@ class UserController extends AbstractController
                 $cp = $formData['cp'];
                 $ville = $formData['ville'];
                 $pays = $formData['pays'];
-                // $souvenir = $formData['souvenir'];
-                
+            
                 //Définir l'adresse de facturation grâce aux données récupérées dans le formulaire
                 $adresseFacturation = $adresse.' '.$cp." ".$ville.' '.$pays;
                 $reservation->setAdresseFacturation($adresseFacturation);
@@ -133,10 +126,10 @@ class UserController extends AbstractController
                 $reservation->setDateReservation($currentDate);
                 $reservation->setPrixTotal($prixTotal);
                 $reservation->setFacture($facture);
-
-                //Définir l'user en session
-                $user = $this->getUser();
-
+            
+            //Définir l'user en session
+            $user = $this->getUser();
+                
                 //si il y a bien un user connecté, et que la checkbox a été cochée
                 if($user){
                     $reservation->setUser($user);
@@ -146,22 +139,24 @@ class UserController extends AbstractController
                         $user->setCp($cp);
                         $user->setVille($ville);
                         $user->setPays($pays);
-
+                        
                         $entityManager->persist($user);
                         $entityManager->flush();
                     }
                 }
-
+                $reservation->setStatut($statut);
+                
                 //Et également dans la table réservation (via l'adresse de facturation)
                 $entityManager->persist($reservation);
                 $entityManager->flush();
-
+                
+                // Lorsque le système de paiement sera mis en place
                 // return $this->redirectToRoute('app_stripe', ['id' => $reservation->getId()] );
                 // return $this->redirectToRoute('app_stripe');
-
+                
                 $emailReservation = $reservation->getEmail();
                 $prenom = $reservation->getPrenom();
-        
+                
                 $email = (new Email())
                     ->from('admin@auparadisdeve.fr')
                     ->to($emailReservation)

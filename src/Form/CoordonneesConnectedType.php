@@ -23,7 +23,7 @@ class CoordonneesConnectedType extends AbstractType
             'attr' => [
                 'class' => 'form-control',
                 'autocomplete' => 'off',
-                'value' => 'stewie@griffin'
+                // 'value' => 'stewie@griffin'
             ]
         ])
         ->add('adresse', TextType::class, [
@@ -32,7 +32,7 @@ class CoordonneesConnectedType extends AbstractType
             'attr' => [
                 'class' => 'form-control',
                 'autocomplete' => 'off',
-                'value' => '31 Spooner Street'
+                // 'value' => '31 Spooner Street'
             ]
         ])
         ->add('cp', TextType::class, [
@@ -41,7 +41,7 @@ class CoordonneesConnectedType extends AbstractType
             'attr' => [
                 'class' => 'form-control',
                 'autocomplete' => 'off',
-                'value' => '00093'
+                // 'value' => '00093'
             ]
         ])
         ->add('ville', TextType::class, [
@@ -50,7 +50,7 @@ class CoordonneesConnectedType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'autocomplete' => 'off',
-                    'value' => 'Quahog'
+                    // 'value' => 'Quahog'
                 ]
         ])
         ->add('pays', TextType::class, [
@@ -59,14 +59,9 @@ class CoordonneesConnectedType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'autocomplete' => 'off',
-                    'value' => 'Rhode Island'
+                    // 'value' => 'Rhode Island'
                 ]
         ])
-        // ->add('prixTotal', MoneyType::class, [
-        //         'label' => 'Prix total',
-        //         'disabled' => true, // lecture seule
-        //         'currency' => 'EUR', // Devise
-        // ])
         ->add('souvenir', CheckboxType::class, [
                 'label' => 'Se souvenir de mon adresse pour de futures réservations',
                 'required' => false,
