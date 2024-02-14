@@ -24,7 +24,7 @@ class CoordonneesType extends AbstractType
             'attr' => [
                 'class' => 'form-control',
                 'autocomplete' => 'off',
-                'value' => 'stewie@griffin'
+                // 'value' => 'stewie@griffin'
             ]
         ])
         ->add('adresse', TextType::class, [
@@ -33,7 +33,7 @@ class CoordonneesType extends AbstractType
             'attr' => [
                 'class' => 'form-control',
                 'autocomplete' => 'off',
-                'value' => '31 Spooner Street'
+                // 'value' => '31 Spooner Street'
             ]
         ])
         ->add('cp', TextType::class, [
@@ -42,7 +42,7 @@ class CoordonneesType extends AbstractType
             'attr' => [
                 'class' => 'form-control',
                 'autocomplete' => 'off',
-                'value' => '00093'
+                // 'value' => '00093'
             ]
         ])
         ->add('ville', TextType::class, [
@@ -51,7 +51,7 @@ class CoordonneesType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'autocomplete' => 'off',
-                    'value' => 'Quahog'
+                    // 'value' => 'Quahog'
                 ]
         ])
         ->add('pays', TextType::class, [
@@ -60,7 +60,7 @@ class CoordonneesType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'autocomplete' => 'off',
-                    'value' => 'Rhode Island'
+                    // 'value' => 'Rhode Island'
                 ]
         ])
         // ->add('prixTotal', MoneyType::class, [

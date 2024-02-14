@@ -167,7 +167,7 @@ class UserController extends AbstractController
                     ]));
                 $mailer->send($email);
                 
-                $this->addFlash('message', 'La réservation a bien été prise en compte, veuillez trouver toutes les informations nécessaires dans votre boîte mail');
+                $this->addFlash('success', 'La réservation a bien été prise en compte, veuillez trouver toutes les informations nécessaires dans votre boîte mail');
                 if($user){
                     return $this->redirectToRoute('reservations_a_venir');
                 } else {
