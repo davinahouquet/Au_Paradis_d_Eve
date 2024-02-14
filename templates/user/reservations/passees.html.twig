@@ -28,6 +28,8 @@
                         <th>Prix total</th>
                         {% if is_granted('ROLE_ADMIN') %}
                             <th>Action</th>
+                        {% else %}
+                            <th>Evaluation</th>
                         {% endif %}
                     </tr>
                 </thead>
@@ -66,6 +68,7 @@
                                     <p>Pas d'option</p>
                                 {% endif %}</td>
                                 <td>{{ reservationPassee.prixTotal }} €</td>
+                                <td> <a href="{{ path('new_evaluation', {'reservation' : reservationPassee.id } ) }}">Laisser un avis</a></td>
                             </tr>
                         {% endfor %}
                     {% endif %}
