@@ -195,7 +195,7 @@ class Reservation
     public function getDuree(): ?int
     {
         $difference = $this->date_debut->diff($this->date_fin);
-        return $difference->days;
+        return $difference->days + 1;
     }
 
     // Retourne le résultat du calcul
