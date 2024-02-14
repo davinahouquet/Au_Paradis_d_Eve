@@ -8,6 +8,7 @@ use App\Entity\Reservation;
 use App\Form\EvaluationType;
 use App\Form\ReservationType;
 use App\Repository\EspaceRepository;
+use App\Repository\OptionRepository;
 use App\Services\ReservationService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
@@ -52,12 +53,13 @@ class ReservationController extends AbstractController
 
     // Ajouter une réservation
     #[Route('/reservation/new/{id}', name: 'new_reservation')]
-    public function newReservation( Espace $espace, Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request)
+    public function newReservation( Espace $espace, Reservation $reservation = null, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, Request $request, OptionRepository $optionRepository)
     {
+        $options = $optionRepository->findAll();
         // Assurez-vous que $espace est non nul avant d'appeler findDatesReservees
         if ($espace->getReservations() !== null) {
             $indisponibilites = $reservationRepository->findDatesReservees($espace);
-} else {
+        } else {
             // Gérez le cas où $espace est nul, par exemple, lancez une exception ou renvoyez un message d'erreur
             throw new \InvalidArgumentException('$espace ne peut pas être null.');
         }
@@ -97,7 +99,8 @@ class ReservationController extends AbstractController
         return $this->render('reservation/new.html.twig', [
             'form' => $form,
             'chambre' => $chambre,
-            'indisponibilites' => $indisponibilites
+            'indisponibilites' => $indisponibilites,
+            'options' => $options
         ]);
     }
 

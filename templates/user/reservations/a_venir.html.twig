@@ -46,7 +46,7 @@
                     <td>
                         {% if reservationAVenir.options %}                      
                             {% for option in reservationAVenir.options %}
-                                * {{ option.nom }} <br>
+                                * {{ option.nom }} - {{ option.tarif }}€ <br>
                             {% endfor %}
                         {% else %}
                             <p>Pas d'option</p>
@@ -80,7 +80,7 @@
                     <tbody>
                         {% for reservationAVenir in reservationsAVenir %}
                     <tr>
-                        <th scope="row">{{ reservationAVenir.prenom }}</th>
+                        <th scope="row">{{ reservationAVenir.id }}</th>
                         <td>{{ reservationAVenir.prenom }} {{ reservationAVenir.nom }}</td>
                         <td>{{ reservationAVenir.dateDebutFr }} au {{ reservationAVenir.dateFinFr }}</td>
                         <td>{{ reservationAVenir.espace.nomEspace }}</td>
@@ -88,7 +88,7 @@
                         <td>
                             {% if reservationAVenir.options %}                      
                                 {% for option in reservationAVenir.options %}
-                                    * {{ option.nom }} <br>
+                                * {{ option.nom }} - {{ option.tarif }}€ <br>
                                 {% endfor %}
                             {% else %}
                                 <p>Pas d'option</p>

@@ -17,10 +17,17 @@
         <div class="resume-reservation">
             <h2>Résumé de la réservation</h2>
             <p>Du {{reservation.dateDebutFr}} au {{reservation.dateFinFr}}</p>
-            <p>Pour {{reservation.nbPersonnes}} personne(s) (enfants non inclus)</p>
-            <p>Check-in à partir de 15h - Check-out à 11h</p>
-            <hr>
             <p>Dans la {{espace.nomEspace}} de {{espace.taille}} m²</p>
+            <p>Pour {{reservation.nbPersonnes}} personne(s) (enfants non inclus)</p>
+            {# <p>Check-in à partir de 15h - Check-out à 11h</p> #}
+            {% if reservation.options %}
+            
+                {% for option in reservation.options %}
+                    <li>{{ option.nom }} {{ option.tarif }}€</li>
+                {% endfor %}
+            
+            {% endif %}
+            <hr>
             <p>Pour un total de <b>{{ prixTotal }} €</b></p>
 
         </div>

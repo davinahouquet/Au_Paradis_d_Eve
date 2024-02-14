@@ -61,9 +61,18 @@
         </div>
         <button type="submit" class="btn btn-success">Poursuivre</button>
         {{ form_end(form) }}
-        <p>Les champs marqués d'un * sont obligatoires</p>
+        <p>Les champs marqués d'un * sont obligatoires</p><br>
+
+        <div class="liste-options">
+            <h2>Les options</h2>
+            {% for option in options %}
+                <li>{{ option.nom }} : {{ option.description }} {{ option.tarif }}€</li>
+            {% endfor %}
+        </div>
     </div>
 </section>
+
+
 
 {% block javascript %}
 <script>
