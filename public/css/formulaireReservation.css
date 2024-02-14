@@ -18,12 +18,23 @@
     text-align: center;
 }
 
-/* Taille mobile */
+
+/* Taille mobile iphone 14*/
 @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px){
     .section-reservation{
-        background-size: 100%;
-        background-image: linear-gradient(rgba(239, 232, 218, 0.57), rgba(255, 255, 255, 0.608)), url("../../img/guirlande.png");
+        background-image: linear-gradient(rgba(239, 232, 218, 0.57), rgba(255, 255, 255, 0.608)), url("../../img/leaf.jpg");
         background-repeat: no-repeat;
+    }
+
+    .section-coordonnees{
+        padding-top: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items:center;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.849), rgba(255, 235, 189, 0.508)), url("../../img/leaf.jpg");
+        background-repeat: no-repeat;
+        object-fit: cover;
     }
 }
 

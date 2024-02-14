@@ -19,7 +19,7 @@
 
         {% for reservation in toutesReservationsPassees %}
             <div class="evaluation" id="evaluation_{{ reservation.id }}">
-                <h2>{{reservation.espace.nomEspace}}</h2>
+                <h2><a href="{{path('show_espace', {'id' :reservation.espace.id})}}">{{reservation.espace.nomEspace}}</a></h2>
                 {{reservation.dateDebutFr}} au {{reservation.dateFinFr}}<br>
 
                 {{ reservation.prenom|slice(0, 1) }} :

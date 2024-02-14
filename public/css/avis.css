@@ -1,10 +1,14 @@
 /* SECTION AVIS */
 /* @media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px) { */
+@media only screen and (min-width : 1224px){
     .section-avis{
         min-height: 100vh;
         width: 100%;
         padding: 130px 50px 50px 50px;
         position: relative;
+        background-size: 100%;
+        /* background-image: linear-gradient(rgba(239, 232, 218, 0.57), rgba(255, 255, 255, 0.608)), url("../../img/leaf.jpg"); */
+        background-repeat: no-repeat;
     }
 
     .evaluation{
@@ -28,4 +32,16 @@
         color: #007BFF; /* Couleur bleue, ajustez selon vos préférences */
     }
 
-/* } */
+}
+
+/* Taille mobile iphone 14*/
+@media (device-height: 932px) and (device-width: 430px), (device-width: 932px) and (device-height: 430px){
+    .section-avis{
+        min-height: 100vh;
+        width: 100%;
+        padding: 130px 50px 50px 50px;
+        position: relative;
+        /* background-image: linear-gradient(rgba(239, 232, 218, 0.57), rgba(255, 255, 255, 0.608)), url("../../img/leaf.jpg"); */
+        background-repeat: no-repeat;
+    }
+}
