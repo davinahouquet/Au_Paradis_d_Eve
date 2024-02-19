@@ -16,17 +16,31 @@
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
-            {# Toutes les réservations en cours #}
-            {% if toutesReservationsEnCours %}
-                {% for reservationEnCours in toutesReservationsEnCours %}
-                        <h2>Votre réservation en cours</h2>
-                            {{reservationEnCours.prenom}}
-                            {{reservationEnCours.nom}}
-                            <p>Du {{reservationEnCours.dateDebutFr}} au {{reservationEnCours.dateFinFr}} dans {{reservationEnCours.espace}}</p>
-                            <p>Durée totale : {{reservationEnCours.duree}} nuits</p>
-                            {% if reservationEnCours.options %}
-                                <p>Options :</p>
-                                    {% if reservationEnCours.options is not empty %}
+            <h2>Liste des réservations en cours</h2>
+                {# Toutes les réservations en cours #}
+                {% if toutesReservationsEnCours %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">N°</th>
+                            <th scope="col">Nom Prénom</th>
+                            <th scope="col">Dates</th>
+                            <th scope="col">Chambre</th>
+                            <th scope="col">Durée</th>
+                            <th scope="col">Option(s)</th>
+                            <th scope="col">Prix total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reservationEnCours in toutesReservationsEnCours %}
+                            <tr>
+                                <td>{{reservationEnCours.id}}</td>
+                                <td>{{reservationEnCours.nom}} {{reservationEnCours.prenom}}</td>
+                                <td>{{reservationEnCours.dateDebutFr}} au {{reservationEnCours.dateFinFr}}</td>
+                                <td>{{reservationEnCours.espace}}</td>
+                                <td>{{reservationEnCours.duree}} nuits</td>
+                                <td>
+                                    {% if reservationEnCours.options %}
                                         <ul>
                                             {% for option in reservationEnCours.options %}
                                                 <li>{{ option.nom }}</li>
@@ -35,43 +49,52 @@
                                         </ul>
                                     {% else %}
                                         <p>Pas d'option</p>
-                                    {% endif %}
-                            {% endif %}
-                            <p>Prix total : {{reservationEnCours.prixTotal}} €</p>
-                            <p><a href="">Détails</a>(adresseFacturation, lien pdf)</p>
-                {% endfor %}
+                                    {% endif %}</td>
+                                <td>{{reservationEnCours.prixTotal}} €</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>    
             {% endif %}
         {% endif %}
 
-
-
         {% if reservationEnCours %}
-            {% for reservationEnCours in reservationEnCours %}
-                        <h2>Votre réservation en cours</h2>
-                            {{reservationEnCours.prenom}}
-                            {{reservationEnCours.nom}}
-                            <p>Du {{reservationEnCours.dateDebutFr}} au {{reservationEnCours.dateFinFr}} dans {{reservationEnCours.espace}}</p>
-                            <p>Durée totale : {{reservationEnCours.duree}} nuits</p>
-                            {% if reservationEnCours.options %}
-                                <p>Options :</p>
-                                    {% if reservationEnCours.options is not empty %}
-                                        <ul>
-                                            {% for option in reservationEnCours.options %}
-                                                <li>{{ option.nom }}</li>
-                                                <li>{{ option.tarif }} €</li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% else %}
-                                        <p>Pas d'option</p>
-                                    {% endif %}
-                            {% endif %}
-                            <p>Prix total : {{reservationEnCours.prixTotal}} €</p>
-                            <p><a href="">Détails</a>(adresseFacturation, lien pdf)</p>
-            {% endfor %}
-        {% else %}
-            <h5>Pas de réservations en cours</h5>
-            <a href="{{path('app_reservation')}}" type="button" class="btn btn-success" id="retour" >Réserver</a>    
-            <a href="{{ path('app_user') }}" type="button" class="btn btn-light" id="retour">Retour au profil</a>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">Nom Prénom</th>
+                        <th scope="col">Dates</th>
+                        <th scope="col">Chambre</th>
+                        <th scope="col">Durée</th>
+                        <th scope="col">Option(s)</th>
+                        <th scope="col">Prix total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reservationEnCours in reservationEnCours %}
+                        <tr>
+                            <td>{{reservationEnCours.id}}</td>
+                            <td>{{reservationEnCours.nom}} {{reservationEnCours.prenom}}</td>
+                            <td>{{reservationEnCours.dateDebutFr}} au {{reservationEnCours.dateFinFr}}</td>
+                            <td>{{reservationEnCours.espace}}</td>
+                            <td>{{reservationEnCours.duree}} nuits</td>
+                            <td>
+                                {% if reservationEnCours.options %}
+                                    <ul>
+                                        {% for option in reservationEnCours.options %}
+                                            <li>{{ option.nom }}</li>
+                                            <li>{{ option.tarif }} €</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>Pas d'option</p>
+                                {% endif %}</td>
+                            <td>{{reservationEnCours.prixTotal}} €</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>        
         {% endif %}
     </div>
 

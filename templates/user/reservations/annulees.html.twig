@@ -46,7 +46,7 @@
             <tbody>
                 {% for reservation in reservationARembourser %}
             <tr>
-                <th scope="row">{{ loop.index }}</th>
+                <th scope="row">{{ reservation.id }}</th>
                 <td>{{ reservation.prenom }} {{ reservation.nom }}</td>
                 <td>{{ reservation.dateDebutFr }} au {{ reservation.dateFinFr }}</td>
                 <td>{{ reservation.espace.nomEspace }}</td>
@@ -88,7 +88,7 @@
             <tbody>
                 {% for reservation in reservationARembourserPartiellement %}
             <tr>
-                <th scope="row">{{ loop.index }}</th>
+                <th scope="row">{{ reservation.id }}</th>
                 <td>{{ reservation.prenom }} {{ reservation.nom }}</td>
                 <td>{{ reservation.dateDebutFr }} au {{ reservation.dateFinFr }}</td>
                 <td>{{ reservation.espace.nomEspace }}</td>
@@ -131,7 +131,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <th scope="row">{{ loop.index }}</th>
+                    <th scope="row">{{ reservation.id }}</th>
                     <td>{{ reservation.prenom }} {{ reservation.nom }}</td>
                     <td>{{ reservation.dateDebutFr }} au {{ reservation.dateFinFr }}</td>
                     <td>{{ reservation.espace.nomEspace }}</td>
