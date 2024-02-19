@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `espace` (
   PRIMARY KEY (`id`),
   KEY `IDX_6AB096DBCF5E72D` (`categorie_id`),
   CONSTRAINT `FK_6AB096DBCF5E72D` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table au_paradis_d_eve_test.espace : ~15 rows (environ)
 INSERT INTO `espace` (`id`, `categorie_id`, `nom_espace`, `taille`, `wifi`, `nb_places`, `prix`, `description`) VALUES
@@ -96,12 +96,11 @@ INSERT INTO `espace` (`id`, `categorie_id`, `nom_espace`, `taille`, `wifi`, `nb_
 	(36, 4, 'Piscine', 100, 0, NULL, 0, 'Bienvenue dans ce jardin paisible, où trône une piscine de 11 mètres de long. Entourée de verdure, elle offre un havre de fraîcheur au cœur de la nature. Les dalles en pierre soigneusement disposées créent une zone élégante et fonctionnelle autour de la piscine, invitant à la détente et aux bains de soleil.\r\nLa piscine, nichée au milieu du jardin sans aucun vis-à-vis, offre une intimité totale. Son design simple et épuré s\'intègre harmonieusement à l\'environnement naturel, créant un espace tranquille pour se rafraîchir par une chaude journée.'),
 	(37, 2, 'Jardin bas', 250, 0, NULL, 0, 'Bienvenue dans ce vaste jardin luxuriant. Une étendue d\'herbe verte s\'étend à perte de vue, créant un cadre apaisant. Au centre, une élégante fontaine murmure doucement, ajoutant une touche rafraîchissante à l\'ensemble. Les parterres de plantes variées ajoutent des touches de couleur et de vie, créant une atmosphère vivante et harmonieuse. Un endroit idéal pour se promener, se détendre et profiter de la nature luxuriante qui entoure chaque coin de ce jardin spacieux.'),
 	(38, 3, 'Terrasse Piscine', 100, 0, 10, 0, 'Bienvenue sur la terrasse à côté de la piscine, un espace accueillant et détendu. Un abri ouvert ajoute une touche de confort, offrant ombre et protection. Une balancelle invite à la relaxation, tandis qu\'une table avec des chaises offre un endroit idéal pour les repas en plein air. Des chaises longues complètent l\'ensemble, créant un lieu parfait pour se détendre, se rafraîchir et profiter de la vie en extérieur.'),
-	(39, 1, 'Chambre Maeva', 25, 1, 2, 60, 'Bienvenue dans cette chambre à l\'ambiance douce et chaleureuse, baignée de teintes boisées et rosées. Les tons naturels du bois créent une atmosphère apaisante, tandis que les nuances de rose ajoutent une touche délicate à l\'ensemble.\r\nLa chambre offre une vue magnifique sur la citadelle, capturant l\'essence de l\'extérieur et apportant une sensation d\'ouverture. Les meubles en bois soulignent l\'esthétique naturelle, créant un espace cosy et élégant.'),
-	(40, 1, 'Chambre Magalie', 25, 1, 2, 60, 'Bienvenue dans cette chambre à l\'ambiance raffinée, dominée par des teintes bleues et dorées. Les nuances de bleu créent une atmosphère apaisante et sophistiquée, tandis que les touches dorées ajoutent une touche d\'élégance.\r\n\r\nLes meubles et les détails de la chambre sont soigneusement choisis pour compléter cette palette de couleurs. La chambre offre une sensation de sérénité, chaque élément contribuant à créer une esthétique cohérente et agréable.'),
-	(41, 1, 'Chambre Davina', 10, 1, 2, 50, 'Bienvenue dans cette petite chambre à l\'élégance épurée, parée de teintes blanches et noires. Les murs blancs créent une atmosphère lumineuse et aérée, tandis que les touches noires ajoutent une sophistication moderne à l\'espace. Le mobilier minimaliste et les accessoires bien choisis contribuent à l\'esthétique épurée de la chambre. Chaque détail est pensé pour maximiser l\'espace et créer une ambiance confortable malgré la petite taille de la pièce.'),
+	(39, 1, 'Chambre 1', 25, 1, 2, 60, 'Bienvenue dans cette chambre à l\'ambiance douce et chaleureuse, baignée de teintes boisées et rosées. Les tons naturels du bois créent une atmosphère apaisante, tandis que les nuances de rose ajoutent une touche délicate à l\'ensemble.\r\nLa chambre offre une vue magnifique sur la citadelle, capturant l\'essence de l\'extérieur et apportant une sensation d\'ouverture. Les meubles en bois soulignent l\'esthétique naturelle, créant un espace cosy et élégant.'),
+	(40, 1, 'Chambre 2', 25, 1, 2, 60, 'Bienvenue dans cette chambre à l\'ambiance raffinée, dominée par des teintes bleues et dorées. Les nuances de bleu créent une atmosphère apaisante et sophistiquée, tandis que les touches dorées ajoutent une touche d\'élégance.\r\n\r\nLes meubles et les détails de la chambre sont soigneusement choisis pour compléter cette palette de couleurs. La chambre offre une sensation de sérénité, chaque élément contribuant à créer une esthétique cohérente et agréable.'),
+	(41, 1, 'Chambre 3', 10, 1, 2, 50, 'Bienvenue dans cette petite chambre à l\'élégance épurée, parée de teintes blanches et noires. Les murs blancs créent une atmosphère lumineuse et aérée, tandis que les touches noires ajoutent une sophistication moderne à l\'espace. Le mobilier minimaliste et les accessoires bien choisis contribuent à l\'esthétique épurée de la chambre. Chaque détail est pensé pour maximiser l\'espace et créer une ambiance confortable malgré la petite taille de la pièce.'),
 	(42, 11, 'Chambre des randonneurs', 50, 1, 3, 65, 'Bienvenue dans ce sous-sol aménagé, un espace polyvalent combinant cuisine et point d\'eau. Les murs aux teintes neutres créent une atmosphère accueillante, tandis que les zones définies pour la cuisine et l\'espace lavabo apportent une fonctionnalité pratique.\r\nLa cuisine est équipée pour répondre à vos besoins culinaires, tandis que le point d\'eau assure commodité et confort. Cet aménagement astucieux transforme le sous-sol en un lieu multifonctionnel, idéal pour la cuisine, les réunions informelles, ou même comme espace autonome pour les invités.'),
-	(47, 1, 'Chambre Bohème', 25, 1, 2, 65, 'Une chambre bohème évoque un univers éclectique et artistique où les couleurs vibrantes se mélangent harmonieusement. Des coussins aux motifs ethniques ornent un lit orné de draps en lin froissé. Des tapis persans et des tissus suspendus créent une atmosphère chaleureuse, tandis que des étagères en bois accueillent des objets vintage et des plantes luxuriantes. Des lanternes en papier et des guirlandes lumineuses diffusent une lumière douce, accentuant l\'ambiance décontractée. L\'art abstrait et les œuvres artisanales parent les murs, reflétant un esprit libre et bohème.'),
-	(48, 1, 'Test Espace', 45, 0, 4, 23, NULL);
+	(47, 1, 'Chambre Bohème', 25, 1, 2, 65, 'Une chambre bohème évoque un univers éclectique et artistique où les couleurs vibrantes se mélangent harmonieusement. Des coussins aux motifs ethniques ornent un lit orné de draps en lin froissé. Des tapis persans et des tissus suspendus créent une atmosphère chaleureuse, tandis que des étagères en bois accueillent des objets vintage et des plantes luxuriantes. Des lanternes en papier et des guirlandes lumineuses diffusent une lumière douce, accentuant l\'ambiance décontractée. L\'art abstrait et les œuvres artisanales parent les murs, reflétant un esprit libre et bohème.');
 
 -- Listage de la structure de table au_paradis_d_eve_test. image
 CREATE TABLE IF NOT EXISTS `image` (
@@ -112,9 +111,9 @@ CREATE TABLE IF NOT EXISTS `image` (
   PRIMARY KEY (`id`),
   KEY `IDX_C53D045FB6885C6C` (`espace_id`),
   CONSTRAINT `FK_C53D045FB6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.image : ~29 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.image : ~31 rows (environ)
 INSERT INTO `image` (`id`, `espace_id`, `lien_image`, `alt_image`) VALUES
 	(28, 31, 'f12727f9f4fad96df3e0f81e47fd54eb.jpg', 'Cuisine aux murs couleur beige. Avec un comptoir en chêne'),
 	(30, 33, 'b829d3952cc4baf2618b75d98a7489d6.jpg', 'La grande salle à manger peut accueillir confortablement 12 personnes, avec une table spacieuse et des chaises assorties, offrant un espace généreux pour les repas et les rassemblements. Dominant l\'espace, une imposante armoire en bois foncé ajoute une touche majestueuse. Ses détails sculptés et sa finition riche captent l\'attention, créant une atmosphère sophistiquée.'),
@@ -139,7 +138,6 @@ INSERT INTO `image` (`id`, `espace_id`, `lien_image`, `alt_image`) VALUES
 	(58, 41, '0b981b03fb4653b2533e913c2f06ab8d.jpg', 'Texte de remplacement indisponible'),
 	(59, 41, '8ccbbaee7572d934572da97c3c282105.jpg', 'Texte de remplacement indisponible'),
 	(60, 33, 'dc64ff4c95fd40abf76b41f06fdc1215.jpg', 'Texte de remplacement indisponible'),
-	(61, 34, '895957679ac359d0de5e54ea6edcba33.jpg', 'Texte de remplacement indisponible'),
 	(62, 31, '1a46c3ac9221071629a62fa972dfabca.jpg', 'Texte de remplacement indisponible'),
 	(63, 39, '1b5345ad745f95cfe3859a8c60700653.jpg', 'Texte de remplacement indisponible'),
 	(64, 40, '85124e8c0607ded84febeed6a2347ffe.jpg', 'Texte de remplacement indisponible'),
@@ -147,7 +145,7 @@ INSERT INTO `image` (`id`, `espace_id`, `lien_image`, `alt_image`) VALUES
 	(66, 47, '54dd839a46dca3516b93b02a61e7ee64.jpg', 'Texte de remplacement indisponible'),
 	(67, 37, '0af1b06d0d4687984df5d90739878431.jpg', 'Texte de remplacement indisponible'),
 	(68, 37, 'd114879c0c7fa510f9fc5dcdd73ab12c.jpg', 'Texte de remplacement indisponible'),
-	(69, 48, '9632e7c7b6c49737733bee749bb28a0e.png', 'Image test');
+	(71, 34, 'bdbc07b293d2235a1dc2a0276a62350d.jpg', 'Texte de remplacement indisponible');
 
 -- Listage de la structure de table au_paradis_d_eve_test. messenger_messages
 CREATE TABLE IF NOT EXISTS `messenger_messages` (
@@ -173,13 +171,14 @@ CREATE TABLE IF NOT EXISTS `option` (
   `description` longtext COLLATE utf8mb4_unicode_ci,
   `tarif` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.option : ~3 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.option : ~4 rows (environ)
 INSERT INTO `option` (`id`, `nom`, `description`, `tarif`) VALUES
 	(1, 'Dîner', 'test description', 11),
 	(2, 'Brunch', 'test description', 10),
-	(3, 'Option 3', 'test description', 6);
+	(3, 'Option 3', 'test description', 6),
+	(10, 'Test', 'Test', 40);
 
 -- Listage de la structure de table au_paradis_d_eve_test. reservation
 CREATE TABLE IF NOT EXISTS `reservation` (
@@ -205,15 +204,23 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   KEY `IDX_42C84955A76ED395` (`user_id`),
   CONSTRAINT `FK_42C84955A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_42C84955B6885C6C` FOREIGN KEY (`espace_id`) REFERENCES `espace` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.reservation : ~5 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.reservation : ~13 rows (environ)
 INSERT INTO `reservation` (`id`, `espace_id`, `user_id`, `prenom`, `nom`, `telephone`, `nb_personnes`, `date_debut`, `date_fin`, `prix_total`, `note`, `avis`, `email`, `adresse_facturation`, `facture`, `date_reservation`, `statut`) VALUES
-	(71, 41, 22, 'Rick', 'Sanchez', 659987453, 2, '2023-01-29 15:00:00', '2023-01-31 11:00:00', 71, NULL, NULL, 'rick@sanchez', '31 Spooner Street 00093 Quahog Rhode Island', 'app_pdf_generator', '2024-01-28 20:58:46', 'CONFIRMEE'),
-	(73, 47, 27, 'Hailey', 'Smith', 613325980, 2, '2024-01-31 15:00:00', '2024-02-02 11:00:00', 86, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'app_pdf_generator', '2024-01-30 09:44:20', 'A REMBOURSER'),
-	(74, 47, 27, 'Hailey', 'Smith', 613326595, 2, '2024-02-06 15:00:00', '2024-02-09 11:00:00', 141, NULL, NULL, 'haileysmith@americandad.us', '31 Langley 00093 Langley US', 'app_pdf_generator', '2024-01-30 09:46:11', 'CONFIRMEE'),
-	(76, 41, 14, 'Davina', 'Houquet', 618208514, 2, '2024-01-31 15:00:00', '2024-02-02 11:00:00', 61, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'app_pdf_generator', '2024-01-30 16:31:13', 'A REMBOURSER'),
-	(78, 47, 14, 'Davina', 'Houquet', 618208514, 2, '2024-05-02 15:00:00', '2024-05-04 11:00:00', 86, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'app_pdf_generator', '2024-02-01 11:15:11', 'A REMBOURSER');
+	(108, 39, NULL, 'Hailey', 'Smith', 613325702, 2, '2024-02-12 15:00:00', '2024-02-14 11:00:00', 71, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'app_pdf_generator', '2024-02-11 22:13:39', 'CONFIRMEE'),
+	(110, 40, 27, 'Davina', 'Houquet', 618208514, 2, '2025-02-12 15:00:00', '2025-02-15 11:00:00', 100, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'app_pdf_generator', '2024-02-12 00:07:49', 'A REMBOURSER'),
+	(112, 39, 27, 'Davina', 'Houquet', 618208514, 2, '2023-05-12 15:00:00', '2023-05-14 11:00:00', 60, 5, '(NULL)', '', '31 Spooner Street 00093 Quahog Rhode Island', 'app_pdf_generator', '2024-02-12 00:10:23', 'CONFIRMEE'),
+	(113, 40, 27, 'Hailey', 'Smith', 613325702, 2, '2023-02-19 15:00:00', '2023-02-21 11:00:00', 71, 5, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'hailey@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'app_pdf_generator', '2024-02-13 14:03:22', 'A REMBOURSER'),
+	(114, 39, 27, 'eqg', 'Houquet', 618208514, 2, '2024-02-26 15:00:00', '2024-02-28 11:00:00', 60, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'app_pdf_generator', '2024-02-13 14:07:45', 'CONFIRMEE'),
+	(116, 39, 27, 'Hailey', 'Smith', 444, 2, '2023-07-01 15:00:00', '2023-07-03 11:00:00', 131, 4, 'Test', 'hailey@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'app_pdf_generator', '2024-02-14 09:11:06', 'CONFIRMEE'),
+	(118, 39, 27, 'Davina', 'Houquet', 618208514, 2, '2023-02-15 15:00:00', '2023-02-17 11:00:00', 147, NULL, NULL, 'stewie@griffin', '31 Spooner Street 00093 Quahog Rhode Island', 'app_pdf_generator', '2024-02-14 09:26:13', 'CONFIRMEE'),
+	(129, 40, 27, 'Davina', 'Houquet', 618208514, 2, '2024-06-15 15:00:00', '2024-06-17 11:00:00', 121, NULL, NULL, 'haileysmith@americandad.us', '10 Rue Lucie Berger 67200 Strasbourg qrgq<g', 'app_pdf_generator', '2024-02-14 16:14:04', 'A REMBOURSER'),
+	(130, 47, 27, 'Hailey', 'Smith', 444, 2, '2024-07-16 15:00:00', '2024-07-18 11:00:00', 151, NULL, NULL, 'haileysmith@americandad.us', '10 Rue Lucie Berger 67200 Strasbourg qrgqg', 'app_pdf_generator', '2024-02-15 16:36:07', 'A REMBOURSER'),
+	(131, 39, NULL, 'Davina', 'Houquet', 618208514, 2, '2029-02-17 15:00:00', '2029-02-19 11:00:00', 170, NULL, NULL, 'admin@admin.admin', 'wytxy 6565 ysrsy rysu', 'app_pdf_generator', '2024-02-16 07:06:54', 'CONFIRMEE'),
+	(132, 39, NULL, 'Davina', 'Houquet', 618208514, 2, '2027-02-17 15:00:00', '2027-02-19 11:00:00', 131, NULL, NULL, 'admin@admin.admin', 'wytxy 6565 ysrsy rysu', 'app_pdf_generator', '2024-02-16 07:07:41', 'CONFIRMEE'),
+	(137, 41, 27, 'Davina', 'Houquet', 618208514, 2, '2024-02-17 15:00:00', '2024-02-19 11:00:00', 121, NULL, NULL, 'haileysmith@americandad.us', '10 Rue Lucie Berger 67200 Strasbourg qrgq<g', 'app_pdf_generator', '2024-02-16 13:25:57', 'A REMBOURSER'),
+	(138, 41, 27, 'Davina', 'Houquet', 618208514, 2, '2024-02-26 15:00:00', '2024-02-28 11:00:00', 167, NULL, NULL, 'haileysmith@americandad.us', '10 Rue Lucie Berger 67200 Strasbourg qrgq<g', 'app_pdf_generator', '2024-02-16 17:53:56', 'A REMBOURSER');
 
 -- Listage de la structure de table au_paradis_d_eve_test. reservation_option
 CREATE TABLE IF NOT EXISTS `reservation_option` (
@@ -226,16 +233,26 @@ CREATE TABLE IF NOT EXISTS `reservation_option` (
   CONSTRAINT `FK_1277492BB83297E7` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.reservation_option : ~8 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.reservation_option : ~17 rows (environ)
 INSERT INTO `reservation_option` (`reservation_id`, `option_id`) VALUES
-	(71, 1),
-	(71, 2),
-	(73, 1),
-	(73, 2),
-	(74, 1),
-	(76, 1),
-	(78, 1),
-	(78, 2);
+	(108, 1),
+	(113, 1),
+	(113, 2),
+	(116, 1),
+	(118, 1),
+	(118, 2),
+	(118, 3),
+	(129, 1),
+	(129, 2),
+	(130, 1),
+	(130, 2),
+	(132, 1),
+	(137, 1),
+	(137, 2),
+	(138, 1),
+	(138, 2),
+	(138, 3),
+	(138, 10);
 
 -- Listage de la structure de table au_paradis_d_eve_test. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -251,24 +268,23 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table au_paradis_d_eve_test.user : ~12 rows (environ)
+-- Listage des données de la table au_paradis_d_eve_test.user : ~14 rows (environ)
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `pseudo`, `adresse`, `cp`, `ville`, `pays`, `is_verified`) VALUES
-	(1, 'davina@deglingo.fr', '["ROLE_ADMIN"]', '$2y$13$gs0DAuuP3JGP3WSkkmIBh.w6c87RuYXMDkOY.m0e/2TmuoNqQL2ym', 'davina', NULL, NULL, NULL, NULL, 0),
+	(2, 'user@user.user', '[]', '123', 'user', NULL, NULL, NULL, NULL, 0),
 	(13, 'ricardo@psycho.fr', '["ROLE_USER"]', '$2y$13$Zmk5Vjtr59VSkwad1g/5m./fihnoCNT4Jh6AkjxLPpi4fU1j8dRJ2', 'ricardo', NULL, NULL, NULL, NULL, 0),
-	(14, 'granit@granit.granit', '[]', '$2y$13$Beekfg7D.ZQD3.JNOFHkkObRSpMFjEtatj1XPwkY/0leW9whF70vW', 'granit', '31 Spooner Street', '00093', 'Quahog', 'Rhode Island', 1),
 	(15, 'daz@daz.fr', '[]', '$2y$13$.nfg5WmdTrSi86YKzmZdGeJu.zXNARt/IqFQN3z33jMbU1FYp.39y', 'daz', NULL, NULL, NULL, NULL, 0),
 	(16, 'zaz@zaz.fr', '[]', '$2y$13$UxvwX0Cnvo9N8G0qwoeBnebSRWu3e5nJcmsJZ9G.XHdHRVG6/RjQu', 'zaz', NULL, NULL, NULL, NULL, 0),
 	(17, 'ad@ad.fr', '[]', '$2y$13$00HSHSdFbj22L6TfbaXov.s3yVWRJ.Uw12C6kQeRbI9Wt9lDsHFd.', 'admin', NULL, NULL, NULL, NULL, 0),
 	(18, 'zae@fre.fr', '[]', '$2y$13$mju64FvmPvv.AfXdURalA.leHgbE03fgsx5Ix5PJAsjBDkypGD952', 'zae', NULL, NULL, NULL, NULL, 0),
 	(19, 'tet@tet.fr', '[]', '$2y$13$cwHzd8t6enj3kH.pQJn9j.Eb4Z836.kD8y3OAH3hxR5yxEegZ/xk6', 'user', NULL, NULL, NULL, NULL, 0),
-	(22, 'admin@admin.fr', '["ROLE_ADMIN"]', '$2y$13$7TBrqeAM7no3O2jw1tbo2eaVvTQuehAnQaIofJdnqaZt8fEFiCy/m', 'admin', NULL, NULL, NULL, NULL, 0),
+	(22, 'admin@admin.fr', '["ROLE_ADMIN"]', '$2y$13$h4WI9R7SS74SZNqdT..Obu/BSEDzT6WCvt7kYdBcO4uAAc0zcat9S', 'Admin', NULL, NULL, NULL, NULL, 0),
 	(23, 'test@user.fr', '[]', '$2y$13$uj7wveDZhIvsKGHUAXO44OEKnmmOXjBWI7ewI0kE7oeLFa55stcWu', 'Test User', NULL, NULL, NULL, NULL, 0),
 	(24, 'test2@user.fr', '[]', '$2y$13$U2J84UfPNTsZetqbIzVShufOzMpoRk5.aL45ey/T3nJgDrmqkxdoi', 'Test User2', NULL, NULL, NULL, NULL, 0),
-	(25, 'josephine@gmail.fr', '[]', '$2y$13$LSu8fZ8/oJ6oZ0crMT/75.GRyGDytFu.elBNDzyAo8kWQm2F/KYgq', 'Joséphine', '31 Spooner Street', '00093', 'Quahog', 'Rhode Island', 0),
+	(25, 'josephine@gmail.com', '[]', '123', 'Joséphina', '31 Spooner Street', '00093', 'Quahog', 'Rhode Island', 0),
 	(26, 'gregoire@greg.fr', '[]', '$2y$13$pmynHjS2sUSSV9zZww/nPOmkuaIGXYbtJCkUTEMWEr6R.mVtLF2UG', 'TestavecConfirmation', NULL, NULL, NULL, NULL, 0),
-	(27, 'haileysmith@americandad.us', '[]', '$2y$13$3GVXzufNnOKvxr4TLNhQTOlptinwVAOHGxlwb6OIPoe6/hRq3MQ1S', 'Hailey', '31 Spooner Street', '00093', 'Quahog', 'Langley Falls', 1);
+	(27, 'haileysmith@americandad.us', '["ROLE_ADMIN"]', '$2y$13$3GVXzufNnOKvxr4TLNhQTOlptinwVAOHGxlwb6OIPoe6/hRq3MQ1S', 'Hailey2', '10 Rue Lucie Berger', '67200', 'Strasbourg', 'qrgq<g', 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
