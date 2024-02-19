@@ -185,6 +185,12 @@ class UserController extends AbstractController
     #[Route('/profile/user/delete/{id}', name: 'delete_user')]
     public function delete(User $user, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
     {
+        $user = $this->getUser();
+        // Vérifie que l'user n'est pas administrateur
+        if($user['role'] == 'ROLE_ADMIN'){
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer votre compte. Merci de contacter notre service client.');
+            return $this->redirectToRoute('parametres');
+        }
         // vérifie si l'user est authentifié
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');

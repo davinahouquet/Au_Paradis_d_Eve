@@ -14,7 +14,12 @@
         <a href="{{ path('edit_user_email', {'id' : app.user.id})}}" type="button" class="btn btn-success"> Modifier l'email</a></p>
     <p>Mot de passe : <b>*************</b>
         <a href="{{ path('upgrade_password')}}" type="button" class="btn btn-success">Modifier mot de passe</a></p>
-    <a href="{{ path('delete_user', {'id': app.user.id}) }}" type="button" class="btn btn-danger">Supprimer mon compte</a><br><br>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <p>Vous ne pouvez pas supprimer votre compte</p>
+        {% else %}
+            <a href="{{ path('delete_user', {'id': app.user.id}) }}" type="button" class="btn btn-danger">Supprimer mon compte</a><br><br>
+        {% endif %}
 
     <a href="{{ path('app_user') }}">Retour au profil</a>
 </section>
